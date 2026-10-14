@@ -17,7 +17,15 @@
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
 
   --gutter: clamp(16px, 2.5vw, 36px);
-  --header-h: 88px;
+  --header-h: 64px;
+}
+@media (min-width: 1024px) {
+  :root { --header-h: 88px; }
+}
+
+@theme {
+  /* Editorial artboards need ≥1024px; tablets use the recomposed mobile layouts */
+  --breakpoint-md: 64rem;
 }
 
 @theme inline {
@@ -73,7 +81,7 @@ img { user-select: none; }
 /* Tiny editorial label: 9–12px grotesk, uppercase, tracked */
 .label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 10.5px;
   line-height: 1.5;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -83,19 +91,23 @@ img { user-select: none; }
   .label { font-size: 11px; }
 }
 .label-sm {
-  font-size: 9px;
+  font-size: 9.5px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   line-height: 1.5;
 }
 
 .body-copy {
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.6;
   letter-spacing: 0.005em;
 }
 @media (min-width: 1440px) {
   .body-copy { font-size: 14px; }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .body-copy { font-size: 13px; line-height: 1.55; }
+  .label { font-size: 10px; }
 }
 
 /* ───────────────────────── Photography treatment ─────────────────────────
@@ -117,7 +129,7 @@ img { user-select: none; }
   align-items: center;
   justify-content: center;
   gap: 0.9em;
-  height: 40px;
+  height: 46px;
   padding: 0 1.9em;
   border: 1px solid currentColor;
   border-radius: 999px;
@@ -130,6 +142,9 @@ img { user-select: none; }
 }
 .pill-dark:hover { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
 .pill-light:hover { background: var(--white); color: var(--ink); border-color: var(--white); }
+@media (min-width: 1024px) {
+  .pill { height: 40px; }
+}
 .pill .arrow { transition: transform 0.6s var(--ease-out); }
 .pill:hover .arrow { transform: translateX(5px); }
 

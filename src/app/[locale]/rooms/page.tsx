@@ -11,6 +11,7 @@ import { getPages } from "@/content/pages";
 import { rooms } from "@/content/rooms";
 import { href, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
+import { fitStyle } from "@/lib/fit";
 
 type P = { params: Promise<{ locale: Locale }> };
 
@@ -49,7 +50,7 @@ export default async function Rooms({ params }: P) {
                     src={room.images[0].src}
                     alt={room.images[0].alt[locale]}
                     position={room.images[0].position}
-                    sizes="(min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="aspect-[4/3] transition-transform duration-[1.4s] ease-[var(--ease-out)]"
                     imgClassName="transition-transform duration-[1.6s] ease-[var(--ease-out)] group-hover:scale-[1.04]"
                     parallax={3}
@@ -63,7 +64,10 @@ export default async function Rooms({ params }: P) {
                 </div>
                 <div className="my-10 md:my-0">
                   <p className="text-[7vw] font-light uppercase leading-none tracking-[-0.01em] md:text-[2.6vw]">{room.feature[locale]}</p>
-                  <h2 className={`font-display mt-3 text-[13vw] leading-[0.9] md:text-[5.4vw] ${flip ? "" : "md:-ml-[9vw]"} relative z-[2]`}>
+                  <h2
+                    style={fitStyle(room.titleLines[locale], 84, 13)}
+                    className={`font-display relative z-[2] mt-3 text-[length:var(--fs-m)] leading-[0.9] md:text-[5.4vw] ${flip ? "" : "md:-ml-[9vw]"}`}
+                  >
                     <Link href={roomHref} className="hover:opacity-80 transition-opacity">
                       <RevealLines lines={room.titleLines[locale]} lineClassName={["", "pl-[6vw] md:pl-[3vw]"]} />
                     </Link>

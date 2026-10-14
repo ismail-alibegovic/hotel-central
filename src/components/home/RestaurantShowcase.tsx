@@ -4,6 +4,7 @@ import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
+import { fitStyle } from "@/lib/fit";
 
 /** Break a long second line into two for narrow screens. */
 function splitForMobile([a, b]: string[]) {
@@ -86,7 +87,7 @@ export function RestaurantShowcase({ locale, dict }: { locale: Locale; dict: Dic
       {/* Mobile */}
       <div className="pb-16 pt-[30px] md:hidden">
         <MetaRow left={d.metaLeft} center={d.metaCenter} />
-        <div className="font-display mt-10 px-[var(--gutter)] text-[13.2vw] leading-[0.9]">
+        <div className="font-display mt-10 px-[var(--gutter)] text-[length:var(--fs-m)] leading-[0.9]" style={fitStyle(splitForMobile(d.title), 74, 13)}>
           <RevealLines lines={splitForMobile(d.title)} lineClassName={["", "pl-[8vw]", "pl-[16vw]"]} />
         </div>
         <div className="mt-8 grid grid-cols-[1fr_1.35fr] items-start gap-3 px-[var(--gutter)]">

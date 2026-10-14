@@ -38,13 +38,13 @@ function TitleLayer({ room, locale, idx, dir }: { room: Room; locale: Locale; id
   return (
     <div className="absolute inset-0" style={vars}>
       {/* Grotesk line — the room's defining feature */}
-      <p className="absolute right-[4%] top-[51%] overflow-hidden whitespace-nowrap text-[8.4cqw] font-light uppercase leading-[1] tracking-[-0.01em] md:right-[25.4%] md:top-[31.6%] md:text-[5.75cqw]">
+      <p className="absolute left-[var(--gutter-pct)] top-[61.5%] overflow-hidden whitespace-nowrap text-[7cqw] font-light uppercase leading-[1] tracking-[-0.01em] md:left-auto md:right-[25.4%] md:top-[31.6%] md:text-[5.75cqw]">
         <motion.span key={`f-${idx}`} className="block" {...lineAnim(0)}>
           {room.feature[locale]}
         </motion.span>
       </p>
       {/* Serif lines — the room name */}
-      <div className="font-display absolute left-[var(--gutter-pct)] top-[61%] text-[length:var(--fs-m)] leading-[0.92] md:left-[53.76%] md:top-[42.2%] md:text-[length:var(--fs-d)]">
+      <div className="font-display absolute left-[var(--gutter-pct)] top-[70%] text-[length:var(--fs-m)] leading-[0.92] md:left-[53.76%] md:top-[42.2%] md:text-[length:var(--fs-d)]">
         {lines.map((l, i) => (
           <span key={i} className="block overflow-hidden pb-[0.04em]">
             <motion.span key={`${idx}-${i}`} className="block whitespace-nowrap" {...lineAnim(i + 1)}>
@@ -92,8 +92,8 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
       type="button"
       onClick={() => go(1)}
       aria-label={`${dict.common.next}: ${rooms[(index + 1) % total].name[locale]}`}
-      className="group absolute z-[5] flex aspect-square w-[17cqw] items-center justify-center rounded-full border border-white/40 transition-colors duration-700 hover:border-white hover:bg-white hover:text-deep md:w-[7.05cqw]
-        right-[7%] top-[3%] md:right-auto md:left-[87.38%] md:top-[23.4%]"
+      className="group absolute z-[5] flex aspect-square w-[18cqw] items-center justify-center rounded-full border border-white/60 bg-deep/55 backdrop-blur-sm transition-colors duration-700 hover:border-white hover:bg-white hover:text-deep md:w-[7.05cqw] md:border-white/40 md:bg-transparent md:backdrop-blur-none
+        right-[7%] top-[3.5%] md:right-auto md:left-[87.38%] md:top-[23.4%]"
     >
       <span className="label-sm rotate-[14deg] transition-transform duration-700 group-hover:rotate-0 md:!text-[0.8cqw]">
         {dict.common.next}
@@ -103,13 +103,13 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
 
   const controls = (
     <>
-      <button type="button" onClick={() => go(-1)} aria-label={dict.common.previous} className="-m-3 p-3 opacity-80 transition-opacity hover:opacity-100">
+      <button type="button" onClick={() => go(-1)} aria-label={dict.common.previous} className="-m-3 p-4 opacity-80 transition-opacity hover:opacity-100">
         <ArrowLeft />
       </button>
       <p className="label-sm tabular-nums" aria-hidden>
         {pad(index + 1)}/{pad(total)}
       </p>
-      <button type="button" onClick={() => go(1)} aria-label={dict.common.next} className="-m-3 p-3 opacity-80 transition-opacity hover:opacity-100">
+      <button type="button" onClick={() => go(1)} aria-label={dict.common.next} className="-m-3 p-4 opacity-80 transition-opacity hover:opacity-100">
         <Arrow />
       </button>
     </>
@@ -148,7 +148,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
         <p className="text-right">{d.metaCenter}</p>
       </div>
 
-      <div className="comp aspect-[390/560] md:aspect-[1025/640]">
+      <div className="comp aspect-[390/650] md:aspect-[1025/640]">
         <DecorativeLine variant="rooms" tone="light" className="z-0 hidden md:block" />
 
         {/* Desktop editorial metadata */}
@@ -211,7 +211,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
                   src={room.images[0].src}
                   alt={room.images[0].alt[locale]}
                   fill
-                  sizes="(min-width: 768px) 46vw, 92vw"
+                  sizes="(min-width: 1024px) 46vw, 92vw"
                   className="grade object-cover"
                   style={{ objectPosition: room.images[0].position ?? "50% 50%" }}
                   priority={index === 0}
@@ -248,7 +248,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
         <p className="label mt-2 opacity-80">
           {room.name[locale]} · {room.sizeLabel[locale]}
         </p>
-        <div className="mt-6 text-[10px] uppercase leading-[1.6] tracking-[0.12em]">{amenities}</div>
+        <div className="mt-6 text-[11px] uppercase leading-[1.75] tracking-[0.12em]">{amenities}</div>
         <div className="mt-8">{actions}</div>
         <div className="mt-10 flex items-center justify-between border-t border-white/15 pt-5">{controls}</div>
       </div>

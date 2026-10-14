@@ -3,6 +3,7 @@ import { href, type Locale } from "@/lib/i18n";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { PillLink } from "../ui";
+import { fitStyle } from "@/lib/fit";
 
 const MAIN = "[--x:0%] [--y:0%] [--w:50%] [--h:100%]";
 
@@ -67,7 +68,7 @@ export function EventsSection({ locale, dict }: { locale: Locale; dict: Dictiona
       <div className="md:hidden">
         <div className="relative">
           <Photo src="/images/3073.jpg" alt="The conference room on the third floor" sizes="100vw" className="aspect-[4/5]" grade="grade-dark" />
-          <div className="font-display absolute bottom-8 left-[var(--gutter)] text-[11.5vw] leading-[0.9] text-white">
+          <div className="font-display absolute bottom-8 left-[var(--gutter)] text-[length:var(--fs-m)] leading-[0.9] text-white" style={fitStyle(d.title, 80, 13)}>
             <RevealLines lines={d.title} lineClassName={["", "pl-[8vw]"]} />
           </div>
         </div>

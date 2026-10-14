@@ -94,7 +94,7 @@ export function RangeCalendar({
           onClick={() => canPrev && setView(new Date(view.getFullYear(), view.getMonth() - 1, 1))}
           disabled={!canPrev}
           aria-label={labels.prevMonth}
-          className="-m-2 p-2 transition-opacity disabled:opacity-25"
+          className="-m-3 p-3 transition-opacity disabled:opacity-25"
         >
           <ArrowLeft />
         </button>
@@ -102,7 +102,7 @@ export function RangeCalendar({
           type="button"
           onClick={() => setView(new Date(view.getFullYear(), view.getMonth() + 1, 1))}
           aria-label={labels.nextMonth}
-          className="-m-2 p-2"
+          className="-m-3 p-3"
         >
           <Arrow />
         </button>
@@ -144,12 +144,12 @@ export function RangeCalendar({
                       onMouseEnter={() => setHover(d)}
                       onFocus={() => setFocusDate(d)}
                       onKeyDown={(e) => onKey(e, d)}
-                      className={`relative flex h-8 items-center justify-center text-[12px] transition-colors duration-300 ${
+                      className={`relative flex h-11 items-center justify-center text-[14px] transition-colors md:h-8 md:text-[12px] duration-300 ${
                         disabled ? "cursor-default opacity-25" : "hover:text-white"
                       } ${between ? "bg-white/10" : ""}`}
                     >
                       <span
-                        className={`flex h-7 w-7 items-center justify-center rounded-full border transition-colors duration-300 ${
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border md:h-7 md:w-7 transition-colors duration-300 ${
                           isStart || isEnd
                             ? "border-white bg-white text-ink"
                             : sameDay(d, today)

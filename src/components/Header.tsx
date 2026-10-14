@@ -47,7 +47,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       >
         <div
           className={`relative grid grid-cols-[1fr_auto_1fr] items-stretch border-b px-[var(--gutter)] transition-[height,border-color] duration-700 ${
-            solid ? "h-[64px] border-white/10" : "h-[var(--header-h)] border-[var(--hairline-light)]"
+            solid ? "h-[56px] border-white/10 md:h-[64px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
           } ${open ? "border-transparent" : ""}`}
         >
           {/* Left: menu */}
@@ -57,7 +57,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="site-menu"
-              className="label group -ml-1 flex items-center gap-[14px] py-3 pl-1 pr-3"
+              className="label group -ml-2 flex min-h-[44px] items-center gap-[14px] py-3 pl-2 pr-3"
             >
               <span aria-hidden className="relative block h-[9px] w-[18px]">
                 <span
@@ -78,7 +78,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           {/* Centre: wordmark */}
           <Link
             href={href(locale)}
-            className="flex items-center justify-center text-[12px] tracking-[0.42em] uppercase md:text-[13px] xl:text-[15px]"
+            className="flex items-center justify-center whitespace-nowrap text-[11px] tracking-[0.34em] uppercase min-[400px]:text-[12px] md:text-[13px] md:tracking-[0.42em] xl:text-[15px]"
             aria-label="Hotel Central Sarajevo — home"
           >
             <span className="pl-[0.42em]">Hotel Central</span>
@@ -96,7 +96,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               href={booking.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`label flex items-center pl-5 md:border-l md:pl-8 lg:pl-11 ${
+              className={`label -mr-2 flex min-h-[44px] items-center pl-5 pr-2 md:mr-0 md:border-l md:pl-8 md:pr-0 lg:pl-11 ${
                 solid ? "border-white/10" : "border-[var(--hairline-light)]"
               }`}
             >

@@ -18,7 +18,7 @@ const nightsBetween = (a: Date, b: Date) => Math.round((b.getTime() - a.getTime(
 function useIsDesktop() {
   const [desktop, setDesktop] = useState(true);
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
+    const mq = window.matchMedia("(min-width: 1024px)");
     const set = () => setDesktop(mq.matches);
     set();
     mq.addEventListener("change", set);
@@ -66,7 +66,7 @@ function Stepper({
           onClick={() => onChange(Math.max(min, value - 1))}
           disabled={value <= min}
           aria-label={`${label} −`}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-white/40 transition-colors hover:border-white disabled:opacity-25"
+          className="flex h-10 w-10 md:h-8 md:w-8 items-center justify-center rounded-full border border-white/40 transition-colors hover:border-white disabled:opacity-25"
         >
           <span aria-hidden className="block h-px w-2.5 bg-current" />
         </button>
@@ -78,7 +78,7 @@ function Stepper({
           onClick={() => onChange(Math.min(max, value + 1))}
           disabled={value >= max}
           aria-label={`${label} +`}
-          className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/40 transition-colors hover:border-white disabled:opacity-25"
+          className="relative flex h-10 w-10 md:h-8 md:w-8 items-center justify-center rounded-full border border-white/40 transition-colors hover:border-white disabled:opacity-25"
         >
           <span aria-hidden className="block h-px w-2.5 bg-current" />
           <span aria-hidden className="absolute block h-2.5 w-px bg-current" />
@@ -112,9 +112,9 @@ function Field({
       aria-expanded={panel === id}
       aria-controls={`${uid}-${id}`}
       aria-label={value ? `${label}: ${typeof value === "string" ? value : ""}` : label}
-      className={`group flex h-[38px] items-center justify-between gap-3 border-b border-white/45 text-left transition-colors duration-500 hover:border-white ${cls}`}
+      className={`group flex h-[50px] items-center justify-between gap-3 border-b md:h-[38px] border-white/45 text-left transition-colors duration-500 hover:border-white ${cls}`}
     >
-      <span className="min-w-0 truncate text-[11px] tracking-[0.04em] xl:text-[12px]">
+      <span className="min-w-0 truncate text-[14px] tracking-[0.02em] md:text-[11px] md:tracking-[0.04em] xl:text-[12px]">
         {value ?? <span className="opacity-90">{label}</span>}
       </span>
       <span className="opacity-70">
@@ -192,7 +192,7 @@ export function BookingBar({
 
   const panelPos = desktop
     ? `absolute ${dropUp ? "bottom-[calc(100%+18px)]" : "top-[calc(100%+18px)]"}`
-    : "fixed inset-x-0 bottom-0 z-[90] max-h-[85vh] overflow-y-auto";
+    : "fixed inset-x-0 bottom-0 z-[90] max-h-[85vh] overflow-y-auto pb-[max(24px,env(safe-area-inset-bottom))]";
 
   return (
     <div ref={rootRef} className={`relative text-white ${className}`}>
@@ -240,7 +240,7 @@ export function BookingBar({
             type="button"
             onClick={submit}
             aria-describedby={`${uid}-note`}
-            className="pill pill-light h-[33px] w-full !px-[1.6em] md:w-auto"
+            className="pill pill-light w-full !px-[1.6em] md:!h-[33px] md:w-auto"
           >
             <span>{b.go}</span>
             <Arrow />

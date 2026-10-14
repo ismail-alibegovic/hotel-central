@@ -3,6 +3,7 @@ import type { Dictionary } from "@/content/dictionary";
 import { booking, hotel } from "@/content/hotel";
 import { FadeIn, RevealLines } from "../Reveal";
 import { PillLink } from "../ui";
+import { fitStyle } from "@/lib/fit";
 
 export function FinalBooking({
   dict,
@@ -32,7 +33,7 @@ export function FinalBooking({
           {d.label}
           <span aria-hidden className="h-px w-8 bg-white/50" />
         </FadeIn>
-        <h2 id="final-title" className="font-display text-[11vw] leading-[0.9] md:text-[8.2vw]">
+        <h2 id="final-title" className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[8.2vw]" style={fitStyle(d.title, 90, 13)}>
           <RevealLines lines={d.title} />
         </h2>
         <FadeIn as="p" delay={0.2} className="body-copy mt-10 max-w-[36ch] opacity-85">

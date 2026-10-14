@@ -47,7 +47,7 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
           <Photo
             src="/images/final-6230.jpg"
             alt="Relaxation lounge of the Club & Spa with a forest mural"
-            sizes="(min-width: 768px) 22vw, 34vw"
+            sizes="(min-width: 1024px) 22vw, 34vw"
             position="38% 50%"
             className="h-full w-full"
             reveal="up"
@@ -58,7 +58,7 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
           <Photo
             src="/images/3064.jpg"
             alt="The white façade and corner tower of Hotel Central in Sarajevo's old town"
-            sizes="(min-width: 768px) 32vw, 74vw"
+            sizes="(min-width: 1024px) 32vw, 74vw"
             position="56% 30%"
             className="h-full w-full"
             grade="grade-dark"
@@ -71,7 +71,7 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
           <Photo
             src="/images/dorucak5.jpg"
             alt="Restaurant Central breakfast buffet"
-            sizes="(min-width: 768px) 22vw, 34vw"
+            sizes="(min-width: 1024px) 22vw, 34vw"
             position="50% 50%"
             className="h-full w-full"
             reveal="up"

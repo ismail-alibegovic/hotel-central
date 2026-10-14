@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { DecorativeLine, type linePaths } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
+import { fitStyle } from "@/lib/fit";
 
 export type Img = { src: string; alt: string; position?: string };
 type Tone = "ivory" | "deep" | "olive" | "sage" | "ink";
@@ -31,7 +32,7 @@ export function PageHero({
   meta?: [ReactNode, ReactNode, ReactNode];
 }) {
   return (
-    <section className="relative flex h-[82svh] min-h-[560px] flex-col overflow-hidden bg-ink text-white">
+    <section className="relative flex h-[78svh] min-h-[520px] flex-col md:h-[82svh] md:min-h-[560px] overflow-hidden bg-ink text-white">
       <Image
         src={image.src}
         alt={image.alt}
@@ -48,7 +49,7 @@ export function PageHero({
           {eyebrow}
           <span aria-hidden className="h-px w-8 bg-white/50" />
         </FadeIn>
-        <h1 className="font-display text-[clamp(40px,6.6vw,112px)] leading-[0.9]">
+        <h1 className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[clamp(40px,6.6vw,112px)]" style={fitStyle(title, 90, 13)}>
           <RevealLines immediate delay={0.4} lines={title} />
         </h1>
         {intro && (
@@ -58,10 +59,10 @@ export function PageHero({
         )}
       </div>
       {meta && (
-        <FadeIn immediate delay={1.2} className="label relative grid grid-cols-3 gap-4 border-t border-white/20 px-[var(--gutter)] py-5">
-          <span>{meta[0]}</span>
-          <span className="text-center">{meta[1]}</span>
-          <span className="text-right">{meta[2]}</span>
+        <FadeIn immediate delay={1.2} className="label relative grid grid-cols-2 gap-4 border-t border-white/20 px-[var(--gutter)] py-4 md:grid-cols-3 md:py-5">
+          <span className="truncate">{meta[0]}</span>
+          <span className="hidden text-center md:block">{meta[1]}</span>
+          <span className="truncate text-right normal-case tracking-[0.08em] md:uppercase md:tracking-[0.16em]">{meta[2]}</span>
         </FadeIn>
       )}
     </section>
@@ -108,16 +109,17 @@ export function EditorialSplit({
         }`}
       >
         <div className={`relative md:col-span-6 ${reverse ? "md:col-start-7" : ""}`}>
-          <Photo src={main.src} alt={main.alt} position={main.position} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[4/5] w-full md:aspect-[5/6]" parallax={4} />
+          <Photo src={main.src} alt={main.alt} position={main.position} sizes="(min-width: 1024px) 50vw, 100vw" className="aspect-[4/5] w-full md:aspect-[5/6]" parallax={4} />
           {second && (
-            <div className={`absolute -bottom-10 w-[38%] md:-bottom-[4vw] ${reverse ? "-left-2 md:-left-[5vw]" : "-right-2 md:-right-[5vw]"}`}>
-              <Photo src={second.src} alt={second.alt} position={second.position} sizes="(min-width: 768px) 20vw, 40vw" className="aspect-[3/4]" reveal="down" />
+            <div className={`absolute -bottom-10 w-[40%] md:-bottom-[4vw] ${reverse ? "left-3 md:-left-[5vw]" : "right-3 md:-right-[5vw]"}`}>
+              <Photo src={second.src} alt={second.alt} position={second.position} sizes="(min-width: 1024px) 20vw, 40vw" className="aspect-[3/4]" reveal="down" />
             </div>
           )}
         </div>
         <div className={`relative flex flex-col justify-center md:col-span-5 ${reverse ? "md:col-start-1 md:row-start-1" : "md:col-start-8"}`}>
           <h2
-            className={`font-display relative z-[3] text-[11vw] leading-[0.9] md:text-[5vw] ${
+            style={fitStyle(title, 84, 12)}
+            className={`font-display relative z-[3] text-[length:var(--fs-m)] leading-[0.9] md:text-[5vw] ${
               dark ? (reverse ? "md:-mr-[12vw] md:text-right" : "md:-ml-[12vw]") : ""
             }`}
           >
@@ -168,7 +170,7 @@ export function Gallery({ images, tone = "ivory", label }: { images: Img[]; tone
       <div className="grid grid-cols-2 gap-3 md:grid-cols-12 md:gap-[2vw]">
         {images.slice(0, 5).map((img, i) => (
           <div key={img.src} className={`${frames[i]} ${i === 0 ? "col-span-2" : ""}`}>
-            <Photo src={img.src} alt={img.alt} position={img.position} sizes="(min-width: 768px) 40vw, 50vw" className="h-full w-full" reveal={i % 2 ? "down" : "up"} />
+            <Photo src={img.src} alt={img.alt} position={img.position} sizes="(min-width: 1024px) 40vw, 50vw" className="h-full w-full" reveal={i % 2 ? "down" : "up"} />
           </div>
         ))}
       </div>

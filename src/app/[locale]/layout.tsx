@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Gilda_Display, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { MotionRoot } from "@/components/MotionRoot";
+import { MobileBookBar } from "@/components/MobileBookBar";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getDictionary } from "@/content/dictionary";
@@ -66,6 +67,7 @@ export default async function LocaleLayout({
           <Header locale={locale} dict={dict} />
           <main id="content">{children}</main>
           <Footer locale={locale} dict={dict} />
+          <MobileBookBar dict={dict} />
         </MotionRoot>
       </body>
     </html>

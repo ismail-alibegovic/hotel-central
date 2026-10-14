@@ -90,7 +90,7 @@ export function FullscreenMenu({
           exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
           transition={{ duration: 0.9, ease }}
         >
-          <div className="grid min-h-full grid-cols-1 px-[var(--gutter)] pb-10 pt-[calc(var(--header-h)+28px)] lg:grid-cols-[1.25fr_1fr] lg:gap-[5vw] lg:pb-12">
+          <div className="grid min-h-full grid-cols-1 px-[var(--gutter)] pb-10 pt-[calc(var(--header-h)+20px)] md:pt-[calc(var(--header-h)+28px)] lg:grid-cols-[1.25fr_1fr] lg:gap-[5vw] lg:pb-12">
             <nav aria-label={dict.nav.menu} className="flex flex-col justify-center">
               <ol className="space-y-[0.6vh]">
                 {dict.nav.items.map((item, i) => {
@@ -109,11 +109,11 @@ export function FullscreenMenu({
                           onMouseEnter={() => setHovered(item.href)}
                           onFocus={() => setHovered(item.href)}
                           aria-current={active ? "page" : undefined}
-                          className="group flex items-baseline gap-5 py-[0.4vh] md:gap-8"
+                          className="group flex items-baseline gap-5 py-[0.6vh] md:gap-8 md:py-[0.4vh]"
                         >
-                          <span className="label-sm w-7 shrink-0 opacity-50">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="label-sm hidden w-7 shrink-0 opacity-50 sm:inline">{String(i + 1).padStart(2, "0")}</span>
                           <span
-                            className={`font-display text-[clamp(34px,6.4vh,76px)] transition-[opacity,transform] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
+                            className={`font-display text-[min(9vw,6vh)] leading-[1.02] transition md:text-[clamp(34px,6.4vh,76px)] md:leading-[0.92]-[opacity,transform] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
                               active ? "opacity-100" : "opacity-70 group-hover:opacity-100"
                             }`}
                           >

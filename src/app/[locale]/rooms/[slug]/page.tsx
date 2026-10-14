@@ -12,6 +12,7 @@ import { booking } from "@/content/hotel";
 import { getRoom, rooms } from "@/content/rooms";
 import { href, locales, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
+import { fitStyle } from "@/lib/fit";
 
 type P = { params: Promise<{ locale: Locale; slug: string }> };
 
@@ -53,7 +54,7 @@ export default async function RoomPage({ params }: P) {
         <div className="relative z-[1] grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-x-[2vw]">
           <div className="md:col-span-5">
             <p className="label mb-8">{room.name[locale]}</p>
-            <p className="font-display text-[8.4vw] leading-[0.9] md:text-[4.6vw]">
+            <p className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[4.6vw]" style={fitStyle([`${room.sizeM2} m²`, room.feature[locale]], 86, 12)}>
               <RevealLines lines={[`${room.sizeM2} m²`, room.feature[locale]]} lineClassName={["", "pl-[3vw] md:pl-[3vw]"]} />
             </p>
             <div className="mt-10 space-y-4 md:mt-[3vw] md:pl-[3vw]">
@@ -74,7 +75,7 @@ export default async function RoomPage({ params }: P) {
           </div>
           <div className="md:col-span-6 md:col-start-7">
             <div className="relative">
-              <Photo src={(imgs[1] ?? imgs[0]).src} alt={(imgs[1] ?? imgs[0]).alt} sizes="(min-width: 768px) 46vw, 100vw" className="aspect-[4/3]" parallax={4} />
+              <Photo src={(imgs[1] ?? imgs[0]).src} alt={(imgs[1] ?? imgs[0]).alt} sizes="(min-width: 1024px) 46vw, 100vw" className="aspect-[4/3]" parallax={4} />
             </div>
             <div className="mt-12 md:mt-[4vw]">
               <p className="label mb-5">{dict.common.amenities}</p>
@@ -107,7 +108,7 @@ export default async function RoomPage({ params }: P) {
                 href={href(locale, `/rooms/${r.slug}`)}
                 className="group flex items-baseline justify-between gap-6 py-5 transition-[padding] duration-700 ease-[var(--ease-out)] hover:pl-4"
               >
-                <span className="font-display text-[8vw] leading-none opacity-80 transition-opacity group-hover:opacity-100 md:text-[3.6vw]">
+                <span className="font-display text-[7vw] leading-[1.05] opacity-80 transition-opacity group-hover:opacity-100 md:text-[3.6vw]">
                   {r.name[locale]}
                 </span>
                 <span className="label flex shrink-0 items-center gap-4 opacity-70">
