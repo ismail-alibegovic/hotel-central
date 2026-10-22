@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test smoke",
+    "test:visual": "playwright test visual",
+    "test:visual:update": "playwright test visual --update-snapshots",
+    "check": "npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
     "motion": "^14.2.0",
@@ -16,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
