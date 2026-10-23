@@ -73,7 +73,7 @@ describe("authorization and drafts: pages", () => {
   let id: string | number;
 
   it("lets an editor save drafts but not publish", async () => {
-    const draft = await payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, locale: "en", data: { slug, heroEyebrow: "Draft v1" } });
+    const draft = await payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, locale: "en", data: { slug, metaTitle: "Draft v1" } });
     id = draft.id;
     expect(draft._status).toBe("draft");
     const refused = /only save drafts|not allowed/i;
@@ -83,10 +83,10 @@ describe("authorization and drafts: pages", () => {
     const coerced = await payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, data: { slug: slug + "-c", _status: "published" } });
     expect(coerced._status).toBe("draft");
     expect((await payload.find({ collection: "pages", overrideAccess: false, where: { slug: { equals: slug + "-c" } } })).totalDocs).toBe(0);
-    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { heroEyebrow: "x", _status: "published" } })).rejects.toThrow(refused);
-    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { heroEyebrow: "x", _status: "published" } })).rejects.toThrow(refused);
+    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { metaTitle: "x", _status: "published" } })).rejects.toThrow(refused);
+    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { metaTitle: "x", _status: "published" } })).rejects.toThrow(refused);
     // a plain (non-draft) write is refused outright, even on a draft-only page
-    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { heroEyebrow: "plain" } })).rejects.toThrow(refused);
+    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { metaTitle: "plain" } })).rejects.toThrow(refused);
   });
 
   it("hides never-published drafts from the public", async () => {
@@ -97,21 +97,21 @@ describe("authorization and drafts: pages", () => {
   });
 
   it("lets only an admin publish; the public then sees it", async () => {
-    await payload.update({ collection: "pages", id, user: admin, overrideAccess: false, locale: "en", data: { heroEyebrow: "Published v1", _status: "published" } });
+    await payload.update({ collection: "pages", id, user: admin, overrideAccess: false, locale: "en", data: { metaTitle: "Published v1", _status: "published" } });
     const anon = await payload.find({ collection: "pages", overrideAccess: false, locale: "en", where: { slug: { equals: slug } } });
-    expect(anon.docs[0].heroEyebrow).toBe("Published v1");
+    expect(anon.docs[0].metaTitle).toBe("Published v1");
   });
 
   it("keeps an editor's newer draft invisible to the public while the old version stays live", async () => {
-    await payload.update({ collection: "pages", id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { heroEyebrow: "SECRET draft v2" } });
+    await payload.update({ collection: "pages", id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { metaTitle: "SECRET draft v2" } });
     const anon = await payload.find({ collection: "pages", overrideAccess: false, locale: "en", where: { slug: { equals: slug } } });
     expect(JSON.stringify(anon)).not.toContain("SECRET draft v2");
-    expect(anon.docs[0]?.heroEyebrow).toBe("Published v1");
+    expect(anon.docs[0]?.metaTitle).toBe("Published v1");
     // Even if an anonymous caller asks for drafts they get the published doc or nothing, never the draft.
     const anonAsksDraft = await payload.find({ collection: "pages", overrideAccess: false, draft: true, locale: "en", where: { slug: { equals: slug } } });
     expect(JSON.stringify(anonAsksDraft)).not.toContain("SECRET draft v2");
     const staff = await payload.find({ collection: "pages", user: editor, overrideAccess: false, draft: true, locale: "en", where: { slug: { equals: slug } } });
-    expect(staff.docs[0].heroEyebrow).toBe("SECRET draft v2");
+    expect(staff.docs[0].metaTitle).toBe("SECRET draft v2");
   });
 
   it("blocks editors from changing the URL key, deleting, and hijacking live content", async () => {
@@ -120,34 +120,34 @@ describe("authorization and drafts: pages", () => {
     expect(doc.slug).toBe(slug);
     await expect(payload.delete({ collection: "pages", id, user: editor, overrideAccess: false })).rejects.toThrow();
     // The regression this guards: with a pending draft, a plain update used to rewrite AND unpublish the live page.
-    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { heroEyebrow: "live hijack" } })).rejects.toThrow(/only save drafts/i);
+    await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { metaTitle: "live hijack" } })).rejects.toThrow(/only save drafts/i);
     const stillLive = await payload.find({ collection: "pages", overrideAccess: false, where: { slug: { equals: slug } } });
     expect(stillLive.totalDocs).toBe(1);
   });
 
   it("rejects anonymous writes", async () => {
     await expect(payload.create({ collection: "pages", overrideAccess: false, data: { slug: "anon-" + rand() } })).rejects.toThrow();
-    await expect(payload.update({ collection: "pages", id, overrideAccess: false, data: { heroEyebrow: "pwn" } })).rejects.toThrow();
+    await expect(payload.update({ collection: "pages", id, overrideAccess: false, data: { metaTitle: "pwn" } })).rejects.toThrow();
   });
 });
 
 describe("locale isolation (bs / en)", () => {
   const slug = "iso-" + rand();
   it("stores and reads each language independently, without silent fallback", async () => {
-    const doc = await payload.create({ collection: "pages", user: admin, overrideAccess: false, locale: "en", data: { slug, heroEyebrow: "English eyebrow", _status: "published" } });
+    const doc = await payload.create({ collection: "pages", user: admin, overrideAccess: false, locale: "en", data: { slug, metaTitle: "English eyebrow", _status: "published" } });
     // bs has nothing yet: must NOT fall back to English.
     const bsEmpty = await payload.findByID({ collection: "pages", id: doc.id, locale: "bs", fallbackLocale: false, overrideAccess: true });
-    expect(bsEmpty.heroEyebrow ?? "").toBe("");
+    expect(bsEmpty.metaTitle ?? "").toBe("");
 
-    await payload.update({ collection: "pages", id: doc.id, user: admin, overrideAccess: false, locale: "bs", data: { heroEyebrow: "Bosanski natpis", _status: "published" } });
+    await payload.update({ collection: "pages", id: doc.id, user: admin, overrideAccess: false, locale: "bs", data: { metaTitle: "Bosanski natpis", _status: "published" } });
     const en = await payload.findByID({ collection: "pages", id: doc.id, locale: "en", overrideAccess: true });
     const bs = await payload.findByID({ collection: "pages", id: doc.id, locale: "bs", overrideAccess: true });
-    expect(en.heroEyebrow).toBe("English eyebrow");
-    expect(bs.heroEyebrow).toBe("Bosanski natpis");
+    expect(en.metaTitle).toBe("English eyebrow");
+    expect(bs.metaTitle).toBe("Bosanski natpis");
 
-    await payload.update({ collection: "pages", id: doc.id, user: admin, overrideAccess: false, locale: "en", data: { heroEyebrow: "English v2", _status: "published" } });
+    await payload.update({ collection: "pages", id: doc.id, user: admin, overrideAccess: false, locale: "en", data: { metaTitle: "English v2", _status: "published" } });
     const bsAfter = await payload.findByID({ collection: "pages", id: doc.id, locale: "bs", overrideAccess: true });
-    expect(bsAfter.heroEyebrow).toBe("Bosanski natpis"); // editing EN leaves BS unchanged
+    expect(bsAfter.metaTitle).toBe("Bosanski natpis"); // editing EN leaves BS unchanged
   });
 });
 

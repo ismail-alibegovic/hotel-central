@@ -17,9 +17,9 @@ describe("persistence across a CMS restart", () => {
     const slug = "persist-" + rand();
     const email = `p-${rand()}@example.test`;
     await p1.create({ collection: "users", data: { email, password: "Pw-" + rand() } as never, overrideAccess: true });
-    const page = await p1.create({ collection: "pages", overrideAccess: true, locale: "en", data: { slug, heroEyebrow: "EN text", _status: "published" } });
-    await p1.update({ collection: "pages", id: page.id, overrideAccess: true, locale: "bs", data: { heroEyebrow: "BS tekst", _status: "published" } });
-    await p1.update({ collection: "pages", id: page.id, overrideAccess: true, locale: "en", draft: true, data: { heroEyebrow: "EN draft" } });
+    const page = await p1.create({ collection: "pages", overrideAccess: true, locale: "en", data: { slug, metaTitle: "EN text", _status: "published" } });
+    await p1.update({ collection: "pages", id: page.id, overrideAccess: true, locale: "bs", data: { metaTitle: "BS tekst", _status: "published" } });
+    await p1.update({ collection: "pages", id: page.id, overrideAccess: true, locale: "en", draft: true, data: { metaTitle: "EN draft" } });
     const media = await p1.create({ collection: "media", overrideAccess: true, locale: "en", data: { alt: "kept" }, file: { data: PNG_1X1, mimetype: "image/png", name: `keep-${rand()}.png`, size: PNG_1X1.length } });
 
     // "restart": tear the Payload instance down and build a fresh one against the same database + disk
@@ -31,9 +31,9 @@ describe("persistence across a CMS restart", () => {
     expect((await p2.find({ collection: "users", where: { email: { equals: email } }, overrideAccess: true })).totalDocs).toBe(1);
     const en = await p2.findByID({ collection: "pages", id: page.id, locale: "en", overrideAccess: true });
     const bs = await p2.findByID({ collection: "pages", id: page.id, locale: "bs", overrideAccess: true });
-    expect([en.heroEyebrow, bs.heroEyebrow, en._status]).toEqual(["EN text", "BS tekst", "published"]);
+    expect([en.metaTitle, bs.metaTitle, en._status]).toEqual(["EN text", "BS tekst", "published"]);
     const draft = await p2.findByID({ collection: "pages", id: page.id, locale: "en", draft: true, overrideAccess: true });
-    expect(draft.heroEyebrow).toBe("EN draft"); // the pending draft survived too
+    expect(draft.metaTitle).toBe("EN draft"); // the pending draft survived too
     const m = await p2.findByID({ collection: "media", id: media.id, overrideAccess: true });
     expect(m.alt).toBe("kept");
     expect(fs.readFileSync(path.join(h.mediaDir, m.filename as string)).equals(PNG_1X1)).toBe(true);
