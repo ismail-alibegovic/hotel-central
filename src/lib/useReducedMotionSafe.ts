@@ -1,7 +1,14 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribe(onChange: () => void) {
+  const mq = window.matchMedia(QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
 
 /**
  * Reduced-motion preference that is `false` during SSR and hydration, then the real value.
@@ -9,8 +16,9 @@ import { useEffect, useState } from "react";
  * (never to change `initial`), so reduced-motion visitors see content appear instantly.
  */
 export function useReducedMotionSafe() {
-  const pref = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return mounted && !!pref;
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
 }
