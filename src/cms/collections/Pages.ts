@@ -3,6 +3,7 @@ import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } fro
 import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
 import { seoFields } from "./seoFields";
+import { refuseSamplePublish } from "../hooks/sampleGuard";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
 
 /**
@@ -18,7 +19,7 @@ export const Pages: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
   hooks: {
     beforeOperation: [requireEditorDraft],
-    beforeChange: [blockEditorPublish],
+    beforeChange: [blockEditorPublish, refuseSamplePublish],
     afterChange: [revalidateAfterChange("pages")],
     afterDelete: [revalidateAfterDelete("pages")],
   },

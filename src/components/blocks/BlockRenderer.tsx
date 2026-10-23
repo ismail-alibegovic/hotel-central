@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { ContactForm } from "@/components/ContactForm";
 import { DecorativeLine } from "@/components/DecorativeLine";
 import { FinalBooking } from "@/components/home/FinalBooking";
@@ -7,7 +7,8 @@ import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/compon
 import { Photo } from "@/components/Photo";
 import { FadeIn, RevealLines } from "@/components/Reveal";
 import { Arrow, PillLink } from "@/components/ui";
-import type { Block, Cta, SplitBlock } from "@/cms/blocks/types";
+import { CtaBand, Faq, Offers } from "./Sections";
+import type { Block, Cta, FaqBlock, SplitBlock } from "@/cms/blocks/types";
 import type { Dictionary } from "@/content/dictionary";
 import { booking, hotel, maps } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
@@ -15,6 +16,11 @@ import { fitStyle } from "@/lib/fit";
 import { href, type Locale } from "@/lib/i18n";
 
 const isDark = (tone: SplitBlock["tone"]) => tone === "deep" || tone === "olive" || tone === "ink";
+const faqJsonLd = (b: FaqBlock) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: b.items.map((q) => ({ "@type": "Question", name: q.q, acceptedAnswer: { "@type": "Answer", text: q.a.join("\n") } })),
+});
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
 function Pill({ cta, dark }: { cta: Cta; dark: boolean }) {
@@ -253,6 +259,18 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
           }
           case "roomList":
             return <RoomList key={i} rooms={rooms} locale={locale} dict={dict} />;
+          case "offers":
+            return <Offers key={i} b={b} />;
+          case "faq":
+            return (
+              <Fragment key={i}>
+                <Faq b={b} />
+                {/* Structured data only for real content, never for DEMO / SAMPLE text. */}
+                {!b.sample && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(b)).replace(/</g, "\\u003c") }} />}
+              </Fragment>
+            );
+          case "cta":
+            return <CtaBand key={i} b={b} />;
         }
       })}
     </>

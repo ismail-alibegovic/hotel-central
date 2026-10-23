@@ -20,6 +20,12 @@ Bosnian and English are edited independently (`fallback: false`). Text fields ar
 ## Collections
 - **Rooms** (six): name, title lines, feature, size label, summary, description, highlights, amenities (per language); photographs; search-engine fields. Administrator-only: URL key, eZee room-type id (the site always uses the id from code), size, order, visibility.
 - **Pages** (about, rooms, spa, restaurant, meetings-events, location, contact): an ordered list of **sections** built from existing Hotel Central components — hero, statement, split (text + photographs), facts, gallery, room list, final booking and so on — plus search-engine fields. Editors can change copy, photographs, order and which sections appear; they cannot create layouts the design does not support.
+- **Page sections for offers, FAQ and calls to action** (new block types on the page editor, built from the existing design: ground tones, hairlines, serif headings, pill buttons):
+  - *Offers (cards)*: up to 6 cards — optional photograph, small tag, title, description, "when valid" and "price" wording (free text written by the hotel, empty rows are not shown), optional button.
+  - *Frequently asked questions*: up to 20 questions with answers (a new line starts a new paragraph). Native `<details>` disclosure — keyboard accessible, no client script. Real (non-sample) FAQs also emit `FAQPage` structured data.
+  - *Call to action*: label, heading, text, main button and an optional text link.
+  - **Buttons**: "Use the hotel's booking button" takes the destination from code (the booking engine address and ids are never typed); otherwise a validated link (internal path or approved https host, phone, e-mail).
+  - **DEMO / SAMPLE content**: every one of these sections has a *DEMO / SAMPLE content* switch. A flagged section shows an unmissable "DEMO / SAMPLE — not a real offer" label, emits no structured data, and **cannot be published** (HTTP 400, also when only the status is sent) until the switch is cleared. Staging may lift this with `CMS_ALLOW_SAMPLE_PUBLISH=true` (a warning in `cms:preflight` for staging, an error for production). The shipped example wording (`src/cms/sampleBlocks.ts`) contains no prices, dates, benefits or policies.
 - **Navigation** (global): wording of the header and menu (menu/close/rooms/booking buttons, skip link, language label) and the menu entries (page path + wording per language + "show in menu"). The footer's "Explore" list is the same entries, minus Home. Administrator-only: adding, removing, reordering, destinations and visibility of entries (field access drops the values, and a second hook rejects structural changes with 403). The booking button's address always comes from code.
 - **Footer** (global): wording (reservations strip, large statement, headings, rights, credits) per language, and social links (administrator-only, approved https hosts only; empty = Facebook as built in). Address, phone and e-mail stay in code.
 - **Media**: uploads (Vercel Blob in staging/production, local disk in development).
@@ -40,4 +46,4 @@ Every page and room has a title (≤ 70 characters) and description (≤ 200) pe
 3. **Old vs new** — the block refactor was compared with the previous hand-written pages (`scripts/audit/compare-html.mjs`): identical HTML.
 
 ## Not yet in the CMS
-Home-page copy, offers/FAQ/CTA sections, and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.
+Home-page copy and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.

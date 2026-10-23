@@ -1173,6 +1173,266 @@ export interface Page {
             blockName?: string | null;
             blockType: 'roomList';
           }
+        | {
+            /**
+             * Tick for example content. A visible “DEMO / SAMPLE” label is shown and the page cannot be published until it is unticked.
+             */
+            sample?: boolean | null;
+            label: string;
+            /**
+             * Large heading, one line per row.
+             */
+            title: string;
+            intro?: string | null;
+            tone?: ('ivory' | 'deep' | 'olive' | 'sage' | 'ink') | null;
+            /**
+             * Empty = “Valid” / “Važi”.
+             */
+            validityLabel?: string | null;
+            /**
+             * Empty = “Price” / “Cijena”.
+             */
+            priceLabel?: string | null;
+            items?:
+              | {
+                  image?: {
+                    /**
+                     * Photographs already on the website.
+                     */
+                    staticPath?:
+                      | (
+                          | '3064.jpg'
+                          | '3067.jpg'
+                          | '3069.jpg'
+                          | '3073.jpg'
+                          | '3075.jpg'
+                          | 'bazen.jpg'
+                          | 'breakfast1.jpg'
+                          | 'breakfast2.jpg'
+                          | 'breakfast3.jpg'
+                          | 'central-spa_bath.jpg'
+                          | 'central-spa_bathroom-1.jpg'
+                          | 'central-spa_bathroom-2.jpg'
+                          | 'central-spa_bathroom-3.jpg'
+                          | 'central-spa_celulit-room.jpg'
+                          | 'central-spa_relax-room-1.jpg'
+                          | 'central-spa_relax-room-2.jpg'
+                          | 'central-spa_relax-room-3.jpg'
+                          | 'central-spa_relax-room.jpg'
+                          | 'd01.jpg'
+                          | 'dorucak1.jpg'
+                          | 'dorucak2.jpg'
+                          | 'dorucak3.jpg'
+                          | 'dorucak4.jpg'
+                          | 'dorucak5.jpg'
+                          | 'dorucak6.jpg'
+                          | 'dvo-nas-1.jpg'
+                          | 'family1-new.jpg'
+                          | 'family2-new.jpg'
+                          | 'family3-new.jpg'
+                          | 'family4-new.jpg'
+                          | 'family5-new.jpg'
+                          | 'final-6167.jpg'
+                          | 'final-6173.jpg'
+                          | 'final-6176.jpg'
+                          | 'final-6181.jpg'
+                          | 'final-6198.jpg'
+                          | 'final-6202.jpg'
+                          | 'final-6203.jpg'
+                          | 'final-6211.jpg'
+                          | 'final-6224.jpg'
+                          | 'final-6230.jpg'
+                          | 'hc-bg-lajna-1.jpg'
+                          | 'hc-comfort-2.jpg'
+                          | 'hc-naslovna-health-club.jpg'
+                          | 'hc-spa-naslovna-interior.jpg'
+                          | 'hc-spa-naslovna-opustanje.jpg'
+                          | 'img_9052.jpg'
+                          | 'img_9057.jpg'
+                          | 'img_9064.jpg'
+                          | 'img_9067.jpg'
+                          | 'img_9069.jpg'
+                          | 'img_9076.jpg'
+                          | 'img_9085.jpg'
+                          | 'img_9088.jpg'
+                          | 'img_9124.jpg'
+                          | 'img_9140.jpg'
+                          | 'img_9177.jpg'
+                          | 'img_9180.jpg'
+                          | 'img_9183.jpg'
+                          | 'img_9202.jpg'
+                          | 'img_9210.jpg'
+                          | 'img_9216.jpg'
+                          | 'img_9217.jpg'
+                          | 'img_9223.jpg'
+                          | 'img_9226.jpg'
+                          | 'img_9229.jpg'
+                          | 'img_9232.jpg'
+                          | 'img_9235.jpg'
+                          | 'img_9236.jpg'
+                          | 'img_9238.jpg'
+                          | 'img_9247.jpg'
+                          | 'img_9271.jpg'
+                          | 'img_9277.jpg'
+                          | 'img_9282.jpg'
+                          | 'img_9289.jpg'
+                          | 'jed-nas-1.jpg'
+                          | 'junior01.jpg'
+                          | 'junior02.jpg'
+                          | 'junior03.jpg'
+                          | 'p01.jpg'
+                          | 'p02.jpg'
+                          | 'p03.jpg'
+                          | 'p04.jpg'
+                          | 'p05.jpg'
+                          | 'p06.jpg'
+                          | 'p07.jpg'
+                          | 'p08.jpg'
+                          | 'p09.jpg'
+                          | 'p10.jpg'
+                          | 'p11.jpg'
+                          | 'p12.jpg'
+                          | 'p13.jpg'
+                          | 'p14.jpg'
+                          | 'pool-01.jpg'
+                          | 'pool-02.jpg'
+                          | 'pool-03.jpg'
+                          | 'pool-04.jpg'
+                          | 'pool-05.jpg'
+                          | 'pool-06.jpg'
+                          | 'pool-08.jpg'
+                          | 'pre-nas-1.jpg'
+                          | 's01.jpg'
+                          | 's02.jpg'
+                          | 's03.jpg'
+                          | 's04.jpg'
+                          | 's05.jpg'
+                          | 's06.jpg'
+                          | 's07.jpg'
+                          | 's08.jpg'
+                          | 's09.jpg'
+                          | 's10.jpg'
+                          | 's11.jpg'
+                          | 's12.jpg'
+                          | 'single-kupatilo.jpg'
+                          | 'single-room.jpg'
+                          | 'st-dvo-01.jpg'
+                          | 'st-dvo-02.jpg'
+                          | 'st-dvo-05.jpg'
+                          | 'st-dvo-06.jpg'
+                        )
+                      | null;
+                    /**
+                     * If set, this is used instead of the site photograph.
+                     */
+                    upload?: (string | null) | Media;
+                    alt?: string | null;
+                    /**
+                     * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+                     */
+                    position?: string | null;
+                  };
+                  tag?: string | null;
+                  title: string;
+                  description: string;
+                  /**
+                   * Free wording written by the hotel, e.g. a season or date range.
+                   */
+                  validity?: string | null;
+                  /**
+                   * Only real prices approved by the hotel. Never copy example prices.
+                   */
+                  priceNote?: string | null;
+                  cta?: {
+                    label?: string | null;
+                    /**
+                     * Opens the booking engine. The address is fixed in code.
+                     */
+                    useBooking?: boolean | null;
+                    link?: {
+                      kind?: ('internal' | 'external' | 'phone' | 'email') | null;
+                      /**
+                       * Site path (/rooms), https address, phone (+387 33 561 800) or e-mail. External sites must be on the approved list.
+                       */
+                      value?: string | null;
+                    };
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'offers';
+          }
+        | {
+            /**
+             * Tick for example content. A visible “DEMO / SAMPLE” label is shown and the page cannot be published until it is unticked.
+             */
+            sample?: boolean | null;
+            label: string;
+            /**
+             * Large heading, one line per row.
+             */
+            title: string;
+            tone?: ('ivory' | 'deep' | 'olive' | 'sage' | 'ink') | null;
+            items?:
+              | {
+                  q: string;
+                  /**
+                   * A new line starts a new paragraph.
+                   */
+                  a: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            /**
+             * Tick for example content. A visible “DEMO / SAMPLE” label is shown and the page cannot be published until it is unticked.
+             */
+            sample?: boolean | null;
+            label?: string | null;
+            /**
+             * Large heading, one line per row.
+             */
+            title: string;
+            body?: string | null;
+            tone?: ('ivory' | 'deep' | 'olive' | 'sage' | 'ink') | null;
+            primary?: {
+              label?: string | null;
+              /**
+               * Opens the booking engine. The address is fixed in code.
+               */
+              useBooking?: boolean | null;
+              link?: {
+                kind?: ('internal' | 'external' | 'phone' | 'email') | null;
+                /**
+                 * Site path (/rooms), https address, phone (+387 33 561 800) or e-mail. External sites must be on the approved list.
+                 */
+                value?: string | null;
+              };
+            };
+            secondary?: {
+              label?: string | null;
+              /**
+               * Opens the booking engine. The address is fixed in code.
+               */
+              useBooking?: boolean | null;
+              link?: {
+                kind?: ('internal' | 'external' | 'phone' | 'email') | null;
+                /**
+                 * Site path (/rooms), https address, phone (+387 33 561 800) or e-mail. External sites must be on the approved list.
+                 */
+                value?: string | null;
+              };
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -1587,6 +1847,101 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        offers?:
+          | T
+          | {
+              sample?: T;
+              label?: T;
+              title?: T;
+              intro?: T;
+              tone?: T;
+              validityLabel?: T;
+              priceLabel?: T;
+              items?:
+                | T
+                | {
+                    image?:
+                      | T
+                      | {
+                          staticPath?: T;
+                          upload?: T;
+                          alt?: T;
+                          position?: T;
+                        };
+                    tag?: T;
+                    title?: T;
+                    description?: T;
+                    validity?: T;
+                    priceNote?: T;
+                    cta?:
+                      | T
+                      | {
+                          label?: T;
+                          useBooking?: T;
+                          link?:
+                            | T
+                            | {
+                                kind?: T;
+                                value?: T;
+                              };
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              sample?: T;
+              label?: T;
+              title?: T;
+              tone?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              sample?: T;
+              label?: T;
+              title?: T;
+              body?: T;
+              tone?: T;
+              primary?:
+                | T
+                | {
+                    label?: T;
+                    useBooking?: T;
+                    link?:
+                      | T
+                      | {
+                          kind?: T;
+                          value?: T;
+                        };
+                  };
+              secondary?:
+                | T
+                | {
+                    label?: T;
+                    useBooking?: T;
+                    link?:
+                      | T
+                      | {
+                          kind?: T;
+                          value?: T;
+                        };
+                  };
               id?: T;
               blockName?: T;
             };
