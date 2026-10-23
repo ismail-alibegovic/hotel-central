@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
 import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
+import { statusNote, adminOnlyTab } from "../admin/fields";
 import { seoFields } from "./seoFields";
 import { refuseSamplePublish } from "../hooks/sampleGuard";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
@@ -14,7 +15,14 @@ import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidat
  */
 export const Pages: CollectionConfig = {
   slug: "pages",
-  admin: { useAsTitle: "slug", defaultColumns: ["slug", "_status", "updatedAt"] },
+  labels: { singular: "Page", plural: "Pages" },
+  admin: {
+    group: "Website Content",
+    hideAPIURL: true,
+    description: "The pages that are already on the website (About, Spa, Restaurant…). Open a page to change its texts, photos and the order of its sections.",
+    useAsTitle: "slug",
+    defaultColumns: ["slug", "_status", "updatedAt"],
+  },
   access: { read: publishedOrStaff, create: isStaff, update: staffUpdate, delete: isAdmin },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
   hooks: {
@@ -24,17 +32,35 @@ export const Pages: CollectionConfig = {
     afterDelete: [revalidateAfterDelete("pages")],
   },
   fields: [
+    statusNote,
     {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-      index: true,
-      // URLs are fixed by the route table; only admins may change/allocate them (prevents collisions).
-      access: { update: adminFieldAccess },
-      admin: { description: "Existing route key, e.g. “spa”. Not editable by editors." },
+      type: "tabs",
+      tabs: [
+        {
+          label: "Page Sections",
+          description: "Add, remove and reorder the sections of the page. Text is written separately for each language (switch the language at the top); the order of the sections is shared.",
+          fields: [{ name: "layout", type: "blocks", blocks, minRows: 1, label: "Page Sections", labels: { singular: "Section", plural: "Sections" }, admin: { description: "Each section is one part of the page. Drag sections to change their order, or open one to edit its text and photos." } }],
+        },
+        { label: "Google & Search Appearance", description: "How this page looks in Google search. If left empty, the standard text is used.", fields: seoFields({ socialImage: true }) },
+        {
+          label: "Advanced Settings",
+          description: "Administrators only.",
+          admin: adminOnlyTab,
+          fields: [
+            {
+              name: "slug",
+              type: "text",
+              required: true,
+              unique: true,
+              index: true,
+              label: "Page",
+              // URLs are fixed by the route table; only admins may change/allocate them (prevents collisions).
+              access: { update: adminFieldAccess },
+              admin: { description: "The page's fixed address key, for example “spa”. It cannot be changed.", components: { Cell: "/cms/admin/PageNameCell#PageNameCell" } },
+            },
+          ],
+        },
+      ],
     },
-    ...seoFields({ socialImage: true }),
-    { name: "layout", type: "blocks", blocks, minRows: 1, label: "Page sections", admin: { description: "Add, remove and reorder sections. Text is edited per language (switch language at the top); the section structure is shared." } },
   ],
 };

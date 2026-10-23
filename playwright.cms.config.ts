@@ -6,6 +6,7 @@ import { defineConfig } from "@playwright/test";
  *   html-parity  every public page (EN/BS) from the CMS-on site equals the CMS-off reference build, element for element
  *   parity-*  CMS-rendered About / Junior Suite must be pixel-identical to the static baselines (read-only)
  *   admin-*   browser-driven administration on mobile and desktop (edits the content)
+ *   admin-ux-*  branding, start page, grouped room form and the everyday edit/save/preview/publish flow, at phone/tablet/desktop size
  *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
  *   chrome-*  navigation + footer globals: HTTP (roles, drafts, locales, link safety) and the admin UI
  *   visual-cms-* screenshots of CMS-only output (sections, a created page, an edited home page) in staff preview
@@ -50,7 +51,9 @@ export default defineConfig({
           testMatch: /admin-ui\.spec\.ts/,
           dependencies: ["mobile", "tablet", "desktop"],
         })),
-        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop"] },
+        // The administration as hotel staff meet it (branding, start page, grouped forms, everyday flow); one room per project
+        ...Object.entries(sizes).map(([name, viewport]) => ({ name: `admin-ux-${name}`, use: { viewport }, testMatch: /admin-ux\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] })),
+        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop", "admin-ux-mobile", "admin-ux-tablet", "admin-ux-desktop"] },
         { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
         { name: "sections-api", testMatch: /sections-api\.spec\.ts/, dependencies: ["chrome-api"] },
         { name: "custom-pages-api", testMatch: /custom-pages-api\.spec\.ts/, dependencies: ["sections-api"] },

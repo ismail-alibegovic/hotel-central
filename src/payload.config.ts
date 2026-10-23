@@ -6,6 +6,7 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { isStaffUser } from "./cms/access";
+import { adminI18n } from "./cms/admin/i18n";
 import { poolSettings } from "./cms/db";
 import { Media } from "./cms/collections/Media";
 import { CustomPages } from "./cms/collections/CustomPages";
@@ -32,7 +33,14 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
-    meta: { titleSuffix: " — Hotel Central CMS", robots: "noindex, nofollow" },
+    meta: { titleSuffix: " — Hotel Central Website Manager", robots: "noindex, nofollow", icons: [{ rel: "icon", type: "image/svg+xml", url: "/icon.svg" }] },
+    dateFormat: "dd MMM yyyy, HH:mm",
+    components: {
+      graphics: { Logo: "/cms/admin/Logo#Logo", Icon: "/cms/admin/Icon#Icon" },
+      beforeLogin: ["/cms/admin/BeforeLogin#BeforeLogin"],
+      afterLogin: ["/cms/admin/BeforeLogin#AfterLogin"],
+      views: { dashboard: { Component: "/cms/admin/Dashboard#Dashboard" } },
+    },
     livePreview: {
       url: ({ data, collectionConfig, locale }) => {
         const raw = (data as { slug?: string | Record<string, string> })?.slug;
@@ -65,6 +73,7 @@ export default buildConfig({
     defaultLocale: "en",
     fallback: false,
   },
+  i18n: adminI18n,
   editor: lexicalEditor(),
   // Schema changes are applied by migrations (src/migrations, `npm run cms:migrate`), never by auto-push, so a
   // deployment cannot alter the database on its own. Ids stay strings (uuid), as they were with the previous adapter.

@@ -15,7 +15,16 @@ const closedFirstRegister = {
 export const Users: CollectionConfig = {
   slug: "users",
   endpoints: process.env.ALLOW_FIRST_REGISTER === "true" ? [] : [closedFirstRegister],
-  admin: { useAsTitle: "email", defaultColumns: ["email", "name", "role"] },
+  labels: { singular: "Team member", plural: "Team members" },
+  admin: {
+    group: "Administration",
+    hideAPIURL: true,
+    description: "People who can edit the website. Administrators can publish changes; editors can only save changes for an administrator to publish.",
+    useAsTitle: "email",
+    defaultColumns: ["email", "name", "role"],
+    // Editors only need their own account (reachable from the account menu); the list is for administrators.
+    hidden: ({ user }) => (user as { role?: string } | null)?.role !== "admin",
+  },
   auth: {
     tokenExpiration: 60 * 60 * 2, // 2 h sessions
     maxLoginAttempts: 5,
@@ -42,16 +51,17 @@ export const Users: CollectionConfig = {
     ],
   },
   fields: [
-    { name: "name", type: "text" },
+    { name: "name", type: "text", label: "Full name" },
     {
       name: "role",
       type: "select",
       required: true,
+      label: "Role",
       defaultValue: "editor",
       saveToJWT: true,
       options: [
-        { label: "Administrator (can publish)", value: "admin" },
-        { label: "Editor (drafts only)", value: "editor" },
+        { label: "Administrator (can publish changes)", value: "admin" },
+        { label: "Editor (can save changes, cannot publish)", value: "editor" },
       ],
       // Nobody but an admin can grant or change a role, so editors cannot escalate themselves.
       access: { create: adminFieldAccess, update: adminFieldAccess },

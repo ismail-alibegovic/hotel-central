@@ -1,1 +1,330 @@
-/* Reserved for admin-only styling; the public site design is untouched. */
+/*
+ * Hotel Central Website Manager — admin-only styling. This file is loaded by the admin layout only; the public site's CSS is untouched.
+ * Palette comes from the website: ivory #f4f0ec, deep #363a2a, olive #50563f, sage #a1aa82, ink #020d10.
+ */
+:root {
+  --hc-ivory: #f4f0ec;
+  --hc-deep: #363a2a;
+  --hc-olive: #50563f;
+  --hc-sage: #a1aa82;
+  --hc-ink: #020d10;
+  --hc-radius: 10px;
+}
+
+html[data-theme="light"] {
+  --theme-bg: #fbf9f6;
+  --theme-text: #1d221c;
+  --theme-elevation-0: #fbf9f6;
+  --theme-elevation-50: #f4f0ec;
+  --theme-elevation-100: #ece7e0;
+  --theme-elevation-150: #e4ded5;
+  --theme-elevation-800: #363a2a;
+  --theme-elevation-1000: #1d221c;
+  --theme-success-500: #50563f;
+}
+
+html[data-theme="dark"] {
+  --theme-bg: #11140f;
+  --theme-text: #f4f0ec;
+  --theme-elevation-0: #11140f;
+  --theme-elevation-50: #1a1e17;
+  --theme-elevation-100: #232820;
+  --theme-elevation-150: #2c3228;
+  --theme-elevation-800: #a1aa82;
+  --theme-elevation-1000: #f4f0ec;
+}
+
+/* Logo and icon */
+.hc-logo {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  color: var(--hc-deep);
+}
+html[data-theme="dark"] .hc-logo {
+  color: var(--hc-ivory);
+}
+.hc-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 32px;
+  max-height: 32px;
+}
+.step-nav__home .hc-icon,
+.step-nav__home span {
+  width: 20px;
+  height: 20px;
+}
+
+/* Sign-in screen */
+.template-minimal {
+  background: var(--hc-ivory);
+}
+html[data-theme="dark"] .template-minimal {
+  background: #11140f;
+}
+.login__brand {
+  margin-bottom: 1.5rem;
+}
+.login__form .btn--style-primary,
+.btn--style-primary {
+  background: var(--hc-deep);
+  border-color: var(--hc-deep);
+  color: var(--hc-ivory);
+}
+.btn--style-primary:hover,
+.btn--style-primary:focus-visible {
+  background: var(--hc-olive);
+  border-color: var(--hc-olive);
+}
+html[data-theme="dark"] .btn--style-primary {
+  background: var(--hc-sage);
+  border-color: var(--hc-sage);
+  color: #11140f;
+}
+.hc-login-intro {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.hc-login-intro h1 {
+  font-family: var(--font-display, "Gilda Display", Didot, Georgia, serif);
+  font-weight: 400;
+  font-size: 1.9rem;
+  margin: 0 0 0.35rem;
+}
+.hc-login-intro p {
+  margin: 0;
+  color: var(--theme-elevation-800);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.hc-login-help {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: center;
+  margin: 1.25rem 0 0;
+  color: var(--theme-elevation-800);
+}
+
+/* Start page */
+.hc-dashboard {
+  max-width: 1100px;
+  padding: 0.5rem 0 3rem;
+}
+.hc-dashboard__intro h1 {
+  font-family: var(--font-display, "Gilda Display", Didot, Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  margin: 0.15rem 0 0.75rem;
+}
+.hc-dashboard__intro p {
+  max-width: 62ch;
+  line-height: 1.6;
+  margin: 0 0 0.6rem;
+}
+.hc-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--hc-olive);
+  margin: 0;
+}
+html[data-theme="dark"] .hc-eyebrow {
+  color: var(--hc-sage);
+}
+.hc-note {
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--hc-sage);
+  background: var(--theme-elevation-50);
+  border-radius: 0 var(--hc-radius) var(--hc-radius) 0;
+}
+.hc-cards {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.hc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--hc-radius);
+  background: var(--theme-elevation-0);
+}
+.hc-card h2 {
+  font-family: var(--font-display, "Gilda Display", Didot, Georgia, serif);
+  font-weight: 400;
+  font-size: 1.35rem;
+  margin: 0;
+}
+.hc-card p {
+  margin: 0;
+  line-height: 1.55;
+  color: var(--theme-elevation-800);
+  flex: 1;
+}
+.hc-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.hc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  background: var(--hc-deep);
+  color: var(--hc-ivory);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.hc-button:hover,
+.hc-button:focus-visible {
+  background: var(--hc-olive);
+  color: #fff;
+}
+html[data-theme="dark"] .hc-button {
+  background: var(--hc-sage);
+  color: #11140f;
+}
+.hc-footnote {
+  margin-top: 1.5rem;
+  color: var(--theme-elevation-800);
+}
+
+/* Draft / published banner */
+.hc-status {
+  border: 1px solid var(--theme-elevation-150);
+  border-left-width: 4px;
+  border-radius: var(--hc-radius);
+  padding: 0.75rem 1rem;
+  margin: 0 0 1.25rem;
+  background: var(--theme-elevation-50);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.hc-status p {
+  margin: 0 0 0.35rem;
+}
+.hc-status p:last-child {
+  margin-bottom: 0;
+}
+.hc-status--draft {
+  border-left-color: #b7791f;
+}
+.hc-status--live {
+  border-left-color: var(--hc-olive);
+}
+.hc-status--new {
+  border-left-color: var(--hc-sage);
+}
+.hc-status__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: baseline;
+}
+.hc-status__badge {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--hc-deep);
+  color: var(--hc-ivory);
+}
+.hc-status--draft .hc-status__badge {
+  background: #8a5a12;
+  color: #fff;
+}
+html[data-theme="dark"] .hc-status__badge {
+  background: var(--hc-sage);
+  color: #11140f;
+}
+.hc-status__limit {
+  color: var(--theme-elevation-800);
+  font-size: 0.85rem;
+}
+
+/* Photo preview next to the photo picker */
+.hc-photo-preview {
+  margin: 0 0 1rem;
+}
+.hc-photo-preview img {
+  display: block;
+  max-width: min(100%, 320px);
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: var(--hc-radius);
+  border: 1px solid var(--theme-elevation-150);
+}
+.hc-photo-preview p {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--theme-elevation-800);
+}
+
+/* Phones: let the header and the document controls shrink and wrap instead of pushing the page wider than the screen. */
+@media (max-width: 760px) {
+  .app-header__controls-wrapper,
+  .app-header__step-nav-wrapper,
+  .step-nav {
+    min-width: 0;
+  }
+  .app-header__step-nav-wrapper {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  .step-nav {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .doc-controls__meta {
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    gap: 0.25rem 1rem;
+  }
+  .doc-controls__list-item.doc-controls__value-wrap,
+  .doc-controls__value {
+    max-width: 100%;
+  }
+  .doc-controls__wrapper {
+    max-width: 100%;
+  }
+  .gutter--left,
+  .gutter--right {
+    min-width: 0;
+  }
+}
+
+/* Bigger touch targets on phones */
+@media (max-width: 760px) {
+  .hc-cards {
+    grid-template-columns: 1fr;
+  }
+  .hc-button {
+    width: 100%;
+  }
+}
+
+/* The language switcher has no meaning on the start page (it only applies to a page being edited). */
+body:has(.hc-dashboard) .localizer {
+  display: none;
+}
+
+/* Section rows have an extra "name" box that staff never need (it is stored but not used on the website). */
+.blocks-field__block-header .section-title {
+  display: none;
+}
