@@ -1,10 +1,13 @@
 name: Update visual baselines
 
-# Manual only. Regenerates tests/e2e/__screenshots__ on the same runner image CI uses, so baselines are
+# Runs when a branch named ci/update-baselines/* is pushed (or manually from the default branch).
+# Regenerates tests/e2e/__screenshots__ on the same runner image CI uses, so baselines are
 # rendered deterministically for CI, and commits them to the selected branch. A human MUST review the
 # image diff in the PR before merging (see docs/TESTING.md) — never run this to "make a failure go away".
 on:
   workflow_dispatch:
+  push:
+    branches: ['ci/update-baselines/**']
 
 permissions:
   contents: write
