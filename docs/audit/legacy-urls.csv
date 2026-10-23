@@ -1,0 +1,52 @@
+old_url,legacy_http_status_2026-10-22,language,proposed_new_path,redirect_type,notes,verification_status
+https://www.hotelcentral.ba/news/jazz-fest-sarajevo/,200,en,,TBD,"HOTEL DECISION: news post, no news section on new site",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/news/the-international-theater-festival-mess-2/,200,en,,TBD,"HOTEL DECISION: news post, no news section on new site",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/uncategorized/hotel-central-supports-29th-sff/,301,en,,TBD,Legacy URL itself 301s to /news/...; HOTEL DECISION as news,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/,200,en,/en,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/about/,200,en,/en/about,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/,200,en,/en/rooms,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/,200,en,/en/spa,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/book-now/,200,en,,TBD,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/gym/,200,en,/en/spa,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/pool-spa/,200,en,/en/spa,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/classes/,200,en,,TBD,HOTEL DECISION: no dedicated page; mentioned inside /en/spa,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/results/,200,en,,TBD,HOTEL DECISION: no equivalent page,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/staff/,200,en,,TBD,HOTEL DECISION: no equivalent page,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/club-spa/membership/,200,en,,TBD,HOTEL DECISION: no equivalent page (membership details are not hotel-approved on new site),PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/facilities/,200,en,/en,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/facilities/restaurant-central/,200,en,/en/restaurant,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/facilities/fitness-club/,200,en,/en/spa,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/facilities/wellness-day-spa/,200,en,/en/spa,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/contact/,200,en,/en/contact,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/our-location-2/,200,en,/en/location,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/our-location/,200,en,/en/location,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/galerija-slika/,200,en,,TBD,HOTEL DECISION: gallery page; galleries live inside pages on new site,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/facilities/meetings-and-events/,200,en,/en/meetings-events,301,consolidated/approximate - confirm with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/single-room/,200,en,/en/rooms/single-room,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/standard-twin-double/,200,en,/en/rooms/standard-twin-double,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/deluxe-superior-double-twin/,200,en,/en/rooms/superior-double-room,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/family-room-2-double-twin-with-connecting-door/,200,en,/en/rooms/family-room,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/business-room-double-twin-single-use/,200,en,,TBD,HOTEL DECISION: no matching room on new site (6 rooms vs 7 legacy pages),PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/presidental-suite/,200,en,/en/rooms/presidential-suite,301,"legacy slug typo ""presidental"" -> ""presidential""",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/rooms/junior-suite/,200,en,/en/rooms/junior-suite,301,1:1,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/covid-19-travel-info-and-safety-at-hotel-central-sarajevo/,200,en,,TBD,HOTEL DECISION: legacy COVID-19 page; likely retire (410/redirect to /en),PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/about/faq/,200,en,,TBD,HOTEL DECISION: no FAQ page on new site,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/category/news/,200,en,,TBD,HOTEL DECISION: no news section on new site,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/dflip_category/katalog/,200,en,,TBD,Utility/taxonomy page - low value; decide with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/element_category/elements/,200,en,,TBD,Utility/taxonomy page - low value; decide with hotel,PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/nullam-non-augue-eget/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/ut-consequat-augue-odio/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/duis-malesuada-viverra-risus/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/proin-eget-mi-tortor/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/sed-consequat-efficitur/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/maecenas-nisl-urna/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/vestibulum-et-dolor-congue/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/donec-pulvinar-molestie/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/suspendisse-lectus-lectus/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/excepteur-sint-occaecat/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/sed-ut-perspiciatis/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio-items/neque-porro-quisquam/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio_category/pool-and-beach/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio_category/restaurants/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio_category/rooms/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
+https://www.hotelcentral.ba/portfolio_category/spa/,NOT CHECKED,en,,TBD,"Avada theme demo/placeholder portfolio content (lorem-ipsum slugs); likely retire, confirm",PROPOSAL - target not yet verified on staging
