@@ -14,6 +14,8 @@ for (const locale of ["en", "bs"] as const) {
   test(`visual footer ${locale}`, async ({ page }) => {
     await page.goto(`/${locale}/spa`, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
+    // Fixed layers (header, skip link, mobile booking bar) would be captured on top of the footer.
+    await page.addStyleTag({ content: ".fixed { visibility: hidden !important; }" });
     const footer = page.locator("footer");
     await footer.scrollIntoViewIfNeeded();
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
