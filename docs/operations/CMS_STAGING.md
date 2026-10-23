@@ -30,12 +30,13 @@ Browser ──► Vercel (one Next.js 16 app: public site + /admin + /api)
 **Leak prevention (automated):** `tests/int/env.int.spec.ts` fails if any `NEXT_PUBLIC_*` name other than the two public URLs appears in `src/`, if a `'use client'` file reads a secret, if `.env.example` contains a value, or if credential-shaped strings are committed. `npm run test:cms-e2e` additionally scans the built client bundle (`.next/static`) for the run's actual secrets and DB host. Vercel: mark secrets **Sensitive** so they cannot be read back from the dashboard.
 
 ## 3. Provisioning runbook (🔒 owner action)
-1. 🔒 **Atlas (free M0):** create an organization/project → Free cluster in an EU region close to Vercel's function region (`iad1` by default; set the function region to match, or pick a US-East Atlas region for lower latency — decide once). Create a database user `hc-staging` scoped to database `hotel-central-staging` (readWrite). Network access: Vercel has no fixed egress IPs on standard plans, so Atlas must allow `0.0.0.0/0`; compensate with a strong generated password and a dedicated user. Enable **Backup** (daily snapshot, 4 retained) in the cluster's Backup tab.
+1. 🔒 **Atlas (free M0):** create an organization/project → Free cluster in an EU region close to Vercel's function region (`iad1` by default; set the function region to match, or pick a US-East Atlas region for lower latency — decide once). Create a database user `hc-staging` scoped to database `hotel-central-staging` (readWrite). Network access: Vercel has no fixed egress IPs on standard plans, so Atlas must allow `0.0.0.0/0`; compensate with a strong generated password and a dedicated user. Check the cluster's Backup tab: if a snapshot option exists on the Free tier enable it, but rely on `mongodump` regardless (§4, §6).
 2. 🔒 **Vercel staging project:** new project `hotel-central-staging` from the same GitHub repo, *Production Branch* = `staging` (create the branch from `main`), so staging never shares env vars or domains with the current demo project. Framework preset Next.js, Node 24.x.
    - **Deployment Protection → All Deployments → Vercel Authentication** (available on every plan per Vercel docs; Password Protection is Pro-only). Only invited Vercel team members can open any URL, including `/admin`.
 3. 🔒 **Blob store:** Project → Storage → Create Blob store (public access; only public stores are supported by the adapter). Connect it to the staging project (injects `BLOB_READ_WRITE_TOKEN`).
 4. 🔒 Set env vars (§2) as *Sensitive* where marked, for Production + Preview of the staging project.
 5. Deploy the `staging` branch (it is behind Vercel Authentication, and `first-register` is closed, so the empty database is not claimable). Then seed once (from a trusted machine, not CI): `DATABASE_URL=… PAYLOAD_SECRET=… SEED_ADMIN_EMAIL=… SEED_ADMIN_PASSWORD=… npm run cms:seed` — idempotent, never overwrites existing documents. Remove the `SEED_*` variables.
+5b. Run `npm run cms:preflight -- staging` with the same variables exported locally: it fails on a missing/weak secret, localhost URLs, a malformed Blob token, `NEXT_PUBLIC_SITE_URL` set on staging, or `ALLOW_FIRST_REGISTER` left open — and never prints values. A copy-paste env list is in `infra/staging/env.template`.
 6. Smoke on staging: `E2E_BASE_URL=<url> npm run test:e2e` needs a protection-bypass header (Vercel *Protection Bypass for Automation* secret) — or run manually per §7.
 7. Create editor accounts in `/admin` (as admin). Hotel staff need a Vercel invite to pass Vercel Authentication on staging; for a hotel-facing pilot use a production-style deployment with its own domain, where Payload login is the gate (and consider an IP allow-list or Pro Password Protection on top).
 
@@ -50,21 +51,37 @@ Browser ──► Vercel (one Next.js 16 app: public site + /admin + /api)
 **Restore drill (executed locally, repeatable):** `PATH="$(scripts/cms/install-mongo-tools.sh):$PATH" npm run cms:restore-drill` writes users/pages (both locales + a pending draft)/media into a throw-away MongoDB, dumps it, destroys the source, restores into a second server, restores media, and verifies through Payload that the admin can log in with the original password, both locales and the draft are intact and the file exists. Last run: backup 1.7 KB, restore + verification 3.4 s. **Not yet proven against Atlas** (needs the cluster 🔒).
 
 **Real restore procedure (Atlas):** 1) put the site in read-only/maintenance by unsetting `CMS_ENABLED` (public pages keep serving static content); 2) restore the snapshot into a **new** cluster or database (never over the live one first); 3) `mongorestore --uri="<new>" --archive=backup.gz --gzip --nsInclude='<db>.*'`; 4) point `DATABASE_URL` at it; 5) redeploy; 6) verify login + a published page; 7) re-enable. Recovery objectives to confirm with the hotel: RPO ≤ 24 h with daily snapshots; RTO ≈ 1 h manual.
-Atlas Free limits that shape this: `mongodump` works but without `--oplog`/`--dumpDbUsersAndRoles`; no continuous backup; cluster pauses after 30 days without connections.
+Atlas Free limits that shape this: `mongodump` works but without `--oplog`/`--dumpDbUsersAndRoles`; no continuous backup; cluster pauses after 30 days without connections; snapshot availability on Free is contradicted by Atlas's own pages (§6), so treat `mongodump` as the only backup until verified.
 
 ## 5. Security posture (summary; details in PAYLOAD_POC.md and DEPENDENCY_AUDIT.md)
 Roles enforced server-side (not only in the UI); editors cannot publish, unpublish, restore, delete, change slugs/booking mapping, or manage users; drafts invisible to anonymous reads on every REST path tested (filters, sorts, versions, counts, search); no user/credential enumeration; GraphQL disabled; CSRF origin lock + CORS allow-list; `HttpOnly`/`Secure`/`SameSite=Lax` session cookie, 2 h sessions, lockout after 5 failures; admin/API responses noindex + `nosniff` + `X-Frame-Options: SAMEORIGIN`; uploads: images only, content-sniffed, ≤ 8 MB, alt text required, SVG rejected.
 Known gaps: no rate limiting on login beyond per-account lockout (Vercel Firewall rules are available on all plans — add one for `/api/users/login` before production); password reset e-mail needs a real provider; no MFA (Payload supports it via plugins — evaluate for admin accounts).
 
-## 6. Free tiers — what can be provisioned at no cost (figures from vendor docs, read 2026-10-23)
-| Resource | Free option | Limits that matter | Fit |
-| --- | --- | --- | --- |
-| MongoDB Atlas | Free (M0) | 0.5 GB storage, 500 connections, 100 ops/s, daily snapshot ×4 can be enabled, pauses after 30 days idle, no private networking/auditing, one free cluster per project | **Staging: yes.** Production: not recommended (no SLA/PITR/network isolation) — dedicated tier ≈ low tens of USD/month (verify) |
-| Vercel hosting | Hobby | **non-commercial personal use only** (commercial = anyone paid in the production of the site); 100 deployments/day; 300 s functions, 2 GB; 250 MB function size | Staging/QA: acceptable only if the project is not commercial work; the hotel production site needs **Pro** (~US$20/seat/month, verify) |
-| Vercel Blob | Hobby allowance | 1 GB storage, 10 k simple + 2 k advanced ops, 10 GB transfer per month; exceeding blocks Blob for 30 days (no overage charge) | Staging: yes. Production: Pro, usage-based |
-| Deployment Protection | Vercel Authentication, "All Deployments" scope | free on every plan; Password Protection is Pro (+$20/project/mo) | Staging gate: yes |
-| E-mail (Resend) | free tier | not verified here — check at signup; production needs domain verification (hotel) | contact form + password reset |
-| Observability | Vercel logs/Analytics free allowances | short retention | start here; add Sentry/Better Stack later |
+## 6. Exact cloud resources, costs and restrictions (vendor pages read 2026-10-23)
+### Resources that must exist for hosted staging (nothing else is required)
+| # | Resource | Why | Cost | Account that must own it |
+| - | --- | --- | --- | --- |
+| 1 | MongoDB Atlas project + **Free (M0)** cluster + one DB user | database | $0 | agency/dev account (staging); the hotel owns production later |
+| 2 | Vercel project `hotel-central-staging` (Production Branch = `staging`) | hosts site + CMS | $0 on Hobby *if non-commercial*, else Pro | same Vercel team as the demo |
+| 3 | Vercel Blob store connected to project 2 | media | $0 within Hobby allowance | Vercel |
+| 4 | Vercel Deployment Protection "All Deployments" + Vercel Authentication | keeps staging private | $0 (all plans) | Vercel |
+| – | *Not needed for staging:* custom domain, DNS, e-mail provider, analytics, any hotel account, Vercel Firewall rules (free but optional) | | | |
+
+### Limits and prices
+| Item | Figure | Source / confidence |
+| --- | --- | --- |
+| Atlas **Free (M0)** | 512 MB, 100 ops/s, 500 connections, pauses after 30 days idle, one per project, $0 | Atlas docs + pricing page ✔ |
+| Atlas Free **backups** | **conflicting vendor statements** (limits page: "can enable backups, daily snapshot, 4 kept"; pricing FAQ: "backup services are not available for the Free tier") → **assume none**; use `mongodump` (allowed on Free) | ⚠ unresolved, test when the cluster exists |
+| Atlas **Flex** (recommended for production start) | 5 GB, $8/month base (0–100 ops/s) up to a $30/month cap (400–500 ops/s); **backups on by default, daily snapshot, last 8 kept, downloadable/restorable; no PITR**, no private endpoints | pricing page ✔; backup details from Atlas docs via search, re-check when buying |
+| Atlas **Dedicated M10** | from $0.08/h ≈ **$56.94/month**, adds PITR/continuous backup options | pricing page ✔ |
+| Vercel **Hobby** | **non-commercial personal use only**; "commercial" = any deployment used for the financial gain of anyone involved in any part of its production, *including a paid consultant writing the code* | Fair Use Guidelines ✔ |
+| Vercel **Pro** | $20/month per seat, includes $20 usage credit; Password Protection add-on $20/month/project | pricing + deployment-protection docs ✔ |
+| Vercel Blob | Hobby: 1 GB storage, 10 k simple + 2 k advanced operations, 10 GB transfer per month; over the limit Blob is blocked for 30 days (no charge). Pro: $0.023/GB-month storage + usage | Blob pricing page ✔ |
+| Vercel Functions | 4.5 MB request/response body limit (hence Blob client uploads); 250 MB bundle (ours ≈ 51 MB); Hobby 300 s | limits page ✔ |
+| Deployment Protection | Vercel Authentication and "All Deployments" scope are free on every plan; Trusted IPs and Passport are Enterprise | docs ✔ |
+
+### Recommendation on commercial use
+The demo project already lives in a Vercel team; **whether that team is on Hobby or Pro is not visible from the API calls available here.** If the hotel engagement is paid, Vercel's own definition makes even the staging project commercial usage → put it on **Pro ($20/month, one seat)**. Atlas Free and Blob's Hobby allowance are not restricted this way. Estimated staging cost: **$0 (Hobby, non-commercial) or ≈ $20/month (Pro)**; estimated production: Pro $20 + Atlas Flex $8–30 + Blob usage (cents for a few hundred images) + e-mail provider (free tier; unverified).
 
 ## 7. Staging acceptance checklist (after provisioning)
 1. `/admin` login as admin; create an editor; log in as editor in another browser.
