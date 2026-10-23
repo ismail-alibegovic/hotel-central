@@ -18,10 +18,10 @@ if (!login?.token || (login.user as { role?: string }).role !== "admin") fail("a
 // 2. published content in both languages + the pending draft survived
 const en = await payload.find({ collection: "pages", where: { slug: { equals: "about" } }, locale: "en", overrideAccess: false });
 const bs = await payload.find({ collection: "pages", where: { slug: { equals: "about" } }, locale: "bs", overrideAccess: false });
-if (en.docs[0]?.heroEyebrow !== "EN live") fail("public EN content");
-if (bs.docs[0]?.heroEyebrow !== "BS uživo") fail("public BS content");
+if (en.docs[0]?.metaTitle !== "EN live") fail("public EN content");
+if (bs.docs[0]?.metaTitle !== "BS uživo") fail("public BS content");
 const draft = await payload.find({ collection: "pages", where: { slug: { equals: "about" } }, locale: "en", draft: true, overrideAccess: true });
-if (draft.docs[0]?.heroEyebrow !== "EN pending draft") fail("pending draft version");
+if (draft.docs[0]?.metaTitle !== "EN pending draft") fail("pending draft version");
 
 // 3. media record + file
 const media = await payload.find({ collection: "media", overrideAccess: true });
