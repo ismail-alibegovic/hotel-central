@@ -23,7 +23,7 @@ export const Rooms: CollectionConfig = {
   slug: "rooms",
   admin: { useAsTitle: "slug", defaultColumns: ["slug", "order", "visible", "_status", "updatedAt"], listSearchableFields: ["slug", "name"] },
   access: { read: publishedOrStaff, create: isStaff, update: staffUpdate, delete: isAdmin },
-  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
+  versions: { drafts: { localizeStatus: true, autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
   hooks: {
     beforeOperation: [requireEditorDraft],
     beforeChange: [blockEditorPublish],

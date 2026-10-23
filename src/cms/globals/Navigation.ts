@@ -20,7 +20,7 @@ export const Navigation: GlobalConfig = {
   // Not staffUpdate: for globals Payload evaluates update access against the stored document, which is "published", and
   // that would make the whole global read-only for editors. Editors are kept to drafts by the hooks below instead.
   access: { read: publishedOrStaff, update: isStaff },
-  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
+  versions: { drafts: { localizeStatus: true, autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
   hooks: {
     beforeOperation: [requireEditorDraftGlobal],
     beforeChange: [blockEditorPublishGlobal, lockStructure("items", ["path", "visible"], "the menu structure and destinations")],

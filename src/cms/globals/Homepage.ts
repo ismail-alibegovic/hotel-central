@@ -23,7 +23,7 @@ export const Homepage: GlobalConfig = {
   admin: { description: "Texts and photographs of the home page. Empty fields keep the current ones.", components: adminOnlyPublish },
   // Not staffUpdate (see Navigation): editors are held to drafts by the hooks.
   access: { read: publishedOrStaff, update: isStaff },
-  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
+  versions: { drafts: { localizeStatus: true, autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
   hooks: {
     beforeOperation: [requireEditorDraftGlobal],
     beforeChange: [blockEditorPublishGlobal],

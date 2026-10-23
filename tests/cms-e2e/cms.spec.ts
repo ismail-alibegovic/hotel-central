@@ -228,8 +228,13 @@ test("page blocks: edit copy per language, reorder, remove — everywhere else u
   const [daySpaPos, gymPos] = await order("/en/spa");
   expect(daySpaPos).toBeGreaterThan(-1);
   expect(daySpaPos).toBeLessThan(gymPos); // day spa now precedes the gym, in English
+  // Publishing is per language: Bosnian keeps showing the previously published order until Bosnian is published too.
+  const bsBefore = await order("/bs/spa");
+  expect(bsBefore[0]).toBeGreaterThan(bsBefore[1]);
+  const bsRows = await layoutOf(admin, spa.id, "bs");
+  expect((await publish(admin, spa.id, "bs", { layout: bsRows })).status()).toBe(200);
   const bsOrder = await order("/bs/spa");
-  expect(bsOrder[0]).toBeLessThan(bsOrder[1]); // and in Bosnian too: the layout is shared
+  expect(bsOrder[0]).toBeLessThan(bsOrder[1]); // now in Bosnian too: the layout is shared once both languages are published
 
   // 3. remove the gallery
   const without = (await layoutOf(admin, spa.id, "en")).filter((b) => b.blockType !== "gallery");

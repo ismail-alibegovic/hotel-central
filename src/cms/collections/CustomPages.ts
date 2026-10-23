@@ -25,7 +25,7 @@ export const CustomPages: CollectionConfig = {
     description: "Pages you add to the website. Each language has its own address, e.g. /en/offers and /bs/ponude.",
   },
   access: { read: publishedOrStaff, create: isAdmin, update: staffUpdate, delete: isAdmin },
-  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
+  versions: { drafts: { localizeStatus: true, autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
   hooks: {
     beforeOperation: [requireEditorDraft],
     beforeChange: [blockEditorPublish, refuseSamplePublish],

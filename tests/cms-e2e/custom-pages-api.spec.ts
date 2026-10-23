@@ -195,14 +195,19 @@ test("renaming an address: the old one stops working at once, the new one works"
   expect(await status(request, `/en/${EN}-2`)).toBe(404);
 });
 
-test("unpublishing removes the page in every language and from the sitemap; republishing restores it", async ({ request }) => {
+test("unpublishing is per language: it removes the page in that language and from its sitemap entries; republishing restores it", async ({ request }) => {
   expect((await patch(admin, "en", { _status: "draft" })).status()).toBe(200);
   expect(await status(request, `/en/${EN}`)).toBe(404);
-  expect(await status(request, `/bs/${BS}`)).toBe(404);
-  const map = await sitemap(request);
+  expect(await status(request, `/bs/${BS}`)).toBe(200); // Bosnian stays published until it is unpublished too
+  let map = await sitemap(request);
   expect(map).not.toContain(`/en/${EN}`);
+  expect(map).toContain(`/bs/${BS}`);
+  expect((await patch(admin, "bs", { _status: "draft" })).status()).toBe(200);
+  expect(await status(request, `/bs/${BS}`)).toBe(404);
+  map = await sitemap(request);
   expect(map).not.toContain(`/bs/${BS}`);
   expect((await patch(admin, "en", { _status: "published" })).status()).toBe(200);
+  expect((await patch(admin, "bs", { _status: "published" })).status()).toBe(200);
   expect(await status(request, `/en/${EN}`)).toBe(200);
   expect(await status(request, `/bs/${BS}`)).toBe(200);
 });

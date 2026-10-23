@@ -111,10 +111,14 @@ describe("roles and drafts", () => {
     expect((await read("en", false, true)).hero?.tagline).toBe(getDictionary("en").home.heroTagline);
   });
 
-  it("publishing is document-level: an administrator's publish also publishes the pending draft of the other language (the admin form shows it)", async () => {
+  it("publishing is per language: an administrator's Bosnian publish does not publish the editor's pending English draft", async () => {
     await payload.updateGlobal({ slug: "homepage", locale: "bs", overrideAccess: true, data: { hero: { tagline: "Objavljeno" }, _status: "published" } as never });
-    expect((await read("en", false, true)).hero?.tagline).toBe("Editor draft tagline"); // the editor's English draft went live with it
-    await payload.updateGlobal({ slug: "homepage", locale: "en", overrideAccess: true, data: { hero: { tagline: getDictionary("en").home.heroTagline }, _status: "published" } as never });
+    expect((await read("bs", false, true)).hero?.tagline).toBe("Objavljeno");
+    expect((await read("en", false, true)).hero?.tagline).toBe(getDictionary("en").home.heroTagline); // the English draft stays a draft
+    expect((await read("en", true)).hero?.tagline).toBe("Editor draft tagline");
+    await payload.updateGlobal({ slug: "homepage", locale: "en", overrideAccess: true, data: { hero: { tagline: "English published" }, _status: "published" } as never });
+    expect((await read("en", false, true)).hero?.tagline).toBe("English published");
+    expect((await read("bs", false, true)).hero?.tagline).toBe("Objavljeno");
   });
 
   it("alt text is required once a replacement photograph is chosen; focus point must be well-formed", async () => {

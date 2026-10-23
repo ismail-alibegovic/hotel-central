@@ -53,6 +53,7 @@ export default buildConfig({
   },
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
+  experimental: { localizeStatus: true },
   collections: [Users, Media, Pages, CustomPages, Rooms],
   globals: [Navigation, Footer, Homepage],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
