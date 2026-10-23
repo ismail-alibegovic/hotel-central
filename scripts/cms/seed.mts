@@ -54,4 +54,22 @@ for (const key of pageKeys) console.log(`pages/${key}: ${await seedPage(payload,
 for (const [i, room] of rooms.entries()) {
   await seed("rooms", room.slug, { roomTypeId: room.roomTypeId, sizeM2: room.sizeM2, order: i + 1, visible: true }, roomData(room.slug));
 }
+
+// Sample offers exist ONLY to show editors how the Offers section looks. They are created only on request
+// (SEED_SAMPLE_OFFERS=true), are flagged "sample" (the website then prints "Sample offer — not hotel-approved")
+// and contain no prices or conditions. Never enable this for production content.
+if (process.env.SEED_SAMPLE_OFFERS === "true") {
+  const samples = [
+    { order: 1, en: { title: "Sample: weekend in the Old Town", summary: "Placeholder text showing how an offer appears. Replace it with an offer the hotel has approved.", validity: "Sample — no real dates" }, bs: { title: "Primjer: vikend u Starom gradu", summary: "Tekst koji pokazuje kako izgleda ponuda. Zamijenite ga ponudom koju je hotel odobrio.", validity: "Primjer — nema stvarnih datuma" } },
+    { order: 2, en: { title: "Sample: spa and stay", summary: "Placeholder text showing how an offer appears. Replace it with an offer the hotel has approved.", validity: "Sample — no real dates" }, bs: { title: "Primjer: spa i boravak", summary: "Tekst koji pokazuje kako izgleda ponuda. Zamijenite ga ponudom koju je hotel odobrio.", validity: "Primjer — nema stvarnih datuma" } },
+  ];
+  const existing = await payload.count({ collection: "offers", where: { sample: { equals: true } } });
+  if (existing.totalDocs) console.log("offers: sample offers exist, left untouched");
+  else
+    for (const o of samples) {
+      const created = await payload.create({ collection: "offers", locale: "en", data: { ...o.en, order: o.order, visible: true, sample: true, _status: "published" } as never });
+      await payload.update({ collection: "offers", id: created.id, locale: "bs", data: { ...o.bs, _status: "published" } as never });
+      console.log(`offers: sample "${o.en.title}" created (en + bs, flagged sample)`);
+    }
+}
 process.exit(0);

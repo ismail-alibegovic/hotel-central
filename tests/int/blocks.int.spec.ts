@@ -107,4 +107,26 @@ describe("resolveLayout", () => {
     expect(resolveLayout(undefined, "en").blocks).toEqual([]);
     expect(resolveLayout([], "en").blocks).toEqual([]);
   });
+
+  it("FAQ, call-to-action and offers sections: usable ones render, empty ones are skipped", () => {
+    const { blocks, skipped } = resolveLayout(
+      layout(
+        { blockType: "faq", label: "Good to know", items: [{ question: " Check-in? ", answer: "From 14:00" }, { question: "", answer: "orphan" }, { question: "No answer", answer: " " }] },
+        { blockType: "faq", label: "Empty", items: [] },
+        { blockType: "faq", label: "", items: [{ question: "q", answer: "a" }] },
+        { blockType: "cta", title: "Plan\nyour stay", body: "Write to us", tone: "deep", primary: { label: "Contact", link: { kind: "internal", value: "/contact" } }, secondary: { label: "Bad", link: { kind: "external", value: "https://evil.example" } } },
+        { blockType: "cta", title: "" },
+        { blockType: "offers", label: "Offers", title: "Our\noffers", tone: "sage" },
+        { blockType: "offers", label: "" },
+      ),
+      "en",
+    );
+    expect(blocks.map((b) => b.type)).toEqual(["faq", "cta", "offers"]);
+    expect(blocks[0]).toMatchObject({ items: [{ q: "Check-in?", a: "From 14:00" }] }); // only complete question/answer pairs
+    expect(blocks[1]).toMatchObject({ title: ["Plan", "your stay"], tone: "deep" });
+    expect((blocks[1] as { primary?: unknown }).primary).toBeTruthy();
+    expect((blocks[1] as { secondary?: unknown }).secondary).toBeUndefined(); // unapproved link dropped, block kept
+    expect(blocks[2]).toMatchObject({ title: ["Our", "offers"], tone: "sage" });
+    expect(skipped).toHaveLength(4);
+  });
 });

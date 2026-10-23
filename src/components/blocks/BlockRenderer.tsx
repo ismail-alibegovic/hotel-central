@@ -7,7 +7,8 @@ import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/compon
 import { Photo } from "@/components/Photo";
 import { FadeIn, RevealLines } from "@/components/Reveal";
 import { Arrow, PillLink } from "@/components/ui";
-import type { Block, Cta, SplitBlock } from "@/cms/blocks/types";
+import type { Block, Cta, Offer, SplitBlock } from "@/cms/blocks/types";
+import { CtaSection, FaqSection, OffersSection } from "./Sections";
 import type { Dictionary } from "@/content/dictionary";
 import { booking, hotel, maps } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
@@ -125,7 +126,7 @@ function RoomList({ rooms, locale, dict }: { rooms: Room[]; locale: Locale; dict
  * Turns resolved blocks into the existing Hotel Central components. Markup is identical to what the
  * hand-written pages used to render; the HTML-parity and visual tests guard that.
  */
-export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]; locale: Locale; dict: Dictionary; rooms: Room[] }) {
+export function BlockRenderer({ blocks, locale, dict, rooms, offers = [] }: { blocks: Block[]; locale: Locale; dict: Dictionary; rooms: Room[]; offers?: Offer[] }) {
   return (
     <>
       {blocks.map((b, i) => {
@@ -253,6 +254,12 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
           }
           case "roomList":
             return <RoomList key={i} rooms={rooms} locale={locale} dict={dict} />;
+          case "faq":
+            return <FaqSection key={i} b={b} />;
+          case "cta":
+            return <CtaSection key={i} b={b} />;
+          case "offers":
+            return <OffersSection key={i} b={b} offers={offers} locale={locale} />;
         }
       })}
     </>

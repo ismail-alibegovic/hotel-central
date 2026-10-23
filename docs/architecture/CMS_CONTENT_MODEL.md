@@ -17,8 +17,17 @@ Bosnian and English are edited independently (`fallback: false`). Text fields ar
 ## Collections
 - **Rooms** (six): name, title lines, feature, size label, summary, description, highlights, amenities (per language); photographs; search-engine fields. Administrator-only: URL key, eZee room-type id (the site always uses the id from code), size, order, visibility.
 - **Pages** (about, rooms, spa, restaurant, meetings-events, location, contact): an ordered list of **sections** built from existing Hotel Central components — hero, statement, split (text + photographs), facts, gallery, room list, final booking and so on — plus search-engine fields. Editors can change copy, photographs, order and which sections appear; they cannot create layouts the design does not support.
+- **Offers**: title, summary, validity text, photograph and button per language; administrator-only order, visibility and a "demo / sample" flag. An offer with no title in the visitor's language is not shown in that language. Offers carry no prices or availability; the button must point to an approved destination.
 - **Media**: uploads (Vercel Blob in staging/production, local disk in development).
 - **Users**.
+
+## Sections editors can add to a page
+Besides the existing sections (hero, text + photographs, facts, statement, gallery, booking call-to-action, map, contact, room list) editors can add:
+- **Questions and answers (FAQ)** — native expandable list (keyboard and screen-reader friendly, no script) plus `FAQPage` structured data. Editor text can never close the script tag (`<` is escaped; covered by a test).
+- **Call-to-action banner** — heading, text, optional button and link, in any colour tone.
+- **Offers** — shows the published offers; renders nothing when there are none in the visitor's language. Sample offers print a visible "Sample offer — not hotel-approved" label.
+
+Publishing a language requires that language's required fields in every section, so a section added in English must be translated before Bosnian can be published again. (If Bosnian was published *before* the English section was added, Bosnian simply leaves the new section out until it is translated.)
 
 ## Links
 Editors never type raw HTML or URLs freely. A link is one of: internal page, approved external site (https, allow-list in `src/cms/links.ts`), phone, or email. Validation runs when saving and again when rendering, so a bad value that arrives any other way (API, import) never becomes a link. Adding an external host is a code change on purpose.
@@ -27,7 +36,7 @@ Editors never type raw HTML or URLs freely. A link is one of: internal page, app
 Every page and room has a title (≤ 70 characters) and description (≤ 200) per language, a "hide from search engines" switch, and (pages) a social-share photograph. Empty = built-in text. Hiding a page adds `noindex` in both languages and removes it from the sitemap; the sitemap is refreshed on publish. Only **published** settings count: an editor's unpublished draft never changes metadata or the sitemap. Canonical and alternate-language links are always generated. The whole site stays noindexed unless `NEXT_PUBLIC_SITE_URL` is set on a non-preview deployment (`src/lib/site.ts`).
 
 ## Migration
-`npm run cms:seed` creates the six rooms and the seven pages (both languages, published) from the built-in content. It is idempotent and never overwrites. Proof the migration is lossless: the seeded CMS content, merged back, equals the built-in content (`tests/int/rooms.int.spec.ts`, `tests/int/layouts.int.spec.ts`).
+`npm run cms:seed` creates the six rooms and the seven pages (both languages, published) from the built-in content. It is idempotent and never overwrites. Two clearly flagged sample offers are created **only** with `SEED_SAMPLE_OFFERS=true` (never for production content). Proof the migration is lossless: the seeded CMS content, merged back, equals the built-in content (`tests/int/rooms.int.spec.ts`, `tests/int/layouts.int.spec.ts`).
 
 ## How parity is guaranteed
 1. **HTML parity** — the CMS-on build and a CMS-off build of the same code are compared element by element on all 28 public pages (`tests/cms-e2e/html-parity.spec.ts`).
@@ -35,4 +44,4 @@ Every page and room has a title (≤ 70 characters) and description (≤ 200) pe
 3. **Old vs new** — the block refactor was compared with the previous hand-written pages (`scripts/audit/compare-html.mjs`): identical HTML.
 
 ## Not yet in the CMS
-Home-page copy, navigation, footer, offers/FAQ/CTA sections, and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.
+Home-page copy, navigation, footer, and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.
