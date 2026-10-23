@@ -17,6 +17,7 @@ jobs:
   quality:
     name: Lint, typecheck, build
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,6 +39,7 @@ jobs:
     name: Playwright smoke (mobile/tablet/desktop)
     needs: quality
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -64,6 +66,7 @@ jobs:
     name: Playwright visual regression
     needs: quality
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
