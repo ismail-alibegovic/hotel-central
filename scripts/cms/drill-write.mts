@@ -1,4 +1,5 @@
 /** Restore drill, step 1 (child process): write representative data into the SOURCE database. */
+import "./tsxEnvShim.mts";
 import { getPayload } from "payload";
 import configModule from "@payload-config";
 import { readFileSync } from "node:fs";

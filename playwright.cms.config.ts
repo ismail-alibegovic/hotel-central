@@ -12,7 +12,7 @@ import { defineConfig } from "@playwright/test";
  *   home-*    home page global: HTTP (text, photographs, drafts, roles, validation) and the browser
  *   custom-pages-* pages created in the CMS: HTTP (localized addresses, drafts, preview, revalidation, sitemap, roles) and the browser
  *   sections-* offers / FAQ / CTA sections: HTTP (sample guard, preview isolation, rendering, languages) and the browser (keyboard FAQ, labels, buttons)
- * E2E_PHASE=outage runs only the database-outage spec (the runner stops MongoDB first).
+ * E2E_PHASE=outage runs only the database-outage spec (the runner points the app at a closed database port first).
  */
 const outage = process.env.E2E_PHASE === "outage";
 const baseURL = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";

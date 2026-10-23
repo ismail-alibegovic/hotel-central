@@ -11,7 +11,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["tests/int/**/*.int.spec.ts"],
-    // Spins up an in-memory MongoDB and a full Payload instance; first run downloads the mongod binary.
+    // Creates a throw-away PostgreSQL database (HC_TEST_PG_URL) and boots a full Payload instance on it.
     testTimeout: 60_000,
     hookTimeout: 180_000,
     fileParallelism: false,

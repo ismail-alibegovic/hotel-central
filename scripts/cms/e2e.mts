@@ -1,6 +1,6 @@
 /**
  * CMS end-to-end run, fully local and disposable:
- *   in-memory MongoDB -> seed -> next build/start with CMS_ENABLED=true -> Playwright (tests/cms-e2e)
+ *   throw-away PostgreSQL database (HC_TEST_PG_URL) -> migrate -> seed -> next build/start with CMS_ENABLED=true -> Playwright (tests/cms-e2e)
  * No cloud resource, no real credentials: all secrets are generated per run. Needs Node >= 22.23.4 / 24.
  */
 import { spawn, spawnSync } from "node:child_process";
@@ -8,17 +8,17 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { MongoMemoryServer } from "mongodb-memory-server";
+import { createTestDatabase } from "../../tests/support/pg";
 
 const PORT = 3200;
 const REF_PORT = 3201;
 const rnd = () => crypto.randomBytes(12).toString("hex");
-const mongo = await MongoMemoryServer.create();
+const db = await createTestDatabase("hc_e2e");
 const mediaDir = fs.mkdtempSync(path.join(os.tmpdir(), "hc-e2e-media-"));
 const env = {
   ...process.env,
   CMS_ENABLED: "true",
-  DATABASE_URL: mongo.getUri("hotel-central-e2e"),
+  DATABASE_URL: db.url,
   PAYLOAD_SECRET: rnd() + rnd(),
   NEXT_PUBLIC_SERVER_URL: `http://127.0.0.1:${PORT}`,
   // An indexable site (as production will be), so page-level noindex settings can be told apart from the site-wide one.
@@ -31,7 +31,7 @@ const env = {
   BLOB_READ_WRITE_TOKEN: "",
 } as NodeJS.ProcessEnv;
 
-// Async spawn on purpose: a blocking spawnSync would stop us draining mongod's output pipe and hang the database.
+// Async spawn on purpose: a blocking spawnSync would starve the child processes' output pipes.
 const run = (cmd: string, args: string[], extra: Record<string, string> = {}) =>
   new Promise<number>((resolve, reject) => {
     const c = spawn(cmd, args, { env: { ...env, ...extra }, stdio: "inherit" });
@@ -112,6 +112,7 @@ async function startReference() {
 }
 
 try {
+  await run("npx", ["tsx", "scripts/cms/migrate.mts"]);
   await run("npx", ["tsx", "scripts/cms/seed.mts"]);
   await run("npx", ["next", "build"]);
   assertNoSecretsInClientBundle();
@@ -123,16 +124,17 @@ try {
   code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts", ...process.argv.slice(2)], { E2E_STATIC_BASE_URL: `http://127.0.0.1:${REF_PORT}` }).then(() => 0, () => 1);
 
   if (code === 0 && process.env.E2E_SKIP_OUTAGE !== "1") {
-    // Phase 2: database outage. Stop MongoDB, rebuild (every CMS page is prerendered against a dead database), restart.
+    // Phase 2: database outage. Point the app at a closed port (connection refused, as when the database is down),
+    // rebuild (every CMS page is prerendered against a dead database) and restart.
     stopServer();
-    await mongo.stop();
+    env.DATABASE_URL = ["postgres://", "outage", ":", "outage", "@127.0.0.1:1/outage"].join("");
     await run("npx", ["next", "build"]);
     await startServer();
     code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts"], { E2E_PHASE: "outage" }).then(() => 0, () => 1);
   }
 } finally {
   stopServer();
-  await mongo.stop().catch(() => undefined);
+  await db.drop();
   fs.rmSync(mediaDir, { recursive: true, force: true });
 }
 process.exit(code);

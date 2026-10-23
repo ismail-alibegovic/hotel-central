@@ -57,6 +57,8 @@ Scores are unweighted judgement calls, not measurements. A leads by 5 points; th
 | Maintenance | 14 commits, 0 stars, one author | upstream Payload team | prefer upstream |
 | Reuse value | localization config shape, form-builder/search/redirect plugin wiring, Vitest+Playwright layout | collections, blocks, preview, SEO, redirects, revalidation hooks | **Use the official template as a reference only; copy patterns file-by-file, keep MIT notices. Do not fork either as the base.** |
 
+> **Update (database moved to PostgreSQL / Supabase):** the owner chose Supabase PostgreSQL for the hosted demo. The CMS now runs on `@payloadcms/db-postgres` with committed migrations (`src/migrations`); the MongoDB analysis below is kept for history. See `docs/operations/CMS_STAGING.md`.
+
 ## 3. Database: MongoDB Atlas vs PostgreSQL
 
 | | MongoDB (Atlas) | PostgreSQL (Neon / Supabase / Vercel-marketplace) |

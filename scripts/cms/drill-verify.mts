@@ -1,4 +1,5 @@
 /** Restore drill, step 3 (child process): verify the RESTORED database + media directory. */
+import "./tsxEnvShim.mts";
 import { getPayload } from "payload";
 import configModule from "@payload-config";
 import { existsSync } from "node:fs";

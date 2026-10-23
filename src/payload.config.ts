@@ -1,11 +1,12 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { isStaffUser } from "./cms/access";
+import { poolSettings } from "./cms/db";
 import { Media } from "./cms/collections/Media";
 import { CustomPages } from "./cms/collections/CustomPages";
 import { Pages } from "./cms/collections/Pages";
@@ -65,12 +66,13 @@ export default buildConfig({
     fallback: false,
   },
   editor: lexicalEditor(),
-  // Short selection timeouts so an unreachable database fails fast and pages fall back to static content
-  // instead of hanging for the 30 s driver default.
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URL ?? "",
-    // maxPoolSize is small on purpose: every serverless instance keeps its own pool and Atlas M0 allows 500 connections in total.
-    connectOptions: { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000, socketTimeoutMS: 15000, maxPoolSize: 5, minPoolSize: 0 },
+  // Schema changes are applied by migrations (src/migrations, `npm run cms:migrate`), never by auto-push, so a
+  // deployment cannot alter the database on its own. Ids stay strings (uuid), as they were with the previous adapter.
+  db: postgresAdapter({
+    pool: poolSettings(process.env.DATABASE_URL),
+    idType: "uuid",
+    push: false,
+    migrationDir: path.resolve(dirname, "migrations"),
   }),
   secret,
   // Cookie-authenticated requests are only accepted from our own origin (CSRF protection).

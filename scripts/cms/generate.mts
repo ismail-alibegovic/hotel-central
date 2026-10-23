@@ -4,6 +4,7 @@
  * `arguments[0]` constructor check ("Illegal constructor"). Running through the tsx CLI works.
  * Usage: npm run cms:generate   (dummy DATABASE_URL/PAYLOAD_SECRET are fine, no DB connection is made)
  */
+import "./tsxEnvShim.mts";
 import fs from "node:fs";
 import path from "node:path";
 import configModule from "@payload-config";

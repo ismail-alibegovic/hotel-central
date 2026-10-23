@@ -6,6 +6,7 @@
  * Optional bootstrap admin (dev/staging only): SEED_ADMIN_EMAIL + SEED_ADMIN_PASSWORD from the
  * environment — nothing is hard-coded and no account is created without them.
  */
+import "./tsxEnvShim.mts";
 import { getPayload } from "payload";
 import configModule from "@payload-config";
 import { pageKeys } from "../../src/cms/blocks/types";
@@ -18,6 +19,8 @@ import { locales } from "../../src/lib/i18n";
 // tsx may wrap the default export (CJS interop); unwrap if so.
 const config = (configModule as unknown as { default?: typeof configModule }).default ?? configModule;
 const payload = await getPayload({ config });
+// Idempotent: applies only migrations that have not run yet (the schema is never changed by a deployment itself).
+await (payload.db as unknown as { migrate: () => Promise<void> }).migrate();
 
 if (process.env.SEED_ADMIN_EMAIL && process.env.SEED_ADMIN_PASSWORD) {
   const { totalDocs } = await payload.count({ collection: "users", where: { email: { equals: process.env.SEED_ADMIN_EMAIL } } });

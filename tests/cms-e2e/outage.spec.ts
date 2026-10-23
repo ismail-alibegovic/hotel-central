@@ -22,7 +22,7 @@ test("a build and server with an unreachable database still serve the static sit
 test("admin API reports an error instead of hanging or leaking details", async ({ request }) => {
   const res = await request.post("/api/users/login", { data: { email: "a@b.test", password: "x" }, timeout: 20_000 });
   expect(res.status()).toBeGreaterThanOrEqual(400);
-  expect(await res.text()).not.toMatch(/mongodb:\/\/|127\.0\.0\.1:\d{4,5}/);
+  expect(await res.text()).not.toMatch(/postgres(ql)?:\/\/|127\.0\.0\.1:\d{4,5}/);
 });
 
 test("pages created in the CMS answer a plain 404 (never a 500) and the sitemap still lists the built-in pages", async ({ request }) => {

@@ -5,6 +5,7 @@
  * Usage: DATABASE_URL=… PAYLOAD_SECRET=… [BLOB_READ_WRITE_TOKEN=…] tsx scripts/cms/backup-media.mts <outDir>
  * Download of Blob URLs is NOT TESTED against a real store (none exists yet); the local path is tested by the restore drill.
  */
+import "./tsxEnvShim.mts";
 import fs from "node:fs";
 import path from "node:path";
 import { getPayload } from "payload";

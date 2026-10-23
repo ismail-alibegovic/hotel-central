@@ -92,10 +92,25 @@ jobs:
           retention-days: 7
 
   cms:
-    name: CMS integration + end-to-end (disposable in-memory MongoDB)
+    name: CMS integration + end-to-end (disposable PostgreSQL)
     needs: quality
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci-only-${{ github.run_id }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      # Administrator URL of the throw-away service container above; tests create and drop their own databases.
+      HC_TEST_PG_URL: postgres://postgres:ci-only-${{ github.run_id }}@127.0.0.1:5432/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -109,10 +124,8 @@ jobs:
         run: npm run test:int
       - name: CMS end-to-end (parity vs static baselines, admin UI mobile+desktop, API, DB-outage build, secret/trace scans)
         run: npm run test:cms-e2e
-      - name: Backup + restore drill (mongodump/mongorestore into a fresh database)
-        run: |
-          TOOLS="$(scripts/cms/install-mongo-tools.sh "$RUNNER_TEMP/mongo-tools")"
-          PATH="$TOOLS:$PATH" npm run cms:restore-drill
+      - name: Backup + restore drill (pg_dump/pg_restore into a fresh database)
+        run: npm run cms:restore-drill
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 async function resolvedMedia(token?: string) {
   vi.resetModules();
   process.env.PAYLOAD_SECRET = "x";
-  process.env.DATABASE_URL = "mongodb://127.0.0.1/unused";
+  process.env.DATABASE_URL = "postgres://127.0.0.1/unused";
   if (token) process.env.BLOB_READ_WRITE_TOKEN = token;
   else delete process.env.BLOB_READ_WRITE_TOKEN;
   const { default: config } = await import("@payload-config");

@@ -33,7 +33,7 @@ All collections, globals and blocks are documented in `docs/architecture/CMS_CON
 - Known property (documented, tested): publishing is document-level — an administrator's publish also publishes the pending draft of the other language.
 
 ## Database outage
-`tests/cms-e2e/outage.spec.ts` stops MongoDB, **rebuilds and restarts** the app (every CMS page is prerendered against a dead database): built-in pages render their static content, pages created in the CMS answer a plain 404 (never 500), the sitemap still lists the built-in pages, the admin API reports an error without leaking connection details, all within a fail-fast budget (selection timeout 4 s, read timeout 5 s).
+`tests/cms-e2e/outage.spec.ts` points the app at an unreachable PostgreSQL port, **rebuilds and restarts** the app (every CMS page is prerendered against a dead database): built-in pages render their static content, pages created in the CMS answer a plain 404 (never 500), the sitemap still lists the built-in pages, the admin API reports an error without leaking connection details, all within a fail-fast budget (selection timeout 4 s, read timeout 5 s).
 
 ## Static fallback / CMS off
 - CMS off: `/admin` and `/api/*` (except `/api/contact`) are 404; unknown addresses are plain 404s.
