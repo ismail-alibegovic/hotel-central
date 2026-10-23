@@ -118,7 +118,7 @@ try {
   assertAdvisoryPackagesNotShipped();
   await startServer();
   await startReference();
-  code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts"], { E2E_STATIC_BASE_URL: `http://127.0.0.1:${REF_PORT}` }).then(() => 0, () => 1);
+  code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts", ...process.argv.slice(2)], { E2E_STATIC_BASE_URL: `http://127.0.0.1:${REF_PORT}` }).then(() => 0, () => 1);
 
   if (code === 0) {
     // Phase 2: database outage. Stop MongoDB, rebuild (every CMS page is prerendered against a dead database), restart.
