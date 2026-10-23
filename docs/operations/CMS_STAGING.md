@@ -93,3 +93,10 @@ The demo project already lives in a Vercel team; **whether that team is on Hobby
 7. Take an Atlas snapshot + `mongodump`; run the restore procedure into a scratch database; verify.
 8. Confirm `x-robots-tag: noindex` on `/`, `/admin`, `/api/*`; confirm staging URLs return the Vercel login wall when signed out.
 9. Rotate `PAYLOAD_SECRET` once to prove the procedure.
+
+## 8. Phase 2 additions to verify on staging
+10. `npm run cms:seed` now also creates the Navigation, Footer and Home page globals (idempotent). Confirm the three globals open in `/admin/globals/*` and the public site is unchanged right after seeding (HTML equals the CMS-off site).
+11. As **editor**: Navigation, Footer and Home page offer *Save Draft* and **no** Publish/Unpublish; menu structure and link fields are read-only. As **admin**: Publish is offered; publish a changed menu label in BS only and confirm EN is unchanged.
+12. Create a page under *New pages* with different EN/BS addresses; confirm 404 while draft, staff preview works, publish makes it public at once, the sitemap lists it with correct alternates, and the language switcher goes to the other language's address.
+13. Add an Offers/FAQ/CTA section with *DEMO / SAMPLE* ticked: label visible in preview, **publish refused** (staging only: `CMS_ALLOW_SAMPLE_PUBLISH` stays unset).
+14. Remember: publishing is document-level (an admin publish also publishes the other language's pending draft) until per-language publishing (draft PR #17) is adopted.
