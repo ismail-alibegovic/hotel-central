@@ -40,10 +40,15 @@ export type ContactBlock = {
   social: { label: string; body: string };
 };
 export type RoomListBlock = { type: "roomList" };
+export type FaqBlock = { type: "faq"; label: string; title?: string[]; items: { q: string; a: string }[] };
+export type CtaBlock = { type: "cta"; tone: Tone; label?: string; title: string[]; body?: string; primary?: Cta; secondary?: Cta };
+/** Shows the published offers (Offers collection, current language). Renders nothing when there are none. */
+export type OffersBlock = { type: "offers"; label: string; title?: string[]; tone: Tone };
+export type Offer = { id: string; title: string; summary?: string; validity?: string; image?: Img; cta?: Cta; sample: boolean };
 
-export type Block = HeroBlock | SplitBlock | FactsBlock | StatementBlock | GalleryBlock | FinalBookingBlock | ArrivalBlock | ContactBlock | RoomListBlock;
+export type Block = HeroBlock | SplitBlock | FactsBlock | StatementBlock | GalleryBlock | FinalBookingBlock | ArrivalBlock | ContactBlock | RoomListBlock | FaqBlock | CtaBlock | OffersBlock;
 export type BlockType = Block["type"];
-export const blockTypes: BlockType[] = ["hero", "split", "facts", "statement", "gallery", "finalBooking", "arrival", "contact", "roomList"];
+export const blockTypes: BlockType[] = ["hero", "split", "facts", "statement", "gallery", "finalBooking", "arrival", "contact", "roomList", "faq", "cta", "offers"];
 
 export type PageKey = "about" | "rooms" | "spa" | "restaurant" | "meetings-events" | "location" | "contact";
 export const pageKeys: PageKey[] = ["about", "rooms", "spa", "restaurant", "meetings-events", "location", "contact"];

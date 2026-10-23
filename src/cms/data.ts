@@ -1,13 +1,14 @@
 import "server-only";
 import { draftMode, headers } from "next/headers";
-import type { Page, Room } from "@/payload-types";
+import type { Offer, Page, Room } from "@/payload-types";
 import type { Locale } from "@/lib/i18n";
 import { isStaffUser } from "./access";
 import { cmsEnabled } from "./enabled";
 import { getPayloadClient } from "./payload";
 
-type Doc<C extends "pages" | "rooms"> = C extends "pages" ? Page : Room;
-export type CmsResult<C extends "pages" | "rooms"> = { doc: Doc<C> | null; draft: boolean };
+type Collection = "pages" | "rooms" | "offers";
+type Doc<C extends Collection> = C extends "pages" ? Page : C extends "rooms" ? Room : Offer;
+export type CmsResult<C extends Collection> = { doc: Doc<C> | null; draft: boolean };
 
 const CMS_TIMEOUT_MS = 5000;
 
@@ -30,7 +31,7 @@ async function readMode() {
   return { payload, draft: false, user: null };
 }
 
-async function readCmsDoc<C extends "pages" | "rooms">(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
+async function readCmsDoc<C extends Collection>(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
   const { payload, draft, user } = await readMode();
   const res = await payload.find({
     collection,
@@ -43,13 +44,13 @@ async function readCmsDoc<C extends "pages" | "rooms">(collection: C, slug: stri
     overrideAccess: false,
     ...(user ? { user } : {}),
   });
-  return { doc: (res.docs[0] as Doc<C> | undefined) ?? null, draft };
+  return { doc: (res.docs[0] as unknown as Doc<C> | undefined) ?? null, draft };
 }
 
-async function readCmsDocs<C extends "pages" | "rooms">(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
+async function readCmsDocs<C extends Collection>(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
   const { payload, draft, user } = await readMode();
   const res = await payload.find({ collection, locale, fallbackLocale: false, draft, limit: 100, depth: 1, overrideAccess: false, ...(user ? { user } : {}) });
-  return { docs: res.docs as Doc<C>[], draft };
+  return { docs: res.docs as unknown as Doc<C>[], draft };
 }
 
 /**
@@ -60,7 +61,7 @@ async function readCmsDocs<C extends "pages" | "rooms">(collection: C, locale: L
  * Draft privacy: unpublished content is only returned when Next Draft Mode is on AND the request
  * carries a valid staff session. Everyone else is limited to published documents by collection access.
  */
-export async function getCmsDoc<C extends "pages" | "rooms">(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
+export async function getCmsDoc<C extends Collection>(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
   if (!cmsEnabled()) return { doc: null, draft: false };
   try {
     return await withTimeout(readCmsDoc(collection, slug, locale));
@@ -71,7 +72,7 @@ export async function getCmsDoc<C extends "pages" | "rooms">(collection: C, slug
 }
 
 /** All documents of a collection for a locale (published only, unless a staff member is previewing). Empty on any failure. */
-export async function getCmsDocs<C extends "pages" | "rooms">(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
+export async function getCmsDocs<C extends Collection>(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
   if (!cmsEnabled()) return { docs: [], draft: false };
   try {
     return await withTimeout(readCmsDocs(collection, locale));

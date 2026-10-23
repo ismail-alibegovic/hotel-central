@@ -2,6 +2,8 @@ import "server-only";
 import { staticLayout } from "@/content/layouts";
 import type { PageKey, PageLayout } from "./blocks/types";
 import { getCmsDoc } from "./data";
+import { getOffers } from "./offers";
+import { getRooms } from "./rooms";
 import { resolveImage, resolveLayout } from "./resolve";
 import type { Locale } from "@/lib/i18n";
 
@@ -28,4 +30,17 @@ export async function getPageLayout(page: PageKey, locale: Locale): Promise<Page
     source: "cms",
     skipped,
   };
+}
+
+/**
+ * Everything a page needs to render: its layout plus, only when a section actually uses them, the rooms
+ * (room list, or a hero counting rooms) and the offers (Offers section). Pages without those sections
+ * make no extra reads.
+ */
+export async function getPageView(page: PageKey, locale: Locale) {
+  const layout = await getPageLayout(page, locale);
+  const needsRooms = layout.blocks.some((b) => b.type === "roomList" || (b.type === "hero" && b.meta?.some((m) => m.includes("{roomCount}"))));
+  const needsOffers = layout.blocks.some((b) => b.type === "offers");
+  const [rooms, offers] = await Promise.all([needsRooms ? getRooms(locale).then((r) => r.rooms) : [], needsOffers ? getOffers(locale) : []]);
+  return { ...layout, rooms, offers };
 }

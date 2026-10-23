@@ -72,6 +72,11 @@ function toRows(blocks: Block[], locale: Locale): Record<string, unknown>[] {
         };
       case "roomList":
         return { blockType: "roomList" };
+      case "faq":
+      case "cta":
+      case "offers":
+        // New sections only ever come from editors; the built-in pages do not contain them.
+        throw new Error(`"${b.type}" is not part of the built-in page layouts`);
     }
   });
 }

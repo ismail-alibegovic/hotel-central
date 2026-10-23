@@ -74,7 +74,7 @@ export const linkField = (name: string, label: string): GroupField => ({
   ],
 });
 
-const cta = (name: string, label: string): GroupField => ({
+export const ctaField = (name: string, label: string): GroupField => ({
   name,
   type: "group",
   label,
@@ -110,8 +110,8 @@ export const blocks: Block[] = [
       { name: "line", type: "select", options: lines, label: "Decorative line" },
       imageField("image1", { required: true, label: "Large photograph" }),
       imageField("image2", { label: "Small photograph (optional)" }),
-      cta("primary", "Main button (optional)"),
-      cta("secondary", "Text link next to the button (optional)"),
+      ctaField("primary", "Main button (optional)"),
+      ctaField("secondary", "Text link next to the button (optional)"),
       factRows("facts", ["Fact", "Facts (label / value list)"]),
       { name: "bulletsTitle", type: "text", localized: true, label: "Short list — heading" },
       textRows("bullets", ["Item", "Short list — items"]),
@@ -177,4 +177,47 @@ export const blocks: Block[] = [
   },
   // Shows every visible room in its CMS order; the rooms themselves are edited in the Rooms collection.
   { slug: "roomList", labels: { singular: "List of rooms", plural: "Lists of rooms" }, fields: [{ name: "note", type: "text", admin: { description: "Rooms are edited under “Rooms”. Nothing to fill in here.", readOnly: true } }] },
+  {
+    slug: "faq",
+    labels: { singular: "Questions and answers (FAQ)", plural: "FAQ sections" },
+    fields: [
+      { name: "label", type: "text", localized: true, required: true, admin: { description: "Small heading, e.g. “Good to know”." } },
+      { name: "title", type: "textarea", localized: true, admin: { description: "Optional large heading, one line per row." } },
+      {
+        name: "items",
+        type: "array",
+        localized: true,
+        minRows: 1,
+        maxRows: 20,
+        labels: { singular: "Question", plural: "Questions" },
+        fields: [
+          { name: "question", type: "text", required: true, maxLength: 200 },
+          { name: "answer", type: "textarea", required: true, maxLength: 1500 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cta",
+    labels: { singular: "Call-to-action banner", plural: "Call-to-action banners" },
+    fields: [
+      { name: "label", type: "text", localized: true },
+      titleField,
+      { name: "body", type: "textarea", localized: true },
+      { name: "tone", type: "select", defaultValue: "deep", options: tones },
+      ctaField("primary", "Button (optional)"),
+      ctaField("secondary", "Text link (optional)"),
+    ],
+  },
+  // Shows the offers edited under “Offers” (published, visible, translated into the visitor's language).
+  {
+    slug: "offers",
+    labels: { singular: "Offers", plural: "Offers sections" },
+    fields: [
+      { name: "label", type: "text", localized: true, required: true },
+      { name: "title", type: "textarea", localized: true, admin: { description: "Optional large heading, one line per row." } },
+      { name: "tone", type: "select", defaultValue: "ivory", options: tones },
+      { name: "note", type: "text", admin: { description: "The offers themselves are edited under “Offers”.", readOnly: true } },
+    ],
+  },
 ];

@@ -118,6 +118,25 @@ export function resolveLayout(layout: Page["layout"], locale: Locale): { blocks:
       case "roomList":
         blocks.push({ type: "roomList" });
         return;
+      case "faq": {
+        const label = text(raw.label);
+        const items = (raw.items ?? []).filter((x) => text(x.question) && text(x.answer)).map((x) => ({ q: x.question.trim(), a: x.answer.trim() }));
+        if (!label || !items.length) return skip("needs label and at least one question with an answer");
+        blocks.push({ type: "faq", label, title: lines(raw.title), items });
+        return;
+      }
+      case "cta": {
+        const title = lines(raw.title);
+        if (!title) return skip("needs a title");
+        blocks.push({ type: "cta", tone: tone(raw.tone), label: text(raw.label), title, body: text(raw.body), primary: cta(raw.primary, locale), secondary: cta(raw.secondary, locale) });
+        return;
+      }
+      case "offers": {
+        const label = text(raw.label);
+        if (!label) return skip("needs a label");
+        blocks.push({ type: "offers", label, title: lines(raw.title), tone: tone(raw.tone) });
+        return;
+      }
     }
   });
   return { blocks, skipped };

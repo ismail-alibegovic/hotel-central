@@ -8,6 +8,7 @@ import sharp from "sharp";
 import { isStaffUser } from "./cms/access";
 import { Media } from "./cms/collections/Media";
 import { Pages } from "./cms/collections/Pages";
+import { Offers } from "./cms/collections/Offers";
 import { Rooms } from "./cms/collections/Rooms";
 import { Users } from "./cms/collections/Users";
 
@@ -46,7 +47,7 @@ export default buildConfig({
   },
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
-  collections: [Users, Media, Pages, Rooms],
+  collections: [Users, Media, Pages, Rooms, Offers],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
   localization: {
     locales: [

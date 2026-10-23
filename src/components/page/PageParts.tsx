@@ -8,7 +8,7 @@ import { fitStyle } from "@/lib/fit";
 export type Img = { src: string; alt: string; position?: string };
 type Tone = "ivory" | "deep" | "olive" | "sage" | "ink";
 
-const tones: Record<Tone, string> = {
+export const tones: Record<Tone, string> = {
   ivory: "bg-ivory text-ink",
   deep: "bg-deep text-white",
   olive: "bg-olive text-white",

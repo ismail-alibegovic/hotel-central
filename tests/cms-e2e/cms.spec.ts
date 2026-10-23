@@ -330,6 +330,97 @@ test("seo: noindex, social photograph and room titles follow published settings 
   expect(await sitemap()).toContain("/en/rooms/junior-suite");
 });
 
+test("sections: FAQ, call-to-action and offers — per language, drafts private, hostile text inert", async ({ request }) => {
+  const loc = await pageDoc(admin, "location");
+  const stamp = `${Date.now()}`;
+  const offer = (en: object, extra: object = {}) => admin.post("/api/offers?locale=en", { data: { ...en, order: 1, visible: true, _status: "published", ...extra } });
+  const a = await (await offer({ title: `Weekend ${stamp}`, summary: "Two nights in the Old Town", validity: "Weekends", cta: { label: "See rooms", link: { kind: "internal", value: "/rooms" } } })).json();
+  const b = await (await offer({ title: `Sample ${stamp}`, summary: "Placeholder" }, { order: 2, sample: true })).json();
+  const hidden = await (await offer({ title: `Hidden ${stamp}` }, { order: 3, visible: false })).json();
+  const enOnly = await (await offer({ title: `EnglishOnly ${stamp}` }, { order: 4 })).json();
+  for (const d of [a, b, hidden, enOnly]) expect(d.doc?.id, JSON.stringify(d)).toBeTruthy();
+  // Bosnian text for the first two only
+  expect((await admin.patch(`/api/offers/${a.doc.id}?locale=bs`, { data: { title: `Vikend ${stamp}`, summary: "Dvije noći u Starom gradu", _status: "published" } })).status()).toBe(200);
+  expect((await admin.patch(`/api/offers/${b.doc.id}?locale=bs`, { data: { title: `Primjer ${stamp}`, _status: "published" } })).status()).toBe(200);
+
+  // sections added to the Location page
+  const trap = `</script><script>window.__pwned=1</script>`;
+  const rows = await layoutOf(admin, loc.id, "en");
+  rows.push(
+    { blockType: "faq", label: "Good to know", items: [{ question: `Check-in ${stamp}?`, answer: `From 14:00 ${trap}` }] },
+    { blockType: "cta", title: `Plan your stay ${stamp}`, body: "Write to us", tone: "deep", primary: { label: "Contact", link: { kind: "internal", value: "/contact" } } },
+    { blockType: "offers", label: "Offers", tone: "ivory" },
+  );
+  expect((await publish(admin, loc.id, "en", { layout: rows })).status()).toBe(200);
+
+  const en = await (await request.get("/en/location")).text();
+  expect(en).toContain(`Weekend ${stamp}`);
+  expect(en).toContain(`Sample ${stamp}`);
+  expect(en).toContain("Sample offer — not hotel-approved"); // only the flagged one is labelled
+  expect(en.split(">Sample offer — not hotel-approved</p>").length - 1).toBe(1); // counted as visible paragraphs (Next also embeds page data)
+  expect(en).toContain(`EnglishOnly ${stamp}`);
+  expect(en).not.toContain(`Hidden ${stamp}`);
+  expect(en).toMatch(new RegExp(`<details[^>]*>\\s*<summary[^>]*>[\\s\\S]*?Check-in ${stamp}\\?`));
+  expect(en).toContain(`Plan your stay ${stamp}`);
+  expect(en).toContain('href="/en/rooms"');
+  // structured data is valid JSON and cannot be closed early by editor text
+  const ld = /<script type="application\/ld\+json">(\{"@context":"https:\/\/schema.org","@type":"FAQPage"[\s\S]*?)<\/script>/.exec(en);
+  expect(ld, "FAQPage JSON-LD").toBeTruthy();
+  expect(JSON.parse(ld![1]).mainEntity[0].acceptedAnswer.text).toContain("</script>");
+  expect(en).not.toContain("<script>window.__pwned");
+
+  // Bosnian: sections are structure-shared but untranslated ones are left out, never shown in English
+  let bs = await (await request.get("/bs/location")).text();
+  expect(bs).not.toContain(`Check-in ${stamp}`);
+  expect(bs).not.toContain(`Plan your stay ${stamp}`);
+  expect(bs).not.toContain(`Weekend ${stamp}`); // the offers section itself is untranslated -> not shown
+  const bsRows = await layoutOf(admin, loc.id, "bs");
+  const faq = bsRows.find((r) => r.blockType === "faq");
+  const offers = bsRows.find((r) => r.blockType === "offers");
+  faq!.items = [{ question: `Prijava ${stamp}?`, answer: "Od 14:00" }];
+  offers!.label = "Ponude";
+  // publishing a language requires its required fields: an untranslated call-to-action title blocks the save
+  expect((await publish(admin, loc.id, "bs", { layout: bsRows })).status()).toBe(400);
+  bsRows.find((r) => r.blockType === "cta")!.title = `Planirajte boravak ${stamp}`;
+  faq!.label = "Dobro je znati";
+  for (const r of bsRows) if (r.blockType === "statement" && !r.text) r.text = "Samo na engleskom (prevedeno)"; // the English-only section from the previous test
+  const bsSave = await publish(admin, loc.id, "bs", { layout: bsRows });
+  expect(bsSave.status(), JSON.stringify(await bsSave.json()).slice(0, 600)).toBe(200);
+  bs = await (await request.get("/bs/location")).text();
+  expect(bs).toContain(`Prijava ${stamp}`);
+  expect(bs).toContain(`Vikend ${stamp}`);
+  expect(bs).toContain("Primjer ponude — nije odobreno od hotela");
+  expect(bs).not.toContain(`EnglishOnly ${stamp}`); // no Bosnian title -> not shown in Bosnian
+  expect(bs).toContain(`Planirajte boravak ${stamp}`);
+  expect(bs).not.toContain(`Weekend ${stamp}`); // and the English text never leaks into Bosnian
+  expect(bs).not.toContain(`Plan your stay ${stamp}`);
+
+  // editors: drafts only, and a draft is invisible to the public
+  const d = await editor.post("/api/offers?draft=true&locale=en", { data: { title: `EditorDraft ${stamp}` } });
+  expect(d.status()).toBe(201);
+  expect((await editor.post("/api/offers?locale=en", { data: { title: "x", _status: "published" } })).status()).toBe(403);
+  expect(await (await request.get("/en/location")).text()).not.toContain(`EditorDraft ${stamp}`);
+  expect((await editor.patch(`/api/offers/${a.doc.id}?draft=true&locale=en`, { data: { sample: true, order: 9, visible: false } })).status()).toBe(200); // privileged fields are dropped
+  expect(await (await request.get("/en/location")).text()).toContain(`Weekend ${stamp}`);
+  expect((await admin.get(`/api/offers/${a.doc.id}?draft=true&locale=en`).then((r) => r.json())).visible).toBe(true);
+
+  // links must be approved
+  for (const bad of [{ kind: "external", value: "https://evil.example/x" }, { kind: "external", value: "javascript:alert(1)" }])
+    expect((await admin.patch(`/api/offers/${a.doc.id}?locale=en`, { data: { cta: { label: "Go", link: bad }, _status: "published" } })).status()).toBe(400);
+
+  // unpublishing / hiding takes effect immediately
+  expect((await admin.patch(`/api/offers/${b.doc.id}?locale=en`, { data: { visible: false, _status: "published" } })).status()).toBe(200);
+  expect(await (await request.get("/en/location")).text()).not.toContain(`Sample ${stamp}`);
+
+  // clean up: remove the sections and the offers
+  for (const l of ["en", "bs"] as const) {
+    const keep = (await layoutOf(admin, loc.id, l)).filter((r) => !["faq", "cta", "offers"].includes(r.blockType));
+    expect((await publish(admin, loc.id, l, { layout: keep })).status()).toBe(200);
+  }
+  for (const id of [a.doc.id, b.doc.id, hidden.doc.id, enOnly.doc.id, (await d.json()).doc.id]) expect((await admin.delete(`/api/offers/${id}`)).status()).toBe(200);
+  expect(await (await request.get("/en/location")).text()).not.toContain("Weekend");
+});
+
 test("static fallback: deleting the CMS document restores the original page", async ({ request }) => {
   expect((await editor.delete(`/api/pages/${aboutId}`)).status()).toBe(403);
   expect((await admin.delete(`/api/pages/${aboutId}`)).status()).toBe(200);
