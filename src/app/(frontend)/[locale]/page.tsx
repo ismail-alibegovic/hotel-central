@@ -33,7 +33,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const { rooms } = await getRooms(locale);
   return (
     <>
-      {draft && <LivePreviewListener />}
       <Hero locale={locale} dict={dict} images={images} />
       <HotelExperience locale={locale} dict={dict} images={images} />
       <RoomCarousel locale={locale} dict={dict} rooms={rooms} />
@@ -42,6 +41,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <LocationSection locale={locale} dict={dict} images={images} />
       <EventsSection locale={locale} dict={dict} images={images} />
       <FinalBooking dict={dict} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
+      {/* Last on purpose: anything before the hero would shift its position in the React tree and change its generated ids. */}
+      {draft && <LivePreviewListener />}
     </>
   );
 }
