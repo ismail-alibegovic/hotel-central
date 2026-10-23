@@ -24,6 +24,7 @@ Browser ──► Vercel (one Next.js 16 app: public site + /admin + /api)
 | `NEXT_PUBLIC_SITE_URL` | **unset** | official URL | no | public | Unset keeps the site `noindex`. |
 | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD` | first run only | first run only | **yes** | server (script) | Remove after the first admin exists. Never reuse a personal password. |
 | `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` | optional | required for the contact form | **yes** | server only | Unchanged from the existing contact route. |
+| `ALLOW_FIRST_REGISTER` | unset | unset | no | server | Keeps Payload's public "register the first user" endpoint **closed** (default). On an empty database anyone reaching it would become administrator, so seed the admin (step 5) before the site is reachable by anyone untrusted. |
 | `MEDIA_DIR` | — | — | no | — | Local disk media for dev/tests only. |
 
 **Leak prevention (automated):** `tests/int/env.int.spec.ts` fails if any `NEXT_PUBLIC_*` name other than the two public URLs appears in `src/`, if a `'use client'` file reads a secret, if `.env.example` contains a value, or if credential-shaped strings are committed. `npm run test:cms-e2e` additionally scans the built client bundle (`.next/static`) for the run's actual secrets and DB host. Vercel: mark secrets **Sensitive** so they cannot be read back from the dashboard.
@@ -34,7 +35,7 @@ Browser ──► Vercel (one Next.js 16 app: public site + /admin + /api)
    - **Deployment Protection → All Deployments → Vercel Authentication** (available on every plan per Vercel docs; Password Protection is Pro-only). Only invited Vercel team members can open any URL, including `/admin`.
 3. 🔒 **Blob store:** Project → Storage → Create Blob store (public access; only public stores are supported by the adapter). Connect it to the staging project (injects `BLOB_READ_WRITE_TOKEN`).
 4. 🔒 Set env vars (§2) as *Sensitive* where marked, for Production + Preview of the staging project.
-5. Deploy the `staging` branch. Then seed once (from a trusted machine, not CI): `DATABASE_URL=… PAYLOAD_SECRET=… SEED_ADMIN_EMAIL=… SEED_ADMIN_PASSWORD=… npm run cms:seed` — idempotent, never overwrites existing documents. Remove the `SEED_*` variables.
+5. Deploy the `staging` branch (it is behind Vercel Authentication, and `first-register` is closed, so the empty database is not claimable). Then seed once (from a trusted machine, not CI): `DATABASE_URL=… PAYLOAD_SECRET=… SEED_ADMIN_EMAIL=… SEED_ADMIN_PASSWORD=… npm run cms:seed` — idempotent, never overwrites existing documents. Remove the `SEED_*` variables.
 6. Smoke on staging: `E2E_BASE_URL=<url> npm run test:e2e` needs a protection-bypass header (Vercel *Protection Bypass for Automation* secret) — or run manually per §7.
 7. Create editor accounts in `/admin` (as admin). Hotel staff need a Vercel invite to pass Vercel Authentication on staging; for a hotel-facing pilot use a production-style deployment with its own domain, where Payload login is the gate (and consider an IP allow-list or Pro Password Protection on top).
 

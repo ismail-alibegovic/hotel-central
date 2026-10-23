@@ -1,8 +1,20 @@
 import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isAdminUser, isStaffUser } from "../access";
 
+/**
+ * Payload lets ANYONE register the first account on an empty database, and that account becomes the
+ * administrator. That is a takeover window between "deployed" and "seeded", so the endpoint is closed
+ * unless ALLOW_FIRST_REGISTER=true. The first admin is created with `npm run cms:seed` (SEED_ADMIN_*).
+ */
+const closedFirstRegister = {
+  path: "/first-register",
+  method: "post" as const,
+  handler: () => Response.json({ errors: [{ message: "First-user registration is disabled. Seed the administrator with `npm run cms:seed`." }] }, { status: 403 }),
+};
+
 export const Users: CollectionConfig = {
   slug: "users",
+  endpoints: process.env.ALLOW_FIRST_REGISTER === "true" ? [] : [closedFirstRegister],
   admin: { useAsTitle: "email", defaultColumns: ["email", "name", "role"] },
   auth: {
     tokenExpiration: 60 * 60 * 2, // 2 h sessions
