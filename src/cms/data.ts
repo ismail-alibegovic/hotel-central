@@ -1,9 +1,10 @@
 import "server-only";
 import { draftMode, headers } from "next/headers";
-import type { Footer, Navigation, Page, Room } from "@/payload-types";
-import type { Locale } from "@/lib/i18n";
+import type { CustomPage, Footer, Navigation, Page, Room } from "@/payload-types";
+import { locales, type Locale } from "@/lib/i18n";
 import { isStaffUser } from "./access";
 import { cmsEnabled } from "./enabled";
+import { isValidSlug } from "./slugs";
 import { getPayloadClient } from "./payload";
 
 type Doc<C extends "pages" | "rooms"> = C extends "pages" ? Page : Room;
@@ -131,6 +132,53 @@ export async function getCmsGlobal<G extends "navigation" | "footer">(slug: G, l
     );
   } catch (err) {
     console.error("[cms] falling back to static content:", err instanceof Error ? err.message : err);
+    return null;
+  }
+}
+
+export type CustomPageRead = { doc: CustomPage; others: Partial<Record<Locale, CustomPage>>; draft: boolean };
+
+/**
+ * One page created in the CMS, by its address in `locale`, plus the same document in the other languages (for
+ * alternate-language links). Same privacy rules as every other read: published only for the public, drafts only for
+ * staff in Draft Mode. Null when the CMS is off, the address is malformed, nothing matches, or anything fails.
+ */
+export async function getCustomPageDoc(slug: string, locale: Locale): Promise<CustomPageRead | null> {
+  if (!cmsEnabled() || !isValidSlug(slug)) return null;
+  try {
+    return await withTimeout(
+      (async () => {
+        const { payload, draft, user } = await readMode();
+        const common = { fallbackLocale: false as const, draft, depth: 1, overrideAccess: false, ...(user ? { user } : {}) };
+        const res = await payload.find({ collection: "custom-pages", where: { slug: { equals: slug } }, locale, limit: 1, ...common });
+        const doc = res.docs[0] as CustomPage | undefined;
+        if (!doc) return null;
+        const others: Partial<Record<Locale, CustomPage>> = {};
+        for (const l of locales.filter((x) => x !== locale)) {
+          const other = await payload.findByID({ collection: "custom-pages", id: doc.id, locale: l, ...common }).catch(() => null);
+          if (other) others[l] = other as CustomPage;
+        }
+        return { doc, others, draft };
+      })(),
+    );
+  } catch (err) {
+    console.error("[cms] custom page unavailable:", err instanceof Error ? err.message : err);
+    return null;
+  }
+}
+
+/** Every published custom page in every language (published only, no request context): sitemap and static params. Null = CMS unavailable. */
+export async function getPublishedCustomPages(): Promise<Partial<Record<Locale, CustomPage[]>> | null> {
+  if (!cmsEnabled()) return null;
+  try {
+    const payload = await getPayloadClient();
+    const out: Partial<Record<Locale, CustomPage[]>> = {};
+    for (const locale of locales) {
+      const res = await withTimeout(payload.find({ collection: "custom-pages", locale, fallbackLocale: false, limit: 200, depth: 1, overrideAccess: false }));
+      out[locale] = res.docs as CustomPage[];
+    }
+    return out;
+  } catch {
     return null;
   }
 }
