@@ -39,7 +39,7 @@ jobs:
     name: Playwright smoke (mobile/tablet/desktop)
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,7 +47,8 @@ jobs:
           node-version: "^24.22.1"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (bounded and retried)
+        run: scripts/ci/install-playwright.sh
       - uses: actions/download-artifact@v4
         with:
           name: next-build
@@ -66,7 +67,7 @@ jobs:
     name: Playwright visual regression
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -74,7 +75,8 @@ jobs:
           node-version: "^24.22.1"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (bounded and retried)
+        run: scripts/ci/install-playwright.sh
       - uses: actions/download-artifact@v4
         with:
           name: next-build
@@ -93,7 +95,7 @@ jobs:
     name: CMS integration + end-to-end (disposable in-memory MongoDB)
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -101,7 +103,8 @@ jobs:
           node-version: "^24.22.1"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (bounded and retried)
+        run: scripts/ci/install-playwright.sh
       - name: Payload integration tests (Local API + REST handlers)
         run: npm run test:int
       - name: CMS end-to-end (parity vs static baselines, admin UI mobile+desktop, API, DB-outage build, secret/trace scans)
