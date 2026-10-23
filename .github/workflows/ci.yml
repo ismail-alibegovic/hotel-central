@@ -61,12 +61,9 @@ jobs:
           retention-days: 7
 
   visual:
-    name: Playwright visual baselines (informational)
+    name: Playwright visual regression
     needs: quality
     runs-on: ubuntu-latest
-    # Baselines were generated on a different Linux image; font rasterisation can differ.
-    # Reported but not blocking until baselines are regenerated from CI (see docs/TESTING.md).
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
