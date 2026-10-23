@@ -8,6 +8,16 @@ export function alternates(locale: Locale, path = "") {
   return { canonical: `/${locale}${path}`, languages: { ...languages, "x-default": `/en${path}` } };
 }
 
+/**
+ * Canonical + hreflang for a page whose address differs per language (pages created in the CMS). Only languages that
+ * really have the page are listed, so no alternate ever points at a 404.
+ */
+export function customAlternates(locale: Locale, paths: Partial<Record<Locale, string>>) {
+  const languages = Object.fromEntries(locales.filter((l) => paths[l]).map((l) => [l === "bs" ? "bs-BA" : "en", `/${l}${paths[l]}`]));
+  const fallback = paths.en ? `/en${paths.en}` : `/${locale}${paths[locale]}`;
+  return { canonical: `/${locale}${paths[locale]}`, languages: { ...languages, "x-default": fallback } };
+}
+
 export function pageMetadata(
   locale: Locale,
   path: string,
@@ -15,12 +25,13 @@ export function pageMetadata(
   description: string,
   image = "/images/3075.jpg",
   noindex = false,
+  alternatesOverride?: ReturnType<typeof alternates>,
 ): Metadata {
   return {
     title,
     description,
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
-    alternates: alternates(locale, path),
+    alternates: alternatesOverride ?? alternates(locale, path),
     openGraph: { title, description, url: `/${locale}${path}`, images: [{ url: image }] },
   };
 }

@@ -7,6 +7,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { isStaffUser } from "./cms/access";
 import { Media } from "./cms/collections/Media";
+import { CustomPages } from "./cms/collections/CustomPages";
 import { Pages } from "./cms/collections/Pages";
 import { Rooms } from "./cms/collections/Rooms";
 import { Users } from "./cms/collections/Users";
@@ -32,13 +33,14 @@ export default buildConfig({
     meta: { titleSuffix: " — Hotel Central CMS", robots: "noindex, nofollow" },
     livePreview: {
       url: ({ data, collectionConfig, locale }) => {
-        const slug = (data as { slug?: string })?.slug;
-        if (!slug) return `${serverURL}/en`;
+        const raw = (data as { slug?: string | Record<string, string> })?.slug;
+        const slug = typeof raw === "object" && raw ? raw[locale?.code ?? "en"] : raw;
+        if (!slug) return `${serverURL}/${locale?.code ?? "en"}`;
         const route = collectionConfig?.slug === "rooms" ? `/rooms/${slug}` : `/${slug}`;
         // Goes through the authenticated preview route, which enables Draft Mode for staff only.
         return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}${route}`)}`;
       },
-      collections: ["pages", "rooms"],
+      collections: ["pages", "custom-pages", "rooms"],
       breakpoints: [
         { label: "Mobile", name: "mobile", width: 390, height: 844 },
         { label: "Tablet", name: "tablet", width: 768, height: 1024 },
@@ -48,7 +50,7 @@ export default buildConfig({
   },
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
-  collections: [Users, Media, Pages, Rooms],
+  collections: [Users, Media, Pages, CustomPages, Rooms],
   globals: [Navigation, Footer],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
   localization: {

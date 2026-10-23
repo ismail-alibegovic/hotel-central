@@ -24,3 +24,13 @@ test("admin API reports an error instead of hanging or leaking details", async (
   expect(res.status()).toBeGreaterThanOrEqual(400);
   expect(await res.text()).not.toMatch(/mongodb:\/\/|127\.0\.0\.1:\d{4,5}/);
 });
+
+test("pages created in the CMS answer a plain 404 (never a 500) and the sitemap still lists the built-in pages", async ({ request }) => {
+  const started = Date.now();
+  for (const path of ["/en/summer-offers", "/bs/ponude"]) expect((await request.get(path, { timeout: 20_000 })).status(), path).toBe(404);
+  const sitemap = await request.get("/sitemap.xml", { timeout: 20_000 });
+  expect(sitemap.status()).toBe(200);
+  const text = await sitemap.text();
+  for (const p of ["/en/about", "/bs/rooms/junior-suite", "/en/contact"]) expect(text).toContain(p);
+  expect(Date.now() - started, "fails fast").toBeLessThan(40_000);
+});

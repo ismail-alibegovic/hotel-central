@@ -26,6 +26,10 @@ test("unknown route returns 404", async ({ request }) => {
   expect((await request.get("/en/rooms/does-not-exist")).status()).toBe(404);
 });
 
+test("unknown top-level addresses return 404 in both languages (pages created in the CMS do not exist while it is off)", async ({ request }) => {
+  for (const path of ["/en/does-not-exist", "/bs/does-not-exist", "/en/summer-offers", "/en/Bad_Slug"]) expect((await request.get(path)).status(), path).toBe(404);
+});
+
 test("root redirects to a locale", async ({ request }) => {
   const res = await request.get("/", { maxRedirects: 0 });
   expect([307, 308]).toContain(res.status());
