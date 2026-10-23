@@ -1,6 +1,6 @@
 # CMS Architecture Decision — Payload for Hotel Central
 
-Status: **PROPOSED — awaiting approval. Nothing implemented.** Date: 2026-10-23
+Status: **APPROVED 2026-10-23** (Option A; MongoDB Atlas M0 for dev/staging; Vercel Blob for staging media; admins publish, editors draft only) — subject to successful integration tests. Date: 2026-10-23
 Scope: Phase 1 decision input (`HOTEL_CENTRAL_CMS_IMPLEMENTATION_PLAN.md` §Phase 1). No CMS code, no database, no deployment, no paid resource was created for this document.
 
 Evidence legend: **[V]** verified in this session (command/source named) · **[S]** verified by a throwaway spike in a scratch copy · **[U]** unverified / from general knowledge — re-check before relying on it (mainly prices and plan limits).
@@ -39,7 +39,7 @@ Evidence legend: **[V]** verified in this session (command/source named) · **[S
 | Drafts & live preview | 5 | 3 | A: same origin, Next `draftMode()` with a signed token, `@payloadcms/live-preview-react` iframe works without CORS/cookie gymnastics. B: cross-origin preview cookies/CORS and a second set of secrets; workable but more moving parts. |
 | Cache invalidation after publish | 5 | 3 | A: `afterChange` hooks call `revalidateTag/Path` in-process. B: webhook from CMS → frontend revalidate route (needs shared secret, retries). |
 | Auth & admin roles | 4 | 4 | Identical Payload auth/access model. B isolates admin attack surface from the public site; A relies on route-level separation + Vercel protection on staging. |
-| Hosting complexity & cost | 5 | 3 | A: one Vercel project, one build. B: two projects/builds/env sets and two things to monitor (a second Vercel project on the same Pro seat should not double the plan cost [U]). |
+| Hosting complexity & cost | 5 | 3 | A: one Vercel project, one build. B: two projects/builds/env sets and two things to monitor . |
 | Operations / failure isolation | 3 | 4 | In A a CMS bug or heavy admin bundle shares the function runtime with the public site; B isolates them (public site could keep serving cached pages if CMS is down — A can too if pages stay static/ISR). |
 | Developer experience / types | 5 | 3 | A: generated Payload types used directly by components. B: type duplication or a shared package. |
 | Rollback | 4 | 5 | A: the Next 16 upgrade lands in its own PR and can be reverted independently before any CMS code; CMS code gated by a feature flag with static `src/content` fallback. B: frontend untouched; rollback = stop calling the API. |
@@ -97,9 +97,9 @@ Scores are unweighted judgement calls, not measurements. A leads by 5 points; th
 **Choose Option A — single application, Next 16, Payload 3.92 (pinned exactly, all `@payloadcms/*` identical), MongoDB Atlas for staging, official Website template as a pattern reference, Vercel Blob for media.**
 
 Small reviewable PRs (each green on `npm run check`, smoke, visual):
-1. **Merge PR #3 (security/noindex) and PR #2 (CI/tests)**; in #2 change CI Node to `24` (or `22.23.4+`).
+1. **Done:** PR #1 (audit), #3 (security/noindex) and #2 (CI/tests, Node `^24.22.1`, blocking visual regression) are merged.
 2. **`chore/next-16`**: Next 16.4.2 + React 19.2 only; flat ESLint config; fix the two hook-rule errors; `middleware.ts`→`proxy.ts`. Gate: smoke 96/96 and visual 33/33 with no baseline updates. This is the rollback boundary: nothing CMS-related exists yet.
-3. **`feat/payload-poc`** (Phase 1 proper): `(frontend)`/`(payload)` route groups, Payload config (bs/en, `users` with roles, `media` → Vercel Blob, `pages`, `rooms` with drafts), one room + one page read via Local API behind `CMS_ENABLED`, static fallback preserved, preview route, tests for: login, editor cannot publish/escalate (if publish is restricted to admins in the PoC), draft isolation, per-locale independence, preview token, redeploy persistence. **Stop expansion if the PoC fails** (plan rule).
+3. **`feat/payload-poc`** (Phase 1 proper): `(frontend)`/`(payload)` route groups, Payload config (bs/en, `users` with roles, `media` → Vercel Blob, `pages`, `rooms` with drafts), one room + one page read via Local API behind `CMS_ENABLED`, static fallback preserved, preview route, tests for: login, editor cannot publish/escalate (publish is admin-only), draft isolation, per-locale independence, preview token, redeploy persistence. **Stop expansion if the PoC fails** (plan rule).
 4. Then Phase 2 per plan.
 
 Triggers to switch to Option B: the Next 16 PR cannot get visual/smoke parity; Payload's function bundle exceeds Vercel limits for the combined app; or the hotel wants the CMS operated/hosted separately from the website. Reverting from A to B is cheap before launch because content access goes through one `getPage/getRoom` data layer and the content is re-seedable.
@@ -108,9 +108,9 @@ Triggers to switch to Option B: the Next 16 PR cannot get visual/smoke parity; P
 
 | # | Item | Owner |
 | --- | --- | --- |
-| 1 | Approve Option A, MongoDB Atlas for staging, Vercel Blob for staging media | you |
+| 1 | ~~Approve Option A, Atlas, Blob~~ **Approved**; | you |
 | 2 | Creating a **free** Atlas M0 cluster, a new Vercel staging project and a Blob store requires your accounts/consent (not done; nothing created) | you |
 | 3 | Production DB/backup budget, Vercel Pro plan, billing owner | hotel — BLOCKED: HOTEL ACCESS REQUIRED |
-| 4 | Whether editors may publish or only save drafts (affects the role matrix and the plan's "read-only user cannot publish" test) | you / hotel |
+| 4 | ~~Editor publish rights~~ **Resolved:** admins publish; editors create/edit drafts only and cannot publish, manage users or change privileged settings | decided |
 | 5 | Verify all **[U]** prices/limits on the vendors' current pricing pages | me, at provisioning |
 | 6 | Security-patch status of Next 15.4.x line (only relevant if B-with-downgrade is ever considered) | n/a unless needed |
