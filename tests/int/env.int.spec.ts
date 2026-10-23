@@ -33,7 +33,7 @@ describe("environment variable hygiene", () => {
   });
 
   it("no real-looking credentials are committed in the repository sources", () => {
-    const patterns = [/mongodb(\+srv)?:\/\/[^\s"'`$]*:[^\s"'`$@]+@/, /vercel_blob_rw_[A-Za-z0-9]+_(?!notarealtoken)[A-Za-z0-9]{10,}/, /re_[A-Za-z0-9]{20,}/];
+    const patterns = [/(mongodb(\+srv)?|postgres(ql)?):\/\/[^\s"'`$]*:[^\s"'`$@]+@/, /vercel_blob_rw_[A-Za-z0-9]+_(?!notarealtoken)[A-Za-z0-9]{10,}/, /re_[A-Za-z0-9]{20,}/];
     const files = [...sources, ...walk(path.join(root, "scripts")), ...walk(path.join(root, "tests")).filter((f) => /\.(ts|mts)$/.test(f)), path.join(root, ".env.example")];
     for (const f of files) {
       const text = fs.readFileSync(f, "utf8");

@@ -7,7 +7,7 @@ byte-for-byte the static site (no Payload code runs, `/admin` and the CMS API re
 ## What is in scope (and what is deliberately not)
 | Requirement | Implementation | Status |
 | --- | --- | --- |
-| Payload + MongoDB | `src/payload.config.ts`, `@payloadcms/db-mongodb` | DONE (tested on a disposable in-memory MongoDB) |
+| Payload + PostgreSQL | `src/payload.config.ts`, `@payloadcms/db-postgres` (was MongoDB until the Supabase move) | DONE (tested on disposable PostgreSQL databases) |
 | BS/EN localized content | `localization: en, bs`, `fallback: false` (missing translation stays empty, never silently English) | DONE |
 | Admin/editor access control | `src/cms/access.ts`, collections `Users`, `Pages`, `Rooms`, `Media` | DONE |
 | Drafts and publish | `versions.drafts` (+ autosave) on Pages and Rooms; **only admins publish** | DONE |
@@ -16,7 +16,7 @@ byte-for-byte the static site (no Payload code runs, `/admin` and the CMS API re
 | Rooms from CMS | **all six rooms** (Phase 2): copy (name, title lines, feature, size label, summary, description, highlights, amenities — per language), photographs (Media, replace the static set when present), plus admin-only order/visibility/size/booking id; list page, detail page, home carousel, sitemap all follow the CMS | DONE |
 | Static fallback | `getCmsDoc` returns `null` on disabled CMS / missing / unpublished / any error; blank fields fall back per field (`src/cms/overrides.ts`) | DONE |
 | Media prepared for Vercel Blob | `vercelBlobStorage` enabled only when `BLOB_READ_WRITE_TOKEN` is set; otherwise local `MEDIA_DIR` (dev/test) | PREPARED — **no Blob store exists; real upload NOT TESTED (needs authorization)** |
-| MongoDB Atlas M0 | connection by `DATABASE_URL` only | PREPARED — **no cluster exists (needs authorization)** |
+| Supabase PostgreSQL (Free) | connection by `DATABASE_URL` only | see `docs/operations/CMS_STAGING.md` |
 | Other rooms/pages, blocks, globals, redirects, SEO, seeding of all content | — | OUT OF SCOPE until the PoC is accepted (Phase 2) |
 
 ## Role model
@@ -42,7 +42,7 @@ With a pending draft on a live page, an editor's plain (non-draft) update arrive
 Needs Node `^22.23.4 || >=24.22.1` (Payload's engine range).
 ```bash
 npm ci
-npm run test:int       # 30 tests: Local API + the real REST handlers, in-memory MongoDB (downloads mongod once)
+npm run test:int       # 30 tests: Local API + the real REST handlers, throw-away PostgreSQL databases (`HC_TEST_PG_URL`, see docs/TESTING.md)
 npm run test:cms-e2e   # seeds, builds and starts the app with CMS_ENABLED=true, then 8 Playwright API/browser checks
 npm run cms:generate   # regenerate src/payload-types.ts and the admin import map after config changes
 npm run cms:seed       # idempotent: copies static about + junior-suite into the CMS; never overwrites existing docs

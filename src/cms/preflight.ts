@@ -28,13 +28,21 @@ export function preflight(env: Env, target: Target): Finding[] {
 
   // --- database
   const db = env.DATABASE_URL ?? "";
+  let dbUrl: URL | undefined;
+  try {
+    dbUrl = new URL(db);
+  } catch {
+    /* reported below */
+  }
   if (!has(db)) add("error", "DATABASE_URL", "missing");
-  else if (!/^mongodb(\+srv)?:\/\//.test(db)) add("error", "DATABASE_URL", "must start with mongodb:// or mongodb+srv://");
-  else if (/localhost|127\.0\.0\.1|0\.0\.0\.0/.test(db)) add("error", "DATABASE_URL", "points at localhost; a hosted environment needs a hosted database");
-  else if (!/^mongodb\+srv:\/\//.test(db)) add("warn", "DATABASE_URL", "not an SRV string; fine for self-hosted MongoDB, unusual for Atlas");
-  else if (!/@/.test(db) || /:\/\/[^:@/]+@/.test(db)) add("error", "DATABASE_URL", "must include a database user AND password");
-  else add("ok", "DATABASE_URL", "present, SRV, with credentials");
-  if (has(db) && !/mongodb(\+srv)?:\/\/[^/]+\/[^/?]+/.test(db)) add("warn", "DATABASE_URL", "no database name in the path; Payload would use the default `test` database");
+  else if (!dbUrl || !/^postgres(ql)?:$/.test(dbUrl.protocol)) add("error", "DATABASE_URL", "must be a PostgreSQL connection string starting with postgres:// or postgresql://");
+  else if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(dbUrl.hostname)) add("error", "DATABASE_URL", "points at localhost; a hosted environment needs a hosted database");
+  else if (!dbUrl.username || !dbUrl.password) add("error", "DATABASE_URL", "must include a database user AND password");
+  else if (/^db\.[a-z0-9]+\.supabase\.co$/.test(dbUrl.hostname)) add("error", "DATABASE_URL", "Supabase direct connections are IPv6-only and unreachable from Vercel; use the pooler string (…pooler.supabase.com) from Project → Connect");
+  else if (/\.pooler\.supabase\.com$/.test(dbUrl.hostname) && dbUrl.port === "6543") add("ok", "DATABASE_URL", "present, Supabase transaction pooler, with credentials");
+  else if (/\.pooler\.supabase\.com$/.test(dbUrl.hostname)) add("ok", "DATABASE_URL", "present, Supabase session pooler, with credentials");
+  else add("ok", "DATABASE_URL", "present, with credentials");
+  if (dbUrl && has(db) && (dbUrl.pathname === "" || dbUrl.pathname === "/")) add("warn", "DATABASE_URL", "no database name in the path; the default database will be used");
 
   // --- secret
   const secret = env.PAYLOAD_SECRET ?? "";

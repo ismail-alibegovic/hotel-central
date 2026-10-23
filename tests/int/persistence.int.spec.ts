@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { getPayload } from "payload";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { boot, PNG_1X1, rand, type Harness } from "./helpers";
+import { boot, closePayload, PNG_1X1, rand, type Harness } from "./helpers";
 
 /** Content and media written before a restart of the CMS process must be there afterwards. */
 let h: Harness;
@@ -23,7 +23,7 @@ describe("persistence across a CMS restart", () => {
     const media = await p1.create({ collection: "media", overrideAccess: true, locale: "en", data: { alt: "kept" }, file: { data: PNG_1X1, mimetype: "image/png", name: `keep-${rand()}.png`, size: PNG_1X1.length } });
 
     // "restart": tear the Payload instance down and build a fresh one against the same database + disk
-    await p1.db.destroy?.();
+    await closePayload(p1);
     const { default: config } = await import("@payload-config");
     const p2 = await getPayload({ config, key: "restarted-" + rand() });
     expect(p2).not.toBe(p1);
@@ -37,6 +37,6 @@ describe("persistence across a CMS restart", () => {
     const m = await p2.findByID({ collection: "media", id: media.id, overrideAccess: true });
     expect(m.alt).toBe("kept");
     expect(fs.readFileSync(path.join(h.mediaDir, m.filename as string)).equals(PNG_1X1)).toBe(true);
-    await p2.db.destroy?.();
+    await closePayload(p2);
   });
 });

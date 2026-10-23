@@ -21,6 +21,8 @@ type Existing = { id?: string | null; images?: { id?: string | null }[] | null; 
  * `existing` = the rows already stored (from the first language): block rows and the rows of the shared
  * gallery list must be addressed by id when adding the second language, otherwise Payload would replace
  * the rows and drop the first language's alt texts.
+ * Exception: the facts rows are a localized list (each language has its own rows, with their own ids), so their ids
+ * must NOT be carried over — PostgreSQL stores them as separate rows and a repeated id is a primary-key clash.
  */
 export function toCmsLayout(blocks: Block[], locale: Locale, existing?: Existing): Record<string, unknown>[] {
   return toRows(blocks, locale).map((row, n) => {
@@ -32,7 +34,7 @@ export function toCmsLayout(blocks: Block[], locale: Locale, existing?: Existing
       ...row,
       id: prev.id,
       ...(images ? { images: images.map((im, k) => ({ ...im, id: prev.images?.[k]?.id })) } : {}),
-      ...(items ? { items: items.map((it, k) => ({ ...it, id: prev.items?.[k]?.id })) } : {}),
+      ...(items && row.blockType !== "facts" ? { items: items.map((it, k) => ({ ...it, id: prev.items?.[k]?.id })) } : {}),
     };
   });
 }

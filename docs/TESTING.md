@@ -10,10 +10,10 @@ Requirements: Node 22, npm 10. Everything below runs from the repository root.
 | Build | `npm run build` | production build, 34 static pages (needs network for Google Fonts) |
 | Smoke | `npm run test:e2e` | every EN/BS page and all 6 room pages at 390 / 768 / 1440 px: HTTP 200, one `<h1>`, correct `<html lang>`, no horizontal overflow, no broken images, no console errors or failed sub-requests; 404, root redirect, robots/sitemap, contact-API validation |
 | Visual | `npm run test:visual` | above-the-fold screenshots of 11 pages × 3 widths against `tests/e2e/__screenshots__` (2 % pixel tolerance) |
-| Payload integration | `npm run test:int` | CMS access control, drafts, locales, media, REST authorization (in-memory MongoDB, no cloud) |
+| Payload integration | `npm run test:int` | CMS access control, drafts, locales, media, REST authorization (throw-away PostgreSQL databases on a local server, no cloud) |
 | CMS end-to-end | `npm run test:cms-e2e` (extra arguments go to Playwright) | production build with `CMS_ENABLED=true` + Playwright: **HTML parity** (all 28 public pages equal a CMS-off build of the same code), CMS-vs-static pixel parity, admin UI (mobile/desktop), roles and drafts, per-language editing, link safety, SEO and sitemap, HTTP security, DB-outage build, bundle scans (see docs/architecture/CMS_CONTENT_MODEL.md and PAYLOAD_POC.md) |
 | CMS visuals | `npm run test:cms-e2e -- --no-deps --project=visual-cms-mobile --project=visual-cms-tablet --project=visual-cms-desktop` | screenshots of CMS-only output in staff preview (offers/FAQ/CTA sections, a page created in the CMS, the home page with edited text and photograph) against `tests/cms-e2e/__screenshots__`; part of the normal `test:cms-e2e` run and of the CI `cms` job |
-| Restore drill | `PATH="$(scripts/cms/install-mongo-tools.sh):$PATH" npm run cms:restore-drill` | mongodump → restore → verify through Payload |
+| Restore drill | `npm run cms:restore-drill` | pg_dump → pg_restore into a fresh database → verify through Payload |
 | All static gates | `npm run check` | lint + typecheck + build |
 
 The e2e commands start `next start` on port 3100 themselves, so run `npm run build` first.
@@ -45,3 +45,15 @@ Every job that needs a browser installs it through `scripts/ci/install-playwrigh
 
 ## Environment
 `.env.example` lists variable names only. No variable is required to build or run the tests.
+
+## PostgreSQL for the CMS tests
+`test:int`, `test:cms-e2e` and `cms:restore-drill` need a PostgreSQL server they can create databases on (every run creates and drops its own uniquely named database; no data is shared and nothing hosted is touched):
+
+```bash
+export HC_TEST_PG_URL=postgres://<admin-user>[:<password>]@127.0.0.1:5432/postgres   # must be local
+npm run test:int
+npm run test:cms-e2e
+npm run cms:restore-drill        # also needs pg_dump / pg_restore (PostgreSQL client tools)
+```
+CI uses a `postgres:16` service container (see `.github/workflows/ci.yml`). The test harness applies the committed migrations (`src/migrations`) itself, so every test also exercises them.
+Schema changes: edit collections/globals, then `npm run cms:migrate -- create <name>` and commit the new files in `src/migrations`.
