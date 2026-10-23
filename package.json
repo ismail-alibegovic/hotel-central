@@ -11,13 +11,28 @@
     "test:e2e": "playwright test smoke",
     "test:visual": "playwright test visual",
     "test:visual:update": "playwright test visual --update-snapshots",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run build",
+    "cms:seed": "tsx scripts/cms/seed.mts",
+    "test:int": "vitest run",
+    "cms:generate": "DATABASE_URL=${DATABASE_URL:-mongodb://127.0.0.1/unused} PAYLOAD_SECRET=${PAYLOAD_SECRET:-unused} tsx scripts/cms/generate.mts",
+    "test:cms-e2e": "tsx scripts/cms/e2e.mts",
+    "cms:restore-drill": "tsx scripts/cms/restore-drill.mts",
+    "cms:backup-media": "tsx scripts/cms/backup-media.mts"
   },
   "dependencies": {
+    "@payloadcms/db-mongodb": "3.92.0",
+    "@payloadcms/live-preview-react": "3.92.0",
+    "@payloadcms/next": "3.92.0",
+    "@payloadcms/richtext-lexical": "3.92.0",
+    "@payloadcms/storage-vercel-blob": "3.92.0",
+    "@payloadcms/ui": "3.92.0",
+    "graphql": "16.14.2",
     "motion": "^14.2.0",
     "next": "16.4.2",
+    "payload": "3.92.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -28,7 +43,15 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "mongodb-memory-server": "^11.3.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "monaco-editor": {
+      "dompurify": "^3.4.17"
+    }
   }
 }

@@ -4,6 +4,9 @@ import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/compon
 import { PillLink } from "@/components/ui";
 import { getDictionary } from "@/content/dictionary";
 import { getPages } from "@/content/pages";
+import { LivePreviewListener } from "@/cms/LivePreviewListener";
+import { getCmsDoc } from "@/cms/data";
+import { aboutWithCms } from "@/cms/overrides";
 import { href, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
@@ -11,16 +14,19 @@ type P = { params: Promise<{ locale: Locale }> };
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale } = await params;
-  const m = getPages(locale).about.meta;
+  const { doc } = await getCmsDoc("pages", "about", locale);
+  const m = aboutWithCms(getPages(locale).about, doc).meta;
   return pageMetadata(locale, "/about", m.title, m.description, "/images/3064.jpg");
 }
 
 export default async function About({ params }: P) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const a = getPages(locale).about;
+  const { doc, draft } = await getCmsDoc("pages", "about", locale);
+  const a = aboutWithCms(getPages(locale).about, doc);
   return (
     <>
+      {draft && <LivePreviewListener />}
       <PageHero
         image={{ src: "/images/3064.jpg", alt: "Hotel Central's façade and corner tower on Ćumurija street", position: "55% 35%" }}
         eyebrow={a.hero.eyebrow}

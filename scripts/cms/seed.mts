@@ -1,0 +1,50 @@
+/**
+ * Idempotent seed: copies the existing static content for ONE page (about) and ONE room (junior-suite)
+ * into the CMS, in both locales. A document that already exists is never touched, so repeated runs
+ * cannot overwrite editor changes. Run: npm run cms:seed   (needs DATABASE_URL + PAYLOAD_SECRET)
+ *
+ * Optional bootstrap admin (dev/staging only): SEED_ADMIN_EMAIL + SEED_ADMIN_PASSWORD from the
+ * environment — nothing is hard-coded and no account is created without them.
+ */
+import { getPayload } from "payload";
+import configModule from "@payload-config";
+import { getPages } from "../../src/content/pages";
+import { getRoom } from "../../src/content/rooms";
+import { locales } from "../../src/lib/i18n";
+
+// tsx may wrap the default export (CJS interop); unwrap if so.
+const config = (configModule as unknown as { default?: typeof configModule }).default ?? configModule;
+const payload = await getPayload({ config });
+
+if (process.env.SEED_ADMIN_EMAIL && process.env.SEED_ADMIN_PASSWORD) {
+  const { totalDocs } = await payload.count({ collection: "users", where: { email: { equals: process.env.SEED_ADMIN_EMAIL } } });
+  if (!totalDocs) {
+    await payload.create({ collection: "users", data: { email: process.env.SEED_ADMIN_EMAIL, password: process.env.SEED_ADMIN_PASSWORD, role: "admin", name: "Seed admin" } });
+    console.log("created admin from SEED_ADMIN_EMAIL");
+  }
+}
+
+const pageData = (l: (typeof locales)[number]) => {
+  const a = getPages(l).about;
+  return { metaTitle: a.meta.title, metaDescription: a.meta.description, heroEyebrow: a.hero.eyebrow, heroTitle: a.hero.title.join("\n"), heroIntro: a.hero.intro };
+};
+
+const room = getRoom("junior-suite")!;
+const roomData = (l: (typeof locales)[number]) => ({
+  name: room.name[l],
+  feature: room.feature[l],
+  summary: room.summary[l],
+  description: room.description[l].map((text) => ({ text })),
+});
+
+async function seed<C extends "pages" | "rooms">(collection: C, slug: string, base: Record<string, unknown>, data: (l: (typeof locales)[number]) => Record<string, unknown>) {
+  const existing = await payload.find({ collection, where: { slug: { equals: slug } }, limit: 1, draft: true, depth: 0 });
+  if (existing.totalDocs) return console.log(`${collection}/${slug}: exists, left untouched`);
+  const created = await payload.create({ collection, locale: "en", data: { slug, ...base, ...data("en"), _status: "published" } as never });
+  await payload.update({ collection, id: created.id, locale: "bs", data: data("bs") as never });
+  console.log(`${collection}/${slug}: created (en + bs, published)`);
+}
+
+await seed("pages", "about", {}, pageData);
+await seed("rooms", "junior-suite", { roomTypeId: room.roomTypeId }, roomData);
+process.exit(0);

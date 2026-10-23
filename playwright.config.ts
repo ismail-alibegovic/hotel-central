@@ -21,7 +21,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
-  snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{testFilePath}/{arg}{ext}",
+  // E2E_BASELINES_DIR lets a developer compare against locally generated baselines (the committed ones are CI-rendered).
+  snapshotPathTemplate: process.env.E2E_BASELINES_DIR ? `${process.env.E2E_BASELINES_DIR}/{projectName}/{testFilePath}/{arg}{ext}` : "{testDir}/__screenshots__/{projectName}/{testFilePath}/{arg}{ext}",
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.02, animations: "disabled" } },
   use: {
     baseURL,

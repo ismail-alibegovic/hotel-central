@@ -1,0 +1,48 @@
+import { defineConfig } from "@playwright/test";
+
+/**
+ * Runs against the server started by scripts/cms/e2e.mts (CMS enabled, disposable database).
+ * Order matters because the tests share one database:
+ *   parity-*  CMS-rendered About / Junior Suite must be pixel-identical to the static baselines (read-only)
+ *   admin-*   browser-driven administration on mobile and desktop (edits the content)
+ *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
+ * E2E_PHASE=outage runs only the database-outage spec (the runner stops MongoDB first).
+ */
+const outage = process.env.E2E_PHASE === "outage";
+const baseURL = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
+const executablePath = process.env.PW_CHROMIUM_PATH || undefined;
+const sizes = { mobile: { width: 390, height: 844 }, tablet: { width: 768, height: 1024 }, desktop: { width: 1440, height: 900 } };
+
+// CMS-rendered pages are compared with the STATIC baselines on purpose: same files, same tolerance.
+const staticBaselines = process.env.E2E_BASELINES_DIR ? `${process.env.E2E_BASELINES_DIR}/{projectName}/visual.spec.ts/{arg}{ext}` : "{testDir}/../e2e/__screenshots__/{projectName}/visual.spec.ts/{arg}{ext}";
+
+export default defineConfig({
+  testDir: "./tests/cms-e2e",
+  fullyParallel: false,
+  workers: 1,
+  retries: 0,
+  reporter: "list",
+  snapshotPathTemplate: staticBaselines,
+  expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.02, animations: "disabled" } },
+  use: {
+    baseURL,
+    contextOptions: { reducedMotion: "reduce" },
+    colorScheme: "light",
+    locale: "en-GB",
+    timezoneId: "Europe/Sarajevo",
+    launchOptions: { executablePath },
+  },
+  projects: outage
+    ? [{ name: "api", testMatch: /outage\.spec\.ts/ }]
+    : [
+        // project names double as baseline folders for the parity specs, hence mobile/tablet/desktop
+        ...Object.entries(sizes).map(([name, viewport]) => ({ name, use: { viewport }, testMatch: /parity\.spec\.ts/ })),
+        ...(["mobile", "desktop"] as const).map((n) => ({
+          name: `admin-${n}`,
+          use: { viewport: sizes[n] },
+          testMatch: /admin-ui\.spec\.ts/,
+          dependencies: ["mobile", "tablet", "desktop"],
+        })),
+        { name: "api", testMatch: /cms\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] },
+      ],
+});

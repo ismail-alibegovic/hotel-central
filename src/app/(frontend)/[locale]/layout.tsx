@@ -10,7 +10,7 @@ import { hotel } from "@/content/hotel";
 import { isLocale, locales } from "@/lib/i18n";
 import { hotelJsonLd } from "@/lib/seo";
 import { indexable } from "@/lib/site";
-import "../globals.css";
+import "../../globals.css";
 
 const gilda = Gilda_Display({ subsets: ["latin", "latin-ext"], weight: "400", variable: "--font-gilda", display: "swap" });
 const inter = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter", display: "swap" });

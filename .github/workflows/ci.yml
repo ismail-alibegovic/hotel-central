@@ -88,3 +88,31 @@ jobs:
             playwright-report
             test-results
           retention-days: 7
+
+  cms:
+    name: CMS integration + end-to-end (disposable in-memory MongoDB)
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "^24.22.1"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Payload integration tests (Local API + REST handlers)
+        run: npm run test:int
+      - name: CMS end-to-end (parity vs static baselines, admin UI mobile+desktop, API, DB-outage build, secret/trace scans)
+        run: npm run test:cms-e2e
+      - name: Backup + restore drill (mongodump/mongorestore into a fresh database)
+        run: |
+          TOOLS="$(scripts/cms/install-mongo-tools.sh "$RUNNER_TEMP/mongo-tools")"
+          PATH="$TOOLS:$PATH" npm run cms:restore-drill
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cms-test-results
+          path: test-results
+          retention-days: 7
