@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { LivePreviewListener } from "@/cms/LivePreviewListener";
+import { getHome } from "@/cms/home";
+import { getRooms } from "@/cms/rooms";
 import { EventsSection } from "@/components/home/EventsSection";
 import { FinalBooking } from "@/components/home/FinalBooking";
 import { Hero } from "@/components/home/Hero";
@@ -8,30 +11,37 @@ import { RestaurantShowcase } from "@/components/home/RestaurantShowcase";
 import { RoomCarousel } from "@/components/home/RoomCarousel";
 import { SpaShowcase } from "@/components/home/SpaShowcase";
 import { getDictionary } from "@/content/dictionary";
-import { getRooms } from "@/cms/rooms";
 import type { Locale } from "@/lib/i18n";
 import { alternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const dict = getDictionary(locale);
-  return { title: { absolute: dict.meta.title }, description: dict.meta.description, alternates: alternates(locale) };
+  const { meta, draft } = await getHome(locale, getDictionary(locale));
+  return {
+    title: { absolute: meta.title },
+    description: meta.description,
+    alternates: alternates(locale),
+    ...(meta.ogImage ? { openGraph: { title: meta.title, description: meta.description, url: `/${locale}`, images: [{ url: meta.ogImage }] } } : {}),
+    // A draft preview is for staff only and is never indexable.
+    ...(draft ? { robots: { index: false, follow: false } } : {}),
+  };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const dict = getDictionary(locale);
+  const { dict, images, draft } = await getHome(locale, getDictionary(locale));
   const { rooms } = await getRooms(locale);
   return (
     <>
-      <Hero locale={locale} dict={dict} />
-      <HotelExperience locale={locale} dict={dict} />
+      {draft && <LivePreviewListener />}
+      <Hero locale={locale} dict={dict} images={images} />
+      <HotelExperience locale={locale} dict={dict} images={images} />
       <RoomCarousel locale={locale} dict={dict} rooms={rooms} />
-      <SpaShowcase locale={locale} dict={dict} />
-      <RestaurantShowcase locale={locale} dict={dict} />
-      <LocationSection locale={locale} dict={dict} />
-      <EventsSection locale={locale} dict={dict} />
-      <FinalBooking dict={dict} />
+      <SpaShowcase locale={locale} dict={dict} images={images} />
+      <RestaurantShowcase locale={locale} dict={dict} images={images} />
+      <LocationSection locale={locale} dict={dict} images={images} />
+      <EventsSection locale={locale} dict={dict} images={images} />
+      <FinalBooking dict={dict} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
     </>
   );
 }

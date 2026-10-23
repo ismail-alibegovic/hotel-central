@@ -4,6 +4,7 @@ import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
+import { img, type HomeImages } from "./homeImages";
 
 /*
  * Rects in % of the composition, measured from the reference artboard (1025×640).
@@ -25,8 +26,11 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
   );
 }
 
-export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function HotelExperience({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.hotel;
+  const left = img(images?.hotelLeft, { src: "/images/final-6230.jpg", alt: "Relaxation lounge of the Club & Spa with a forest mural", position: "38% 50%" });
+  const center = img(images?.hotelCenter, { src: "/images/3064.jpg", alt: "The white façade and corner tower of Hotel Central in Sarajevo's old town", position: "56% 30%" });
+  const right = img(images?.hotelRight, { src: "/images/dorucak5.jpg", alt: "Restaurant Central breakfast buffet", position: "50% 50%" });
   return (
     <section aria-labelledby="hotel-title" className="relative overflow-hidden bg-ivory pt-[30px] text-ink md:pt-0">
       <h2 id="hotel-title" className="sr-only">
@@ -45,10 +49,10 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
 
         <div className={`rect z-[2] ${R.left}`}>
           <Photo
-            src="/images/final-6230.jpg"
-            alt="Relaxation lounge of the Club & Spa with a forest mural"
+            src={left.src}
+            alt={left.alt}
             sizes="(min-width: 1024px) 22vw, 34vw"
-            position="38% 50%"
+            position={left.position}
             className="h-full w-full"
             reveal="up"
             parallax={4}
@@ -56,10 +60,10 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
         </div>
         <div className={`rect z-[2] ${R.center}`}>
           <Photo
-            src="/images/3064.jpg"
-            alt="The white façade and corner tower of Hotel Central in Sarajevo's old town"
+            src={center.src}
+            alt={center.alt}
             sizes="(min-width: 1024px) 32vw, 74vw"
-            position="56% 30%"
+            position={center.position}
             className="h-full w-full"
             grade="grade-dark"
             veil={0.32}
@@ -69,10 +73,10 @@ export function HotelExperience({ locale, dict }: { locale: Locale; dict: Dictio
         </div>
         <div className={`rect z-[2] ${R.right}`}>
           <Photo
-            src="/images/dorucak5.jpg"
-            alt="Restaurant Central breakfast buffet"
+            src={right.src}
+            alt={right.alt}
             sizes="(min-width: 1024px) 22vw, 34vw"
-            position="50% 50%"
+            position={right.position}
             className="h-full w-full"
             reveal="up"
             parallax={4}

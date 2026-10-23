@@ -7,9 +7,11 @@ import { useRef } from "react";
 import type { Dictionary } from "@/content/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { BookingBar } from "../booking/BookingBar";
+import { img, type HomeImages } from "./homeImages";
 import { FadeIn, RevealLines } from "../Reveal";
 
-export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
+  const photo = img(images?.hero, { src: "/images/3075.jpg", alt: "Hotel Central's corner tower and façade on Ćumurija street, lit at night" });
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -31,12 +33,13 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           transition={reduce ? { duration: 0 } : { duration: 2.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <Image
-            src="/images/3075.jpg"
-            alt="Hotel Central's corner tower and façade on Ćumurija street, lit at night"
+            src={photo.src}
+            alt={photo.alt}
             fill
             priority
             sizes="100vw"
             className="object-cover object-[50%_42%] [filter:saturate(0.22)_contrast(1.12)_brightness(0.62)_sepia(0.32)_hue-rotate(28deg)]"
+            style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
         {/* Restrained veil: darker crown for the navigation, darker floor for the caption */}
@@ -57,7 +60,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               immediate
               delay={0.55}
               stagger={0.14}
-              lines={["Hotel", "Central"]}
+              lines={dict.home.heroTitle}
               className="flex flex-col items-center md:flex-row md:gap-[0.28em]"
             />
           </h1>

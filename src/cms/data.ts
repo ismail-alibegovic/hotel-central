@@ -1,6 +1,6 @@
 import "server-only";
 import { draftMode, headers } from "next/headers";
-import type { CustomPage, Footer, Navigation, Page, Room } from "@/payload-types";
+import type { CustomPage, Footer, Homepage, Navigation, Page, Room } from "@/payload-types";
 import { locales, type Locale } from "@/lib/i18n";
 import { isStaffUser } from "./access";
 import { cmsEnabled } from "./enabled";
@@ -114,20 +114,21 @@ export async function getNoindexPaths(): Promise<Set<string> | null> {
   }
 }
 
-type GlobalDoc<G extends "navigation" | "footer"> = G extends "navigation" ? Navigation : Footer;
+type GlobalSlug = "navigation" | "footer" | "homepage";
+type GlobalDoc<G extends GlobalSlug> = G extends "navigation" ? Navigation : G extends "footer" ? Footer : Homepage;
 
 /**
  * Read a global (navigation / footer) for a locale. Same rules as getCmsDoc: published only for the public,
  * drafts for previewing staff, null on any failure so the caller renders the built-in text.
  */
-export async function getCmsGlobal<G extends "navigation" | "footer">(slug: G, locale: Locale): Promise<GlobalDoc<G> | null> {
+export async function getCmsGlobal<G extends GlobalSlug>(slug: G, locale: Locale): Promise<GlobalDoc<G> | null> {
   if (!cmsEnabled()) return null;
   try {
     return await withTimeout(
       (async () => {
         const { payload, draft, user } = await readMode();
         const doc = await payload.findGlobal({ slug, locale, fallbackLocale: false, draft, depth: 0, overrideAccess: false, ...(user ? { user } : {}) });
-        return doc as GlobalDoc<G>;
+        return doc as unknown as GlobalDoc<G>;
       })(),
     );
   } catch (err) {

@@ -5,10 +5,12 @@ import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { Arrow, MetaRow, PillLink } from "../ui";
+import { img, type HomeImages } from "./homeImages";
 import { fitStyle } from "@/lib/fit";
 
-export function LocationSection({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function LocationSection({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.location;
+  const photo = img(images?.location, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower on Ćumurija street", position: "62% 30%" });
   return (
     <section aria-labelledby="location-title" className="relative overflow-hidden bg-deep pb-16 pt-[30px] text-white md:pb-[6vw] md:pt-[3vw]">
       <DecorativeLine variant="location" tone="light" className="z-0 hidden md:block" />
@@ -60,10 +62,10 @@ export function LocationSection({ locale, dict }: { locale: Locale; dict: Dictio
           </FadeIn>
           <div className="absolute -bottom-8 left-3 w-[38%] md:-bottom-[3vw] md:-left-[6vw] md:w-[38%]">
             <Photo
-              src="/images/3064.jpg"
-              alt="Hotel Central's corner tower on Ćumurija street"
+              src={photo.src}
+              alt={photo.alt}
               sizes="(min-width: 1024px) 16vw, 42vw"
-              position="62% 30%"
+              position={photo.position}
               className="aspect-[3/4]"
               grade="grade"
             />

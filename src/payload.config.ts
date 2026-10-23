@@ -12,6 +12,7 @@ import { Pages } from "./cms/collections/Pages";
 import { Rooms } from "./cms/collections/Rooms";
 import { Users } from "./cms/collections/Users";
 import { Footer } from "./cms/globals/Footer";
+import { Homepage } from "./cms/globals/Homepage";
 import { Navigation } from "./cms/globals/Navigation";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,12 +36,14 @@ export default buildConfig({
       url: ({ data, collectionConfig, locale }) => {
         const raw = (data as { slug?: string | Record<string, string> })?.slug;
         const slug = typeof raw === "object" && raw ? raw[locale?.code ?? "en"] : raw;
-        if (!slug) return `${serverURL}/${locale?.code ?? "en"}`;
+        // Globals (the home page) have no slug: preview the language's home page, through the authenticated preview route.
+        if (!slug) return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}`)}`;
         const route = collectionConfig?.slug === "rooms" ? `/rooms/${slug}` : `/${slug}`;
         // Goes through the authenticated preview route, which enables Draft Mode for staff only.
         return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}${route}`)}`;
       },
       collections: ["pages", "custom-pages", "rooms"],
+      globals: ["homepage"],
       breakpoints: [
         { label: "Mobile", name: "mobile", width: 390, height: 844 },
         { label: "Tablet", name: "tablet", width: 768, height: 1024 },
@@ -51,7 +54,7 @@ export default buildConfig({
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
   collections: [Users, Media, Pages, CustomPages, Rooms],
-  globals: [Navigation, Footer],
+  globals: [Navigation, Footer, Homepage],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
   localization: {
     locales: [

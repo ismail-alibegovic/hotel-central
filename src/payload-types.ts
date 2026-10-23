@@ -96,10 +96,12 @@ export interface Config {
   globals: {
     navigation: Navigation;
     footer: Footer;
+    homepage: Homepage;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
   };
   locale: 'en' | 'bs';
   widgets: {
@@ -3686,6 +3688,2088 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Texts and photographs of the home page. Empty fields keep the current ones.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: string;
+  /**
+   * Shown in search results and browser tabs. Up to 70 characters. Empty = the built-in title.
+   */
+  metaTitle?: string | null;
+  /**
+   * One or two sentences shown under the title in search results. Up to 200 characters. Empty = the built-in description.
+   */
+  metaDescription?: string | null;
+  ogImage?: {
+    /**
+     * Photographs already on the website.
+     */
+    staticPath?:
+      | (
+          | '3064.jpg'
+          | '3067.jpg'
+          | '3069.jpg'
+          | '3073.jpg'
+          | '3075.jpg'
+          | 'bazen.jpg'
+          | 'breakfast1.jpg'
+          | 'breakfast2.jpg'
+          | 'breakfast3.jpg'
+          | 'central-spa_bath.jpg'
+          | 'central-spa_bathroom-1.jpg'
+          | 'central-spa_bathroom-2.jpg'
+          | 'central-spa_bathroom-3.jpg'
+          | 'central-spa_celulit-room.jpg'
+          | 'central-spa_relax-room-1.jpg'
+          | 'central-spa_relax-room-2.jpg'
+          | 'central-spa_relax-room-3.jpg'
+          | 'central-spa_relax-room.jpg'
+          | 'd01.jpg'
+          | 'dorucak1.jpg'
+          | 'dorucak2.jpg'
+          | 'dorucak3.jpg'
+          | 'dorucak4.jpg'
+          | 'dorucak5.jpg'
+          | 'dorucak6.jpg'
+          | 'dvo-nas-1.jpg'
+          | 'family1-new.jpg'
+          | 'family2-new.jpg'
+          | 'family3-new.jpg'
+          | 'family4-new.jpg'
+          | 'family5-new.jpg'
+          | 'final-6167.jpg'
+          | 'final-6173.jpg'
+          | 'final-6176.jpg'
+          | 'final-6181.jpg'
+          | 'final-6198.jpg'
+          | 'final-6202.jpg'
+          | 'final-6203.jpg'
+          | 'final-6211.jpg'
+          | 'final-6224.jpg'
+          | 'final-6230.jpg'
+          | 'hc-bg-lajna-1.jpg'
+          | 'hc-comfort-2.jpg'
+          | 'hc-naslovna-health-club.jpg'
+          | 'hc-spa-naslovna-interior.jpg'
+          | 'hc-spa-naslovna-opustanje.jpg'
+          | 'img_9052.jpg'
+          | 'img_9057.jpg'
+          | 'img_9064.jpg'
+          | 'img_9067.jpg'
+          | 'img_9069.jpg'
+          | 'img_9076.jpg'
+          | 'img_9085.jpg'
+          | 'img_9088.jpg'
+          | 'img_9124.jpg'
+          | 'img_9140.jpg'
+          | 'img_9177.jpg'
+          | 'img_9180.jpg'
+          | 'img_9183.jpg'
+          | 'img_9202.jpg'
+          | 'img_9210.jpg'
+          | 'img_9216.jpg'
+          | 'img_9217.jpg'
+          | 'img_9223.jpg'
+          | 'img_9226.jpg'
+          | 'img_9229.jpg'
+          | 'img_9232.jpg'
+          | 'img_9235.jpg'
+          | 'img_9236.jpg'
+          | 'img_9238.jpg'
+          | 'img_9247.jpg'
+          | 'img_9271.jpg'
+          | 'img_9277.jpg'
+          | 'img_9282.jpg'
+          | 'img_9289.jpg'
+          | 'jed-nas-1.jpg'
+          | 'junior01.jpg'
+          | 'junior02.jpg'
+          | 'junior03.jpg'
+          | 'p01.jpg'
+          | 'p02.jpg'
+          | 'p03.jpg'
+          | 'p04.jpg'
+          | 'p05.jpg'
+          | 'p06.jpg'
+          | 'p07.jpg'
+          | 'p08.jpg'
+          | 'p09.jpg'
+          | 'p10.jpg'
+          | 'p11.jpg'
+          | 'p12.jpg'
+          | 'p13.jpg'
+          | 'p14.jpg'
+          | 'pool-01.jpg'
+          | 'pool-02.jpg'
+          | 'pool-03.jpg'
+          | 'pool-04.jpg'
+          | 'pool-05.jpg'
+          | 'pool-06.jpg'
+          | 'pool-08.jpg'
+          | 'pre-nas-1.jpg'
+          | 's01.jpg'
+          | 's02.jpg'
+          | 's03.jpg'
+          | 's04.jpg'
+          | 's05.jpg'
+          | 's06.jpg'
+          | 's07.jpg'
+          | 's08.jpg'
+          | 's09.jpg'
+          | 's10.jpg'
+          | 's11.jpg'
+          | 's12.jpg'
+          | 'single-kupatilo.jpg'
+          | 'single-room.jpg'
+          | 'st-dvo-01.jpg'
+          | 'st-dvo-02.jpg'
+          | 'st-dvo-05.jpg'
+          | 'st-dvo-06.jpg'
+        )
+      | null;
+    /**
+     * If set, this is used instead of the site photograph.
+     */
+    upload?: (string | null) | Media;
+    alt?: string | null;
+    /**
+     * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+     */
+    position?: string | null;
+  };
+  hero?: {
+    label?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    tagline?: string | null;
+    note?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    image?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  hotel?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaIndex?: string | null;
+    metaRight?: string | null;
+    metaRightSub?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageLeft?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageCenter?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageRight?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  /**
+   * The rooms themselves, their order and photographs are edited under Rooms.
+   */
+  rooms?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaIndex?: string | null;
+    metaRight?: string | null;
+    body?: string | null;
+  };
+  spa?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaRight?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    /**
+     * Short list under the text.
+     */
+    facts?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageMain?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageSecondary?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  restaurant?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaRight?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    body2?: string | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageMain?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageCoffee?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageBuffet?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  location?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaRight?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    facts?:
+      | {
+          k: string;
+          v: string;
+          id?: string | null;
+        }[]
+      | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    image?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  events?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaRight?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageMain?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    imageSecondary?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  /**
+   * The booking button always opens the hotel's booking engine; only its wording is editable.
+   */
+  final?: {
+    label?: string | null;
+    /**
+     * One line per row, as in the design.
+     */
+    title?: string | null;
+    body?: string | null;
+    cta?: string | null;
+    /**
+     * Leave empty to keep the current photograph.
+     */
+    image?: {
+      /**
+       * Photographs already on the website.
+       */
+      staticPath?:
+        | (
+            | '3064.jpg'
+            | '3067.jpg'
+            | '3069.jpg'
+            | '3073.jpg'
+            | '3075.jpg'
+            | 'bazen.jpg'
+            | 'breakfast1.jpg'
+            | 'breakfast2.jpg'
+            | 'breakfast3.jpg'
+            | 'central-spa_bath.jpg'
+            | 'central-spa_bathroom-1.jpg'
+            | 'central-spa_bathroom-2.jpg'
+            | 'central-spa_bathroom-3.jpg'
+            | 'central-spa_celulit-room.jpg'
+            | 'central-spa_relax-room-1.jpg'
+            | 'central-spa_relax-room-2.jpg'
+            | 'central-spa_relax-room-3.jpg'
+            | 'central-spa_relax-room.jpg'
+            | 'd01.jpg'
+            | 'dorucak1.jpg'
+            | 'dorucak2.jpg'
+            | 'dorucak3.jpg'
+            | 'dorucak4.jpg'
+            | 'dorucak5.jpg'
+            | 'dorucak6.jpg'
+            | 'dvo-nas-1.jpg'
+            | 'family1-new.jpg'
+            | 'family2-new.jpg'
+            | 'family3-new.jpg'
+            | 'family4-new.jpg'
+            | 'family5-new.jpg'
+            | 'final-6167.jpg'
+            | 'final-6173.jpg'
+            | 'final-6176.jpg'
+            | 'final-6181.jpg'
+            | 'final-6198.jpg'
+            | 'final-6202.jpg'
+            | 'final-6203.jpg'
+            | 'final-6211.jpg'
+            | 'final-6224.jpg'
+            | 'final-6230.jpg'
+            | 'hc-bg-lajna-1.jpg'
+            | 'hc-comfort-2.jpg'
+            | 'hc-naslovna-health-club.jpg'
+            | 'hc-spa-naslovna-interior.jpg'
+            | 'hc-spa-naslovna-opustanje.jpg'
+            | 'img_9052.jpg'
+            | 'img_9057.jpg'
+            | 'img_9064.jpg'
+            | 'img_9067.jpg'
+            | 'img_9069.jpg'
+            | 'img_9076.jpg'
+            | 'img_9085.jpg'
+            | 'img_9088.jpg'
+            | 'img_9124.jpg'
+            | 'img_9140.jpg'
+            | 'img_9177.jpg'
+            | 'img_9180.jpg'
+            | 'img_9183.jpg'
+            | 'img_9202.jpg'
+            | 'img_9210.jpg'
+            | 'img_9216.jpg'
+            | 'img_9217.jpg'
+            | 'img_9223.jpg'
+            | 'img_9226.jpg'
+            | 'img_9229.jpg'
+            | 'img_9232.jpg'
+            | 'img_9235.jpg'
+            | 'img_9236.jpg'
+            | 'img_9238.jpg'
+            | 'img_9247.jpg'
+            | 'img_9271.jpg'
+            | 'img_9277.jpg'
+            | 'img_9282.jpg'
+            | 'img_9289.jpg'
+            | 'jed-nas-1.jpg'
+            | 'junior01.jpg'
+            | 'junior02.jpg'
+            | 'junior03.jpg'
+            | 'p01.jpg'
+            | 'p02.jpg'
+            | 'p03.jpg'
+            | 'p04.jpg'
+            | 'p05.jpg'
+            | 'p06.jpg'
+            | 'p07.jpg'
+            | 'p08.jpg'
+            | 'p09.jpg'
+            | 'p10.jpg'
+            | 'p11.jpg'
+            | 'p12.jpg'
+            | 'p13.jpg'
+            | 'p14.jpg'
+            | 'pool-01.jpg'
+            | 'pool-02.jpg'
+            | 'pool-03.jpg'
+            | 'pool-04.jpg'
+            | 'pool-05.jpg'
+            | 'pool-06.jpg'
+            | 'pool-08.jpg'
+            | 'pre-nas-1.jpg'
+            | 's01.jpg'
+            | 's02.jpg'
+            | 's03.jpg'
+            | 's04.jpg'
+            | 's05.jpg'
+            | 's06.jpg'
+            | 's07.jpg'
+            | 's08.jpg'
+            | 's09.jpg'
+            | 's10.jpg'
+            | 's11.jpg'
+            | 's12.jpg'
+            | 'single-kupatilo.jpg'
+            | 'single-room.jpg'
+            | 'st-dvo-01.jpg'
+            | 'st-dvo-02.jpg'
+            | 'st-dvo-05.jpg'
+            | 'st-dvo-06.jpg'
+          )
+        | null;
+      /**
+       * If set, this is used instead of the site photograph.
+       */
+      upload?: (string | null) | Media;
+      alt?: string | null;
+      /**
+       * e.g. “50% 40%” — which part stays visible when the photo is cropped.
+       */
+      position?: string | null;
+    };
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
@@ -3734,6 +5818,221 @@ export interface FooterSelect<T extends boolean = true> {
               value?: T;
             };
         id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  metaTitle?: T;
+  metaDescription?: T;
+  ogImage?:
+    | T
+    | {
+        staticPath?: T;
+        upload?: T;
+        alt?: T;
+        position?: T;
+      };
+  hero?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        tagline?: T;
+        note?: T;
+        image?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  hotel?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaIndex?: T;
+        metaRight?: T;
+        metaRightSub?: T;
+        title?: T;
+        body?: T;
+        cta?: T;
+        imageLeft?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageCenter?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageRight?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  rooms?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaIndex?: T;
+        metaRight?: T;
+        body?: T;
+      };
+  spa?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaRight?: T;
+        title?: T;
+        body?: T;
+        facts?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        cta?: T;
+        imageMain?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageSecondary?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  restaurant?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaRight?: T;
+        title?: T;
+        body?: T;
+        body2?: T;
+        cta?: T;
+        imageMain?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageCoffee?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageBuffet?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  location?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaRight?: T;
+        title?: T;
+        body?: T;
+        facts?:
+          | T
+          | {
+              k?: T;
+              v?: T;
+              id?: T;
+            };
+        cta?: T;
+        image?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  events?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaRight?: T;
+        title?: T;
+        body?: T;
+        cta?: T;
+        imageMain?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+        imageSecondary?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
+      };
+  final?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        body?: T;
+        cta?: T;
+        image?:
+          | T
+          | {
+              staticPath?: T;
+              upload?: T;
+              alt?: T;
+              position?: T;
+            };
       };
   _status?: T;
   updatedAt?: T;

@@ -4,6 +4,7 @@ import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
+import { img, type HomeImages } from "./homeImages";
 
 const BIG = "[--x:40%] [--y:15.5%] [--w:57.46%] [--h:64%]";
 
@@ -15,8 +16,12 @@ function SpaTitle({ lines, className = "" }: { lines: string[]; className?: stri
   );
 }
 
-export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.spa;
+  const main = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool with a wave mosaic", position: "50% 60%" });
+  const mainM = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool", position: "40% 60%" });
+  const second = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "Candle-lit treatment room of the day spa", position: "50% 50%" });
+  const secondM = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "" });
   return (
     <section aria-labelledby="spa-title" className="relative overflow-hidden bg-olive text-white">
       <h2 id="spa-title" className="sr-only">
@@ -34,10 +39,10 @@ export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary
 
         <div className={`rect z-[2] ${BIG}`}>
           <Photo
-            src="/images/3069.jpg"
-            alt="The heated 25-metre indoor pool with a wave mosaic"
+            src={main.src}
+            alt={main.alt}
             sizes="58vw"
-            position="50% 60%"
+            position={main.position}
             className="h-full w-full"
             grade="grade-dark"
             parallax={5}
@@ -45,10 +50,10 @@ export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary
         </div>
         <div className="rect z-[2] [--x:6%] [--y:51%] [--w:17%] [--h:37%]">
           <Photo
-            src="/images/final-6202.jpg"
-            alt="Candle-lit treatment room of the day spa"
+            src={second.src}
+            alt={second.alt}
             sizes="18vw"
-            position="50% 50%"
+            position={second.position}
             className="h-full w-full"
             parallax={6}
           />
@@ -84,7 +89,7 @@ export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary
             <RevealLines lines={d.title} lineClassName={["", "pl-[6cqw]"]} />
           </div>
           <div className="rect z-[2] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
-            <Photo src="/images/3069.jpg" alt="The heated 25-metre indoor pool" sizes="82vw" grade="grade-dark" className="h-full w-full" position="40% 60%" />
+            <Photo src={mainM.src} alt={mainM.alt} sizes="82vw" grade="grade-dark" className="h-full w-full" position={mainM.position} />
           </div>
           <div aria-hidden className="clip-rect pointer-events-none absolute inset-0 z-[3] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
             <div className="font-display absolute left-[4%] top-0 text-[12.2cqw] leading-[0.9]">
@@ -92,7 +97,7 @@ export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary
             </div>
           </div>
           <div className="rect z-[4] [--x:4%] [--y:72%] [--w:30%] [--h:40%]">
-            <Photo src="/images/final-6202.jpg" alt="" sizes="30vw" className="h-full w-full" />
+            <Photo src={secondM.src} alt={secondM.alt} sizes="30vw" className="h-full w-full" position={secondM.position} />
           </div>
         </div>
         <div className="mt-28 space-y-8 px-[var(--gutter)]">
