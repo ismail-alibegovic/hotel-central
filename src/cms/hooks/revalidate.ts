@@ -7,7 +7,7 @@ const locales = ["en", "bs"] as const;
 export const pathsFor = (collection: "pages" | "rooms", slug: string): string[] => {
   const base = collection === "pages" ? `/${slug}` : `/rooms/${slug}`;
   const paths = locales.map((l) => `/${l}${base}`);
-  if (collection === "rooms") paths.push(...locales.flatMap((l) => [`/${l}/rooms`, `/${l}`]));
+  if (collection === "rooms") paths.push(...locales.flatMap((l) => [`/${l}/rooms`, `/${l}`]), "/sitemap.xml");
   return paths;
 };
 

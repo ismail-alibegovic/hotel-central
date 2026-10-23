@@ -17,7 +17,7 @@ async function login(creds: { email: string; password: string }): Promise<APIReq
   expect(res.status(), "login").toBe(200);
   const body = await res.json();
   expect(res.headers()["set-cookie"]).toMatch(/payload-token=.*HttpOnly/i);
-  const ctx = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Authorization: `JWT ${body.token}` } });
+  const ctx = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Authorization: `JWT ${body.token}`, Connection: "close" } });
   tokens.set(ctx, body.token);
   return ctx;
 }
@@ -158,6 +158,41 @@ test("draft responses are never cacheable by shared caches; the admin API sends 
   expect(api.headers()["x-content-type-options"]).toBe("nosniff");
   expect(api.headers()["x-frame-options"]).toBe("SAMEORIGIN");
   expect(api.headers()["x-powered-by"]).toBeUndefined();
+});
+
+test("rooms: order, visibility and sitemap follow the CMS; the booking id never changes", async ({ request }) => {
+  const family = await pageDoc(admin, "family-room", "rooms");
+  const presidential = await pageDoc(admin, "presidential-suite", "rooms");
+  const roomLinks = (html: string) => [...html.matchAll(/href="\/en\/rooms\/([a-z-]+)"/g)].map((m) => m[1]).filter((v, i, a) => a.indexOf(v) === i);
+
+  // hide one room, promote another
+  expect((await admin.patch(`/api/rooms/${family.id}?locale=en`, { data: { visible: false, _status: "published" } })).status()).toBe(200);
+  const single = await pageDoc(admin, "single-room", "rooms");
+  // equal `order` values tie-break by the static position, so make room at the front first
+  expect((await admin.patch(`/api/rooms/${single.id}?locale=en`, { data: { order: 7, _status: "published" } })).status()).toBe(200);
+  expect((await admin.patch(`/api/rooms/${presidential.id}?locale=en`, { data: { order: 1, _status: "published" } })).status()).toBe(200);
+
+  const list = await (await request.get("/en/rooms")).text();
+  const links = roomLinks(list);
+  expect(links).not.toContain("family-room");
+  expect(links[0]).toBe("presidential-suite");
+  expect((await request.get("/en/rooms/family-room")).status()).toBe(404);
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/rooms/family-room");
+  expect(await (await request.get("/en/rooms/presidential-suite")).text()).toContain("roomtypeunkid=");
+
+  // editors can do none of this
+  const edDoc = await pageDoc(editor, "single-room", "rooms");
+  await editor.patch(`/api/rooms/${edDoc.id}?draft=true&locale=en`, { data: { visible: false, order: 99 } });
+  expect(roomLinks(await (await request.get("/en/rooms")).text())).toContain("single-room");
+
+  // restore
+  await admin.patch(`/api/rooms/${family.id}?locale=en`, { data: { visible: true, _status: "published" } });
+  await admin.patch(`/api/rooms/${presidential.id}?locale=en`, { data: { order: 6, _status: "published" } });
+  await admin.patch(`/api/rooms/${single.id}?locale=en`, { data: { order: 1, _status: "published" } });
+  const restored = roomLinks(await (await request.get("/en/rooms")).text());
+  expect(restored).toHaveLength(6);
+  expect((await request.get("/en/rooms/family-room")).status()).toBe(200);
+  expect(await (await request.get("/sitemap.xml")).text()).toContain("/en/rooms/family-room");
 });
 
 test("static fallback: deleting the CMS document restores the original page", async ({ request }) => {

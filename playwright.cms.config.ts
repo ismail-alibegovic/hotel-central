@@ -3,6 +3,7 @@ import { defineConfig } from "@playwright/test";
 /**
  * Runs against the server started by scripts/cms/e2e.mts (CMS enabled, disposable database).
  * Order matters because the tests share one database:
+ *   html-parity  every public page (EN/BS) from the CMS-on site equals the CMS-off reference build, element for element
  *   parity-*  CMS-rendered About / Junior Suite must be pixel-identical to the static baselines (read-only)
  *   admin-*   browser-driven administration on mobile and desktop (edits the content)
  *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
@@ -35,8 +36,9 @@ export default defineConfig({
   projects: outage
     ? [{ name: "api", testMatch: /outage\.spec\.ts/ }]
     : [
+        { name: "html-parity", testMatch: /html-parity\.spec\.ts/ },
         // project names double as baseline folders for the parity specs, hence mobile/tablet/desktop
-        ...Object.entries(sizes).map(([name, viewport]) => ({ name, use: { viewport }, testMatch: /parity\.spec\.ts/ })),
+        ...Object.entries(sizes).map(([name, viewport]) => ({ name, use: { viewport }, testMatch: /(?<!html-)parity\.spec\.ts/, dependencies: ["html-parity"] })),
         ...(["mobile", "desktop"] as const).map((n) => ({
           name: `admin-${n}`,
           use: { viewport: sizes[n] },

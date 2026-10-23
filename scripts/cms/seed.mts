@@ -9,7 +9,7 @@
 import { getPayload } from "payload";
 import configModule from "@payload-config";
 import { getPages } from "../../src/content/pages";
-import { getRoom } from "../../src/content/rooms";
+import { rooms } from "../../src/content/rooms";
 import { locales } from "../../src/lib/i18n";
 
 // tsx may wrap the default export (CJS interop); unwrap if so.
@@ -29,13 +29,20 @@ const pageData = (l: (typeof locales)[number]) => {
   return { metaTitle: a.meta.title, metaDescription: a.meta.description, heroEyebrow: a.hero.eyebrow, heroTitle: a.hero.title.join("\n"), heroIntro: a.hero.intro };
 };
 
-const room = getRoom("junior-suite")!;
-const roomData = (l: (typeof locales)[number]) => ({
-  name: room.name[l],
-  feature: room.feature[l],
-  summary: room.summary[l],
-  description: room.description[l].map((text) => ({ text })),
-});
+const roomData = (slug: string) => (l: (typeof locales)[number]) => {
+  const room = rooms.find((r) => r.slug === slug)!;
+  const rows = (xs: string[]) => xs.map((text) => ({ text }));
+  return {
+    name: room.name[l],
+    titleLines: room.titleLines[l].join("\n"),
+    feature: room.feature[l],
+    sizeLabel: room.sizeLabel[l],
+    summary: room.summary[l],
+    description: rows(room.description[l]),
+    highlights: rows(room.highlights[l]),
+    amenities: rows(room.amenities[l]),
+  };
+};
 
 async function seed<C extends "pages" | "rooms">(collection: C, slug: string, base: Record<string, unknown>, data: (l: (typeof locales)[number]) => Record<string, unknown>) {
   const existing = await payload.find({ collection, where: { slug: { equals: slug } }, limit: 1, draft: true, depth: 0 });
@@ -46,5 +53,7 @@ async function seed<C extends "pages" | "rooms">(collection: C, slug: string, ba
 }
 
 await seed("pages", "about", {}, pageData);
-await seed("rooms", "junior-suite", { roomTypeId: room.roomTypeId }, roomData);
+for (const [i, room] of rooms.entries()) {
+  await seed("rooms", room.slug, { roomTypeId: room.roomTypeId, sizeM2: room.sizeM2, order: i + 1, visible: true }, roomData(room.slug));
+}
 process.exit(0);

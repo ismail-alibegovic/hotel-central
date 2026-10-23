@@ -34,7 +34,7 @@ const noHorizontalScroll = (page: Page) => page.evaluate(() => document.document
 test.beforeAll(async () => {
   const anon = await pwRequest.newContext({ baseURL: base });
   const token = (await (await anon.post("/api/users/login", { data: ADMIN })).json()).token;
-  api = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Authorization: `JWT ${token}` } });
+  api = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Authorization: `JWT ${token}`, Connection: "close" } });
   await api.post("/api/users", { data: EDITOR });
   const find = async (c: string, slug: string) => (await (await api.get(`/api/${c}?where[slug][equals]=${slug}&limit=1&depth=0&draft=true`)).json()).docs[0].id as string;
   aboutId = await find("pages", "about");

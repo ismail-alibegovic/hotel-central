@@ -11,6 +11,7 @@ import path from "node:path";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 const PORT = 3200;
+const REF_PORT = 3201;
 const rnd = () => crypto.randomBytes(12).toString("hex");
 const mongo = await MongoMemoryServer.create();
 const mediaDir = fs.mkdtempSync(path.join(os.tmpdir(), "hc-e2e-media-"));
@@ -38,10 +39,13 @@ const run = (cmd: string, args: string[], extra: Record<string, string> = {}) =>
 let server: ReturnType<typeof spawn> | undefined;
 let code = 1;
 
+let refServer: ReturnType<typeof spawn> | undefined;
 const stopServer = () => {
   server?.kill("SIGTERM");
-  spawnSync("fuser", ["-k", `${PORT}/tcp`]);
+  refServer?.kill("SIGTERM");
+  spawnSync("fuser", ["-k", `${PORT}/tcp`, `${REF_PORT}/tcp`]);
   server = undefined;
+  refServer = undefined;
 };
 const startServer = async () => {
   server = spawn("npx", ["next", "start", "-p", String(PORT)], { env, stdio: "inherit" });
@@ -83,13 +87,38 @@ function assertAdvisoryPackagesNotShipped() {
   console.log(`runtime trace scan: ${traced.size} traced files; advisory packages are build/dev-only`);
 }
 
+const refEnv = (): NodeJS.ProcessEnv => {
+  const e: NodeJS.ProcessEnv = { ...env, NEXT_DIST_DIR: ".next-static", E2E_STATIC_BASE_URL: `http://127.0.0.1:${REF_PORT}` };
+  for (const k of ["CMS_ENABLED", "DATABASE_URL", "PAYLOAD_SECRET", "NEXT_PUBLIC_SERVER_URL", "BLOB_READ_WRITE_TOKEN", "SEED_ADMIN_EMAIL", "SEED_ADMIN_PASSWORD"]) delete e[k];
+  return e;
+};
+async function buildReference() {
+  await new Promise<void>((resolve, reject) => {
+    const c = spawn("npx", ["next", "build"], { env: refEnv(), stdio: "inherit" });
+    c.on("exit", (code) => (code === 0 ? resolve() : reject(new Error("reference build failed"))));
+  });
+}
+async function startReference() {
+  refServer = spawn("npx", ["next", "start", "-p", String(REF_PORT)], { env: refEnv(), stdio: "inherit" });
+  for (let i = 0; i < 60; i++) {
+    try {
+      if ((await fetch(`http://127.0.0.1:${REF_PORT}/en`)).ok) return;
+    } catch { /* not up yet */ }
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  throw new Error("reference server did not start");
+}
+
 try {
   await run("npx", ["tsx", "scripts/cms/seed.mts"]);
   await run("npx", ["next", "build"]);
   assertNoSecretsInClientBundle();
+  // CMS-OFF reference build of the same code (no CMS env at all) for the HTML parity test.
+  await buildReference();
   assertAdvisoryPackagesNotShipped();
   await startServer();
-  code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts"]).then(() => 0, () => 1);
+  await startReference();
+  code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts"], { E2E_STATIC_BASE_URL: `http://127.0.0.1:${REF_PORT}` }).then(() => 0, () => 1);
 
   if (code === 0) {
     // Phase 2: database outage. Stop MongoDB, rebuild (every CMS page is prerendered against a dead database), restart.
