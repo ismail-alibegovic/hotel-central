@@ -1,6 +1,7 @@
 import type { Media, Page } from "@/payload-types";
 import type { Block, Cta, Img, Tone } from "./blocks/types";
-import { resolveLink } from "./links";
+import { booking } from "@/content/hotel";
+import { resolveLink, type ResolvedLink } from "./links";
 import { staticImages } from "./staticImages";
 import type { Locale } from "@/lib/i18n";
 
@@ -32,6 +33,22 @@ function cta(raw: { label?: string | null; link?: { kind?: string | null; value?
   const link = resolveLink(raw?.link, locale);
   return label && link ? { label, link } : undefined;
 }
+
+type RawAction = { label?: string | null; useBooking?: boolean | null; link?: { kind?: string | null; value?: string | null } | null } | null | undefined;
+
+/** Button of the offers / FAQ / CTA sections: the booking engine address comes from code, anything else is a validated link. */
+function action(raw: RawAction, locale: Locale): Cta | undefined {
+  const label = text(raw?.label);
+  if (!label || !raw) return undefined;
+  if (raw.useBooking) {
+    const link: ResolvedLink = { kind: "external", href: booking.bookingUrl, external: true };
+    return { label, link };
+  }
+  const link = resolveLink(raw.link, locale);
+  return link ? { label, link } : undefined;
+}
+
+const DEFAULT_ROW_LABELS: Record<Locale, { validity: string; price: string }> = { en: { validity: "Valid", price: "Price" }, bs: { validity: "Važi", price: "Cijena" } };
 
 /**
  * Turn the editor's layout for one locale into render-ready blocks. A block that is not usable in this
@@ -118,6 +135,48 @@ export function resolveLayout(layout: Page["layout"], locale: Locale): { blocks:
       case "roomList":
         blocks.push({ type: "roomList" });
         return;
+      case "offers": {
+        const label = text(raw.label);
+        const title = lines(raw.title);
+        const items = (raw.items ?? [])
+          .map((o) => {
+            const t = text(o.title);
+            const d = text(o.description);
+            if (!t || !d) return null;
+            return { title: t, description: d, tag: text(o.tag), validity: text(o.validity), priceNote: text(o.priceNote), image: resolveImage(o.image) ?? undefined, cta: action(o.cta, locale) };
+          })
+          .filter((o): o is NonNullable<typeof o> => Boolean(o));
+        if (!label || !title || !items.length) return skip("needs label, title and at least one translated offer");
+        blocks.push({
+          type: "offers",
+          label,
+          title,
+          intro: text(raw.intro),
+          tone: tone(raw.tone),
+          sample: Boolean(raw.sample),
+          validityLabel: text(raw.validityLabel) ?? DEFAULT_ROW_LABELS[locale].validity,
+          priceLabel: text(raw.priceLabel) ?? DEFAULT_ROW_LABELS[locale].price,
+          items,
+        });
+        return;
+      }
+      case "faq": {
+        const label = text(raw.label);
+        const title = lines(raw.title);
+        const items = (raw.items ?? [])
+          .map((q) => ({ q: text(q.q), a: lines(q.a) }))
+          .filter((q): q is { q: string; a: string[] } => Boolean(q.q && q.a));
+        if (!label || !title || !items.length) return skip("needs label, title and at least one translated question");
+        blocks.push({ type: "faq", label, title, tone: tone(raw.tone), sample: Boolean(raw.sample), items });
+        return;
+      }
+      case "cta": {
+        const title = lines(raw.title);
+        const primary = action(raw.primary, locale);
+        if (!title || !primary) return skip("needs title and a main button with wording and destination");
+        blocks.push({ type: "cta", label: text(raw.label), title, body: text(raw.body), tone: tone(raw.tone), sample: Boolean(raw.sample), primary, secondary: action(raw.secondary, locale) });
+        return;
+      }
     }
   });
   return { blocks, skipped };

@@ -37,6 +37,13 @@ describe("hosted-environment preflight", () => {
     expect(errs({ ...good, ...patch })).toContain(expected);
   });
 
+  it("example-content publishing: a warning on staging, an error in production", () => {
+    const staging = preflight({ ...good, CMS_ALLOW_SAMPLE_PUBLISH: "true" }, "staging");
+    expect(staging.find((f) => f.name === "CMS_ALLOW_SAMPLE_PUBLISH")?.level).toBe("warn");
+    const prod = preflight({ ...good, NEXT_PUBLIC_SITE_URL: "https://www.hotelcentral.ba", CMS_ALLOW_SAMPLE_PUBLISH: "true" }, "production");
+    expect(prod.find((f) => f.name === "CMS_ALLOW_SAMPLE_PUBLISH")?.level).toBe("error");
+  });
+
   it("production must use the official site URL and warns about missing e-mail", () => {
     expect(errs({ ...good, NEXT_PUBLIC_SITE_URL: "https://evil.example" }, "production")).toContain("NEXT_PUBLIC_SITE_URL");
     const ok = preflight({ ...good, NEXT_PUBLIC_SITE_URL: "https://www.hotelcentral.ba" }, "production");

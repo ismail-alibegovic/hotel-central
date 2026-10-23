@@ -41,9 +41,18 @@ export type ContactBlock = {
 };
 export type RoomListBlock = { type: "roomList" };
 
-export type Block = HeroBlock | SplitBlock | FactsBlock | StatementBlock | GalleryBlock | FinalBookingBlock | ArrivalBlock | ContactBlock | RoomListBlock;
+/**
+ * Offers, FAQ and call-to-action sections. `sample` marks DEMO / SAMPLE content: it renders an unmissable badge and
+ * can not be published unless the environment explicitly allows it (see src/cms/hooks/sampleGuard.ts).
+ */
+export type OfferItem = { title: string; description: string; tag?: string; validity?: string; priceNote?: string; image?: Img; cta?: Cta };
+export type OffersBlock = { type: "offers"; label: string; title: string[]; intro?: string; tone: Tone; sample: boolean; validityLabel: string; priceLabel: string; items: OfferItem[] };
+export type FaqBlock = { type: "faq"; label: string; title: string[]; tone: Tone; sample: boolean; items: { q: string; a: string[] }[] };
+export type CtaBlock = { type: "cta"; label?: string; title: string[]; body?: string; tone: Tone; sample: boolean; primary: Cta; secondary?: Cta };
+
+export type Block = HeroBlock | SplitBlock | FactsBlock | StatementBlock | GalleryBlock | FinalBookingBlock | ArrivalBlock | ContactBlock | RoomListBlock | OffersBlock | FaqBlock | CtaBlock;
 export type BlockType = Block["type"];
-export const blockTypes: BlockType[] = ["hero", "split", "facts", "statement", "gallery", "finalBooking", "arrival", "contact", "roomList"];
+export const blockTypes: BlockType[] = ["hero", "split", "facts", "statement", "gallery", "finalBooking", "arrival", "contact", "roomList", "offers", "faq", "cta"];
 
 export type PageKey = "about" | "rooms" | "spa" | "restaurant" | "meetings-events" | "location" | "contact";
 export const pageKeys: PageKey[] = ["about", "rooms", "spa", "restaurant", "meetings-events", "location", "contact"];

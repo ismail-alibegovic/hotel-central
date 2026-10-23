@@ -81,6 +81,29 @@ const cta = (name: string, label: string): GroupField => ({
   fields: [{ name: "label", type: "text", localized: true }, linkField("link", "Destination")],
 });
 
+/**
+ * Button for the new sections. "Use the hotel's booking button" takes the destination from code (the booking
+ * engine address and ids are never typed by editors); otherwise a validated link is used.
+ */
+const action = (name: string, label: string): GroupField => ({
+  name,
+  type: "group",
+  label,
+  fields: [
+    { name: "label", type: "text", localized: true, label: "Button wording" },
+    { name: "useBooking", type: "checkbox", defaultValue: false, label: "Use the hotel's booking button", admin: { description: "Opens the booking engine. The address is fixed in code." } },
+    { ...linkField("link", "Or another destination"), admin: { condition: (_: unknown, sibling: { useBooking?: boolean }) => !sibling?.useBooking } },
+  ],
+});
+
+const sampleField: Field = {
+  name: "sample",
+  type: "checkbox",
+  defaultValue: false,
+  label: "DEMO / SAMPLE content",
+  admin: { description: "Tick for example content. A visible “DEMO / SAMPLE” label is shown and the page cannot be published until it is unticked." },
+};
+
 const titleField: Field = { name: "title", type: "textarea", localized: true, required: true, admin: { description: "Large heading, one line per row." } };
 
 export const blocks: Block[] = [
@@ -177,4 +200,69 @@ export const blocks: Block[] = [
   },
   // Shows every visible room in its CMS order; the rooms themselves are edited in the Rooms collection.
   { slug: "roomList", labels: { singular: "List of rooms", plural: "Lists of rooms" }, fields: [{ name: "note", type: "text", admin: { description: "Rooms are edited under “Rooms”. Nothing to fill in here.", readOnly: true } }] },
+  {
+    slug: "offers",
+    labels: { singular: "Offers (cards)", plural: "Offers" },
+    fields: [
+      sampleField,
+      { name: "label", type: "text", localized: true, required: true },
+      titleField,
+      { name: "intro", type: "textarea", localized: true },
+      { name: "tone", type: "select", defaultValue: "ivory", options: tones },
+      { name: "validityLabel", type: "text", localized: true, label: "Wording for “valid” rows", admin: { description: "Empty = “Valid” / “Važi”." } },
+      { name: "priceLabel", type: "text", localized: true, label: "Wording for “price” rows", admin: { description: "Empty = “Price” / “Cijena”." } },
+      {
+        name: "items",
+        type: "array",
+        required: true,
+        minRows: 1,
+        maxRows: 6,
+        labels: { singular: "Offer", plural: "Offers" },
+        fields: [
+          imageField("image", { label: "Photograph (optional)" }),
+          { name: "tag", type: "text", localized: true, label: "Small tag (optional)" },
+          { name: "title", type: "text", localized: true, required: true },
+          { name: "description", type: "textarea", localized: true, required: true },
+          { name: "validity", type: "text", localized: true, label: "When it is valid (optional)", admin: { description: "Free wording written by the hotel, e.g. a season or date range." } },
+          { name: "priceNote", type: "text", localized: true, label: "Price wording (optional)", admin: { description: "Only real prices approved by the hotel. Never copy example prices." } },
+          action("cta", "Button (optional)"),
+        ],
+      },
+    ],
+  },
+  {
+    slug: "faq",
+    labels: { singular: "Frequently asked questions", plural: "Frequently asked questions" },
+    fields: [
+      sampleField,
+      { name: "label", type: "text", localized: true, required: true },
+      titleField,
+      { name: "tone", type: "select", defaultValue: "ivory", options: tones },
+      {
+        name: "items",
+        type: "array",
+        required: true,
+        minRows: 1,
+        maxRows: 20,
+        labels: { singular: "Question", plural: "Questions" },
+        fields: [
+          { name: "q", type: "text", localized: true, required: true, label: "Question" },
+          { name: "a", type: "textarea", localized: true, required: true, label: "Answer", admin: { description: "A new line starts a new paragraph." } },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cta",
+    labels: { singular: "Call to action", plural: "Calls to action" },
+    fields: [
+      sampleField,
+      { name: "label", type: "text", localized: true },
+      titleField,
+      { name: "body", type: "textarea", localized: true },
+      { name: "tone", type: "select", defaultValue: "deep", options: tones },
+      action("primary", "Main button"),
+      action("secondary", "Text link next to it (optional)"),
+    ],
+  },
 ];

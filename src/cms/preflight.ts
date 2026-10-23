@@ -24,6 +24,8 @@ export function preflight(env: Env, target: Target): Finding[] {
 
   if (has(env.ALLOW_FIRST_REGISTER)) add("error", "ALLOW_FIRST_REGISTER", "must be unset: it lets anyone claim the administrator account on an empty database");
 
+  if (has(env.CMS_ALLOW_SAMPLE_PUBLISH)) add(target === "production" ? "error" : "warn", "CMS_ALLOW_SAMPLE_PUBLISH", target === "production" ? "must be unset in production: it lets DEMO / SAMPLE sections be published" : "set: DEMO / SAMPLE sections can be published here (fine for a stakeholder demo, never for production)");
+
   // --- database
   const db = env.DATABASE_URL ?? "";
   if (!has(db)) add("error", "DATABASE_URL", "missing");

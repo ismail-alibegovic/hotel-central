@@ -1,4 +1,5 @@
 import type { Block, Cta, Img } from "./blocks/types";
+import { booking } from "@/content/hotel";
 import { linkFromHref } from "./links";
 import type { Locale } from "@/lib/i18n";
 
@@ -10,7 +11,11 @@ const rows = (xs: string[] | undefined) => (xs ?? []).map((text) => ({ text }));
 const image = (i: Img | undefined) => (i ? { staticPath: i.src.replace(/^\/images\//, ""), alt: i.alt, ...(i.position ? { position: i.position } : {}) } : undefined);
 const cta = (c: Cta | undefined, locale: Locale) => (c ? { label: c.label, link: linkFromHref(c.link.href, locale) } : undefined);
 
-type Existing = { id?: string | null; images?: { id?: string | null }[] | null }[] | null | undefined;
+/** Button of the offers / FAQ / CTA sections; the booking button is recognised by its address. */
+const action = (c: Cta | undefined, locale: Locale) =>
+  c ? { label: c.label, ...(c.link.href === booking.bookingUrl ? { useBooking: true } : { useBooking: false, link: linkFromHref(c.link.href, locale) }) } : undefined;
+
+type Existing = { id?: string | null; images?: { id?: string | null }[] | null; items?: { id?: string | null }[] | null }[] | null | undefined;
 
 /**
  * `existing` = the rows already stored (from the first language): block rows and the rows of the shared
@@ -22,7 +27,13 @@ export function toCmsLayout(blocks: Block[], locale: Locale, existing?: Existing
     const prev = existing?.[n];
     if (!prev) return row;
     const images = row.images as { image?: unknown }[] | undefined;
-    return { ...row, id: prev.id, ...(images ? { images: images.map((im, k) => ({ ...im, id: prev.images?.[k]?.id })) } : {}) };
+    const items = row.items as Record<string, unknown>[] | undefined;
+    return {
+      ...row,
+      id: prev.id,
+      ...(images ? { images: images.map((im, k) => ({ ...im, id: prev.images?.[k]?.id })) } : {}),
+      ...(items ? { items: items.map((it, k) => ({ ...it, id: prev.items?.[k]?.id })) } : {}),
+    };
   });
 }
 
@@ -72,6 +83,22 @@ function toRows(blocks: Block[], locale: Locale): Record<string, unknown>[] {
         };
       case "roomList":
         return { blockType: "roomList" };
+      case "offers":
+        return {
+          blockType: "offers",
+          sample: b.sample,
+          label: b.label,
+          title: b.title.join("\n"),
+          intro: b.intro,
+          tone: b.tone,
+          validityLabel: b.validityLabel,
+          priceLabel: b.priceLabel,
+          items: b.items.map((o) => ({ image: image(o.image), tag: o.tag, title: o.title, description: o.description, validity: o.validity, priceNote: o.priceNote, cta: action(o.cta, locale) })),
+        };
+      case "faq":
+        return { blockType: "faq", sample: b.sample, label: b.label, title: b.title.join("\n"), tone: b.tone, items: b.items.map((q) => ({ q: q.q, a: q.a.join("\n") })) };
+      case "cta":
+        return { blockType: "cta", sample: b.sample, label: b.label, title: b.title.join("\n"), body: b.body, tone: b.tone, primary: action(b.primary, locale), secondary: action(b.secondary, locale) };
     }
   });
 }

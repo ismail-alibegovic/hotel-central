@@ -8,6 +8,7 @@ import { defineConfig } from "@playwright/test";
  *   admin-*   browser-driven administration on mobile and desktop (edits the content)
  *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
  *   chrome-*  navigation + footer globals: HTTP (roles, drafts, locales, link safety) and the admin UI
+ *   sections-* offers / FAQ / CTA sections: HTTP (sample guard, preview isolation, rendering, languages) and the browser (keyboard FAQ, labels, buttons)
  * E2E_PHASE=outage runs only the database-outage spec (the runner stops MongoDB first).
  */
 const outage = process.env.E2E_PHASE === "outage";
@@ -48,6 +49,8 @@ export default defineConfig({
         })),
         { name: "api", testMatch: /cms\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] },
         { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
+        { name: "sections-api", testMatch: /sections-api\.spec\.ts/, dependencies: ["chrome-api"] },
+        ...(["mobile", "desktop"] as const).map((n) => ({ name: `sections-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /sections-ui\.spec\.ts/, dependencies: ["sections-api"] })),
         ...(["mobile", "desktop"] as const).map((n) => ({ name: `chrome-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /chrome-ui\.spec\.ts/, dependencies: ["chrome-api"] })),
       ],
 });
