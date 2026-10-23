@@ -10,7 +10,7 @@ for (const locale of ["en", "bs"] as const) {
     const menu = page.locator("#site-menu");
     await expect(menu).toBeVisible();
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
-    const hrefs = await menu.locator("nav a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+    const hrefs = await menu.locator("nav ol a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
     expect(hrefs).toEqual(["", "/about", "/rooms", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"].map((p) => `/${locale}${p}`));
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();

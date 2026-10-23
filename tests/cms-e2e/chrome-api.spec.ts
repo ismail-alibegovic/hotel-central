@@ -22,8 +22,10 @@ let editor: APIRequestContext;
 const getGlobal = async (ctx: APIRequestContext, slug: string, locale: string, draft = true) => (await (await ctx.get(`/api/globals/${slug}?locale=${locale}&draft=${draft}&depth=0`)).json()) as Record<string, any>;
 const setGlobal = (ctx: APIRequestContext, slug: string, locale: string, data: object, draft = false) => ctx.post(`/api/globals/${slug}?locale=${locale}${draft ? "&draft=true" : ""}`, { data });
 const publishNav = (data: object, locale = "en") => setGlobal(admin, "navigation", locale, { ...data, _status: "published" });
-const menuLinks = (html: string) => {
-  const nav = /<nav aria-label="[^"]*"[^>]*class="flex flex-col[\s\S]*?<\/nav>/.exec(html)?.[0] ?? "";
+/** The full-screen menu only exists in the DOM while open (see chrome-ui.spec.ts); the footer "Explore" list is server-rendered from the same entries. */
+const exploreLinks = (html: string) => {
+  const footer = /<footer[\s\S]*<\/footer>/.exec(html)?.[0] ?? "";
+  const nav = /<nav[\s\S]*?<\/nav>/.exec(footer)?.[0] ?? "";
   return [...nav.matchAll(/href="(\/(?:en|bs)[^"]*)"/g)].map((m) => m[1]);
 };
 const previewCookie = async (ctx: APIRequestContext, path: string) => {
@@ -40,7 +42,7 @@ test.beforeAll(async () => {
 
 test("the seeded globals render the same menu and footer as the built-in site", async ({ request }) => {
   const en = await (await request.get("/en")).text();
-  expect(menuLinks(en)).toEqual(["/en", "/en/about", "/en/rooms", "/en/spa", "/en/restaurant", "/en/meetings-events", "/en/location", "/en/contact"]);
+  expect(exploreLinks(en)).toEqual(["/en/about", "/en/rooms", "/en/spa", "/en/restaurant", "/en/meetings-events", "/en/location", "/en/contact"]);
   expect(en).toContain("Skip to content");
   expect(await (await request.get("/bs")).text()).toContain("Sobe i apartmani");
 });
@@ -66,11 +68,10 @@ test("hiding an entry removes it from the menu and the footer; the booking link 
   const hide = nav.items.map((r: any) => (r.path === "/restaurant" ? { ...r, visible: false } : r));
   expect((await publishNav({ items: hide })).status()).toBe(200);
   const html = await (await request.get("/en/spa")).text();
-  expect(menuLinks(html)).not.toContain("/en/restaurant");
-  expect(html).not.toContain('href="/en/restaurant"'); // footer "Explore" list as well
+  expect(exploreLinks(html)).not.toContain("/en/restaurant");
   expect(html).toContain("live.ipms247.com");
   expect((await publishNav({ items: nav.items })).status()).toBe(200);
-  expect(menuLinks(await (await request.get("/en/spa")).text())).toContain("/en/restaurant");
+  expect(exploreLinks(await (await request.get("/en/spa")).text())).toContain("/en/restaurant");
 });
 
 test("an editor's changes are drafts: invisible to the public and to a stolen draft cookie, visible in staff preview", async ({ request }) => {

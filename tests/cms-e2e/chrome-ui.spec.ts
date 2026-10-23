@@ -50,7 +50,7 @@ test("admin edits the Bosnian menu wording in the browser; the public Bosnian si
   expect(await (await request.get("/bs/spa")).text()).not.toContain(stamp);
 });
 
-test("editor sees the navigation editor, saves a draft and is not offered Publish", async ({ page, request }) => {
+test("editor saves a draft in the browser; publishing is refused by the server and the public site is untouched", async ({ page, request }) => {
   const draft = `UIDraft${Date.now()}`;
   await uiLogin(page, EDITOR);
   await page.goto("/admin/globals/footer?locale=en");
@@ -62,7 +62,17 @@ test("editor sees the navigation editor, saves a draft and is not offered Publis
     await page.locator("#action-save-draft").click({ timeout: 5000 }).catch(() => undefined);
     expect((await write).status()).toBe(200);
   }).toPass({ timeout: 45000 });
-  await expect(page.locator("#action-save")).toHaveCount(0);
+  expect(await (await request.get("/en")).text()).not.toContain(draft);
+
+  // Payload cannot hide the Publish button for globals; the server refuses it, which is what protects the site.
+  const publish = page.locator("#action-save");
+  if (await publish.count()) {
+    const [res] = await Promise.all([
+      page.waitForResponse((r) => /\/api\/globals\/footer/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("draft=true") && !r.url().includes("autosave=true"), { timeout: 15000 }),
+      publish.click(),
+    ]);
+    expect(res.status()).toBe(403);
+  }
   expect(await (await request.get("/en")).text()).not.toContain(draft);
 });
 
@@ -74,7 +84,7 @@ test.describe("public menu behaviour with the CMS on", () => {
     await toggle.click();
     const menu = page.locator("#site-menu");
     await expect(menu).toBeVisible();
-    await expect(menu.locator("nav a")).toHaveCount(8);
+    await expect(menu.locator("nav ol a")).toHaveCount(8);
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
