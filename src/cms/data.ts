@@ -92,3 +92,23 @@ export async function getPublishedRoomSlugs(): Promise<string[] | null> {
     return null;
   }
 }
+
+/**
+ * Public paths (without locale, e.g. "/spa", "/rooms/junior-suite") that editors have hidden from search engines.
+ * Published documents only, so an unpublished draft can never change the sitemap. Null = CMS unavailable.
+ */
+export async function getNoindexPaths(): Promise<Set<string> | null> {
+  if (!cmsEnabled()) return null;
+  try {
+    const payload = await getPayloadClient();
+    const [pages, rooms] = await withTimeout(
+      Promise.all([
+        payload.find({ collection: "pages", where: { noindex: { equals: true } }, limit: 100, depth: 0, overrideAccess: false, select: { slug: true } }),
+        payload.find({ collection: "rooms", where: { noindex: { equals: true } }, limit: 100, depth: 0, overrideAccess: false, select: { slug: true } }),
+      ]),
+    );
+    return new Set([...pages.docs.map((d) => `/${d.slug}`), ...rooms.docs.map((d) => `/rooms/${d.slug}`)]);
+  } catch {
+    return null;
+  }
+}

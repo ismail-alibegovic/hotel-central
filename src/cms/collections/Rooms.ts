@@ -1,6 +1,7 @@
 import type { ArrayField, CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
+import { seoFields } from "./seoFields";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
 
 const privileged = { create: adminFieldAccess, update: adminFieldAccess };
@@ -58,6 +59,7 @@ export const Rooms: CollectionConfig = {
     },
     list("highlights", ["Highlight", "Highlights (carousel)"]),
     list("amenities", ["Amenity", "Amenities"]),
+    ...seoFields(),
     {
       name: "gallery",
       type: "array",

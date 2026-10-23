@@ -281,6 +281,55 @@ test("page blocks: editors can draft layout changes but not publish them", async
   expect(await (await request.get("/en/about")).text()).not.toContain("EDITOR-LAYOUT-DRAFT");
 });
 
+test("seo: noindex, social photograph and room titles follow published settings only", async ({ request }) => {
+  const spa = (await pageDoc(admin, "spa")).id as string;
+  const room = (await pageDoc(admin, "junior-suite", "rooms")).id as string;
+  const sitemap = async () => await (await request.get("/sitemap.xml")).text();
+  const robots = (html: string) => /<meta name="robots" content="[^"]*noindex/.test(html);
+  const ogImage = (html: string) => /<meta property="og:image" content="([^"]+)"/.exec(html)?.[1] ?? "";
+
+  // baseline: indexable and listed
+  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
+  expect(await sitemap()).toContain("/en/spa");
+
+  // an editor's draft changes nothing public
+  expect((await editor.patch(`/api/pages/${spa}?draft=true&locale=en`, { data: { noindex: true, ogImage: { staticPath: "dorucak5.jpg" } } })).status()).toBe(200);
+  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
+  expect(ogImage(await (await request.get("/en/spa")).text())).not.toContain("dorucak5");
+  expect(await sitemap()).toContain("/en/spa");
+
+  // the administrator publishes: noindex on both languages, gone from the sitemap, other pages untouched
+  expect((await admin.patch(`/api/pages/${spa}?locale=en`, { data: { noindex: true, ogImage: { staticPath: "dorucak5.jpg", alt: "Breakfast" }, _status: "published" } })).status()).toBe(200);
+  for (const l of ["en", "bs"]) expect(robots(await (await request.get(`/${l}/spa`)).text())).toBe(true);
+  expect(ogImage(await (await request.get("/en/spa")).text())).toContain("dorucak5");
+  const hidden = await sitemap();
+  expect(hidden).not.toContain("/en/spa");
+  expect(hidden).not.toContain("/bs/spa");
+  expect(hidden).toContain("/en/about");
+  expect(robots(await (await request.get("/en/about")).text())).toBe(false);
+
+  // rooms: per-language title, independent of the other language; noindex removes the room from the sitemap
+  const stamp = `Junior-${Date.now()}`;
+  expect((await admin.patch(`/api/rooms/${room}?locale=en`, { data: { metaTitle: stamp, metaDescription: "Custom room description", noindex: true, _status: "published" } })).status()).toBe(200);
+  const en = await (await request.get("/en/rooms/junior-suite")).text();
+  const bs = await (await request.get("/bs/rooms/junior-suite")).text();
+  expect(en).toContain(`<title>${stamp}`);
+  expect(en).toContain("Custom room description");
+  expect(bs).not.toContain(stamp);
+  expect(robots(en)).toBe(true);
+  expect(await sitemap()).not.toContain("/en/rooms/junior-suite");
+
+  // limits are enforced by the API
+  expect((await admin.patch(`/api/rooms/${room}?locale=en`, { data: { metaTitle: "x".repeat(71), _status: "published" } })).status()).toBe(400);
+
+  // restore
+  expect((await admin.patch(`/api/rooms/${room}?locale=en`, { data: { metaTitle: "", metaDescription: "", noindex: false, _status: "published" } })).status()).toBe(200);
+  expect((await admin.patch(`/api/pages/${spa}?locale=en`, { data: { noindex: false, ogImage: { staticPath: null }, _status: "published" } })).status()).toBe(200);
+  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
+  expect(await sitemap()).toContain("/en/spa");
+  expect(await sitemap()).toContain("/en/rooms/junior-suite");
+});
+
 test("static fallback: deleting the CMS document restores the original page", async ({ request }) => {
   expect((await editor.delete(`/api/pages/${aboutId}`)).status()).toBe(403);
   expect((await admin.delete(`/api/pages/${aboutId}`)).status()).toBe(200);

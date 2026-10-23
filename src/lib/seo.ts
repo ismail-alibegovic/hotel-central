@@ -14,10 +14,12 @@ export function pageMetadata(
   title: string,
   description: string,
   image = "/images/3075.jpg",
+  noindex = false,
 ): Metadata {
   return {
     title,
     description,
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: alternates(locale, path),
     openGraph: { title, description, url: `/${locale}${path}`, images: [{ url: image }] },
   };

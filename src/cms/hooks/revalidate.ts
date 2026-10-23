@@ -7,7 +7,9 @@ const locales = ["en", "bs"] as const;
 export const pathsFor = (collection: "pages" | "rooms", slug: string): string[] => {
   const base = collection === "pages" ? `/${slug}` : `/rooms/${slug}`;
   const paths = locales.map((l) => `/${l}${base}`);
-  if (collection === "rooms") paths.push(...locales.flatMap((l) => [`/${l}/rooms`, `/${l}`]), "/sitemap.xml");
+  // The sitemap lists rooms (visibility) and leaves out anything marked "hide from search engines" (pages and rooms).
+  if (collection === "rooms") paths.push(...locales.flatMap((l) => [`/${l}/rooms`, `/${l}`]));
+  paths.push("/sitemap.xml");
   return paths;
 };
 

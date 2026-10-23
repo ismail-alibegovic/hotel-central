@@ -11,8 +11,8 @@ type P = { params: Promise<{ locale: Locale }> };
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale } = await params;
-  const { meta, ogImage } = await getPageLayout("meetings-events", locale);
-  return pageMetadata(locale, "/meetings-events", meta.title, meta.description, ogImage);
+  const { meta, ogImage, noindex } = await getPageLayout("meetings-events", locale);
+  return pageMetadata(locale, "/meetings-events", meta.title, meta.description, ogImage, noindex);
 }
 
 export default async function Events({ params }: P) {

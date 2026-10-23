@@ -11,8 +11,8 @@ const EDITOR = { email: `ui-editor-${Date.now()}@example.test`, password: proces
 let api: APIRequestContext;
 let aboutId: string;
 // Payload locks a document for minutes after someone opens it, and every Playwright project registers its own editor account,
-// so the editor tests must never share a page with the admin tests or with each other: one page per project.
-const editorPages: Record<string, { slug: string; id?: string }> = { "admin-desktop": { slug: "spa" }, "admin-mobile": { slug: "restaurant" } };
+// so the editor tests must never share a page with the admin tests, the API tests (cms.spec.ts) or each other: one page per project.
+const editorPages: Record<string, { slug: string; id?: string }> = { "admin-desktop": { slug: "meetings-events" }, "admin-mobile": { slug: "contact" } };
 let roomId: string;
 
 async function uiLogin(page: Page, who: { email: string; password: string }) {
