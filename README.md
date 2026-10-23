@@ -7,13 +7,14 @@ content and imagery.
 
 ## Stack
 
-Next.js 15 (App Router, SSG) · TypeScript · Tailwind CSS v4 · Motion (`motion/react`) · `next/image` · `next/font`.
+Next.js 16 (App Router, SSG, Turbopack) · TypeScript · Tailwind CSS v4 · Motion (`motion/react`) · `next/image` · `next/font`.
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000  → redirects to /en (or /bs for bs/hr/sr browsers)
 npm run build && npm start
 npm run lint
+npm run check         # lint + typecheck + build (what CI runs first)
 ```
 
 ## Routes
@@ -75,3 +76,11 @@ To resolve with the hotel:
 3. **Taxi price discrepancy** — EN page says ~15 € / 30 KM from the airport; BS page says ~18 € / 35 KM (and 15 € / 30 KM to the airport). Each language currently shows its own source.
 4. **Booking guests/rooms parameters** — confirm with a test search (see above).
 5. **Presidential suite** source slug is `presidental-suite`; the new site uses `presidential-suite`. Add a redirect at launch if the old URLs are kept.
+
+## Quality gates, CMS and operations
+
+- **Tests & CI:** `docs/TESTING.md` — lint, typecheck, build, Playwright smoke (EN/BS × mobile/tablet/desktop), CI-rendered visual regression, CMS integration and end-to-end suites, backup/restore drill. Node `^24.22.1` (or `^22.23.4`).
+- **CMS (Payload, opt-in via `CMS_ENABLED`):** `docs/architecture/CMS_DECISION.md`, `docs/architecture/PAYLOAD_POC.md` (roles, what is editable, how to run), `docs/architecture/DEPENDENCY_AUDIT.md`.
+- **Hosted staging runbook, env matrix, backup/restore, free tiers:** `docs/operations/CMS_STAGING.md`.
+- **Audit baseline and legacy URL inventory:** `docs/audit/`.
+- Indexing: the demo and previews are `noindex`; the site becomes indexable only when `NEXT_PUBLIC_SITE_URL` is set on the production deployment (`src/lib/site.ts`).
