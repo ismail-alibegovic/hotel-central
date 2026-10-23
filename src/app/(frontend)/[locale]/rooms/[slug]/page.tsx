@@ -10,6 +10,9 @@ import { Arrow, PillLink } from "@/components/ui";
 import { getDictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { getRoom, rooms } from "@/content/rooms";
+import { LivePreviewListener } from "@/cms/LivePreviewListener";
+import { getCmsDoc } from "@/cms/data";
+import { roomWithCms } from "@/cms/overrides";
 import { href, locales, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { fitStyle } from "@/lib/fit";
@@ -23,15 +26,18 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale, slug } = await params;
-  const room = getRoom(slug);
-  if (!room) return {};
+  const base = getRoom(slug);
+  if (!base) return {};
+  const room = roomWithCms(base, (await getCmsDoc("rooms", slug, locale)).doc, locale);
   return pageMetadata(locale, `/rooms/${slug}`, room.name[locale], `${room.sizeLabel[locale]}. ${room.summary[locale]}`, room.images[0].src);
 }
 
 export default async function RoomPage({ params }: P) {
   const { locale, slug } = await params;
-  const room = getRoom(slug);
-  if (!room) notFound();
+  const baseRoom = getRoom(slug);
+  if (!baseRoom) notFound();
+  const { doc, draft } = await getCmsDoc("rooms", slug, locale);
+  const room = roomWithCms(baseRoom, doc, locale);
   const dict = getDictionary(locale);
   const idx = rooms.findIndex((r) => r.slug === slug);
   const others = rooms.filter((r) => r.slug !== slug);
@@ -41,6 +47,7 @@ export default async function RoomPage({ params }: P) {
 
   return (
     <>
+      {draft && <LivePreviewListener />}
       <PageHero
         image={imgs[0]}
         eyebrow={room.feature[locale]}

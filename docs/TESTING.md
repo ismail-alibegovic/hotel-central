@@ -10,6 +10,8 @@ Requirements: Node 22, npm 10. Everything below runs from the repository root.
 | Build | `npm run build` | production build, 34 static pages (needs network for Google Fonts) |
 | Smoke | `npm run test:e2e` | every EN/BS page and all 6 room pages at 390 / 768 / 1440 px: HTTP 200, one `<h1>`, correct `<html lang>`, no horizontal overflow, no broken images, no console errors or failed sub-requests; 404, root redirect, robots/sitemap, contact-API validation |
 | Visual | `npm run test:visual` | above-the-fold screenshots of 11 pages × 3 widths against `tests/e2e/__screenshots__` (2 % pixel tolerance) |
+| Payload integration | `npm run test:int` | CMS access control, drafts, locales, media, REST authorization (in-memory MongoDB, no cloud) |
+| CMS end-to-end | `npm run test:cms-e2e` | production build with `CMS_ENABLED=true` + Playwright (see docs/architecture/PAYLOAD_POC.md) |
 | All static gates | `npm run check` | lint + typecheck + build |
 
 The e2e commands start `next start` on port 3100 themselves, so run `npm run build` first.

@@ -41,3 +41,9 @@ test("contact API rejects invalid input without sending", async ({ request }) =>
   const res = await request.post("/api/contact", { data: { name: "x", email: "bad", message: "short", consent: false } });
   expect(res.status()).toBe(422);
 });
+
+test("CMS surface is closed unless CMS_ENABLED (admin, CMS API, preview)", async ({ request }) => {
+  for (const url of ["/admin", "/api/users/me", "/api/pages", "/api/preview?path=/en/about"]) {
+    expect((await request.get(url, { maxRedirects: 0 })).status(), url).toBe(404);
+  }
+});
