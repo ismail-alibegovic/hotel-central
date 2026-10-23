@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site";
 /**
  * Verified Hotel Central Sarajevo facts.
  * Source: https://www.hotelcentral.ba/ (EN + /bs/), retrieved 2026-10-14.
@@ -18,8 +19,8 @@ export const hotel = {
   email: "info@hotelcentral.ba",
   website: "https://www.hotelcentral.ba/",
   facebook: "https://www.facebook.com/hotel.central.568",
-  /** Owner-supplied canonical site URL for metadata. Override with NEXT_PUBLIC_SITE_URL. */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.hotelcentral.ba",
+  /** Canonical origin for metadata; see src/lib/site.ts (NEXT_PUBLIC_SITE_URL, Vercel fallbacks). */
+  siteUrl,
 } as const;
 
 /**

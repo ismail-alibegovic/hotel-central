@@ -9,6 +9,7 @@ import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
 import { isLocale, locales } from "@/lib/i18n";
 import { hotelJsonLd } from "@/lib/seo";
+import { indexable } from "@/lib/site";
 import "../globals.css";
 
 const gilda = Gilda_Display({ subsets: ["latin", "latin-ext"], weight: "400", variable: "--font-gilda", display: "swap" });
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const dict = getDictionary(locale);
   return {
     metadataBase: new URL(hotel.siteUrl),
+    ...(indexable ? {} : { robots: { index: false, follow: false } }),
     title: { default: dict.meta.title, template: `%s — ${hotel.name}` },
     description: dict.meta.description,
     applicationName: hotel.name,
