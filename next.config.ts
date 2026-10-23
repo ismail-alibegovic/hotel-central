@@ -3,8 +3,12 @@ import { withPayload } from "@payloadcms/next/withPayload";
 import { indexable } from "./src/lib/site";
 
 const nextConfig: NextConfig = {
+  // Lets the end-to-end runner build a CMS-off reference site next to the CMS-on one (HTML parity test).
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // withPayload would otherwise advertise "X-Powered-By: Next.js, Payload".
   poweredByHeader: false,
+  // Photographs uploaded through the CMS are served from Vercel Blob (public store).
+  images: { remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }] },
   // Belt and braces for non-official deployments (covers non-HTML assets too).
   async headers() {
     // The admin and the CMS API must never be indexed, even on the official domain.

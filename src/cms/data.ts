@@ -20,17 +20,18 @@ function withTimeout<T>(work: Promise<T>): Promise<T> {
   return Promise.race([work, timeout]).finally(() => clearTimeout(timer));
 }
 
-async function readCmsDoc<C extends "pages" | "rooms">(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
+/** Decides whether this request may see drafts (Draft Mode AND a valid staff session). */
+async function readMode() {
   const payload = await getPayloadClient();
-  let draft = false;
-  let user = null;
   if ((await draftMode()).isEnabled) {
     const auth = await payload.auth({ headers: await headers() });
-    if (isStaffUser(auth.user)) {
-      draft = true;
-      user = auth.user;
-    }
+    if (isStaffUser(auth.user)) return { payload, draft: true, user: auth.user };
   }
+  return { payload, draft: false, user: null };
+}
+
+async function readCmsDoc<C extends "pages" | "rooms">(collection: C, slug: string, locale: Locale): Promise<CmsResult<C>> {
+  const { payload, draft, user } = await readMode();
   const res = await payload.find({
     collection,
     where: { slug: { equals: slug } },
@@ -38,11 +39,17 @@ async function readCmsDoc<C extends "pages" | "rooms">(collection: C, slug: stri
     fallbackLocale: false,
     draft,
     limit: 1,
-    depth: 0,
+    depth: 1,
     overrideAccess: false,
     ...(user ? { user } : {}),
   });
   return { doc: (res.docs[0] as Doc<C> | undefined) ?? null, draft };
+}
+
+async function readCmsDocs<C extends "pages" | "rooms">(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
+  const { payload, draft, user } = await readMode();
+  const res = await payload.find({ collection, locale, fallbackLocale: false, draft, limit: 100, depth: 1, overrideAccess: false, ...(user ? { user } : {}) });
+  return { docs: res.docs as Doc<C>[], draft };
 }
 
 /**
@@ -60,5 +67,28 @@ export async function getCmsDoc<C extends "pages" | "rooms">(collection: C, slug
   } catch (err) {
     console.error("[cms] falling back to static content:", err instanceof Error ? err.message : err);
     return { doc: null, draft: false };
+  }
+}
+
+/** All documents of a collection for a locale (published only, unless a staff member is previewing). Empty on any failure. */
+export async function getCmsDocs<C extends "pages" | "rooms">(collection: C, locale: Locale): Promise<{ docs: Doc<C>[]; draft: boolean }> {
+  if (!cmsEnabled()) return { docs: [], draft: false };
+  try {
+    return await withTimeout(readCmsDocs(collection, locale));
+  } catch (err) {
+    console.error("[cms] falling back to static content:", err instanceof Error ? err.message : err);
+    return { docs: [], draft: false };
+  }
+}
+
+/** Slugs of published, visible rooms for the sitemap (no request context, no drafts). Null = CMS unavailable, use static. */
+export async function getPublishedRoomSlugs(): Promise<string[] | null> {
+  if (!cmsEnabled()) return null;
+  try {
+    const payload = await getPayloadClient();
+    const res = await withTimeout(payload.find({ collection: "rooms", limit: 100, depth: 0, overrideAccess: false, select: { slug: true, visible: true } }));
+    return res.docs.filter((d) => d.visible !== false).map((d) => d.slug);
+  } catch {
+    return null;
   }
 }

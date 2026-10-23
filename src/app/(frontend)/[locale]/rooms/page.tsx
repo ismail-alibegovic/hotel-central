@@ -8,7 +8,8 @@ import { Arrow } from "@/components/ui";
 import { getDictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { getPages } from "@/content/pages";
-import { rooms } from "@/content/rooms";
+import { LivePreviewListener } from "@/cms/LivePreviewListener";
+import { getRooms } from "@/cms/rooms";
 import { href, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { fitStyle } from "@/lib/fit";
@@ -25,8 +26,10 @@ export default async function Rooms({ params }: P) {
   const { locale } = await params;
   const dict = getDictionary(locale);
   const r = getPages(locale).rooms;
+  const { rooms, draft } = await getRooms(locale);
   return (
     <>
+      {draft && <LivePreviewListener />}
       <PageHero
         image={{ src: "/images/3067.jpg", alt: "A suite at Hotel Central" }}
         eyebrow={r.hero.eyebrow}

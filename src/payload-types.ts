@@ -208,15 +208,59 @@ export interface Room {
    */
   slug: string;
   /**
-   * eZee room type id (administrators only).
+   * eZee room type id (administrators only; the website always uses the value stored in code).
    */
   roomTypeId?: string | null;
+  /**
+   * Room size in m² (administrators only).
+   */
+  sizeM2?: number | null;
+  /**
+   * Position in lists and the carousel (1 = first). Administrators only.
+   */
+  order?: number | null;
+  /**
+   * Untick to take the room off the website (lists, carousel, sitemap, URL answers 404). Administrators only.
+   */
+  visible?: boolean | null;
   name?: string | null;
+  /**
+   * Large title, one line per row (e.g. “Junior” / “Suite”).
+   */
+  titleLines?: string | null;
+  /**
+   * Short defining feature shown above the title, e.g. “King-size bed”.
+   */
   feature?: string | null;
+  /**
+   * e.g. “Room size 37 m²”.
+   */
+  sizeLabel?: string | null;
   summary?: string | null;
   description?:
     | {
         text: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlights?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  amenities?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to keep the current photographs. When photographs are added, they replace the current set (first = hero).
+   */
+  gallery?:
+    | {
+        image: string | Media;
         id?: string | null;
       }[]
     | null;
@@ -372,13 +416,36 @@ export interface PagesSelect<T extends boolean = true> {
 export interface RoomsSelect<T extends boolean = true> {
   slug?: T;
   roomTypeId?: T;
+  sizeM2?: T;
+  order?: T;
+  visible?: T;
   name?: T;
+  titleLines?: T;
   feature?: T;
+  sizeLabel?: T;
   summary?: T;
   description?:
     | T
     | {
         text?: T;
+        id?: T;
+      };
+  highlights?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  amenities?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        image?: T;
         id?: T;
       };
   updatedAt?: T;

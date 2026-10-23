@@ -13,7 +13,7 @@ byte-for-byte the static site (no Payload code runs, `/admin` and the CMS API re
 | Drafts and publish | `versions.drafts` (+ autosave) on Pages and Rooms; **only admins publish** | DONE |
 | Live preview, secure | admin Live Preview → `/api/preview` (staff session required, internal `/en|/bs` paths only) → Draft Mode; drafts are served only if Draft Mode **and** a valid staff session | DONE |
 | One page from CMS | `about` (hero eyebrow/title/intro + meta title/description) | DONE |
-| One room from CMS | `junior-suite` (name, feature, summary, description paragraphs) | DONE |
+| Rooms from CMS | **all six rooms** (Phase 2): copy (name, title lines, feature, size label, summary, description, highlights, amenities — per language), photographs (Media, replace the static set when present), plus admin-only order/visibility/size/booking id; list page, detail page, home carousel, sitemap all follow the CMS | DONE |
 | Static fallback | `getCmsDoc` returns `null` on disabled CMS / missing / unpublished / any error; blank fields fall back per field (`src/cms/overrides.ts`) | DONE |
 | Media prepared for Vercel Blob | `vercelBlobStorage` enabled only when `BLOB_READ_WRITE_TOKEN` is set; otherwise local `MEDIA_DIR` (dev/test) | PREPARED — **no Blob store exists; real upload NOT TESTED (needs authorization)** |
 | MongoDB Atlas M0 | connection by `DATABASE_URL` only | PREPARED — **no cluster exists (needs authorization)** |

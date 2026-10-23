@@ -8,7 +8,7 @@ import { RestaurantShowcase } from "@/components/home/RestaurantShowcase";
 import { RoomCarousel } from "@/components/home/RoomCarousel";
 import { SpaShowcase } from "@/components/home/SpaShowcase";
 import { getDictionary } from "@/content/dictionary";
-import { rooms } from "@/content/rooms";
+import { getRooms } from "@/cms/rooms";
 import type { Locale } from "@/lib/i18n";
 import { alternates } from "@/lib/seo";
 
@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
+  const { rooms } = await getRooms(locale);
   return (
     <>
       <Hero locale={locale} dict={dict} />
