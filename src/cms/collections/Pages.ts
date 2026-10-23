@@ -1,11 +1,14 @@
 import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
+import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
 
 /**
- * PoC scope: one existing page (`about`) is editable. Fields override matching static copy in
- * `src/content/pages.ts`; empty fields fall back to the static text, so rendering never breaks.
+ * Existing pages (about, rooms, spa, restaurant, meetings-events, location, contact) as editable
+ * block layouts. Blocks map 1:1 onto existing Hotel Central components, so editors can change copy,
+ * photographs, order and which sections appear without being able to break the design. A page with
+ * no CMS document (or no usable blocks in the visitor's language) renders its static layout.
  */
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -27,12 +30,10 @@ export const Pages: CollectionConfig = {
       index: true,
       // URLs are fixed by the route table; only admins may change/allocate them (prevents collisions).
       access: { update: adminFieldAccess },
-      admin: { description: "Existing route key, e.g. “about”. Not editable by editors." },
+      admin: { description: "Existing route key, e.g. “spa”. Not editable by editors." },
     },
-    { name: "metaTitle", type: "text", localized: true },
-    { name: "metaDescription", type: "textarea", localized: true },
-    { name: "heroEyebrow", type: "text", localized: true },
-    { name: "heroTitle", type: "textarea", localized: true, admin: { description: "One headline line per row." } },
-    { name: "heroIntro", type: "textarea", localized: true },
+    { name: "metaTitle", type: "text", localized: true, label: "Search-engine title" },
+    { name: "metaDescription", type: "textarea", localized: true, label: "Search-engine description" },
+    { name: "layout", type: "blocks", blocks, minRows: 1, label: "Page sections", admin: { description: "Add, remove and reorder sections. Text is edited per language (switch language at the top); the section structure is shared." } },
   ],
 };

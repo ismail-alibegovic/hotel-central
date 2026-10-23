@@ -42,7 +42,7 @@ beforeAll(async () => {
   adminToken = (await call("POST", "/api/users/login", { body: { email: admin.email, password: PASSWORD } })).json!.token;
   editorToken = (await call("POST", "/api/users/login", { body: { email: editor.email, password: PASSWORD } })).json!.token;
   await payload.create({ collection: "rooms", overrideAccess: true, locale: "en", data: { slug: "probe-room", roomTypeId: ROOM_TYPE_ID, name: "Probe", _status: "published" } });
-  await payload.create({ collection: "pages", overrideAccess: true, locale: "en", draft: true, data: { slug: "unpublished-secret", heroEyebrow: "NEVER PUBLIC" } });
+  await payload.create({ collection: "pages", overrideAccess: true, locale: "en", draft: true, data: { slug: "unpublished-secret", metaTitle: "NEVER PUBLIC" } });
 });
 afterAll(async () => h?.stop());
 
@@ -107,7 +107,7 @@ describe("unpublished content stays private on every read path", () => {
     "/api/pages?where[slug][equals]=unpublished-secret",
     "/api/pages?where[slug][equals]=unpublished-secret&draft=true",
     "/api/pages?where[_status][equals]=draft",
-    "/api/pages?where[heroEyebrow][contains]=NEVER",
+    "/api/pages?where[metaTitle][contains]=NEVER",
     "/api/pages?search=NEVER",
     "/api/pages/versions",
     "/api/pages/count?where[slug][equals]=unpublished-secret",

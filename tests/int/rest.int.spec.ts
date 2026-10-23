@@ -70,9 +70,9 @@ describe("REST authorization: pages", () => {
   let id: string;
 
   it("editor can create only drafts", async () => {
-    const pub = await call("POST", "/api/pages", { token: editorToken, body: { slug: slug + "-p", heroEyebrow: "x", _status: "published" } });
+    const pub = await call("POST", "/api/pages", { token: editorToken, body: { slug: slug + "-p", metaTitle: "x", _status: "published" } });
     expect(pub.status).toBe(403);
-    const draft = await call("POST", "/api/pages?draft=true&locale=en", { token: editorToken, body: { slug, heroEyebrow: "Draft one" } });
+    const draft = await call("POST", "/api/pages?draft=true&locale=en", { token: editorToken, body: { slug, metaTitle: "Draft one" } });
     expect(draft.status).toBe(201);
     expect(draft.json.doc._status).toBe("draft");
     id = draft.json.doc.id;
@@ -86,26 +86,26 @@ describe("REST authorization: pages", () => {
   });
 
   it("only an admin can publish", async () => {
-    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { heroEyebrow: "x" , _status: "published" } })).status).toBe(403);
-    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { heroEyebrow: "plain write" } })).status).toBe(403); // not a draft save
+    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { metaTitle: "x" , _status: "published" } })).status).toBe(403);
+    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { metaTitle: "plain write" } })).status).toBe(403); // not a draft save
     expect((await call("GET", `/api/pages/${id}`)).status).toBe(404);
-    const pub = await call("PATCH", `/api/pages/${id}?locale=en`, { token: adminToken, body: { heroEyebrow: "Live v1", _status: "published" } });
+    const pub = await call("PATCH", `/api/pages/${id}?locale=en`, { token: adminToken, body: { metaTitle: "Live v1", _status: "published" } });
     expect(pub.status).toBe(200);
     const live = await call("GET", `/api/pages?where[slug][equals]=${slug}&locale=en`);
-    expect(live.json.docs[0].heroEyebrow).toBe("Live v1");
+    expect(live.json.docs[0].metaTitle).toBe("Live v1");
   });
 
   it("editor draft edits stay private; direct writes to live content, unpublish and restore are refused", async () => {
-    const d = await call("PATCH", `/api/pages/${id}?draft=true&locale=en`, { token: editorToken, body: { heroEyebrow: "PRIVATE draft v2" } });
+    const d = await call("PATCH", `/api/pages/${id}?draft=true&locale=en`, { token: editorToken, body: { metaTitle: "PRIVATE draft v2" } });
     expect(d.status).toBe(200);
     const anon = await call("GET", `/api/pages?where[slug][equals]=${slug}&locale=en`);
     expect(JSON.stringify(anon.json)).not.toContain("PRIVATE draft v2");
-    expect(anon.json.docs[0].heroEyebrow).toBe("Live v1");
+    expect(anon.json.docs[0].metaTitle).toBe("Live v1");
     const anonAsksDraft = await call("GET", `/api/pages?where[slug][equals]=${slug}&locale=en&draft=true`);
     expect(JSON.stringify(anonAsksDraft.json)).not.toContain("PRIVATE draft v2");
 
     // not a draft save -> used to rewrite AND unpublish the live document while a draft was pending
-    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { heroEyebrow: "hijack" } })).status).toBe(403);
+    expect((await call("PATCH", `/api/pages/${id}?locale=en`, { token: editorToken, body: { metaTitle: "hijack" } })).status).toBe(403);
     expect((await call("GET", `/api/pages?where[slug][equals]=${slug}&locale=en`)).json.totalDocs).toBe(1);
     // unpublish
     expect((await call("PATCH", `/api/pages/${id}?draft=false&locale=en`, { token: editorToken, body: { _status: "draft" } })).status).toBe(403);
@@ -116,7 +116,7 @@ describe("REST authorization: pages", () => {
     expect(restore.status).toBe(403);
     // still live and unchanged
     const live = await call("GET", `/api/pages?where[slug][equals]=${slug}&locale=en`);
-    expect(live.json.docs[0].heroEyebrow).toBe("Live v1");
+    expect(live.json.docs[0].metaTitle).toBe("Live v1");
     // admin may unpublish
     expect((await call("PATCH", `/api/pages/${id}?draft=false&locale=en`, { token: adminToken, body: { _status: "draft" } })).status).toBe(200);
     expect((await call("GET", `/api/pages?where[slug][equals]=${slug}`)).json.totalDocs).toBe(0);

@@ -54,7 +54,7 @@ test("admin login screen is served, noindexed, and the public site stays indexab
 
 test("admin publish shows on the right locale only, immediately", async ({ request }) => {
   const stamp = `Stamp-${Date.now()}`;
-  const res = await admin.patch(`/api/pages/${aboutId}?locale=en`, { data: { heroEyebrow: stamp, _status: "published" } });
+  const res = await admin.patch(`/api/pages/${aboutId}?locale=en`, { data: { metaTitle: stamp, _status: "published" } });
   expect(res.status()).toBe(200);
   const en = await (await request.get("/en/about")).text();
   const bs = await (await request.get("/bs/about")).text();
@@ -64,7 +64,7 @@ test("admin publish shows on the right locale only, immediately", async ({ reque
 
 test("editor drafts stay private; preview is staff-only; a stolen draft cookie alone shows nothing", async ({ request }) => {
   const secret = `DRAFT-${Date.now()}`;
-  const d = await editor.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { heroEyebrow: secret } });
+  const d = await editor.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { metaTitle: secret } });
   expect(d.status()).toBe(200);
 
   // public cannot see it
@@ -80,9 +80,9 @@ test("editor drafts stay private; preview is staff-only; a stolen draft cookie a
   // CSRF: the session cookie only authenticates writes that come from our own origin
   const cookie = `payload-token=${tokens.get(editor)}`;
   const foreign = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: "https://evil.example", Cookie: cookie } });
-  expect((await foreign.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { heroEyebrow: "csrf" } })).status()).toBe(403);
+  expect((await foreign.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { metaTitle: "csrf" } })).status()).toBe(403);
   const ownOrigin = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Cookie: cookie } });
-  expect((await ownOrigin.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { heroEyebrow: secret } })).status()).toBe(200);
+  expect((await ownOrigin.patch(`/api/pages/${aboutId}?draft=true&locale=en`, { data: { metaTitle: secret } })).status()).toBe(200);
 
   // staff preview shows the draft
   const ok = await editor.get("/api/preview?path=/en/about", { maxRedirects: 0 });
@@ -101,7 +101,7 @@ test("editor drafts stay private; preview is staff-only; a stolen draft cookie a
   // editors cannot publish it; admin can, after which everyone sees it
   expect((await editor.patch(`/api/pages/${aboutId}?locale=en`, { data: { _status: "published" } })).status()).toBe(403);
   expect(await (await request.get("/en/about")).text()).not.toContain(secret);
-  expect((await admin.patch(`/api/pages/${aboutId}?locale=en`, { data: { heroEyebrow: secret, _status: "published" } })).status()).toBe(200);
+  expect((await admin.patch(`/api/pages/${aboutId}?locale=en`, { data: { metaTitle: secret, _status: "published" } })).status()).toBe(200);
   expect(await (await request.get("/en/about")).text()).toContain(secret);
 });
 
@@ -146,7 +146,7 @@ test("draft responses are never cacheable by shared caches; the admin API sends 
   const secret = `CACHE-${Date.now()}`;
   const doc = await pageDoc(admin, "about");
   expect(doc, "about doc present (fallback test deletes it, so this test must run before it)").toBeTruthy();
-  await editor.patch(`/api/pages/${doc.id}?draft=true&locale=en`, { data: { heroEyebrow: secret } });
+  await editor.patch(`/api/pages/${doc.id}?draft=true&locale=en`, { data: { metaTitle: secret } });
   const pre = await editor.get("/api/preview?path=/en/about", { maxRedirects: 0 });
   const bypass = pre.headersArray().filter((h) => h.name.toLowerCase() === "set-cookie").map((h) => h.value.split(";")[0]).find((c) => c.startsWith("__prerender_bypass"))!;
   const res = await editor.get("/en/about", { headers: { cookie: bypass } });
@@ -193,6 +193,92 @@ test("rooms: order, visibility and sitemap follow the CMS; the booking id never 
   expect(restored).toHaveLength(6);
   expect((await request.get("/en/rooms/family-room")).status()).toBe(200);
   expect(await (await request.get("/sitemap.xml")).text()).toContain("/en/rooms/family-room");
+});
+
+/** Fetch a page document's layout rows (all locales share the structure; text is per locale). */
+async function layoutOf(ctx: APIRequestContext, id: string, locale: "en" | "bs") {
+  const doc = await (await ctx.get(`/api/pages/${id}?draft=true&locale=${locale}&depth=0`)).json();
+  return doc.layout as Record<string, any>[]; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+const publish = (ctx: APIRequestContext, id: string, locale: "en" | "bs", data: object) => ctx.patch(`/api/pages/${id}?locale=${locale}`, { data: { ...data, _status: "published" } });
+
+test("page blocks: edit copy per language, reorder, remove — everywhere else unchanged", async ({ request }) => {
+  const spa = await pageDoc(admin, "spa");
+  const stamp = `Block-${Date.now()}`;
+  const en = await layoutOf(admin, spa.id, "en");
+  const types = en.map((b) => b.blockType);
+  expect(types).toEqual(["hero", "split", "facts", "split", "split", "gallery", "finalBooking"]);
+
+  // 1. change the hero eyebrow in English only
+  en[0].eyebrow = stamp;
+  expect((await publish(admin, spa.id, "en", { layout: en })).status()).toBe(200);
+  const enHtml = await (await request.get("/en/spa")).text();
+  const bsHtml = await (await request.get("/bs/spa")).text();
+  expect(enHtml).toContain(stamp);
+  expect(bsHtml).not.toContain(stamp);
+
+  // 2. swap the gym and day-spa sections (structure is shared by both languages)
+  const rows = await layoutOf(admin, spa.id, "en");
+  [rows[3], rows[4]] = [rows[4], rows[3]];
+  expect((await publish(admin, spa.id, "en", { layout: rows })).status()).toBe(200);
+  const order = async (path: string) => {
+    const html = await (await request.get(path)).text();
+    return [html.indexOf("(03) Wellness Day Spa"), html.indexOf("(02) Fitness")];
+  };
+  const [daySpaPos, gymPos] = await order("/en/spa");
+  expect(daySpaPos).toBeGreaterThan(-1);
+  expect(daySpaPos).toBeLessThan(gymPos); // day spa now precedes the gym, in English
+  const bsOrder = await order("/bs/spa");
+  expect(bsOrder[0]).toBeLessThan(bsOrder[1]); // and in Bosnian too: the layout is shared
+
+  // 3. remove the gallery
+  const without = (await layoutOf(admin, spa.id, "en")).filter((b) => b.blockType !== "gallery");
+  expect((await publish(admin, spa.id, "en", { layout: without })).status()).toBe(200);
+  expect(await (await request.get("/en/spa")).text()).not.toContain("central-spa_relax-room");
+  expect(await (await request.get("/en/spa")).text()).toContain(stamp); // the rest is still there
+});
+
+test("page blocks: an untranslated section is left out, never shown empty or in the wrong language", async ({ request }) => {
+  const loc = await pageDoc(admin, "location");
+  const rows = await layoutOf(admin, loc.id, "en");
+  // add a brand-new statement block in English only
+  rows.push({ blockType: "statement", text: "ONLY IN ENGLISH", tone: "ivory" });
+  expect((await publish(admin, loc.id, "en", { layout: rows })).status()).toBe(200);
+  expect(await (await request.get("/en/location")).text()).toContain("ONLY IN ENGLISH");
+  const bs = await (await request.get("/bs/location")).text();
+  expect(bs).not.toContain("ONLY IN ENGLISH");
+  expect(bs).toContain('lang="bs"');
+});
+
+test("page blocks: link safety — unapproved or script links are refused when saving", async ({ request }) => {
+  const contact = await pageDoc(admin, "restaurant");
+  const rows = await layoutOf(admin, contact.id, "en");
+  const split = rows.find((b) => b.blockType === "split" && b.primary);
+  expect(split).toBeTruthy();
+  for (const bad of [
+    { kind: "external", value: "https://evil.example/phish" },
+    { kind: "external", value: "javascript:alert(1)" },
+    { kind: "external", value: "http://www.hotelcentral.ba/" },
+    { kind: "internal", value: "//evil.example" },
+    { kind: "internal", value: "/en/rooms" },
+  ]) {
+    split!.primary = { ...split!.primary, link: bad };
+    const res = await publish(admin, contact.id, "en", { layout: rows });
+    expect(res.status(), JSON.stringify(bad)).toBe(400);
+  }
+  // nothing was saved: the public page still has its original, valid call to action
+  const html = await (await request.get("/en/restaurant")).text();
+  expect(html).not.toContain("evil.example");
+  expect(html).toContain('href="/en/contact"');
+});
+
+test("page blocks: editors can draft layout changes but not publish them", async ({ request }) => {
+  const about = await pageDoc(editor, "about");
+  const rows = await layoutOf(editor, about.id, "en");
+  rows[0].eyebrow = "EDITOR-LAYOUT-DRAFT";
+  expect((await editor.patch(`/api/pages/${about.id}?draft=true&locale=en`, { data: { layout: rows } })).status()).toBe(200);
+  expect((await editor.patch(`/api/pages/${about.id}?locale=en`, { data: { layout: rows, _status: "published" } })).status()).toBe(403);
+  expect(await (await request.get("/en/about")).text()).not.toContain("EDITOR-LAYOUT-DRAFT");
 });
 
 test("static fallback: deleting the CMS document restores the original page", async ({ request }) => {

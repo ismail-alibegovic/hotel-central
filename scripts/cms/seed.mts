@@ -1,6 +1,6 @@
 /**
- * Idempotent seed: copies the existing static content for ONE page (about) and ONE room (junior-suite)
- * into the CMS, in both locales. A document that already exists is never touched, so repeated runs
+ * Idempotent seed: copies the existing static content for the seven pages and six rooms into the CMS,
+ * in both locales. A document that already exists is never touched, so repeated runs
  * cannot overwrite editor changes. Run: npm run cms:seed   (needs DATABASE_URL + PAYLOAD_SECRET)
  *
  * Optional bootstrap admin (dev/staging only): SEED_ADMIN_EMAIL + SEED_ADMIN_PASSWORD from the
@@ -8,7 +8,8 @@
  */
 import { getPayload } from "payload";
 import configModule from "@payload-config";
-import { getPages } from "../../src/content/pages";
+import { pageKeys } from "../../src/cms/blocks/types";
+import { seedPage } from "../../src/cms/seedPages";
 import { rooms } from "../../src/content/rooms";
 import { locales } from "../../src/lib/i18n";
 
@@ -23,11 +24,6 @@ if (process.env.SEED_ADMIN_EMAIL && process.env.SEED_ADMIN_PASSWORD) {
     console.log("created admin from SEED_ADMIN_EMAIL");
   }
 }
-
-const pageData = (l: (typeof locales)[number]) => {
-  const a = getPages(l).about;
-  return { metaTitle: a.meta.title, metaDescription: a.meta.description, heroEyebrow: a.hero.eyebrow, heroTitle: a.hero.title.join("\n"), heroIntro: a.hero.intro };
-};
 
 const roomData = (slug: string) => (l: (typeof locales)[number]) => {
   const room = rooms.find((r) => r.slug === slug)!;
@@ -52,7 +48,9 @@ async function seed<C extends "pages" | "rooms">(collection: C, slug: string, ba
   console.log(`${collection}/${slug}: created (en + bs, published)`);
 }
 
-await seed("pages", "about", {}, pageData);
+// Pages: structure is shared, text is per language (see src/cms/seedPages.ts).
+for (const key of pageKeys) console.log(`pages/${key}: ${await seedPage(payload, key)}`);
+
 for (const [i, room] of rooms.entries()) {
   await seed("rooms", room.slug, { roomTypeId: room.roomTypeId, sizeM2: room.sizeM2, order: i + 1, visible: true }, roomData(room.slug));
 }

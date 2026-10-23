@@ -1,29 +1,12 @@
-import type { Page, Room as CmsRoom } from "@/payload-types";
-import type { getPages } from "@/content/pages";
+import type { Room as CmsRoom } from "@/payload-types";
 import type { Room } from "@/content/rooms";
 import type { Locale } from "@/lib/i18n";
-
-type About = ReturnType<typeof getPages>["about"];
 
 const text = (v: string | null | undefined) => (v && v.trim() ? v.trim() : undefined);
 const lines = (v: string | null | undefined) => {
   const l = (v ?? "").split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
   return l.length ? l : undefined;
 };
-
-/** CMS text replaces static copy only where the editor filled it in; everything else stays as authored in code. */
-export function aboutWithCms(about: About, doc: Page | null): About {
-  if (!doc) return about;
-  return {
-    ...about,
-    meta: { title: text(doc.metaTitle) ?? about.meta.title, description: text(doc.metaDescription) ?? about.meta.description },
-    hero: {
-      eyebrow: text(doc.heroEyebrow) ?? about.hero.eyebrow,
-      title: lines(doc.heroTitle) ?? about.hero.title,
-      intro: text(doc.heroIntro) ?? about.hero.intro,
-    },
-  };
-}
 
 const texts = (rows: { text?: string | null }[] | null | undefined) => (rows ?? []).map((r) => text(r.text)).filter((t): t is string => Boolean(t));
 
