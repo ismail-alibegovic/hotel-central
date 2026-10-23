@@ -66,10 +66,28 @@ function assertNoSecretsInClientBundle() {
   console.log(`client bundle scan: ${files.length} files, no server secrets found`);
 }
 
+/**
+ * The `npm audit` highs all come from packages that only exist at build/dev time (sass file watcher,
+ * ESLint's glob, an unused cloud-storage helper). Prove it: none may be part of the server runtime that
+ * Vercel would deploy (Next's file-trace output), and the check must not be vacuous (Payload itself is traced).
+ */
+function assertAdvisoryPackagesNotShipped() {
+  const walk = (dir: string): string[] => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]));
+  const traced = new Set<string>();
+  for (const f of walk(".next").filter((f) => f.endsWith(".nft.json"))) for (const x of JSON.parse(fs.readFileSync(f, "utf8")).files as string[]) traced.add(x);
+  const all = [...traced].join("\n");
+  if (!all.includes("/node_modules/payload/")) throw new Error("trace check is vacuous: payload not found in traces");
+  for (const pkg of ["braces", "micromatch", "chokidar", "sass", "find-node-modules", "findup-sync", "monaco-editor", "dompurify"]) {
+    if (all.includes(`/node_modules/${pkg}/`)) throw new Error(`advisory package ${pkg} is part of the deployed server runtime`);
+  }
+  console.log(`runtime trace scan: ${traced.size} traced files; advisory packages are build/dev-only`);
+}
+
 try {
   await run("npx", ["tsx", "scripts/cms/seed.mts"]);
   await run("npx", ["next", "build"]);
   assertNoSecretsInClientBundle();
+  assertAdvisoryPackagesNotShipped();
   await startServer();
   code = await run("npx", ["playwright", "test", "-c", "playwright.cms.config.ts"]).then(() => 0, () => 1);
 

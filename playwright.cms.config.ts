@@ -14,7 +14,7 @@ const executablePath = process.env.PW_CHROMIUM_PATH || undefined;
 const sizes = { mobile: { width: 390, height: 844 }, tablet: { width: 768, height: 1024 }, desktop: { width: 1440, height: 900 } };
 
 // CMS-rendered pages are compared with the STATIC baselines on purpose: same files, same tolerance.
-const staticBaselines = "{testDir}/../e2e/__screenshots__/{projectName}/visual.spec.ts/{arg}{ext}";
+const staticBaselines = process.env.E2E_BASELINES_DIR ? `${process.env.E2E_BASELINES_DIR}/{projectName}/visual.spec.ts/{arg}{ext}` : "{testDir}/../e2e/__screenshots__/{projectName}/visual.spec.ts/{arg}{ext}";
 
 export default defineConfig({
   testDir: "./tests/cms-e2e",

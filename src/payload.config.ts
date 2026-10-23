@@ -5,6 +5,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 import sharp from "sharp";
+import { isStaffUser } from "./cms/access";
 import { Media } from "./cms/collections/Media";
 import { Pages } from "./cms/collections/Pages";
 import { Rooms } from "./cms/collections/Rooms";
@@ -17,6 +18,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const building = process.env.NEXT_PHASE === "phase-production-build";
 const secret = process.env.PAYLOAD_SECRET ?? (building ? "build-time-placeholder" : "");
 if (!secret) throw new Error("PAYLOAD_SECRET is required when the CMS is enabled.");
+if (process.env.NODE_ENV === "production" && !building && secret.length < 32) throw new Error("PAYLOAD_SECRET must be at least 32 characters in production.");
 
 const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL ?? "";
@@ -59,7 +61,8 @@ export default buildConfig({
   // instead of hanging for the 30 s driver default.
   db: mongooseAdapter({
     url: process.env.DATABASE_URL ?? "",
-    connectOptions: { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000, socketTimeoutMS: 15000 },
+    // maxPoolSize is small on purpose: every serverless instance keeps its own pool and Atlas M0 allows 500 connections in total.
+    connectOptions: { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000, socketTimeoutMS: 15000, maxPoolSize: 5, minPoolSize: 0 },
   }),
   secret,
   // Cookie-authenticated requests are only accepted from our own origin (CSRF protection).
@@ -72,6 +75,13 @@ export default buildConfig({
   plugins: [
     // Media goes to Vercel Blob when a token is configured; otherwise to the local MEDIA_DIR (dev/test only —
     // serverless disks are ephemeral, so production must set BLOB_READ_WRITE_TOKEN).
-    vercelBlobStorage({ enabled: Boolean(blobToken), collections: { media: true }, token: blobToken ?? "" }),
+    // clientUploads: browsers upload straight to Blob, because Vercel Functions reject request bodies over 4.5 MB.
+    // Only staff can obtain an upload token; the collection's own create access and mime-type list still apply.
+    vercelBlobStorage({
+      enabled: Boolean(blobToken),
+      collections: { media: true },
+      token: blobToken ?? "",
+      clientUploads: { access: ({ req }) => isStaffUser(req.user) },
+    }),
   ],
 });

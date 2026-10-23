@@ -104,8 +104,12 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Payload integration tests (Local API + REST handlers)
         run: npm run test:int
-      - name: CMS end-to-end against a production build with CMS enabled
+      - name: CMS end-to-end (parity vs static baselines, admin UI mobile+desktop, API, DB-outage build, secret/trace scans)
         run: npm run test:cms-e2e
+      - name: Backup + restore drill (mongodump/mongorestore into a fresh database)
+        run: |
+          TOOLS="$(scripts/cms/install-mongo-tools.sh "$RUNNER_TEMP/mongo-tools")"
+          PATH="$TOOLS:$PATH" npm run cms:restore-drill
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

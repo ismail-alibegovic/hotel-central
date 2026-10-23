@@ -15,7 +15,9 @@
     "cms:seed": "tsx scripts/cms/seed.mts",
     "test:int": "vitest run",
     "cms:generate": "DATABASE_URL=${DATABASE_URL:-mongodb://127.0.0.1/unused} PAYLOAD_SECRET=${PAYLOAD_SECRET:-unused} tsx scripts/cms/generate.mts",
-    "test:cms-e2e": "tsx scripts/cms/e2e.mts"
+    "test:cms-e2e": "tsx scripts/cms/e2e.mts",
+    "cms:restore-drill": "tsx scripts/cms/restore-drill.mts",
+    "cms:backup-media": "tsx scripts/cms/backup-media.mts"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.92.0",

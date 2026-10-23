@@ -53,16 +53,16 @@ Manual use against your own database: copy `.env.example`, set `CMS_ENABLED=true
 `payload generate:types` / `payload run` fail in this toolchain ("Illegal constructor" in undici when tsx transpiles
 `arguments[0]`); the `cms:*` scripts use the tsx CLI directly instead (`scripts/cms/*.mts`).
 
-## Evidence (local, Node 24.22.1, Payload 3.92.0)
+## Evidence (local Node 24.22.1 + GitHub Actions, Payload 3.92.0)
 | Check | Result |
 | --- | --- |
 | `npm run lint`, `npx tsc --noEmit` | PASS |
-| `npm audit --omit=dev` | **10 high, 0 critical** (see below) |
-| `npm run build` with CMS disabled | PASS — all public pages remain statically generated (`●`), admin/API listed as dynamic |
-| Existing smoke tests (CMS off) | 96/96 PASS (+1 new: CMS surface returns 404 when disabled) |
-| Existing visual tests (CMS off) | same 30/33 locally as `main` (the 3 known sandbox-vs-CI mobile differences); CI is the authority |
-| `npm run test:int` | 30/30 PASS: auth, lockout, role escalation, user management, draft/publish matrix, draft privacy, locale isolation, privileged fields, media persistence/validation, Blob wiring, REST authorization, version restore |
-| `npm run test:cms-e2e` | 8/8 PASS: seeded content renders, `/admin` login served, publish visible per locale immediately, draft invisible to the public, preview staff-only, stolen draft-mode cookie alone shows nothing, CSRF, open-redirect refusal, booking id unchanged, deleting the CMS doc restores the static page, contact API unaffected |
+| `npm run build`, CMS disabled / enabled | PASS; public routes stay prerendered (`●`) in both modes |
+| Smoke (CMS off) | 99/99 — includes "CMS surface returns 404 when disabled" |
+| Visual regression (CMS off), 13 pages × 3 widths incl. About EN/BS | blocking CI job; baselines rendered on the CI runner (locally set `E2E_BASELINES_DIR` to compare against your own renders) |
+| `npm run test:int` | **58 tests / 8 files**: auth + lockout, role matrix, draft/publish, draft privacy on every REST read path (filters, sorts, versions, counts, search), no oracle on privileged fields, no user enumeration, locale isolation, media validation over REST (SVG, disguised HTML, 8 MB limit, traversal), persistence across restart, Blob wiring, env-secret hygiene |
+| `npm run test:cms-e2e` | **38 tests**: 12 CMS-vs-static pixel parity (About + Junior Suite, EN/BS, 390/768/1440 against the static baselines), 14 browser admin tests (login, role views, draft/publish/BS-EN independence, room editing; mobile and desktop), 10 HTTP tests (CSRF, preview auth, stolen draft cookie, cache headers, booking form/link unchanged, fallback), 2 DB-outage tests (site rebuilt and served with the database stopped); plus client-bundle secret scan and server-runtime trace scan |
+| `npm run cms:restore-drill` | PASS — dump → destroy → restore → verify (login with original password, both locales, pending draft, media file) |
 
 ### Dependency audit with Payload installed
 Payload's tree adds findings that Next 16 alone did not have. Fixed: **DOMPurify (critical, via `monaco-editor` inside the admin UI)** by the `overrides.monaco-editor.dompurify ^3.4.17` entry.
@@ -73,7 +73,7 @@ Accepted, with no upstream fix available: **`braces` stack-exhaustion DoS (GHSA-
 - Browser-driven admin editing (clicking through the Payload UI, live-preview iframe, Lexical) — the admin login screen is verified, editing is verified over REST only. NOT TESTED in a browser.
 - Real Blob upload/persistence across redeploys, Atlas backup/restore, production cost: NOT TESTED / BLOCKED.
 - Visual parity of the CMS-rendered `about`/`junior-suite` against the static render is asserted by text only; add `/en/about` to the visual baselines before Phase 2.
-- With the CMS enabled the two CMS-driven routes render dynamically (Draft Mode needs the request); everything else stays static. Phase 2 should move to cached reads + `revalidatePath` (hooks already in place) for the public path.
+- With the CMS enabled the public pages are still **prerendered** (verified: `●` SSG in the build output with `CMS_ENABLED=true`) and regenerated on demand: publish/unpublish/delete hooks call `revalidatePath` for the affected locale routes, and Draft Mode requests bypass the cache. Content therefore only reaches visitors after an admin publishes, and the public path does not hit the database per request. Consequence: `CMS_ENABLED` and `DATABASE_URL` must also be present at **build** time (a build against an unreachable database still succeeds and falls back to static content — tested).
 - Email (password reset) uses Payload's console adapter; production needs Resend (BLOCKED: hotel domain).
 
 ## Rollback
