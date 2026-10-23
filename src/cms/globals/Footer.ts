@@ -1,0 +1,44 @@
+import type { GlobalConfig } from "payload";
+import { adminFieldAccess, publishedOrStaff, staffUpdate } from "../access";
+import { linkField } from "../blocks/config";
+import { blockEditorPublishGlobal, lockStructure, requireEditorDraftGlobal } from "../hooks/globalGuards";
+import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
+
+/**
+ * Footer wording (per language, editors as drafts) and social profile links (administrators only).
+ * Address, phone and e-mail stay in code on purpose, and so does the booking address.
+ * The footer's "Explore" list is the Navigation global's entries.
+ */
+export const Footer: GlobalConfig = {
+  slug: "footer",
+  label: "Footer",
+  admin: { description: "Footer wording and social links. Empty fields use the built-in text." },
+  access: { read: publishedOrStaff, update: staffUpdate },
+  versions: { drafts: { autosave: { interval: 1500 } }, max: 25 },
+  hooks: {
+    beforeOperation: [requireEditorDraftGlobal],
+    beforeChange: [blockEditorPublishGlobal, lockStructure("social", ["link", "label"], "social links")],
+    afterChange: [revalidateGlobalAfterChange],
+  },
+  fields: [
+    { name: "reservations", type: "text", localized: true, label: "Reservations strip — heading" },
+    { name: "reservationsBody", type: "textarea", localized: true, label: "Reservations strip — text" },
+    { name: "statement", type: "textarea", localized: true, label: "Large statement", admin: { description: "One line per row (the built-in one is “Hotel” / “Central”)." } },
+    { name: "addressLabel", type: "text", localized: true, label: "Heading — address" },
+    { name: "contactLabel", type: "text", localized: true, label: "Heading — contact" },
+    { name: "exploreLabel", type: "text", localized: true, label: "Heading — explore" },
+    { name: "followLabel", type: "text", localized: true, label: "Heading — follow" },
+    { name: "rights", type: "text", localized: true, label: "Rights line" },
+    { name: "credits", type: "text", localized: true, label: "Credits line" },
+    {
+      name: "social",
+      type: "array",
+      label: "Social links",
+      maxRows: 6,
+      labels: { singular: "Link", plural: "Links" },
+      access: { create: adminFieldAccess, update: adminFieldAccess },
+      admin: { description: "Administrators only. Addresses must be on the approved list of websites. Empty = Facebook as built in.", initCollapsed: true },
+      fields: [{ name: "label", type: "text", required: true, label: "Name (e.g. Facebook)" }, linkField("link", "Address")],
+    },
+  ],
+};

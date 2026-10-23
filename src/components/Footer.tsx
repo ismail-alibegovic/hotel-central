@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionary";
 import { booking, hotel, maps } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
@@ -7,7 +8,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { RevealLines } from "./Reveal";
 import { Arrow } from "./ui";
 
-export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Footer({ locale, dict, social = [{ label: "Facebook", href: hotel.facebook }] }: { locale: Locale; dict: Dictionary; social?: { label: string; href: string }[] }) {
   const f = dict.footer;
   const year = new Date().getFullYear();
   return (
@@ -70,7 +71,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         <nav aria-label={f.explore} className="label col-span-2 md:col-span-1">
           <p className="mb-3 opacity-50">{f.explore}</p>
           <ul className="grid grid-cols-2 gap-x-6 gap-y-0 md:gap-y-1">
-            {dict.nav.items.slice(1).map((item) => (
+            {dict.nav.items.filter((item) => item.href !== "/").map((item) => (
               <li key={item.href}>
                 <Link href={href(locale, item.href)} className="link-line py-[7px] md:py-0">
                   {item.label}
@@ -81,9 +82,14 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </nav>
         <div className="label">
           <p className="mb-3 opacity-50">{f.follow}</p>
-          <a href={hotel.facebook} target="_blank" rel="noopener noreferrer" className="link-line">
-            Facebook
-          </a>
+          {social.map((s, i) => (
+            <Fragment key={s.href}>
+              {i > 0 && <br />}
+              <a href={s.href} target="_blank" rel="noopener noreferrer" className="link-line">
+                {s.label}
+              </a>
+            </Fragment>
+          ))}
         </div>
         <div className="label">
           <p className="mb-3 opacity-50">{dict.nav.language}</p>

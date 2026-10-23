@@ -7,6 +7,7 @@ import { defineConfig } from "@playwright/test";
  *   parity-*  CMS-rendered About / Junior Suite must be pixel-identical to the static baselines (read-only)
  *   admin-*   browser-driven administration on mobile and desktop (edits the content)
  *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
+ *   chrome-*  navigation + footer globals: HTTP (roles, drafts, locales, link safety) and the admin UI
  * E2E_PHASE=outage runs only the database-outage spec (the runner stops MongoDB first).
  */
 const outage = process.env.E2E_PHASE === "outage";
@@ -46,5 +47,7 @@ export default defineConfig({
           dependencies: ["mobile", "tablet", "desktop"],
         })),
         { name: "api", testMatch: /cms\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] },
+        { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
+        ...(["mobile", "desktop"] as const).map((n) => ({ name: `chrome-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /chrome-ui\.spec\.ts/, dependencies: ["chrome-api"] })),
       ],
 });
