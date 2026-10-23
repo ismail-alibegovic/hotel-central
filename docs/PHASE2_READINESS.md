@@ -1,16 +1,16 @@
 # Phase 2 readiness report — Hotel Central CMS
 
-Status: **implementation complete, CMS still OFF by default.** Nothing here enables the CMS on the public demo, provisions cloud services, or touches `hotelcentral.ba`, booking identifiers or production environment variables.
+Status: **integrated into `main` (final integration SHA `09ad307`), CMS still OFF by default.** Nothing here enables the CMS on the public demo, provisions cloud services, or touches `hotelcentral.ba`, booking identifiers or production environment variables.
 
 ## What Phase 2 delivered
 | Area | Result | Where |
 | --- | --- | --- |
-| SEO fields, sitemap, content-model docs | merged (#11) | `docs/architecture/CMS_CONTENT_MODEL.md` |
-| Navigation + footer (BS/EN, admin-only structure) | PR stack #13 | `src/cms/globals/{Navigation,Footer}.ts`, `src/cms/chromeMerge.ts` |
-| Offers, FAQ, CTA sections (DEMO / SAMPLE guarded) | PR stack #14 | `src/cms/blocks/config.ts`, `src/components/blocks/Sections.tsx`, `src/cms/hooks/sampleGuard.ts` |
-| Pages created in the CMS (localized addresses, preview, sitemap, revalidation) | PR stack #15 | `src/cms/collections/CustomPages.ts`, `src/app/(frontend)/[locale]/[slug]/page.tsx` |
-| Home page CMS (text + photographs) | PR stack (last) | `src/cms/globals/Homepage.ts`, `src/cms/homeMerge.ts` |
-| CI hardening (Playwright install stall) | in #13 | `scripts/ci/install-playwright.sh` |
+| SEO fields, sitemap, content-model docs | merged (#11, `e5c31be`) | `docs/architecture/CMS_CONTENT_MODEL.md` |
+| Navigation + footer (BS/EN, admin-only structure) | merged (#13, `ffe96b0`) | `src/cms/globals/{Navigation,Footer}.ts`, `src/cms/chromeMerge.ts` |
+| Offers, FAQ, CTA sections (DEMO / SAMPLE guarded) | merged (#14, `43f257b`) | `src/cms/blocks/config.ts`, `src/components/blocks/Sections.tsx`, `src/cms/hooks/sampleGuard.ts` |
+| Pages created in the CMS (localized addresses, preview, sitemap, revalidation) | merged (#15, `d2919e9`) | `src/cms/collections/CustomPages.ts`, `src/app/(frontend)/[locale]/[slug]/page.tsx` |
+| Home page CMS (text + photographs) | merged (#16, `09ad307`) | `src/cms/globals/Homepage.ts`, `src/cms/homeMerge.ts` |
+| CI hardening (Playwright install stall) | merged (#13) | `scripts/ci/install-playwright.sh` |
 
 All collections, globals and blocks are documented in `docs/architecture/CMS_CONTENT_MODEL.md`.
 
@@ -50,15 +50,15 @@ Local (Node 24.22.1, this repository, final branch):
 | `npm run test:cms-e2e` (all projects except pixel parity, which needs CI-rendered fonts) | 116 passing + outage phase |
 | CMS visual specs | 18 stable on regeneration and comparison; baselines rendered by the CI runner |
 
-CI results per PR are recorded in the PR descriptions and checks.
+Final integration: every PR was merged only with all four required jobs green on its current head (quality, smoke, visual, cms). Pre-Phase-2 build vs final `main` (CMS off): 28 pages compared, 0 differ; no pre-existing visual baseline was modified (36 baselines added, 0 changed); live production smoke (16 pages × 3 widths) clean; the live demo answers 404 on `/admin`, `/api/*` (except `/api/contact`) and `/api/preview`, i.e. the CMS is disabled there.
 
 ## Risks and limitations (honest list)
-1. **Document-level publishing** (above). Mitigation: review both languages; Payload's per-locale status is an option for a later phase.
+1. **Document-level publishing** (above). Mitigation proposed and prototyped in draft PR #17 (Payload `localizeStatus`, tests green, trade-offs documented in `docs/architecture/PROPOSAL_PER_LANGUAGE_PUBLISHING.md`); not merged — it is experimental and should soak on staging first. Until then: review both languages and publish from the admin UI.
 2. **Pages created in the CMS are one segment deep** (`/en/offers`) and rendered per request (DB read per view, capped at 5 s; a down database gives 404). Chosen over ISR because a cached 404 survived publication.
 3. **Language switcher** for pages with different addresses is corrected on the client; the server-rendered link is the prefix swap (hreflang/canonical are correct server-side).
 4. **Replacement homepage photographs share one file across languages**; alt text is per language and must be written in both.
 5. **Branch protection** on `main` is not enabled (repository owner action).
-6. **Editors see a Publish button on globals** (Payload cannot hide it for globals); the server refuses it (tested).
+6. ~~Editors saw a Publish button on globals~~ — fixed in #16: Publish/Unpublish are server components that render for administrators only; editors get a Save Draft button. The server still refuses every editor publish (tested). Residual Payload quirk: after an autosave the admin UI occasionally (about 1 in 25 local runs) ignores one click on Publish with no message; reloading (the autosaved draft is intact) and clicking again works.
 7. CI: the Ubuntu package mirror is intermittently slow; the install script retries with cleanup (see TESTING.md).
 
 ## Approvals still needed before the CMS can go live (none done)
