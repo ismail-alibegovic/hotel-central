@@ -39,7 +39,7 @@ CMS-only baselines (`tests/cms-e2e/__screenshots__`, projects `visual-cms-*`) fo
 2. Fetch the branch, **review every changed image** (side-by-side/pixel diff), and cherry-pick or fast-forward the baseline commit into your PR. Never regenerate to silence a failure you cannot explain.
 
 ## CI
-Every job that needs a browser installs it through `scripts/ci/install-playwright.sh` (240 s per attempt, 3 attempts): `playwright install --with-deps` occasionally stalls for 10+ minutes on GitHub-hosted runners, which used to eat the whole job timeout and cancel a job whose tests had not started. Job timeouts leave room for a retried install.
+Every job that needs a browser installs it through `scripts/ci/install-playwright.sh` (300 s per attempt, 4 attempts; between attempts the stalled apt/dpkg processes and locks are cleaned up and already-downloaded packages are reused): `playwright install --with-deps` occasionally stalls for 10+ minutes on GitHub-hosted runners, which used to eat the whole job timeout and cancel a job whose tests had not started. Job timeouts leave room for a retried install.
 
 `.github/workflows/ci.yml` runs on every PR and push to `main`: `quality` (lint, typecheck, build) → `smoke` and `visual` (both blocking). Node is `^24.22.1`, matching Payload 3.92's engine range (`^22.23.4 || >=24.22.1`). Failure reports are uploaded as artifacts. Enable branch protection on `main` requiring `quality` and `smoke` (repo owner action; not done here).
 

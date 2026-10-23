@@ -50,7 +50,7 @@ export default defineConfig({
           testMatch: /admin-ui\.spec\.ts/,
           dependencies: ["mobile", "tablet", "desktop"],
         })),
-        { name: "api", testMatch: /cms\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] },
+        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop"] },
         { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
         { name: "sections-api", testMatch: /sections-api\.spec\.ts/, dependencies: ["chrome-api"] },
         { name: "custom-pages-api", testMatch: /custom-pages-api\.spec\.ts/, dependencies: ["sections-api"] },
