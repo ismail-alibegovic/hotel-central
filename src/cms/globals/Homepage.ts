@@ -3,6 +3,7 @@ import { isStaff, publishedOrStaff } from "../access";
 import { factRows, imageField, textRows } from "../blocks/config";
 import { seoFields } from "../collections/seoFields";
 import { blockEditorPublishGlobal, requireEditorDraftGlobal } from "../hooks/globalGuards";
+import { adminOnlyPublish } from "./adminOnlyPublish";
 import { revalidateHomeAfterChange } from "../hooks/revalidateGlobal";
 
 const t = (name: string, label: string, description?: string): Field => ({ name, type: "text", localized: true, label, ...(description ? { admin: { description } } : {}) });
@@ -19,10 +20,10 @@ const photo = (name: string, label: string): Field => ({ ...imageField(name, { l
 export const Homepage: GlobalConfig = {
   slug: "homepage",
   label: "Home page",
-  admin: { description: "Texts and photographs of the home page. Empty fields keep the current ones." },
+  admin: { description: "Texts and photographs of the home page. Empty fields keep the current ones.", components: adminOnlyPublish },
   // Not staffUpdate (see Navigation): editors are held to drafts by the hooks.
   access: { read: publishedOrStaff, update: isStaff },
-  versions: { drafts: { autosave: { interval: 1500 } }, max: 25 },
+  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
   hooks: {
     beforeOperation: [requireEditorDraftGlobal],
     beforeChange: [blockEditorPublishGlobal],

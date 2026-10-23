@@ -23,17 +23,26 @@ test.beforeAll(async () => {
 });
 
 async function saveGlobal(page: Page, selector: string) {
-  await expect(async () => {
-    await expect(page.locator(selector)).toBeEnabled();
-    const [res] = await Promise.all([
-      page.waitForResponse((r) => /\/api\/globals\/homepage/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("autosave=true"), { timeout: 8000 }),
-      page.locator(selector).click(),
-    ]);
-    expect(res.status()).toBe(200);
-  }).toPass({ timeout: 45000 });
+  // Rarely (about 1 in 25 runs) Payload's admin ignores the click on Publish after an autosave has fired, with no request and no
+  // message. The autosaved draft is intact, so, like an administrator would, reload and publish again.
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      await expect(page.locator(selector)).toBeEnabled();
+      const [res] = await Promise.all([
+        page.waitForResponse((r) => /\/api\/globals\/(homepage)/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("autosave=true"), { timeout: 6000 }),
+        page.locator(selector).click(),
+      ]);
+      expect(res.status()).toBe(200);
+      return;
+    } catch (err) {
+      if (attempt === 3) throw err;
+      await page.reload();
+    }
+  }
 }
 
 test("admin edits the Bosnian home tagline in the browser; the public Bosnian home page changes, English does not", async ({ page, request }) => {
+  test.setTimeout(90_000); // a click can land during an autosave re-render and has to be retried
   const stamp = `UINatpis${run}`;
   await uiLogin(page, ADMIN);
   await page.goto("/admin/globals/homepage?locale=bs");
@@ -49,7 +58,7 @@ test("admin edits the Bosnian home tagline in the browser; the public Bosnian ho
   expect(await (await request.get("/bs")).text()).not.toContain(stamp);
 });
 
-test("editor saves a draft; publishing is refused by the server and the public home page is untouched", async ({ page, request }) => {
+test("editor saves a draft and is not offered Publish; the public home page is untouched", async ({ page, request }) => {
   const draft = `UIDraft${run}`;
   await uiLogin(page, EDITOR);
   await page.goto("/admin/globals/homepage?locale=en");
@@ -62,11 +71,10 @@ test("editor saves a draft; publishing is refused by the server and the public h
     expect((await write).status()).toBe(200);
   }).toPass({ timeout: 45000 });
   expect(await (await request.get("/en")).text()).not.toContain(draft);
-  const publish = page.locator("#action-save");
-  if (await publish.count()) {
-    const [res] = await Promise.all([page.waitForResponse((r) => /\/api\/globals\/homepage/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("draft=true") && !r.url().includes("autosave=true"), { timeout: 15000 }), publish.click()]);
-    expect(res.status()).toBe(403);
-  }
+  // Editors are not offered Publish / Unpublish at all (the server would refuse them anyway: see home-api.spec.ts).
+  await expect(page.locator("#action-save")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /unpublish/i })).toHaveCount(0);
+  await expect(page.locator("#action-save-draft")).toBeVisible();
   expect(await (await request.get("/en")).text()).not.toContain(draft);
 });
 

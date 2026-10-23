@@ -2,6 +2,7 @@ import type { GlobalConfig } from "payload";
 import { adminFieldAccess, isStaff, publishedOrStaff } from "../access";
 import { linkField } from "../blocks/config";
 import { blockEditorPublishGlobal, lockStructure, requireEditorDraftGlobal } from "../hooks/globalGuards";
+import { adminOnlyPublish } from "./adminOnlyPublish";
 import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
 
 /**
@@ -12,11 +13,11 @@ import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
 export const Footer: GlobalConfig = {
   slug: "footer",
   label: "Footer",
-  admin: { description: "Footer wording and social links. Empty fields use the built-in text." },
+  admin: { description: "Footer wording and social links. Empty fields use the built-in text.", components: adminOnlyPublish },
   // Not staffUpdate: for globals Payload evaluates update access against the stored document, which is "published", and
   // that would make the whole global read-only for editors. Editors are kept to drafts by the hooks below instead.
   access: { read: publishedOrStaff, update: isStaff },
-  versions: { drafts: { autosave: { interval: 1500 } }, max: 25 },
+  versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
   hooks: {
     beforeOperation: [requireEditorDraftGlobal],
     beforeChange: [blockEditorPublishGlobal, lockStructure("social", ["link", "label"], "social links")],
