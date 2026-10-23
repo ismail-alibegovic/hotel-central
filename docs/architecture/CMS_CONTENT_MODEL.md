@@ -11,12 +11,17 @@ The CMS is opt-in (`CMS_ENABLED=true`). With it off, the site is the static site
 
 Drafts are visible only to signed-in staff through Draft Mode (preview). Shared caches never store draft responses.
 
+## Chrome (navigation + footer) rules
+Header, menu and footer are the built-in dictionary with CMS values laid over it **field by field** (`src/cms/chromeMerge.ts`). Empty, untranslated, invalid or unreachable = the built-in value, so the chrome can never come out blank or mixed-language. Menu entries are all-or-nothing per language: entries without wording in that language are left out; if no usable entry remains, the built-in menu is used. Publishing refreshes the whole locale layout (`revalidatePath("/en", "layout")`, same for `/bs`). Editors can only save drafts (`requireEditorDraftGlobal`); drafts reach the page only in staff preview.
+
 ## Languages
 Bosnian and English are edited independently (`fallback: false`). Text fields are per language; the **structure** of a page (which sections, in what order) is shared. A section that is not translated yet is left out of that language (and logged), never shown empty or in the other language.
 
 ## Collections
 - **Rooms** (six): name, title lines, feature, size label, summary, description, highlights, amenities (per language); photographs; search-engine fields. Administrator-only: URL key, eZee room-type id (the site always uses the id from code), size, order, visibility.
 - **Pages** (about, rooms, spa, restaurant, meetings-events, location, contact): an ordered list of **sections** built from existing Hotel Central components — hero, statement, split (text + photographs), facts, gallery, room list, final booking and so on — plus search-engine fields. Editors can change copy, photographs, order and which sections appear; they cannot create layouts the design does not support.
+- **Navigation** (global): wording of the header and menu (menu/close/rooms/booking buttons, skip link, language label) and the menu entries (page path + wording per language + "show in menu"). The footer's "Explore" list is the same entries, minus Home. Administrator-only: adding, removing, reordering, destinations and visibility of entries (field access drops the values, and a second hook rejects structural changes with 403). The booking button's address always comes from code.
+- **Footer** (global): wording (reservations strip, large statement, headings, rights, credits) per language, and social links (administrator-only, approved https hosts only; empty = Facebook as built in). Address, phone and e-mail stay in code.
 - **Media**: uploads (Vercel Blob in staging/production, local disk in development).
 - **Users**.
 
@@ -35,4 +40,4 @@ Every page and room has a title (≤ 70 characters) and description (≤ 200) pe
 3. **Old vs new** — the block refactor was compared with the previous hand-written pages (`scripts/audit/compare-html.mjs`): identical HTML.
 
 ## Not yet in the CMS
-Home-page copy, navigation, footer, offers/FAQ/CTA sections, and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.
+Home-page copy, offers/FAQ/CTA sections, and creating new pages. Business contact details (address, phone, email, booking ids) deliberately stay in code.

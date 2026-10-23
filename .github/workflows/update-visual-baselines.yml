@@ -22,7 +22,8 @@ jobs:
           node-version: "^24.22.1"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium (bounded and retried)
+        run: scripts/ci/install-playwright.sh
       - run: npm run build
       - run: npm run test:visual:update
       - name: Commit regenerated baselines

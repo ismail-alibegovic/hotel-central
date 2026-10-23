@@ -91,8 +91,14 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'bs') | ('en' | 'bs')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    navigation: Navigation;
+    footer: Footer;
+  };
+  globalsSelect: {
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: 'en' | 'bs';
   widgets: {
     collections: CollectionsWidget;
@@ -1674,6 +1680,145 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Menu entries and header wording. Empty fields use the built-in text.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: string;
+  /**
+   * e.g. “Menu”
+   */
+  menuLabel?: string | null;
+  /**
+   * e.g. “Close”
+   */
+  closeLabel?: string | null;
+  /**
+   * e.g. “Our rooms”
+   */
+  roomsLabel?: string | null;
+  /**
+   * Wording only; the booking address is fixed in code.
+   */
+  bookLabel?: string | null;
+  skipLabel?: string | null;
+  languageLabel?: string | null;
+  /**
+   * Adding, removing, reordering, destinations and visibility: administrators only. Editors change the wording.
+   */
+  items?:
+    | {
+        label: string;
+        /**
+         * Site path without the language, e.g. /spa. “/” is the home page. Pages created in the CMS can have a different path per language.
+         */
+        path: string;
+        visible?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Footer wording and social links. Empty fields use the built-in text.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  reservations?: string | null;
+  reservationsBody?: string | null;
+  /**
+   * One line per row (the built-in one is “Hotel” / “Central”).
+   */
+  statement?: string | null;
+  addressLabel?: string | null;
+  contactLabel?: string | null;
+  exploreLabel?: string | null;
+  followLabel?: string | null;
+  rights?: string | null;
+  credits?: string | null;
+  /**
+   * Administrators only. Addresses must be on the approved list of websites. Empty = Facebook as built in.
+   */
+  social?:
+    | {
+        label: string;
+        link?: {
+          kind?: ('internal' | 'external' | 'phone' | 'email') | null;
+          /**
+           * Site path (/rooms), https address, phone (+387 33 561 800) or e-mail. External sites must be on the approved list.
+           */
+          value?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  menuLabel?: T;
+  closeLabel?: T;
+  roomsLabel?: T;
+  bookLabel?: T;
+  skipLabel?: T;
+  languageLabel?: T;
+  items?:
+    | T
+    | {
+        label?: T;
+        path?: T;
+        visible?: T;
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  reservations?: T;
+  reservationsBody?: T;
+  statement?: T;
+  addressLabel?: T;
+  contactLabel?: T;
+  exploreLabel?: T;
+  followLabel?: T;
+  rights?: T;
+  credits?: T;
+  social?:
+    | T
+    | {
+        label?: T;
+        link?:
+          | T
+          | {
+              kind?: T;
+              value?: T;
+            };
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
