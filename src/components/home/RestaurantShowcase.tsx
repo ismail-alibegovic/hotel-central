@@ -4,6 +4,7 @@ import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
+import { img, type HomeImages } from "./homeImages";
 import { fitStyle } from "@/lib/fit";
 
 /** Break a long second line into two for narrow screens. */
@@ -25,8 +26,13 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
   );
 }
 
-export function RestaurantShowcase({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.restaurant;
+  const main = img(images?.restaurantMain, { src: "/images/hc-comfort-2.jpg", alt: "Breakfast tray with tea, croissants and a single rose", position: "50% 50%" });
+  const mainM = img(images?.restaurantMain, { src: "/images/hc-comfort-2.jpg", alt: "Breakfast tray with tea and croissants" });
+  const coffee = img(images?.restaurantCoffee, { src: "/images/dorucak6.jpg", alt: "Bosnian coffee served in a copper džezva", position: "40% 50%" });
+  const coffeeM = img(images?.restaurantCoffee, { src: "/images/dorucak6.jpg", alt: "Bosnian coffee served in a copper džezva" });
+  const buffet = img(images?.restaurantBuffet, { src: "/images/dorucak4.jpg", alt: "The breakfast buffet at Restaurant Central" });
   return (
     <section aria-labelledby="restaurant-title" className="relative overflow-hidden bg-ivory text-ink">
       <h2 id="restaurant-title" className="sr-only">
@@ -44,26 +50,26 @@ export function RestaurantShowcase({ locale, dict }: { locale: Locale; dict: Dic
 
         <div className={`rect z-[2] ${MAIN}`}>
           <Photo
-            src="/images/hc-comfort-2.jpg"
-            alt="Breakfast tray with tea, croissants and a single rose"
+            src={main.src}
+            alt={main.alt}
             sizes="31vw"
-            position="50% 50%"
+            position={main.position}
             className="h-full w-full"
             parallax={4}
           />
         </div>
         <div className={`rect z-[2] ${COFFEE}`}>
           <Photo
-            src="/images/dorucak6.jpg"
-            alt="Bosnian coffee served in a copper džezva"
+            src={coffee.src}
+            alt={coffee.alt}
             sizes="20vw"
-            position="40% 50%"
+            position={coffee.position}
             className="h-full w-full"
             parallax={6}
           />
         </div>
         <div className="rect z-[2] [--x:73%] [--y:70%] [--w:16%] [--h:19%]">
-          <Photo src="/images/dorucak4.jpg" alt="The breakfast buffet at Restaurant Central" sizes="17vw" className="h-full w-full" reveal="left" />
+          <Photo src={buffet.src} alt={buffet.alt} position={buffet.position} sizes="17vw" className="h-full w-full" reveal="left" />
         </div>
 
         {/* Overprint in white where the last line crosses the dark coffee photograph */}
@@ -91,8 +97,8 @@ export function RestaurantShowcase({ locale, dict }: { locale: Locale; dict: Dic
           <RevealLines lines={splitForMobile(d.title)} lineClassName={["", "pl-[8vw]", "pl-[16vw]"]} />
         </div>
         <div className="mt-8 grid grid-cols-[1fr_1.35fr] items-start gap-3 px-[var(--gutter)]">
-          <Photo src="/images/dorucak6.jpg" alt="Bosnian coffee served in a copper džezva" sizes="40vw" className="mt-16 aspect-[3/4]" />
-          <Photo src="/images/hc-comfort-2.jpg" alt="Breakfast tray with tea and croissants" sizes="56vw" className="aspect-[4/5]" />
+          <Photo src={coffeeM.src} alt={coffeeM.alt} position={coffeeM.position} sizes="40vw" className="mt-16 aspect-[3/4]" />
+          <Photo src={mainM.src} alt={mainM.alt} position={mainM.position} sizes="56vw" className="aspect-[4/5]" />
         </div>
         <div className="mt-10 space-y-5 px-[var(--gutter)]">
           <p className="body-copy max-w-[36ch]">{d.body}</p>

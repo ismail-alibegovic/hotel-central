@@ -16,3 +16,15 @@ export const revalidateGlobalAfterChange: GlobalAfterChangeHook = ({ doc, previo
   }
   return doc;
 };
+
+/** The home page is two static pages (one per language); a publish refreshes both. */
+export const revalidateHomeAfterChange: GlobalAfterChangeHook = ({ doc, previousDoc }) => {
+  if (doc?._status === "published" || previousDoc?._status === "published") {
+    try {
+      for (const l of ["en", "bs"]) revalidatePath(`/${l}`);
+    } catch {
+      // Outside a Next request (seed script, tests): nothing to revalidate.
+    }
+  }
+  return doc;
+};

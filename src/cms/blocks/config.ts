@@ -6,7 +6,7 @@ const imageOptions = staticImages.map((f) => ({ label: f, value: f }));
 const tones = ["ivory", "deep", "olive", "sage", "ink"].map((t) => ({ label: t === "ivory" ? "Light (ivory)" : t === "deep" ? "Dark green (deep)" : t === "olive" ? "Olive" : t === "sage" ? "Sage" : "Black (ink)", value: t }));
 const lines = ["hotel", "rooms", "spa", "restaurant", "location"].map((l) => ({ label: l, value: l }));
 
-const textRows = (name: string, label: [string, string], description?: string): ArrayField => ({
+export const textRows = (name: string, label: [string, string], description?: string): ArrayField => ({
   name,
   type: "array",
   localized: true,
@@ -15,7 +15,7 @@ const textRows = (name: string, label: [string, string], description?: string): 
   fields: [{ name: "text", type: "textarea", required: true }],
 });
 
-const factRows = (name: string, label: [string, string]): ArrayField => ({
+export const factRows = (name: string, label: [string, string]): ArrayField => ({
   name,
   type: "array",
   localized: true,

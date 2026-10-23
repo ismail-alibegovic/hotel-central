@@ -63,6 +63,7 @@ const en = {
   },
   home: {
     heroLabel: "Sarajevo",
+    heroTitle: ["Hotel", "Central"],
     heroTagline: "A distinctive stay in the heart of Sarajevo.",
     heroNote: "Traditional Irish hospitality and Bosnian charm, steps from Baščaršija and the Sacred Heart Cathedral.",
     hotel: {
@@ -233,6 +234,7 @@ const bs: Dictionary = {
   },
   home: {
     heroLabel: "Sarajevo",
+    heroTitle: ["Hotel", "Central"],
     heroTagline: "Poseban boravak u srcu Sarajeva.",
     heroNote: "Tradicionalno irsko gostoprimstvo i bosanski šarm, na nekoliko koraka od Baščaršije i Katedrale.",
     hotel: {

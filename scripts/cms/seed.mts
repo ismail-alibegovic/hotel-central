@@ -10,6 +10,7 @@ import { getPayload } from "payload";
 import configModule from "@payload-config";
 import { pageKeys } from "../../src/cms/blocks/types";
 import { seedGlobals } from "../../src/cms/seedGlobals";
+import { seedHome } from "../../src/cms/seedHome";
 import { seedPage } from "../../src/cms/seedPages";
 import { rooms } from "../../src/content/rooms";
 import { locales } from "../../src/lib/i18n";
@@ -53,6 +54,7 @@ async function seed<C extends "pages" | "rooms">(collection: C, slug: string, ba
 for (const key of pageKeys) console.log(`pages/${key}: ${await seedPage(payload, key)}`);
 
 console.log("globals:", JSON.stringify(await seedGlobals(payload)));
+console.log("homepage:", await seedHome(payload));
 
 for (const [i, room] of rooms.entries()) {
   await seed("rooms", room.slug, { roomTypeId: room.roomTypeId, sizeM2: room.sizeM2, order: i + 1, visible: true }, roomData(room.slug));

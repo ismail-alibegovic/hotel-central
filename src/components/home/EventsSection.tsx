@@ -3,6 +3,7 @@ import { href, type Locale } from "@/lib/i18n";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { PillLink } from "../ui";
+import { img, type HomeImages } from "./homeImages";
 import { fitStyle } from "@/lib/fit";
 
 const MAIN = "[--x:0%] [--y:0%] [--w:50%] [--h:100%]";
@@ -16,8 +17,11 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
 }
 
 /** Split photographic composition: full-height conference photograph on the left. */
-export function EventsSection({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function EventsSection({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.events;
+  const main = img(images?.eventsMain, { src: "/images/3073.jpg", alt: "The conference room on the third floor set up for a meeting" });
+  const mainM = img(images?.eventsMain, { src: "/images/3073.jpg", alt: "The conference room on the third floor" });
+  const second = img(images?.eventsSecondary, { src: "/images/img_9216.jpg", alt: "Chairs and microphones in the conference room", position: "50% 50%" });
   return (
     <section aria-labelledby="events-title" className="relative overflow-hidden bg-ivory text-ink">
       <h2 id="events-title" className="sr-only">
@@ -28,8 +32,9 @@ export function EventsSection({ locale, dict }: { locale: Locale; dict: Dictiona
         <Title lines={d.title} className="z-[1]" />
         <div className={`rect z-[2] ${MAIN}`}>
           <Photo
-            src="/images/3073.jpg"
-            alt="The conference room on the third floor set up for a meeting"
+            src={main.src}
+            alt={main.alt}
+            position={main.position}
             sizes="50vw"
             className="h-full w-full"
             grade="grade-dark"
@@ -49,7 +54,7 @@ export function EventsSection({ locale, dict }: { locale: Locale; dict: Dictiona
         </div>
 
         <div className="rect z-[2] [--x:80%] [--y:56%] [--w:15%] [--h:30%]">
-          <Photo src="/images/img_9216.jpg" alt="Chairs and microphones in the conference room" sizes="16vw" className="h-full w-full" position="50% 50%" reveal="down" />
+          <Photo src={second.src} alt={second.alt} sizes="16vw" className="h-full w-full" position={second.position} reveal="down" />
         </div>
 
         <div className="absolute left-[56.5%] top-[56%] z-[4] w-[19%] space-y-[1.4em]">
@@ -67,7 +72,7 @@ export function EventsSection({ locale, dict }: { locale: Locale; dict: Dictiona
       {/* Mobile */}
       <div className="md:hidden">
         <div className="relative">
-          <Photo src="/images/3073.jpg" alt="The conference room on the third floor" sizes="100vw" className="aspect-[4/5]" grade="grade-dark" />
+          <Photo src={mainM.src} alt={mainM.alt} position={mainM.position} sizes="100vw" className="aspect-[4/5]" grade="grade-dark" />
           <div className="font-display absolute bottom-8 left-[var(--gutter)] text-[length:var(--fs-m)] leading-[0.9] text-white" style={fitStyle(d.title, 80, 13)}>
             <RevealLines lines={d.title} lineClassName={["", "pl-[8vw]"]} />
           </div>

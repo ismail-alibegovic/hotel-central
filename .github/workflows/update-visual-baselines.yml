@@ -1,7 +1,7 @@
 name: Update visual baselines
 
 # Runs when a branch named ci/update-baselines/* is pushed (or manually from the default branch).
-# Regenerates tests/e2e/__screenshots__ on the same runner image CI uses, so baselines are
+# Regenerates tests/e2e/__screenshots__ and tests/cms-e2e/__screenshots__ on the same runner image CI uses, so baselines are
 # rendered deterministically for CI, and commits them to the selected branch. A human MUST review the
 # image diff in the PR before merging (see docs/TESTING.md) — never run this to "make a failure go away".
 on:
@@ -26,11 +26,13 @@ jobs:
         run: scripts/ci/install-playwright.sh
       - run: npm run build
       - run: npm run test:visual:update
+      - name: Regenerate CMS-only baselines (seeded CMS site, staff preview)
+        run: E2E_SKIP_OUTAGE=1 npm run test:cms-e2e -- --no-deps --project=visual-cms-mobile --project=visual-cms-tablet --project=visual-cms-desktop --update-snapshots
       - name: Commit regenerated baselines
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/e2e/__screenshots__
+          git add tests/e2e/__screenshots__ tests/cms-e2e/__screenshots__
           git diff --cached --quiet && { echo "No baseline changes"; exit 0; }
           git commit -m "test: regenerate visual baselines on CI runner"
           git push
