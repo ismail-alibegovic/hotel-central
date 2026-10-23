@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
 import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
+import { seoFields } from "./seoFields";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
 
 /**
@@ -32,8 +33,7 @@ export const Pages: CollectionConfig = {
       access: { update: adminFieldAccess },
       admin: { description: "Existing route key, e.g. “spa”. Not editable by editors." },
     },
-    { name: "metaTitle", type: "text", localized: true, label: "Search-engine title" },
-    { name: "metaDescription", type: "textarea", localized: true, label: "Search-engine description" },
+    ...seoFields({ socialImage: true }),
     { name: "layout", type: "blocks", blocks, minRows: 1, label: "Page sections", admin: { description: "Add, remove and reorder sections. Text is edited per language (switch language at the top); the section structure is shared." } },
   ],
 };

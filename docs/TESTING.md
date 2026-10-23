@@ -11,7 +11,7 @@ Requirements: Node 22, npm 10. Everything below runs from the repository root.
 | Smoke | `npm run test:e2e` | every EN/BS page and all 6 room pages at 390 / 768 / 1440 px: HTTP 200, one `<h1>`, correct `<html lang>`, no horizontal overflow, no broken images, no console errors or failed sub-requests; 404, root redirect, robots/sitemap, contact-API validation |
 | Visual | `npm run test:visual` | above-the-fold screenshots of 11 pages × 3 widths against `tests/e2e/__screenshots__` (2 % pixel tolerance) |
 | Payload integration | `npm run test:int` | CMS access control, drafts, locales, media, REST authorization (in-memory MongoDB, no cloud) |
-| CMS end-to-end | `npm run test:cms-e2e` | production build with `CMS_ENABLED=true` + Playwright: CMS-vs-static pixel parity, admin UI (mobile/desktop), HTTP security, DB-outage build, bundle scans (see docs/architecture/PAYLOAD_POC.md) |
+| CMS end-to-end | `npm run test:cms-e2e` (extra arguments go to Playwright) | production build with `CMS_ENABLED=true` + Playwright: **HTML parity** (all 28 public pages equal a CMS-off build of the same code), CMS-vs-static pixel parity, admin UI (mobile/desktop), roles and drafts, per-language editing, link safety, SEO and sitemap, HTTP security, DB-outage build, bundle scans (see docs/architecture/CMS_CONTENT_MODEL.md and PAYLOAD_POC.md) |
 | Restore drill | `PATH="$(scripts/cms/install-mongo-tools.sh):$PATH" npm run cms:restore-drill` | mongodump → restore → verify through Payload |
 | All static gates | `npm run check` | lint + typecheck + build |
 

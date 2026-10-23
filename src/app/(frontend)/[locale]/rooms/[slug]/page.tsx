@@ -11,7 +11,7 @@ import { getDictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { getRoom, rooms as staticRooms } from "@/content/rooms";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
-import { getRooms } from "@/cms/rooms";
+import { getRooms, getRoomSeo } from "@/cms/rooms";
 import { href, locales, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { fitStyle } from "@/lib/fit";
@@ -28,7 +28,8 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   if (!getRoom(slug)) return {};
   const room = (await getRooms(locale)).rooms.find((r) => r.slug === slug);
   if (!room) return {};
-  return pageMetadata(locale, `/rooms/${slug}`, room.name[locale], `${room.sizeLabel[locale]}. ${room.summary[locale]}`, room.images[0].src);
+  const seo = await getRoomSeo(slug, locale);
+  return pageMetadata(locale, `/rooms/${slug}`, seo.title ?? room.name[locale], seo.description ?? `${room.sizeLabel[locale]}. ${room.summary[locale]}`, room.images[0].src, seo.noindex);
 }
 
 export default async function RoomPage({ params }: P) {

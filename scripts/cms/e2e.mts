@@ -21,6 +21,8 @@ const env = {
   DATABASE_URL: mongo.getUri("hotel-central-e2e"),
   PAYLOAD_SECRET: rnd() + rnd(),
   NEXT_PUBLIC_SERVER_URL: `http://127.0.0.1:${PORT}`,
+  // An indexable site (as production will be), so page-level noindex settings can be told apart from the site-wide one.
+  NEXT_PUBLIC_SITE_URL: "https://e2e.example.test",
   MEDIA_DIR: mediaDir,
   SEED_ADMIN_EMAIL: `admin-${rnd()}@example.test`,
   SEED_ADMIN_PASSWORD: "Pw-" + rnd(),
