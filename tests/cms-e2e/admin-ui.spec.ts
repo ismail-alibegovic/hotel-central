@@ -10,7 +10,9 @@ const EDITOR = { email: `ui-editor-${Date.now()}@example.test`, password: proces
 
 let api: APIRequestContext;
 let aboutId: string;
-let editorPageId: string; // Payload locks a document while someone edits it, so the editor test must not share one with the admin tests
+// Payload locks a document for minutes after someone opens it, and every Playwright project registers its own editor account,
+// so the editor tests must never share a page with the admin tests or with each other: one page per project.
+const editorPages: Record<string, { slug: string; id?: string }> = { "admin-desktop": { slug: "spa" }, "admin-mobile": { slug: "restaurant" } };
 let roomId: string;
 
 async function uiLogin(page: Page, who: { email: string; password: string }) {
@@ -49,7 +51,7 @@ test.beforeAll(async () => {
   await api.delete("/api/payload-locked-documents?where[id][exists]=true");
   const find = async (c: string, slug: string) => (await (await api.get(`/api/${c}?where[slug][equals]=${slug}&limit=1&depth=0&draft=true`)).json()).docs[0].id as string;
   aboutId = await find("pages", "about");
-  editorPageId = await find("pages", "spa");
+  for (const p of Object.values(editorPages)) p.id = await find("pages", p.slug);
   roomId = await find("rooms", "junior-suite");
 });
 
@@ -86,10 +88,11 @@ test("editor: sees only their own account and cannot create users", async ({ pag
   await expect(page.getByText(/not allowed|unauthorized|permission/i).first()).toBeVisible();
 });
 
-test("editor saves a draft in the UI; the public site is untouched; the Publish button is not offered", async ({ page, request }) => {
+test("editor saves a draft in the UI; the public site is untouched; the Publish button is not offered", async ({ page, request }, testInfo) => {
+  const target = editorPages[testInfo.project.name];
   const draftText = `UI draft ${Date.now()}`;
   await uiLogin(page, EDITOR);
-  await page.goto(`/admin/collections/pages/${editorPageId}?locale=en`);
+  await page.goto(`/admin/collections/pages/${target.id}?locale=en`);
   const field = page.locator("#field-metaTitle");
   await expect(field).toBeVisible();
   await field.fill(draftText);
@@ -102,15 +105,15 @@ test("editor saves a draft in the UI; the public site is untouched; the Publish 
   }).toPass({ timeout: 45000 });
 
   // persisted as a draft version, not live
-  const versions = await (await api.get(`/api/pages/${editorPageId}?draft=true&locale=en`)).json();
+  const versions = await (await api.get(`/api/pages/${target.id}?draft=true&locale=en`)).json();
   expect(versions.metaTitle).toBe(draftText);
-  expect(await (await request.get("/en/spa")).text()).not.toContain(draftText);
+  expect(await (await request.get(`/en/${target.slug}`)).text()).not.toContain(draftText);
 
   // Payload asks `access.update` whether `_status: "published"` is allowed; for editors it is not, so the
   // Publish button is not even rendered (the server-side refusal is covered by the API tests).
   await expect(page.locator("#action-save")).toHaveCount(0);
   await expect(page.locator("#action-save-draft")).toBeVisible();
-  expect(await (await request.get("/en/spa")).text()).not.toContain(draftText);
+  expect(await (await request.get(`/en/${target.slug}`)).text()).not.toContain(draftText);
 });
 
 test("admin publishes in Bosnian and English independently via the UI", async ({ page, request }) => {
