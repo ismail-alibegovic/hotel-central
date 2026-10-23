@@ -55,10 +55,17 @@ export default buildConfig({
     fallback: false,
   },
   editor: lexicalEditor(),
-  db: mongooseAdapter({ url: process.env.DATABASE_URL ?? "" }),
+  // Short selection timeouts so an unreachable database fails fast and pages fall back to static content
+  // instead of hanging for the 30 s driver default.
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URL ?? "",
+    connectOptions: { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000, socketTimeoutMS: 15000 },
+  }),
   secret,
   // Cookie-authenticated requests are only accepted from our own origin (CSRF protection).
-  ...(serverURL ? { serverURL, csrf: [serverURL] } : {}),
+  ...(serverURL ? { serverURL, csrf: [serverURL], cors: [serverURL] } : {}),
+  // No relationships exist; keep REST/Local queries shallow.
+  maxDepth: 2,
   sharp,
   upload: { limits: { fileSize: 8 * 1024 * 1024 } },
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },

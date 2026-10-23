@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { adminFieldAccess, isAdmin, isAdminUser, isStaff } from "../access";
+import { adminFieldAccess, isAdmin, isAdminUser, isStaffUser } from "../access";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -15,7 +15,7 @@ export const Users: CollectionConfig = {
     create: isAdmin,
     delete: isAdmin,
     // Editors can open the admin UI but only read and change their own profile.
-    admin: ({ req }) => isStaff({ req } as never) as boolean,
+    admin: ({ req }) => isStaffUser(req.user),
     read: ({ req }) => (isAdminUser(req.user) ? true : req.user ? { id: { equals: req.user.id } } : false),
     update: ({ req }) => (isAdminUser(req.user) ? true : req.user ? { id: { equals: req.user.id } } : false),
   },

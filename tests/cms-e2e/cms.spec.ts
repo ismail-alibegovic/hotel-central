@@ -122,6 +122,44 @@ test("booking mapping stays in code: editors cannot read or change it and the pa
   expect(html).not.toContain("EVIL");
 });
 
+test("existing contact API and booking links still work with the CMS on", async ({ request }) => {
+  const res = await request.post("/api/contact", { data: { name: "x", email: "bad", message: "short", consent: false } });
+  expect(res.status()).toBe(422);
+  const html = await (await request.get("/en")).text();
+  expect(html).toContain("live.ipms247.com");
+});
+
+test("booking engine integration is identical with the CMS on (home form, room link, hidden fields)", async ({ page }) => {
+  await page.goto("/en");
+  const form = page.locator('form[action*="ipms247"]').first();
+  await expect(form).toHaveAttribute("action", "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo");
+  for (const name of ["eZ_chkin", "eZ_chkout", "eZ_Nights", "eZ_adult", "eZ_child", "eZ_room", "hidBodyLanguage"]) {
+    await expect(form.locator(`input[name="${name}"]`)).toHaveCount(1);
+  }
+  await page.goto("/bs/rooms/junior-suite");
+  const book = page.locator('a[href*="roomwisedata.php"]').first();
+  await expect(book).toHaveAttribute("href", /hid=hotelcentralsarajevo&roomtypeunkid=18019000000000000010/);
+  await expect(book).toHaveAttribute("rel", /noopener/);
+});
+
+test("draft responses are never cacheable by shared caches; the admin API sends hardening headers", async ({ request }) => {
+  const secret = `CACHE-${Date.now()}`;
+  const doc = await pageDoc(admin, "about");
+  expect(doc, "about doc present (fallback test deletes it, so this test must run before it)").toBeTruthy();
+  await editor.patch(`/api/pages/${doc.id}?draft=true&locale=en`, { data: { heroEyebrow: secret } });
+  const pre = await editor.get("/api/preview?path=/en/about", { maxRedirects: 0 });
+  const bypass = pre.headersArray().filter((h) => h.name.toLowerCase() === "set-cookie").map((h) => h.value.split(";")[0]).find((c) => c.startsWith("__prerender_bypass"))!;
+  const res = await editor.get("/en/about", { headers: { cookie: bypass } });
+  expect(await res.text()).toContain(secret);
+  expect(res.headers()["cache-control"]).toMatch(/no-store|private|no-cache/);
+  expect(res.headers()["cache-control"]).not.toMatch(/s-maxage|public/);
+
+  const api = await request.get("/api/pages");
+  expect(api.headers()["x-content-type-options"]).toBe("nosniff");
+  expect(api.headers()["x-frame-options"]).toBe("SAMEORIGIN");
+  expect(api.headers()["x-powered-by"]).toBeUndefined();
+});
+
 test("static fallback: deleting the CMS document restores the original page", async ({ request }) => {
   expect((await editor.delete(`/api/pages/${aboutId}`)).status()).toBe(403);
   expect((await admin.delete(`/api/pages/${aboutId}`)).status()).toBe(200);
@@ -130,9 +168,3 @@ test("static fallback: deleting the CMS document restores the original page", as
   expect(html).not.toContain("Stamp-");
 });
 
-test("existing contact API and booking links still work with the CMS on", async ({ request }) => {
-  const res = await request.post("/api/contact", { data: { name: "x", email: "bad", message: "short", consent: false } });
-  expect(res.status()).toBe(422);
-  const html = await (await request.get("/en")).text();
-  expect(html).toContain("live.ipms247.com");
-});
