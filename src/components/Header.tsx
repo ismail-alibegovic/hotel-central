@@ -24,8 +24,12 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the menu on route change
-  useEffect(() => setOpen(false), [pathname]);
+  // Close the menu on route change (adjust state during render rather than in an effect)
+  const [openedAt, setOpenedAt] = useState(pathname);
+  if (openedAt !== pathname) {
+    setOpenedAt(pathname);
+    setOpen(false);
+  }
 
   const solid = scrolled && !open;
 

@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, isLocale } from "@/lib/i18n";
 
-/** Redirect un-prefixed paths to a locale. Bosnian (or HR/SR) browsers get /bs. */
-export function middleware(request: NextRequest) {
+/** Next 16 "proxy" (formerly middleware). Redirect un-prefixed paths to a locale. Bosnian (or HR/SR) browsers get /bs. */
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const first = pathname.split("/")[1] ?? "";
   if (isLocale(first)) return NextResponse.next();
