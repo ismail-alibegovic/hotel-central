@@ -1,5 +1,15 @@
 import { expect, request as pwRequest, test, type Page } from "@playwright/test";
 
+/** The forms are grouped into tabs and only the open tab is on the page. Payload also re-opens the tab each person used last a moment after
+ * loading, so keep choosing the tab until the field we need is really there. */
+async function openTab(page: Page, name: string, probe: ReturnType<Page["locator"]>) {
+  await expect(async () => {
+    await page.getByRole("button", { name, exact: true }).click();
+    await expect(probe.first()).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 20000 });
+}
+
+
 /** Pages created in the CMS in the admin UI and in the browser (390 px and 1440 px): addresses per language, language switcher. */
 const base = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
 const ADMIN = { email: process.env.SEED_ADMIN_EMAIL!, password: process.env.SEED_ADMIN_PASSWORD! };
@@ -54,10 +64,11 @@ test("admin gives the page a Bosnian address in the browser; it appears in Bosni
   await page.goto("/admin/collections/custom-pages?locale=en"); // the admin remembers the last language used
   await expect(page.getByText(`UI Offers ${run}`).first()).toBeVisible();
   await page.goto(`/admin/collections/custom-pages/${id}?locale=bs`);
-  await expect(page.locator("#field-slug")).toBeVisible();
+  await openTab(page, "Page URL", page.locator("#field-slug"));
   await expect(page.locator("#field-slug")).toHaveValue(""); // nothing is copied from English
-  await page.locator("#field-title").fill(`UI Ponude ${run}`);
   await page.locator("#field-slug").fill(BS);
+  await page.getByRole("button", { name: "Page Sections", exact: true }).click();
+  await page.locator("#field-title").fill(`UI Ponude ${run}`);
 
   // Bosnian publishing validates the Bosnian text of every section, so the section's text is written too.
   // Without it the server refuses and nothing goes live:
@@ -96,7 +107,7 @@ test("editor opens the page, sees the address as read-only and can save a draft 
   await uiLogin(page, EDITOR);
   await page.goto(`/admin/collections/custom-pages/${id}?locale=en`);
   const slug = page.locator("#field-slug");
-  await expect(slug).toBeVisible();
+  await openTab(page, "Page URL", slug);
   await expect(slug).toBeDisabled();
   await page.goto("/admin/collections/custom-pages/create");
   await expect(page.getByText(/not allowed|unauthorized|permission/i).first()).toBeVisible();
@@ -108,5 +119,6 @@ test("the new-pages list fits a phone-sized and a desktop screen, and the editor
   await expect(page.locator("main, .template-default").first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
   await page.goto(`/admin/collections/custom-pages/${id}?locale=en`);
+  await openTab(page, "Page URL", page.locator("#field-slug"));
   await expect(page.locator("#field-slug")).toHaveValue(EN);
 });

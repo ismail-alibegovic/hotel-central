@@ -57,3 +57,6 @@ npm run cms:restore-drill        # also needs pg_dump / pg_restore (PostgreSQL c
 ```
 CI uses a `postgres:16` service container (see `.github/workflows/ci.yml`). The test harness applies the committed migrations (`src/migrations`) itself, so every test also exercises them.
 Schema changes: edit collections/globals, then `npm run cms:migrate -- create <name>` and commit the new files in `src/migrations`.
+
+## Admin experience
+`tests/int/admin-ux.int.spec.ts` checks the start-page rules (only what a person may use, no technical words), the plain-English wording and the room form's tab structure. `tests/cms-e2e/admin-ux.spec.ts` drives the real admin at phone, tablet and desktop size: branding, start page, tabs, the editor's reduced view, Edit → Save Changes → Preview → Publish, and log out / log in. UI tests that touch fields inside tabs open the tab first (Payload only renders the open tab). See `docs/admin-ux/README.md`.

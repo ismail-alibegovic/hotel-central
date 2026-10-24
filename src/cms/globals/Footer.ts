@@ -3,6 +3,7 @@ import { adminFieldAccess, isStaff, publishedOrStaff } from "../access";
 import { linkField } from "../blocks/config";
 import { blockEditorPublishGlobal, lockStructure, requireEditorDraftGlobal } from "../hooks/globalGuards";
 import { adminOnlyPublish } from "./adminOnlyPublish";
+import { statusNote } from "../admin/fields";
 import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
 
 /**
@@ -13,7 +14,7 @@ import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
 export const Footer: GlobalConfig = {
   slug: "footer",
   label: "Footer",
-  admin: { description: "Footer wording and social links. Empty fields use the built-in text.", components: adminOnlyPublish },
+  admin: { group: "Website Settings", hideAPIURL: true, description: "The texts at the bottom of every page and the links to social media. Empty fields use the standard text.", components: adminOnlyPublish },
   // Not staffUpdate: for globals Payload evaluates update access against the stored document, which is "published", and
   // that would make the whole global read-only for editors. Editors are kept to drafts by the hooks below instead.
   access: { read: publishedOrStaff, update: isStaff },
@@ -24,6 +25,7 @@ export const Footer: GlobalConfig = {
     afterChange: [revalidateGlobalAfterChange],
   },
   fields: [
+    statusNote,
     { name: "reservations", type: "text", localized: true, label: "Reservations strip — heading" },
     { name: "reservationsBody", type: "textarea", localized: true, label: "Reservations strip — text" },
     { name: "statement", type: "textarea", localized: true, label: "Large statement", admin: { description: "One line per row (the built-in one is “Hotel” / “Central”)." } },
@@ -40,8 +42,8 @@ export const Footer: GlobalConfig = {
       maxRows: 6,
       labels: { singular: "Link", plural: "Links" },
       access: { create: adminFieldAccess, update: adminFieldAccess },
-      admin: { description: "Administrators only. Addresses must be on the approved list of websites. Empty = Facebook as built in.", initCollapsed: true },
-      fields: [{ name: "label", type: "text", required: true, label: "Name (e.g. Facebook)" }, linkField("link", "Address")],
+      admin: { description: "Administrators only. Links must go to websites on the approved list. If left empty, the standard Facebook link is used.", initCollapsed: true },
+      fields: [{ name: "label", type: "text", required: true, label: "Name (e.g. Facebook)" }, linkField("link", "Link")],
     },
   ],
 };

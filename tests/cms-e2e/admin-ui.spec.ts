@@ -39,6 +39,15 @@ async function clickAndWaitForSave(page: Page, selector: string, expectStatus = 
   }).toPass({ timeout: 45000 });
 }
 
+/** The forms are grouped into tabs and only the open tab is on the page. Payload also re-opens the tab each person used last a moment after
+ * loading, so keep choosing the tab until the field we need is really there. */
+async function openTab(page: Page, name: string, probe: ReturnType<Page["locator"]>) {
+  await expect(async () => {
+    await page.getByRole("button", { name, exact: true }).click();
+    await expect(probe.first()).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 20000 });
+}
+
 const noHorizontalScroll = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
 
 test.beforeAll(async () => {
@@ -75,17 +84,20 @@ test("anonymous visitors cannot open editing screens", async ({ page }) => {
 test("admin sees every collection; the dashboard fits the screen", async ({ page }) => {
   await uiLogin(page, ADMIN);
   await page.goto("/admin");
-  for (const name of ["Pages", "Rooms", "Media", "Users"]) await expect(page.getByText(name, { exact: true }).first()).toBeAttached();
+  for (const name of ["Pages", "Rooms", "Photos & Media", "Team members"]) await expect(page.getByText(name, { exact: true }).first()).toBeAttached();
   expect(await noHorizontalScroll(page)).toBe(true);
 });
 
-test("editor: sees only their own account and cannot create users", async ({ page }) => {
+test("editor: sees only their own account, is not offered the team list and cannot create users", async ({ page }) => {
   await uiLogin(page, EDITOR);
+  await page.goto("/admin/account");
+  await expect(page.locator("#field-email")).toHaveValue(EDITOR.email);
+  await page.goto("/admin");
+  await expect(page.getByText("Team members", { exact: true })).toHaveCount(0);
   await page.goto("/admin/collections/users");
-  await expect(page.getByText(EDITOR.email).first()).toBeVisible();
   await expect(page.getByText(ADMIN.email)).toHaveCount(0);
   await page.goto("/admin/collections/users/create");
-  await expect(page.getByText(/not allowed|unauthorized|permission/i).first()).toBeVisible();
+  await expect(page.getByText(/not allowed|unauthorized|permission|not found|nothing found/i).first()).toBeVisible(); // the API refusal itself is covered by the API tests
 });
 
 test("editor saves a draft in the UI; the public site is untouched; the Publish button is not offered", async ({ page, request }, testInfo) => {
@@ -94,7 +106,7 @@ test("editor saves a draft in the UI; the public site is untouched; the Publish 
   await uiLogin(page, EDITOR);
   await page.goto(`/admin/collections/pages/${target.id}?locale=en`);
   const field = page.locator("#field-metaTitle");
-  await expect(field).toBeVisible();
+  await openTab(page, "Google & Search Appearance", field);
   await field.fill(draftText);
   // Autosave (1.5 s) may already have stored the edit by the time the button is clicked, in which case the
   // button has nothing left to do: accept whichever draft write (autosave or manual) completes.
@@ -122,10 +134,12 @@ test("admin publishes in Bosnian and English independently via the UI", async ({
   await uiLogin(page, ADMIN);
 
   await page.goto(`/admin/collections/pages/${aboutId}?locale=bs`);
+  await openTab(page, "Google & Search Appearance", page.locator("#field-metaTitle"));
   await page.locator("#field-metaTitle").fill(bs);
   await clickAndWaitForSave(page, "#action-save");
 
   await page.goto(`/admin/collections/pages/${aboutId}?locale=en`);
+  await openTab(page, "Google & Search Appearance", page.locator("#field-metaTitle"));
   await expect(page.locator("#field-metaTitle")).not.toHaveValue(bs); // BS edit did not leak into EN
   await page.locator("#field-metaTitle").fill(en);
   await clickAndWaitForSave(page, "#action-save");

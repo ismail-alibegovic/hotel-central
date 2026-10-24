@@ -4,13 +4,14 @@ import { factRows, imageField, textRows } from "../blocks/config";
 import { seoFields } from "../collections/seoFields";
 import { blockEditorPublishGlobal, requireEditorDraftGlobal } from "../hooks/globalGuards";
 import { adminOnlyPublish } from "./adminOnlyPublish";
+import { statusNote } from "../admin/fields";
 import { revalidateHomeAfterChange } from "../hooks/revalidateGlobal";
 
 const t = (name: string, label: string, description?: string): Field => ({ name, type: "text", localized: true, label, ...(description ? { admin: { description } } : {}) });
 const area = (name: string, label: string, description?: string): Field => ({ name, type: "textarea", localized: true, label, ...(description ? { admin: { description } } : {}) });
-const lines = (name: string, label: string): Field => area(name, label, "One line per row, as in the design.");
+const lines = (name: string, label: string): Field => area(name, label, "Each new line of text becomes a new line, as in the design.");
 /** Replacement photograph: empty = the photograph that is on the website now. */
-const photo = (name: string, label: string): Field => ({ ...imageField(name, { label, required: true }), admin: { description: "Leave empty to keep the current photograph." } });
+const photo = (name: string, label: string): Field => ({ ...imageField(name, { label, required: true }), admin: { description: "Leave empty to keep the current photo." } });
 
 /**
  * The home page. Every text and photograph of the existing composition can be changed; nothing about the layout, the
@@ -19,8 +20,8 @@ const photo = (name: string, label: string): Field => ({ ...imageField(name, { l
  */
 export const Homepage: GlobalConfig = {
   slug: "homepage",
-  label: "Home page",
-  admin: { description: "Texts and photographs of the home page. Empty fields keep the current ones.", components: adminOnlyPublish },
+  label: "Homepage",
+  admin: { group: "Website Settings", hideAPIURL: true, description: "The texts and photos of the homepage. Empty fields keep the current ones.", components: adminOnlyPublish },
   // Not staffUpdate (see Navigation): editors are held to drafts by the hooks.
   access: { read: publishedOrStaff, update: isStaff },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },
@@ -30,12 +31,13 @@ export const Homepage: GlobalConfig = {
     afterChange: [revalidateHomeAfterChange],
   },
   fields: [
+    statusNote,
     ...seoFields({ socialImage: true }).filter((f) => (f as { name?: string }).name !== "noindex"),
     {
       name: "hero",
       type: "group",
       label: "1 · Top of the page",
-      fields: [t("label", "Small label above the name"), lines("title", "Name (two lines)"), t("tagline", "Tagline"), area("note", "Note under the tagline"), photo("image", "Background photograph")],
+      fields: [t("label", "Small label above the name"), lines("title", "Name (two lines)"), t("tagline", "Tagline"), area("note", "Note under the tagline"), photo("image", "Background photo")],
     },
     {
       name: "hotel",
@@ -50,16 +52,16 @@ export const Homepage: GlobalConfig = {
         lines("title", "Heading"),
         area("body", "Text"),
         t("cta", "Button"),
-        photo("imageLeft", "Photograph — left"),
-        photo("imageCenter", "Photograph — centre"),
-        photo("imageRight", "Photograph — right"),
+        photo("imageLeft", "Photo — left"),
+        photo("imageCenter", "Photo — centre"),
+        photo("imageRight", "Photo — right"),
       ],
     },
     {
       name: "rooms",
       type: "group",
       label: "3 · Rooms and suites",
-      admin: { description: "The rooms themselves, their order and photographs are edited under Rooms." } as never,
+      admin: { description: "The rooms themselves, their order and their photos are edited under Rooms." } as never,
       fields: [t("metaLeft", "Top strip — left"), t("metaCenter", "Top strip — centre"), t("metaIndex", "Number"), t("metaRight", "Word before the room number"), area("body", "Text")],
     },
     {
@@ -74,8 +76,8 @@ export const Homepage: GlobalConfig = {
         area("body", "Text"),
         textRows("facts", ["Item", "Short list"], "Short list under the text."),
         t("cta", "Button"),
-        photo("imageMain", "Large photograph"),
-        photo("imageSecondary", "Small photograph"),
+        photo("imageMain", "Large photo"),
+        photo("imageSecondary", "Small photo"),
       ],
     },
     {
@@ -90,9 +92,9 @@ export const Homepage: GlobalConfig = {
         area("body", "Text"),
         area("body2", "Second text"),
         t("cta", "Button"),
-        photo("imageMain", "Large photograph"),
-        photo("imageCoffee", "Second photograph"),
-        photo("imageBuffet", "Small photograph"),
+        photo("imageMain", "Large photo"),
+        photo("imageCoffee", "Second photo"),
+        photo("imageBuffet", "Small photo"),
       ],
     },
     {
@@ -107,7 +109,7 @@ export const Homepage: GlobalConfig = {
         area("body", "Text"),
         factRows("facts", ["Fact", "Facts (label / value)"]),
         t("cta", "Link"),
-        photo("image", "Small photograph"),
+        photo("image", "Small photo"),
       ],
     },
     {
@@ -121,16 +123,16 @@ export const Homepage: GlobalConfig = {
         lines("title", "Heading"),
         area("body", "Text"),
         t("cta", "Button"),
-        photo("imageMain", "Large photograph"),
-        photo("imageSecondary", "Small photograph"),
+        photo("imageMain", "Large photo"),
+        photo("imageSecondary", "Small photo"),
       ],
     },
     {
       name: "final",
       type: "group",
       label: "8 · Reservations (end of the page)",
-      admin: { description: "The booking button always opens the hotel's booking engine; only its wording is editable." } as never,
-      fields: [t("label", "Small label"), lines("title", "Heading"), area("body", "Text"), t("cta", "Button wording"), photo("image", "Background photograph")],
+      admin: { description: "The booking button always opens the hotel's booking system; only its wording can be changed." } as never,
+      fields: [t("label", "Small label"), lines("title", "Heading"), area("body", "Text"), t("cta", "Button wording"), photo("image", "Background photo")],
     },
   ],
 };
