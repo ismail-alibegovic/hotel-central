@@ -4,6 +4,8 @@ The Payload admin, presented as a purpose-built **Hotel Central Website Manager*
 
 Screenshots (this folder): `login-*`, `start-page-*`, `room-form-*`, `rooms-list-desktop`.
 
+Also in this folder: **`STAGING_ACCEPTANCE.md`** (a checklist a person with no technical background can run on the staging site) and **`OFFER_EXPIRY_PROPOSAL.md`** (a design proposal for offers that expire; not implemented).
+
 ## What staff see
 | Where | Before | Now |
 | --- | --- | --- |

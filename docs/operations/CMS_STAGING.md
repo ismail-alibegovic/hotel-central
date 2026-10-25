@@ -32,18 +32,29 @@ Browser ──► Vercel project "hotel-central-cms-demo" (one Next.js 16 app: p
 
 ## 3. Provisioning runbook
 1. **Supabase** (Free): create project `hotel-central-cms` in an EU region (done: eu-central-1). Set/reset the database password in *Project Settings → Database* (the API that created the project does not return it) and copy the **pooler** connection string with that password. Do not paste it into chat or Git.
-2. **Vercel project** `hotel-central-cms-demo` from the same GitHub repository, *Production Branch* = `staging` (a branch created from `main`), framework Next.js, Node 24.x, **Build Command** `npm run cms:migrate && npm run cms:seed && npm run build` (migrate + seed are idempotent and run inside the build because Postgres is only reachable from Vercel, not from a developer's sandbox).
-   - Deployment Protection → **Vercel Authentication, All Deployments**.
+2. **Vercel project** `hotel-central-cms-demo` from the same GitHub repository, framework Next.js, Node 24.x, **Build Command** `npm run build`, with an *Ignored Build Step* so that only the `staging` branch is built. The build does **not** migrate or seed: the database is changed deliberately, never as a side effect of a deployment (see §3a).
+   - **How the hosted demo actually runs today:** the *Production Branch* in Vercel is still `main` (it can only be changed in the Vercel dashboard); the staging site is a **production-target deployment of the `staging` branch created by hand** (Vercel API/CLI with `ref: staging` and the exact commit), which is what the stable address `hotel-central-cms-demo.vercel.app` points to. A plain `git push` to `staging` therefore creates a *preview* deployment (not the stable address) — cancel it or use it for checking. Setting *Production Branch* = `staging` in the dashboard would make a push deploy to the stable address; this has not been done.
+   - Deployment Protection → **Vercel Authentication, All Deployments** (must stay on; never share bypass links with people who should not see the demo).
    - Env vars above scoped to **Production only** (preview deployments of other branches stay static).
 3. **Blob store** (public access; the adapter supports public stores only), connected to the project (injects `BLOB_READ_WRITE_TOKEN`).
-4. First deploy with `SEED_ADMIN_EMAIL` + `SEED_ADMIN_PASSWORD` set; afterwards **remove both** and redeploy (the seed never overwrites existing content, so redeploys are safe).
+4. First setup: run `npm run cms:migrate` and `npm run cms:seed` once with `SEED_ADMIN_EMAIL` + `SEED_ADMIN_PASSWORD` set (from a machine that can reach the pooler; the hosted demo was seeded from a Vercel Sandbox in `fra1`, because a build in `iad1` was too slow for the many round trips). Afterwards **delete both variables in the Vercel dashboard** (setting them to an empty value is not the same as deleting them; on the hosted demo they were blanked through the API and still need deleting by hand). The seed never overwrites existing content, so running it again is safe.
 5. Verify: `/admin` shows the Payload login behind the Vercel login wall; log in; walk through §7.
+
+## 3a. Changing the hosted demo (deploys and migrations)
+**A normal code change** (no database change): merge the pull request into `main`; fast-forward `staging` to that commit (`git push origin <commit>:refs/heads/staging`, fast-forward only); create the production-target deployment of that exact commit from `staging`; check `/admin` signed in (the acceptance checklist in `docs/admin-ux/STAGING_ACCEPTANCE.md`). Rolling back = promote the previous deployment in Vercel.
+
+**A change that needs a migration** (new field or table): the build does not apply it, so the order matters because code that reads a new column must not run before the column exists.
+1. `pg_dump` the hosted database first (see §4) and keep the file.
+2. Generate and **review** the migration SQL (`npm run cms:migrate -- create`); try it on a restored copy (`cms:restore-drill` does the dump/restore part).
+3. Apply it to the hosted database from a machine that can reach the **pooler** string: `DATABASE_URL=<pooler> npm run cms:migrate` (idempotent; it applies only pending migrations).
+4. Deploy the code.
+Pure wording, label, tab or component changes in the admin do **not** change the database (the generated migration is empty; the CI check `cms:migrate -- create` confirms it).
 
 ## 4. Backup and restore
 | What | How | Tested |
 | --- | --- | --- |
 | Database | `pg_dump --format=custom --no-owner --no-privileges --file=backup.dump "$DATABASE_URL"` before every release/migration; restore with `pg_restore --no-owner --no-privileges --dbname=<new database URL> backup.dump` | dump + restore **tested** by `npm run cms:restore-drill` (local PostgreSQL; CI runs it on every PR) |
-| Media | `npm run cms:backup-media <dir>` (downloads every file referenced by the Media collection) | local-disk path tested; Blob download path tested on the demo store (see the acceptance report) |
+| Media | `npm run cms:backup-media <dir>` (downloads every file referenced by the Media collection) | local-disk path tested. **The Blob download path has not been exercised on a real store** (the demo library was empty when this was written): run it once against a store that holds a few photos before relying on it |
 | Code/config | Git (`main`, `staging`) | continuous |
 | Secrets | password manager owned by the hotel/agency; never in Git | n/a |
 
@@ -59,13 +70,15 @@ Known gaps: no rate limiting on login beyond per-account lockout (Vercel Firewal
 | # | Resource | Why | Cost |
 | - | --- | --- | --- |
 | 1 | Supabase project `hotel-central-cms` (Free plan, eu-central-1) | database | $0 (Free plan: 500 MB database, projects pause after about a week of inactivity, limited active projects per organisation — re-check Supabase's pricing page) |
-| 2 | Vercel project `hotel-central-cms-demo` (Production Branch = `staging`) | hosts site + CMS | $0 on Hobby *if non-commercial*; Vercel's Fair Use Guidelines treat a deployment used for anyone's financial gain (including a paid consultant's work) as commercial → Pro ($20/month per seat). **The team's plan is not visible via the API; no plan change was made.** |
+| 2 | Vercel project `hotel-central-cms-demo` (stable address = production-target deployments of `staging`; Production Branch in Vercel is `main`) | hosts site + CMS | $0 on Hobby *if non-commercial*; Vercel's Fair Use Guidelines treat a deployment used for anyone's financial gain (including a paid consultant's work) as commercial → Pro ($20/month per seat). **The team's plan is not visible via the API; no plan change was made.** |
 | 3 | Vercel Blob store connected to project 2 | media | $0 within the Hobby allowance (1 GB storage, 10 k simple + 2 k advanced operations, 10 GB transfer per month) |
 | 4 | Deployment Protection "All Deployments" + Vercel Authentication | keeps the demo private | $0 (all plans) |
 
 Not needed for the demo: custom domain, DNS, e-mail provider, analytics, any hotel account.
 
 ## 7. Staging acceptance checklist (after provisioning)
+> A step-by-step version for a person with no technical background (sign in, change a room, photos, publish, editor role, phone) is `docs/admin-ux/STAGING_ACCEPTANCE.md`. The numbered list below is the technical checklist.
+
 1. `/admin` login as admin; create an editor; log in as editor in another browser.
 2. Editor edits About (EN) → **Save Draft**; confirm no Publish button; confirm the public page is unchanged; use **Live Preview**.
 3. Admin publishes; public EN page updates immediately; BS page unchanged; repeat for BS.
