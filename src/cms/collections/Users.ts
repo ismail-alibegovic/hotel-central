@@ -17,7 +17,7 @@ export const Users: CollectionConfig = {
   endpoints: process.env.ALLOW_FIRST_REGISTER === "true" ? [] : [closedFirstRegister],
   labels: { singular: "Team member", plural: "Team members" },
   admin: {
-    group: "Administration",
+    group: false,
     hideAPIURL: true,
     description: "People who can edit the website. Administrators can publish changes; editors can only save changes for an administrator to publish.",
     useAsTitle: "email",

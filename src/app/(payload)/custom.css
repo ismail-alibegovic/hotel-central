@@ -593,3 +593,16 @@ body:has(.hc-dashboard) .localizer {
 .blocks-field__block-header .section-title {
   display: none;
 }
+
+/* Sidebar: Payload's own link styles are reused; only the spacing between the first group of links and the settings group is set. */
+.hc-sidenav {
+  display: flex;
+  flex-direction: column;
+}
+.hc-sidenav .nav-group {
+  margin-top: 0.75rem;
+}
+.hc-addedpages {
+  margin: 0.75rem var(--gutter-h, 2rem) 0;
+  font-size: 0.95rem;
+}
