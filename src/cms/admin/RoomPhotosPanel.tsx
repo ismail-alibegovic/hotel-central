@@ -1,8 +1,9 @@
 "use client";
 
-import { toast, useBulkUpload, useForm, useFormFields, useModal } from "@payloadcms/ui";
+import { toast, useForm, useFormFields } from "@payloadcms/ui";
 import { useCallback, useRef, useState, type DragEvent } from "react";
-import { ACCEPTED_TYPES, MAX_ROOM_PHOTOS, checkPhotos, type PhotoCheck, type PhotoFile } from "./photoRules";
+import { usePhotoUpload, type Uploaded } from "./usePhotoUpload";
+import { ACCEPTED_TYPES, MAX_ROOM_PHOTOS } from "./photoRules";
 
 /**
  * The Photos tab of a room: what the website shows now, one "Upload photos" action, and the consequence of adding photos
@@ -15,16 +16,13 @@ type Live = { src: string; alt: string };
 export function RoomPhotosPanel({ live }: { live: Live[] }) {
   const rows = useFormFields(([fields]) => (fields?.gallery?.rows as unknown[] | undefined)?.length ?? 0);
   const { addFieldRow, getDataByPath } = useForm();
-  const { setCollectionSlug, setInitialFiles, setMaxFiles, setOnSuccess, drawerSlug } = useBulkUpload();
-  const { openModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [problems, setProblems] = useState<PhotoCheck["problems"]>([]);
   const [dragging, setDragging] = useState(false);
 
   const free = Math.max(0, MAX_ROOM_PHOTOS - rows);
 
   const onUploaded = useCallback(
-    (forms: Array<{ doc: { id: string | number } }>, errorCount: number) => {
+    (forms: Uploaded, errorCount: number) => {
       const start = (getDataByPath("gallery") as unknown[] | undefined)?.length ?? 0;
       forms.forEach((form, i) => {
         addFieldRow({ path: "gallery", rowIndex: start + i, subFieldState: { image: { value: form.doc.id, initialValue: form.doc.id, valid: true } } } as never);
@@ -34,24 +32,7 @@ export function RoomPhotosPanel({ live }: { live: Live[] }) {
     },
     [addFieldRow, getDataByPath],
   );
-
-  const start = useCallback(
-    (list: FileList | File[] | null) => {
-      const files = Array.from(list ?? []);
-      if (!files.length) return;
-      const { ok, problems: bad } = checkPhotos(files as PhotoFile[], free);
-      setProblems(bad);
-      if (!ok.length) return;
-      const transfer = new DataTransfer();
-      for (const file of ok as File[]) transfer.items.add(file);
-      setCollectionSlug("media");
-      setMaxFiles(free);
-      setInitialFiles(transfer.files);
-      setOnSuccess(onUploaded as never);
-      openModal(drawerSlug);
-    },
-    [free, setCollectionSlug, setMaxFiles, setInitialFiles, setOnSuccess, onUploaded, openModal, drawerSlug],
-  );
+  const { start, problems } = usePhotoUpload({ free, onUploaded });
 
   const onDrop = (e: DragEvent) => {
     e.preventDefault();

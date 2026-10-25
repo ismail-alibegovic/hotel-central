@@ -1,3 +1,4 @@
+import { MediaIntro as MediaIntro_0f2ea2f77810bed8948a1bdde4d8818f } from '../../../cms/admin/MediaIntro'
 import { StatusNote as StatusNote_607bacf379ee9675ebf328c4e7dcc0d7 } from '../../../cms/admin/StatusNote'
 import { StaticImagePreview as StaticImagePreview_c4822bf199ed97c71c92a193e1bbd42a } from '../../../cms/admin/StaticImagePreview'
 import { PageNameCell as PageNameCell_395bba41c745dccd454d635367899784 } from '../../../cms/admin/PageNameCell'
@@ -15,6 +16,7 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "/cms/admin/MediaIntro#MediaIntro": MediaIntro_0f2ea2f77810bed8948a1bdde4d8818f,
   "/cms/admin/StatusNote#StatusNote": StatusNote_607bacf379ee9675ebf328c4e7dcc0d7,
   "/cms/admin/StaticImagePreview#StaticImagePreview": StaticImagePreview_c4822bf199ed97c71c92a193e1bbd42a,
   "/cms/admin/PageNameCell#PageNameCell": PageNameCell_395bba41c745dccd454d635367899784,

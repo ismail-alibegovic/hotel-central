@@ -295,6 +295,41 @@ test("polish: only an administrator can add a page, so an editor cannot leave a 
   await expect(page.getByRole("link", { name: "Add new" }).first()).toBeVisible();
 });
 
+test("Photos & Media: says what the library is (and why it may look empty), offers Add photos, and takes an upload", async ({ page }, testInfo) => {
+  await uiLogin(page, ADMIN);
+  const total = (await (await api.get("/api/media?limit=1&depth=0")).json()).totalDocs as number;
+  await page.goto("/admin/collections/media");
+  const intro = page.locator("[data-hc-library]");
+  await expect(intro).toBeVisible();
+  if (total === 0) {
+    await expect(intro).toContainText("Your photo library is empty");
+    await expect(intro).toContainText("built into the website");
+  } else {
+    await expect(intro).toContainText(`Photos in the library: ${total}`);
+  }
+  await expect(intro.getByRole("button", { name: "Add photos" })).toBeVisible();
+  // The website's own photographs are listed for reference (collapsed until opened).
+  await intro.locator("summary").click();
+  await expect(intro.locator("[data-hc-library-builtin] img").first()).toBeVisible();
+  expect(await noHorizontalScroll(page)).toBe(true);
+
+  // Files that cannot be used are explained before anything is sent.
+  await page.locator("[data-hc-library-input]").setInputFiles([{ name: "IMG_0001.HEIC", mimeType: "image/heic", buffer: Buffer.from("x") }]);
+  await expect(page.locator(".hc-photos__problems")).toContainText("share it as a JPG");
+
+  // A real upload goes through Payload's upload box and appears in the library.
+  await page.locator("[data-hc-library-input]").setInputFiles([path.join(process.cwd(), "public", "images", "junior03.jpg")]);
+  await page.locator('input[id^="field-alt"]').fill(`UX library photo ${testInfo.project.name}`);
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(page.getByText(/1 photo added to the photo library/).first()).toBeVisible();
+  await expect.poll(async () => ((await (await api.get("/api/media?limit=1&depth=0")).json()).totalDocs as number)).toBe(total + 1);
+  await expect(intro).toContainText(`Photos in the library: ${total + 1}`, { timeout: 15000 });
+
+  // Leave the library as it was.
+  const uploads = (await (await api.get("/api/media?where[filename][like]=junior03&limit=50&depth=0")).json()).docs as { id: string }[];
+  for (const m of uploads) await api.delete(`/api/media/${m.id}`);
+});
+
 test("log out and back in again (works on a phone too)", async ({ page }) => {
   await uiLogin(page, ADMIN);
   await page.goto("/admin/logout");

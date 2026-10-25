@@ -9,6 +9,7 @@ export const Media: CollectionConfig = {
     hideAPIURL: true,
     description: "The photo library. Add a new photo (JPG, PNG, WebP or AVIF, up to 8 MB) and write a short description. You then choose photos from here in rooms and pages.",
     useAsTitle: "filename",
+    components: { beforeList: ["/cms/admin/MediaIntro#MediaIntro"] },
   },
   access: { read: () => true, create: isStaff, update: isStaff, delete: isAdmin },
   upload: {
@@ -18,7 +19,7 @@ export const Media: CollectionConfig = {
     focalPoint: true,
   },
   fields: [
-    { name: "alt", type: "text", localized: true, required: true, label: "Photo description", admin: { description: "One short sentence saying what is in the photo (for visually impaired visitors). Write it separately for Bosnian and English." } },
+    { name: "alt", type: "text", localized: true, required: true, label: "Photo description", admin: { description: "One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google understand it. Write it separately for Bosnian and English." } },
     { name: "credit", type: "text", label: "Photographer / source", admin: { description: "The photographer's name or a note about usage rights (optional)." } },
   ],
 };
