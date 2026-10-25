@@ -3,7 +3,7 @@ import type { Access, FieldAccess, PayloadRequest } from "payload";
 /**
  * Role model (decided with the hotel owner):
  *  - admin:  full control, the only role that may publish, manage users and edit privileged fields
- *  - editor: create and edit drafts only
+ *  - editor: edit drafts only (may add photos and edit text, but may not publish, add pages or rooms, or manage users)
  * Anonymous visitors only ever see published documents.
  */
 export type Role = "admin" | "editor";

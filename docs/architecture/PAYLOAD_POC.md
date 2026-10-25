@@ -24,7 +24,8 @@ byte-for-byte the static site (no Payload code runs, `/admin` and the CMS API re
 | --- | :-: | :-: | :-: |
 | Read published pages/rooms | ✓ | ✓ | ✓ |
 | Read drafts | ✓ | ✓ | ✗ |
-| Create / edit **drafts** | ✓ | ✓ | ✗ |
+| Edit **drafts** | ✓ | ✓ | ✗ |
+| Add a page or a room ("Add new") | ✓ | ✗ | ✗ |
 | Publish / unpublish / restore a live version | ✓ | ✗ | ✗ |
 | Change a document's `slug`, the eZee `roomTypeId` (privileged) | ✓ | ✗ (silently ignored; field hidden) | ✗ |
 | Delete documents / media | ✓ | ✗ | ✗ |

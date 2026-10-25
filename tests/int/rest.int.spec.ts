@@ -69,10 +69,13 @@ describe("REST authorization: pages", () => {
   const slug = "rest-" + rand();
   let id: string;
 
-  it("editor can create only drafts", async () => {
+  it("only an administrator can add a page; an editor is refused, published or draft", async () => {
+    // "Add new" on the Pages screen only leaves a blank draft page behind (the pages exist), so editors may not add one
     const pub = await call("POST", "/api/pages", { token: editorToken, body: { slug: slug + "-p", metaTitle: "x", _status: "published" } });
     expect(pub.status).toBe(403);
-    const draft = await call("POST", "/api/pages?draft=true&locale=en", { token: editorToken, body: { slug, metaTitle: "Draft one" } });
+    const asEditor = await call("POST", "/api/pages?draft=true&locale=en", { token: editorToken, body: { slug: slug + "-e", metaTitle: "Draft by editor" } });
+    expect(asEditor.status).toBe(403);
+    const draft = await call("POST", "/api/pages?draft=true&locale=en", { token: adminToken, body: { slug, metaTitle: "Draft one" } });
     expect(draft.status).toBe(201);
     expect(draft.json.doc._status).toBe("draft");
     id = draft.json.doc.id;

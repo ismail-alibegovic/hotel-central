@@ -26,6 +26,14 @@ export const adminI18n = {
         takeOver: "Take over editing",
         unsavedChanges: "You have changes that are not saved. Save them or discard them before you continue.",
         status: "Status",
+        // Words that belong to the software rather than to the hotel
+        payloadSettings: "Account settings",
+        locale: "Editing language",
+        backToDashboard: "Back to the start page",
+        noLabel: "Not filled in",
+        updatedAt: "Last changed",
+        createdAt: "Added on",
+        perPage: "Rows per page: {{limit}}",
       },
       version: {
         draft: "Draft (not visible to visitors)",
@@ -43,12 +51,15 @@ export const adminI18n = {
         aboutToUnpublish: "You are about to unpublish. This will no longer be visible to visitors.",
         aboutToRevertToPublished: "This discards your unpublished changes and goes back to the version visitors see now.",
         noFurtherVersionsFound: "There are no earlier versions.",
+        currentDraft: "Latest saved changes",
+        versionID: "Version number",
       },
       upload: {
         selectFile: "Choose a photo",
         addImage: "Add a photo",
         dragAndDrop: "drag and drop a photo",
         dragAndDropHere: "or drag and drop a photo here",
+        bulkUpload: "Upload several photos",
       },
       fields: {
         chooseFromExisting: "Choose from the photo library",

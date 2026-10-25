@@ -53,10 +53,10 @@ The admin is English only. The website's Bosnian and English **content** stays f
 ## Limitations (honest list)
 1. **Publishing is shared by Bosnian and English.** A document has one draft and one published state; publishing publishes both languages' changes. The banner and the publish confirmation (which lists the changes per language) say so. Per-language publishing is prototyped in draft PR #17 and deliberately not adopted.
 2. **"Special Offers" is a page section, not a list.** Offers are added as "Special offers (cards)" on a page; there is no stand-alone Offers collection (PR #12 is not merged). The card on the start page explains this.
-3. **Built-in pages show their key** ("contact") in the page header and breadcrumb; the list shows a friendly name ("Contact").
-4. **Editors can still create blank draft pages** with "Add new" (existing behaviour that the API tests rely on). Recommendation: restrict page creation to administrators in a later change.
-5. **Payload's own wording remains** for things this work did not override (some toolbar tooltips, validation messages produced by Payload itself, the "Locale:" label).
-6. **Payload re-opens the tab each person used last**, a moment after a form loads. It can occasionally flip a tab right after a click; tests wait for the right tab.
+3. ~~Built-in pages showed their key~~ — the header and breadcrumb now show the friendly name ("Contact", "Rooms overview"); a document without a name shows "Untitled …" instead of its ID.
+4. ~~Editors could create blank draft pages~~ — only administrators may add a page now (rooms and new pages already were). Note for administrators: Payload creates the draft the moment "Add new" opens (that is how autosave works), so opening it and leaving leaves a blank draft behind; delete it from the list.
+5. **Some of Payload's own wording remains** where it is not worth overriding (validation messages produced by Payload itself, tooltips, the Columns/Filters list tools). Replaced: "Payload Settings" → "Account settings", "Locale" → "Editing language", "Back to Dashboard", "Bulk Upload", "Updated At", "<No …>".
+6. ~~Payload re-opened the tab each person used last~~ — a form now always opens on its first tab (the stored tab choice is cleared when a form opens; choosing a tab afterwards still works as usual).
 7. **Sidebar** is collapsed behind the menu button at 1440 px wide and below (Payload's own breakpoint); the start page is the main menu either way.
 8. **Section name box** (Payload's internal "block name") is hidden with CSS; the field still exists in the database.
 9. **Visual-regression baselines for the admin screens are not committed**: they must be rendered on the CI runner (fonts). The existing public-site and CMS visual baselines are unchanged and pass.
