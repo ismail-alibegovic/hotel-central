@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type Page } from "@playwright/test";
+import { clickSave } from "./clickSave";
 
 /** The forms are grouped into tabs and only the open tab is on the page. Payload also re-opens the tab each person used last a moment after
  * loading, so keep choosing the tab until the field we need is really there. */
@@ -53,7 +54,7 @@ async function saveDoc(page: Page, selector: string) {
     await expect(page.locator(selector)).toBeEnabled();
     const [res] = await Promise.all([
       page.waitForResponse((r) => /\/api\/custom-pages\/[^/?]+/.test(r.url()) && ["PATCH", "POST"].includes(r.request().method()) && !r.url().includes("autosave=true"), { timeout: 8000 }),
-      page.locator(selector).click(),
+      clickSave(page, selector),
     ]);
     expect(res.status()).toBe(200);
   }).toPass({ timeout: 45000 });
@@ -72,7 +73,7 @@ test("admin gives the page a Bosnian address in the browser; it appears in Bosni
 
   // Bosnian publishing validates the Bosnian text of every section, so the section's text is written too.
   // Without it the server refuses and nothing goes live:
-  const refused = await Promise.all([page.waitForResponse((r) => /\/api\/custom-pages\/[^/?]+/.test(r.url()) && r.request().method() === "PATCH" && !r.url().includes("autosave=true"), { timeout: 15000 }), page.locator("#action-save").click()]);
+  const refused = await Promise.all([page.waitForResponse((r) => /\/api\/custom-pages\/[^/?]+/.test(r.url()) && r.request().method() === "PATCH" && !r.url().includes("autosave=true"), { timeout: 15000 }), clickSave(page, "#action-save")]);
   expect(refused[0].status()).toBe(400);
   expect((await request.get(`/bs/${BS}`)).status()).toBe(404);
 

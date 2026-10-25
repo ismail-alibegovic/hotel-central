@@ -2,7 +2,7 @@ import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
 import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
-import { statusNote, adminOnlyTab } from "../admin/fields";
+import { statusNote, adminOnlyTab, draftButtons } from "../admin/fields";
 import { seoFields } from "./seoFields";
 import { refuseSamplePublish } from "../hooks/sampleGuard";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
@@ -22,6 +22,7 @@ export const Pages: CollectionConfig = {
     description: "The pages that are already on the website (About, Spa, Restaurant…). Open a page to change its texts, photos and the order of its sections.",
     useAsTitle: "slug",
     defaultColumns: ["slug", "_status", "updatedAt"],
+    components: draftButtons,
   },
   access: { read: publishedOrStaff, create: isStaff, update: staffUpdate, delete: isAdmin },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },

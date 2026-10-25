@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type APIRequestContext, type Page } from "@playwright/test";
+import { clickSave } from "./clickSave";
 
 /**
  * Browser-driven administration (the way hotel staff will actually use it), at 390 px and 1440 px.
@@ -33,7 +34,7 @@ async function clickAndWaitForSave(page: Page, selector: string, expectStatus = 
     await expect(page.locator(selector)).toBeEnabled();
     const [res] = await Promise.all([
       page.waitForResponse((r) => /\/api\/(pages|rooms)\/[^/?]+/.test(r.url()) && ["PATCH", "POST"].includes(r.request().method()) && !r.url().includes("autosave=true"), { timeout: 8000 }),
-      page.locator(selector).click(),
+      clickSave(page, selector),
     ]);
     expect(res.status()).toBe(expectStatus);
   }).toPass({ timeout: 45000 });

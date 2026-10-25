@@ -5,7 +5,7 @@ import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPubl
 import { revalidateCustomPageAfterChange, revalidateCustomPageAfterDelete } from "../hooks/revalidate";
 import { refuseSamplePublish } from "../hooks/sampleGuard";
 import { validateSlugFormat } from "../slugs";
-import { statusNote } from "../admin/fields";
+import { statusNote, draftButtons } from "../admin/fields";
 import { seoFields } from "./seoFields";
 
 /**
@@ -26,6 +26,7 @@ export const CustomPages: CollectionConfig = {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "_status", "updatedAt"],
     description: "Pages you add to the website, for example a Special Offers page. Each language has its own page URL, e.g. /en/offers and /bs/ponude. A new page stays a draft until you publish it.",
+    components: draftButtons,
   },
   access: { read: publishedOrStaff, create: isAdmin, update: staffUpdate, delete: isAdmin },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
