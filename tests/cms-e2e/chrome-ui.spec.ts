@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type Page } from "@playwright/test";
+import { clickSave } from "./clickSave";
 
 /** Navigation + footer in the admin UI (390 px and 1440 px) and the result on the public site, including the mobile menu. */
 const base = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
@@ -30,7 +31,7 @@ async function saveGlobal(page: Page, selector: string) {
       await expect(page.locator(selector)).toBeEnabled();
       const [res] = await Promise.all([
         page.waitForResponse((r) => /\/api\/globals\/(navigation|footer)/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("autosave=true"), { timeout: 6000 }),
-        page.locator(selector).click(),
+        clickSave(page, selector),
       ]);
       expect(res.status()).toBe(200);
       return;

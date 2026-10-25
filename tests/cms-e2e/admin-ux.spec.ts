@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type APIRequestContext, type Page } from "@playwright/test";
+import { clickSave } from "./clickSave";
 
 /**
  * The administration as a hotel employee meets it: branding, a start page with one big button per task, a room form grouped
@@ -37,7 +38,7 @@ async function clickAndWaitForSave(page: Page, selector: string) {
     await expect(page.locator(selector)).toBeEnabled();
     const [res] = await Promise.all([
       page.waitForResponse((r) => /\/api\/rooms\/[^/?]+/.test(r.url()) && ["PATCH", "POST"].includes(r.request().method()) && !r.url().includes("autosave=true"), { timeout: 8000 }),
-      page.locator(selector).click(),
+      clickSave(page, selector),
     ]);
     expect(res.status()).toBe(200);
   }).toPass({ timeout: 45000 });
@@ -142,6 +143,62 @@ test("everyday flow: change a room description in Bosnian, save, preview, then p
   await clickAndWaitForSave(page, "#action-save"); // Publish Changes
   const live = await (await pwRequest.newContext({ baseURL: base })).get(`/bs/rooms/${slug}`);
   expect(await live.text()).toContain(text);
+});
+
+test("Save Changes says plainly that guests cannot see the change yet", async ({ page }, testInfo) => {
+  const slug = rooms[testInfo.project.name];
+  const id = roomIds[slug];
+  await uiLogin(page, ADMIN);
+  await page.goto(`/admin/collections/rooms/${id}?locale=bs`);
+  await openTab(page, "2. Room Description", page.locator("#field-description__0__text"));
+  await page.locator("#field-description__0__text").fill(`UX nacrt ${testInfo.project.name} ${Date.now()}`);
+  await clickAndWaitForSave(page, "#action-save-draft");
+  await expect(page.locator("[data-hc-saved=draft]")).toContainText("Saved as draft — not visible to guests yet.");
+  await expect(page.getByText("Saved as draft — not visible to guests yet.").first()).toBeVisible(); // also as a message on screen
+  await expect(page.locator("[data-hc-status]")).toContainText("Draft");
+});
+
+test("Publish Changes asks first, lists what goes live in each language and says both languages are published together", async ({ page }, testInfo) => {
+  const slug = rooms[testInfo.project.name];
+  const id = roomIds[slug];
+  const text = `UX objava ${testInfo.project.name} ${Date.now()}`;
+  const guest = await pwRequest.newContext({ baseURL: base });
+  await uiLogin(page, ADMIN);
+  await page.goto(`/admin/collections/rooms/${id}?locale=bs`);
+  await openTab(page, "2. Room Description", page.locator("#field-description__0__text"));
+  await page.locator("#field-description__0__text").fill(text);
+  await clickAndWaitForSave(page, "#action-save-draft");
+
+  // Payload's extra "Publish in English" entry is not offered: publishing is shared by both languages.
+  await expect(page.locator("#action-save").locator("xpath=ancestor::*[contains(@class,'form-submit')][1]").locator("button")).toHaveCount(1);
+
+  await page.locator("#action-save").click();
+  const box = page.locator("[data-hc-publish-summary]");
+  await expect(box).toContainText("Bosnian and English are published together");
+  await expect(box.locator('li[data-language="bs"]')).toContainText(/1 change — .*Description/);
+  await expect(box.locator('li[data-language="en"]')).toContainText("no changes");
+  expect(await noHorizontalScroll(page)).toBe(true);
+
+  // Cancelling (Escape) publishes nothing.
+  await page.keyboard.press("Escape");
+  await expect(box).toHaveCount(0);
+  expect(await (await guest.get(`/bs/rooms/${slug}`)).text()).not.toContain(text);
+
+  await clickAndWaitForSave(page, "#action-save"); // opens the confirmation again and confirms it
+  await expect(page.locator("[data-hc-saved=published]")).toContainText("Published — guests can see this now");
+  expect(await (await guest.get(`/bs/rooms/${slug}`)).text()).toContain(text);
+});
+
+test("an editor's Save Changes also says it is only a draft, and an editor is never offered the publish confirmation", async ({ page }, testInfo) => {
+  const id = roomIds[rooms[testInfo.project.name]];
+  await uiLogin(page, EDITOR);
+  await page.goto(`/admin/collections/rooms/${id}?locale=en`);
+  await openTab(page, "2. Room Description", page.locator("#field-description__0__text"));
+  await page.locator("#field-description__0__text").fill(`UX editor draft ${testInfo.project.name} ${Date.now()}`);
+  await clickAndWaitForSave(page, "#action-save-draft");
+  await expect(page.locator("[data-hc-saved=draft]")).toContainText("not visible to guests yet");
+  await expect(page.locator("#action-save")).toHaveCount(0);
+  await expect(page.locator("[data-hc-publish-summary]")).toHaveCount(0);
 });
 
 test("log out and back in again (works on a phone too)", async ({ page }) => {

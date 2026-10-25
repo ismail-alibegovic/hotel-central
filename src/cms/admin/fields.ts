@@ -11,3 +11,14 @@ export const statusNote: Field = {
 export const adminOnlyTab = {
   condition: (_data: unknown, _sibling: unknown, ctx: { user?: { role?: string } | null }) => ctx?.user?.role === "admin",
 };
+
+/**
+ * Save and Publish buttons of the collections with drafts. "Save Changes" confirms that nothing is live yet; "Publish Changes"
+ * (administrators only) first lists what will go live in each language. Both send Payload's own requests.
+ */
+export const draftButtons = {
+  edit: {
+    PublishButton: "/cms/components/PublishForAdmins#PublishForAdmins",
+    SaveDraftButton: "/cms/admin/SaveChangesButton#SaveChangesButton",
+  },
+};

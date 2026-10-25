@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type Page } from "@playwright/test";
+import { clickSave } from "./clickSave";
 
 /** Home page editing in the admin UI and the public page in a real browser, at 390 px and 1440 px. */
 const base = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
@@ -30,7 +31,7 @@ async function saveGlobal(page: Page, selector: string) {
       await expect(page.locator(selector)).toBeEnabled();
       const [res] = await Promise.all([
         page.waitForResponse((r) => /\/api\/globals\/(homepage)/.test(r.url()) && r.request().method() === "POST" && !r.url().includes("autosave=true"), { timeout: 6000 }),
-        page.locator(selector).click(),
+        clickSave(page, selector),
       ]);
       expect(res.status()).toBe(200);
       return;

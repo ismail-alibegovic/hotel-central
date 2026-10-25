@@ -33,6 +33,14 @@ Screenshots (this folder): `login-*`, `start-page-*`, `room-form-*`, `rooms-list
 
 "Save Changes" saves a **draft**. Visitors see nothing until an administrator uses "Publish Changes"; the banner says so on every form.
 
+### Saving and publishing, step by step (what staff see)
+1. **Save Changes** → a message appears on screen and stays in the banner at the top of the form: *"Saved as draft — not visible to guests yet."* (and, when the page was published before, *"The website still shows the published version."*). Changes are also saved as a draft automatically while typing; nothing is ever published by saving.
+2. **Preview Changes** (eye button) shows the draft to staff only.
+3. **Publish Changes** (administrators only) does **not** publish at once. A box lists what is about to go live, **per language**: *"Bosnian (Bosanski): 1 change — Description"*, *"English: no changes"*, plus changes to untranslated settings such as "Show on the website". It says in bold that **Bosnian and English are published together**. The safe choice (Cancel, also Escape) is focused first; *"Publish in both languages"* sends Payload's own publish request. Afterwards the banner says *"Published — guests can see this now, in Bosnian and English."*
+4. Payload's extra "Publish in English" entry (a drop-down arrow next to Publish) was removed: it contradicted the shared publishing described here.
+
+The comparison uses the **saved** draft against the published version (both fetched with all languages), so it is accurate to within the automatic save (about 1.5 seconds). For a page that has never been published it says everything saved goes live. If the comparison cannot be loaded, the box still explains the rule and publishing still works.
+
 ## Roles (unchanged, and still enforced by the server)
 * **Administrator**: everything, including Publish Changes, Advanced Settings, Team members.
 * **Editor**: Save Changes only. The Publish button, the Advanced Settings tab and Team members are not shown; the server still refuses an editor's publish request (API and integration tests).
@@ -42,7 +50,7 @@ Screenshots (this folder): `login-*`, `start-page-*`, `room-form-*`, `rooms-list
 The admin is English only. The website's Bosnian and English **content** stays fully editable: every text field is labelled with its language ("— English" / "— Bosanski") and the language switch is at the top of each form. Translating the admin itself was deliberately not done.
 
 ## Limitations (honest list)
-1. **Publishing is shared by Bosnian and English.** A document has one draft and one published state; publishing publishes both languages' changes. The banner says so. Per-language publishing is prototyped in draft PR #17 and not adopted.
+1. **Publishing is shared by Bosnian and English.** A document has one draft and one published state; publishing publishes both languages' changes. The banner and the publish confirmation (which lists the changes per language) say so. Per-language publishing is prototyped in draft PR #17 and deliberately not adopted.
 2. **"Special Offers" is a page section, not a list.** Offers are added as "Special offers (cards)" on a page; there is no stand-alone Offers collection (PR #12 is not merged). The card on the start page explains this.
 3. **Built-in pages show their key** ("contact") in the page header and breadcrumb; the list shows a friendly name ("Contact").
 4. **Editors can still create blank draft pages** with "Add new" (existing behaviour that the API tests rely on). Recommendation: restrict page creation to administrators in a later change.

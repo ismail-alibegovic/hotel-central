@@ -1,7 +1,7 @@
 import type { ArrayField, CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, publishedOrStaff, staffUpdate } from "../access";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
-import { statusNote, adminOnlyTab } from "../admin/fields";
+import { statusNote, adminOnlyTab, draftButtons } from "../admin/fields";
 import { seoFields } from "./seoFields";
 import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
 
@@ -33,6 +33,7 @@ export const Rooms: CollectionConfig = {
     useAsTitle: "name",
     defaultColumns: ["name", "visible", "_status", "updatedAt"],
     listSearchableFields: ["slug", "name"],
+    components: draftButtons,
   },
   // The six rooms already exist; only an administrator adds one (otherwise "Add new" would leave a blank draft room behind).
   access: { read: publishedOrStaff, create: isAdmin, update: staffUpdate, delete: isAdmin },

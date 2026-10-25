@@ -2,6 +2,7 @@ import { StatusNote as StatusNote_607bacf379ee9675ebf328c4e7dcc0d7 } from '../..
 import { StaticImagePreview as StaticImagePreview_c4822bf199ed97c71c92a193e1bbd42a } from '../../../cms/admin/StaticImagePreview'
 import { PageNameCell as PageNameCell_395bba41c745dccd454d635367899784 } from '../../../cms/admin/PageNameCell'
 import { PublishForAdmins as PublishForAdmins_78981736613801afb2024b72c258c7a8 } from '../../../cms/components/PublishForAdmins'
+import { SaveChangesButton as SaveChangesButton_66c02049de15e3366d7513976ab18278 } from '../../../cms/admin/SaveChangesButton'
 import { UnpublishForAdmins as UnpublishForAdmins_78981736613801afb2024b72c258c7a8 } from '../../../cms/components/PublishForAdmins'
 import { Icon as Icon_4c7444b93dbccf84094c9864fd2f1234 } from '../../../cms/admin/Icon'
 import { Logo as Logo_67b5933b1125a92daeb072b605fa27b4 } from '../../../cms/admin/Logo'
@@ -17,6 +18,7 @@ export const importMap = {
   "/cms/admin/StaticImagePreview#StaticImagePreview": StaticImagePreview_c4822bf199ed97c71c92a193e1bbd42a,
   "/cms/admin/PageNameCell#PageNameCell": PageNameCell_395bba41c745dccd454d635367899784,
   "/cms/components/PublishForAdmins#PublishForAdmins": PublishForAdmins_78981736613801afb2024b72c258c7a8,
+  "/cms/admin/SaveChangesButton#SaveChangesButton": SaveChangesButton_66c02049de15e3366d7513976ab18278,
   "/cms/components/PublishForAdmins#UnpublishForAdmins": UnpublishForAdmins_78981736613801afb2024b72c258c7a8,
   "/cms/admin/Icon#Icon": Icon_4c7444b93dbccf84094c9864fd2f1234,
   "/cms/admin/Logo#Logo": Logo_67b5933b1125a92daeb072b605fa27b4,
