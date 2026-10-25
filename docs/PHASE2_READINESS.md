@@ -22,6 +22,7 @@ All collections, globals and blocks are documented in `docs/architecture/CMS_CON
 | Save draft content (copy, photographs, sections) | no | yes | yes | `chrome.int`, `home.int`, `sections.int`, `custom-pages.int`, UI specs |
 | Publish / unpublish | no | **no** (API 403, with or without the draft flag) | yes | same specs |
 | Create / delete pages created in the CMS, set their addresses | no | **no** | yes | `custom-pages.int`, `custom-pages-api` |
+| Add a built-in page or a room ("Add new" leaves a blank draft behind) | no | **no** (403) | yes | `cms.int`, `rest.int`, `rooms.int` |
 | Menu structure, destinations, visibility, footer social links | no | **no** (field access drops values; guard rejects structural changes) | yes | `chrome.int`, `chrome-api` |
 | Manage users, roles | no | no | yes | existing `security`/`rest` specs |
 | Booking ids, contact details, booking address | no | no | **no (code only)** | `cms.spec` booking test, `sections.int` (booking button from code) |

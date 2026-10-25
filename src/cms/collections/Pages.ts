@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { adminFieldAccess, isAdmin, isStaff, publishedOrStaff, staffUpdate } from "../access";
+import { adminFieldAccess, isAdmin, publishedOrStaff, staffUpdate } from "../access";
 import { blocks } from "../blocks/config";
 import { blockEditorPublish, requireEditorDraft } from "../hooks/blockEditorPublish";
 import { statusNote, adminOnlyTab, draftButtons } from "../admin/fields";
@@ -24,7 +24,8 @@ export const Pages: CollectionConfig = {
     defaultColumns: ["slug", "_status", "updatedAt"],
     components: draftButtons,
   },
-  access: { read: publishedOrStaff, create: isStaff, update: staffUpdate, delete: isAdmin },
+  // The seven pages exist; "Add new" would only leave a blank draft page behind, so only an administrator may add one.
+  access: { read: publishedOrStaff, create: isAdmin, update: staffUpdate, delete: isAdmin },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, maxPerDoc: 25 },
   hooks: {
     beforeOperation: [requireEditorDraft],

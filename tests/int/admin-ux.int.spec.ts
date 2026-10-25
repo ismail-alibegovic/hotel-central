@@ -47,6 +47,23 @@ describe("admin wording", () => {
     expect(en.general.globals).toBe("Website Settings");
     expect(en.version.publishChanges).toBe("Publish Changes");
   });
+
+  it("replaces the software's own words that staff meet on the common screens", () => {
+    expect(en.general.payloadSettings).toBe("Account settings");
+    expect(en.general.locale).toBe("Editing language");
+    expect(en.general.backToDashboard).toBe("Back to the start page");
+    expect(en.general.noLabel).not.toMatch(/[<>]/); // not "<No Photographer / source>"
+    expect(en.general.updatedAt).toBe("Last changed");
+    expect(en.upload.bulkUpload).toBe("Upload several photos");
+    expect(en.fields.chooseFromExisting).toBe("Choose from the photo library");
+    const values = (o: unknown): string[] => (typeof o === "string" ? [o] : o && typeof o === "object" ? Object.values(o).flatMap(values) : []);
+    for (const text of values(en)) expect(text, text).not.toMatch(/payload/i);
+  });
+
+  it("names the offers section on the start page exactly as it is called in the page forms", () => {
+    const card = dashboardCards(all, "admin").find((c) => c.id === "offers");
+    expect(card?.text).toContain("“Special offers (cards)”");
+  });
 });
 
 type Anyfield = Field & { label?: unknown; fields?: Field[]; tabs?: Tab[]; blocks?: { labels?: { singular?: unknown; plural?: unknown }; fields: Field[] }[] };

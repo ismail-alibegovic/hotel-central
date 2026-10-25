@@ -110,7 +110,9 @@ test("room: BS edit is independent, and other rooms keep static content", async 
   expect((await admin.patch(`/api/rooms/${roomId}?locale=bs`, { data: { name: bsName, _status: "published" } })).status()).toBe(200);
   expect(await (await request.get("/bs/rooms/junior-suite")).text()).toContain(bsName);
   expect(await (await request.get("/en/rooms/junior-suite")).text()).not.toContain(bsName);
-  expect(await (await request.get("/bs/rooms/single-room")).text()).not.toContain(bsName);
+  // Another room keeps its own static content. (Its page may list this room by name under "other rooms", and whether that list is
+  // already regenerated depends on earlier draft saves, so the assertion is about the room's own name, not about the absence of ours.)
+  expect(await (await request.get("/bs/rooms/single-room")).text()).toContain("Jednokrevetna soba");
 });
 
 test("booking mapping stays in code: editors cannot read or change it and the page link is unchanged", async ({ request }) => {

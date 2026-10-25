@@ -256,6 +256,45 @@ test("Photos tab: choose photos, describe them once, and they are in the room's 
   for (const m of uploads) await api.delete(`/api/media/${m.id}`);
 });
 
+test("polish: friendly page names, no developer words on the common screens, and forms open on their first tab", async ({ page }, testInfo) => {
+  const id = roomIds[rooms[testInfo.project.name]];
+  await uiLogin(page, ADMIN);
+
+  // A built-in page shows "Meetings & Events", not its key "meetings-events", in the title and the breadcrumb.
+  await page.goto("/admin/collections/pages?locale=en");
+  await page.getByRole("link", { name: "Meetings & Events" }).first().click();
+  await expect(page.locator("h1").first()).toHaveText("Meetings & Events");
+  await expect(page.locator(".step-nav").first()).toContainText("Meetings & Events");
+  await expect(page.locator(".step-nav").first()).not.toContainText("meetings-events");
+
+  // The software's own words are replaced where staff meet them.
+  await page.goto("/admin/account");
+  const text = await page.locator("body").innerText();
+  expect(text).toContain("Account settings");
+  expect(text).not.toMatch(/Payload|Locale:/);
+
+  // Choosing another tab, leaving, and coming back: the form opens on its first tab (Payload would re-open the old one a moment later).
+  await page.goto(`/admin/collections/rooms/${id}?locale=en`);
+  await openTab(page, "3. Photos", page.locator("[data-hc-photos]"));
+  await page.goto("/admin");
+  await page.goto(`/admin/collections/rooms/${id}?locale=en`);
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(1500);
+  await expect(page.locator(".tabs-field__tab-button--active")).toHaveText("1. Basic Information");
+  expect(await noHorizontalScroll(page)).toBe(true);
+});
+
+test("polish: only an administrator can add a page, so an editor cannot leave a blank page behind", async ({ page }) => {
+  await uiLogin(page, EDITOR);
+  await page.goto("/admin/collections/pages");
+  await expect(page.getByRole("link", { name: "Meetings & Events" }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Add new" })).toHaveCount(0);
+  await page.context().clearCookies();
+  await uiLogin(page, ADMIN);
+  await page.goto("/admin/collections/pages");
+  await expect(page.getByRole("link", { name: "Add new" }).first()).toBeVisible();
+});
+
 test("log out and back in again (works on a phone too)", async ({ page }) => {
   await uiLogin(page, ADMIN);
   await page.goto("/admin/logout");

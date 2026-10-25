@@ -53,7 +53,7 @@ export function dashboardCards(can: Can, role: Role): Card[] {
     cards.push({
       id: "offers",
       title: "Special Offers",
-      text: "Offers are added as an “Offers (cards)” section on a page. Prepare a new offer as a draft and publish it only when it is approved.",
+      text: "Offers are added as a “Special offers (cards)” section on a page. Prepare a new offer as a draft and publish it only when it is approved.",
       links: can.collection("custom-pages")
         ? [{ label: "Prepare a page with offers", href: "/admin/collections/custom-pages" }]
         : [{ label: "Open pages", href: "/admin/collections/pages" }],

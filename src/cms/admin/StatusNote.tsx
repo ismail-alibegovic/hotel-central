@@ -2,6 +2,7 @@
 
 import { useAuth, useDocumentInfo, useFormFields } from "@payloadcms/ui";
 import { useEffect, useState } from "react";
+import { DocumentTidy } from "./DocumentTidy";
 import { PUBLISHED_NOW, SAVED_AS_DRAFT, SAVED_EVENT, type SavedKind } from "./messages";
 
 /**
@@ -43,26 +44,29 @@ export function StatusNote() {
   }
 
   return (
-    <aside className={`hc-status hc-status--${tone}`} role="status" data-hc-status={tone}>
-      <p className="hc-status__head">
-        <span className="hc-status__badge">{headline}</span>
-        <span>{detail}</span>
-      </p>
-      {saved ? (
-        <p className={`hc-status__saved hc-status__saved--${saved}`} data-hc-saved={saved} role="status">
-          {saved === "draft" ? `${SAVED_AS_DRAFT}${hasPublishedDoc ? " The website still shows the published version." : ""}` : PUBLISHED_NOW}
+    <>
+      <DocumentTidy />
+      <aside className={`hc-status hc-status--${tone}`} role="status" data-hc-status={tone}>
+        <p className="hc-status__head">
+          <span className="hc-status__badge">{headline}</span>
+          <span>{detail}</span>
         </p>
-      ) : null}
-      <p className="hc-status__steps">
-        Steps: <strong>1.</strong> Edit <strong>2.</strong> Save Changes <strong>3.</strong> Preview Changes <strong>4.</strong>{" "}
-        {isAdmin ? "Publish Changes" : "An administrator publishes"}
-      </p>
-      {!isAdmin ? <p className="hc-status__steps">You are an editor: you can save changes, and an administrator publishes them.</p> : null}
-      <p className="hc-status__limit">
-        You edit the Bosnian and English text separately (switch the language at the top), but there is only one draft and one published
-        version for both: <strong>publishing publishes the changes in both languages at once.</strong> Your changes are also kept as a draft
-        automatically while you type; guests only see them after an administrator publishes.
-      </p>
-    </aside>
+        {saved ? (
+          <p className={`hc-status__saved hc-status__saved--${saved}`} data-hc-saved={saved} role="status">
+            {saved === "draft" ? `${SAVED_AS_DRAFT}${hasPublishedDoc ? " The website still shows the published version." : ""}` : PUBLISHED_NOW}
+          </p>
+        ) : null}
+        <p className="hc-status__steps">
+          Steps: <strong>1.</strong> Edit <strong>2.</strong> Save Changes <strong>3.</strong> Preview Changes <strong>4.</strong>{" "}
+          {isAdmin ? "Publish Changes" : "An administrator publishes"}
+        </p>
+        {!isAdmin ? <p className="hc-status__steps">You are an editor: you can save changes, and an administrator publishes them.</p> : null}
+        <p className="hc-status__limit">
+          You edit the Bosnian and English text separately (switch the language at the top), but there is only one draft and one published
+          version for both: <strong>publishing publishes the changes in both languages at once.</strong> Your changes are also kept as a draft
+          automatically while you type; guests only see them after an administrator publishes.
+        </p>
+      </aside>
+    </>
   );
 }

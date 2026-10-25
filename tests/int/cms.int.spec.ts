@@ -72,17 +72,14 @@ describe("authorization and drafts: pages", () => {
   const slug = "page-" + rand();
   let id: string | number;
 
-  it("lets an editor save drafts but not publish", async () => {
-    const draft = await payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, locale: "en", data: { slug, metaTitle: "Draft v1" } });
+  it("lets an editor save drafts but not publish; only an administrator adds a page", async () => {
+    // "Add new" on the Pages screen would only leave a blank draft page behind (the pages exist), so an editor may not add one
+    await expect(payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, data: { slug: slug + "-by-editor" } })).rejects.toThrow(/not allowed/i);
+    expect((await payload.find({ collection: "pages", overrideAccess: true, draft: true, where: { slug: { equals: slug + "-by-editor" } } })).totalDocs).toBe(0);
+    const draft = await payload.create({ collection: "pages", user: admin, overrideAccess: false, draft: true, locale: "en", data: { slug, metaTitle: "Draft v1" } });
     id = draft.id;
     expect(draft._status).toBe("draft");
     const refused = /only save drafts|not allowed/i;
-    // explicit publish, with and without the draft flag
-    await expect(payload.create({ collection: "pages", user: editor, overrideAccess: false, data: { slug: slug + "-b", _status: "published" } })).rejects.toThrow(refused);
-    // with the draft flag Payload coerces an explicit "published" back to draft: nothing goes live
-    const coerced = await payload.create({ collection: "pages", user: editor, overrideAccess: false, draft: true, data: { slug: slug + "-c", _status: "published" } });
-    expect(coerced._status).toBe("draft");
-    expect((await payload.find({ collection: "pages", overrideAccess: false, where: { slug: { equals: slug + "-c" } } })).totalDocs).toBe(0);
     await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, locale: "en", data: { metaTitle: "x", _status: "published" } })).rejects.toThrow(refused);
     await expect(payload.update({ collection: "pages", id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { metaTitle: "x", _status: "published" } })).rejects.toThrow(refused);
     // a plain (non-draft) write is refused outright, even on a draft-only page
