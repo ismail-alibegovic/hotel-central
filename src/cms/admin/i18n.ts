@@ -47,6 +47,11 @@ export const adminI18n = {
       upload: {
         selectFile: "Choose a photo",
         addImage: "Add a photo",
+        dragAndDrop: "drag and drop a photo",
+        dragAndDropHere: "or drag and drop a photo here",
+      },
+      fields: {
+        chooseFromExisting: "Choose from the photo library",
       },
     },
   },

@@ -14,6 +14,7 @@ Screenshots (this folder): `login-*`, `start-page-*`, `room-form-*`, `rooms-list
 | Page form | One long list | Tabs: Page Sections · Google & Search Appearance · Advanced Settings (administrators only) |
 | Every form | Status buried in a toolbar | Banner: **Draft** / **Published** / **New**, the four steps, who publishes, and the shared BS/EN publishing note |
 | Photo pickers | A drop-down of file names | The same list **plus a preview** of the chosen photo, and a clearly separate "Or upload a new photo" |
+| Room photos | A list of empty picture slots | Four plain steps, a large **Upload photos** button (several photos at once, or drag them onto the box), the photos on the website now, and a note that added photos replace the original ones |
 
 ## Plain-English terminology
 | Technical | Shown as |
@@ -59,17 +60,25 @@ The admin is English only. The website's Bosnian and English **content** stays f
 7. **Sidebar** is collapsed behind the menu button at 1440 px wide and below (Payload's own breakpoint); the start page is the main menu either way.
 8. **Section name box** (Payload's internal "block name") is hidden with CSS; the field still exists in the database.
 9. **Visual-regression baselines for the admin screens are not committed**: they must be rendered on the CI runner (fonts). The existing public-site and CMS visual baselines are unchanged and pass.
-10. Replacing a room photo takes 12 steps today (upload to the library, then choose it in the room). A direct "upload here" button on the room's Photos tab would shorten it.
+10. A room's photos replace the built-in ones **as a set**: once the list has photos, only those are shown. The Photos tab says so and shows the original photos until the list is used; it cannot copy the built-in photos into the list (they are files in the website, not entries in the photo library).
 
 ## Usability check (an administrator doing real tasks in the browser)
 | Task | Steps |
 | --- | --- |
 | Change a room description in Bosnian and publish | 8 (Edit rooms → room → language → Bosanski → tab 2 → type → Save Changes → Publish Changes) |
 | Update a contact detail / opening hours and publish | 5 (Edit pages → Contact → type → Save Changes → Publish Changes) |
-| Replace a room photograph | 12 |
+| Replace a room photograph (Photos tab → Upload photos) | 9: Rooms → room → Photos tab → Upload photos → choose file → describe it → Save → Publish Changes → confirm. Before: 13 (Photos & Media → Create new → choose file → describe → Save → Rooms → room → Photos tab → Add Photo → Choose from existing → pick → Save Changes → Publish). Each further photo adds only its description, and several photos go in at once |
 | Create a draft special offer on a new page | 11 |
 | Preview before publishing | the eye button on any form, or Website Preview on the start page |
 | Switch between Bosnian and English | 2 (language switch → choose) |
 | Log out and back in on a phone | covered by an automated test at 390 px |
 
 Automated: `tests/cms-e2e/admin-ux.spec.ts` (phone, tablet and desktop) and `tests/int/admin-ux.int.spec.ts` (start-page rules, wording, tab structure).
+
+## Photos of a room (how the Photos tab works)
+* **Upload photos** opens Payload's own upload box with the chosen files (the same box as "Add new"), so storage (Vercel Blob), the file-type list, the 8 MB limit, access rules and the required photo description are unchanged. When the box is saved, each uploaded photo is added to the room's list; nothing is saved to the room or published until **Save Changes** (the form also saves a draft by itself after a moment) and an administrator publishes.
+* **Checked before anything is sent**, with advice in plain words: iPhone **HEIC** photos ("share it as a JPG, or set the camera to Most Compatible"), other file types (JPG, PNG, WebP or AVIF only), files over 8 MB, more than 12 photos in a room. One bad file does not stop the others.
+* **Previews**: the chosen photos show as thumbnails in the list; before any are added the panel shows the room's original website photos.
+* **Success and error messages**: "2 photos added to this room. Click Save Changes to keep them."; failed uploads are counted and can be retried.
+* **Replacing one photo**: remove it with the X in its row and use the row's upload buttons, or upload the new one and drag it into place. **Order**: drag rows; the first photo is the main one.
+* Limits: a room's photos replace the built-in set (see limitation 10); descriptions are required per photo and are typed in the language currently shown (switch the language at the top to add the other).

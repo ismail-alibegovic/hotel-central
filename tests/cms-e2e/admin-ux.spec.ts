@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type APIRequestContext, type Page } from "@playwright/test";
+import path from "node:path";
 import { clickSave } from "./clickSave";
 
 /**
@@ -199,6 +200,60 @@ test("an editor's Save Changes also says it is only a draft, and an editor is ne
   await expect(page.locator("[data-hc-saved=draft]")).toContainText("not visible to guests yet");
   await expect(page.locator("#action-save")).toHaveCount(0);
   await expect(page.locator("[data-hc-publish-summary]")).toHaveCount(0);
+});
+
+test("Photos tab: shows the photos on the website now, explains the result of adding photos, and refuses unusable files with advice", async ({ page }, testInfo) => {
+  const id = roomIds[rooms[testInfo.project.name]];
+  await uiLogin(page, ADMIN);
+  await page.goto(`/admin/collections/rooms/${id}?locale=en`);
+  await openTab(page, "3. Photos", page.locator("[data-hc-photos]"));
+  await expect(page.locator("[data-hc-photos-live] img").first()).toBeVisible();
+  await expect(page.locator("[data-hc-photos-live]")).toContainText("replace all of them");
+  await expect(page.getByRole("button", { name: "Upload photos" })).toBeVisible();
+  const input = page.locator("[data-hc-photo-input]");
+  await input.setInputFiles([
+    { name: "IMG_0001.HEIC", mimeType: "image/heic", buffer: Buffer.from("x") },
+    { name: "menu.pdf", mimeType: "application/pdf", buffer: Buffer.from("x") },
+  ]);
+  const problems = page.locator(".hc-photos__problems");
+  await expect(problems).toContainText("2 photos were not added");
+  await expect(problems).toContainText("share it as a JPG");
+  await expect(problems).toContainText("Only JPG, PNG, WebP or AVIF");
+  await expect(page.locator("[data-hc-photos-live]")).toContainText("replace all of them"); // nothing was added
+  expect(await noHorizontalScroll(page)).toBe(true);
+});
+
+test("Photos tab: choose photos, describe them once, and they are in the room's list (one place, no trip to the library)", async ({ page }, testInfo) => {
+  const slug = rooms[testInfo.project.name];
+  const id = roomIds[slug];
+  await uiLogin(page, ADMIN);
+  await page.goto(`/admin/collections/rooms/${id}?locale=en`);
+  await openTab(page, "3. Photos", page.locator("[data-hc-photos]"));
+  const original = await page.locator("[data-hc-photos-live] img").count();
+  const dir = path.join(process.cwd(), "public", "images");
+  await page.locator("[data-hc-photo-input]").setInputFiles([path.join(dir, "junior01.jpg"), path.join(dir, "junior02.jpg")]);
+  // Payload's own upload box opens with both files; each needs a short description.
+  const description = page.locator('input[id^="field-alt"]');
+  await expect(description).toBeVisible();
+  await description.fill(`UX photo one ${testInfo.project.name}`);
+  await page.locator(".bulk-upload--actions-bar").getByRole("button", { name: "Next", exact: true }).click(); // the second photo (the list of files is hidden on a phone)
+  await expect(page.locator(".bulk-upload--actions-bar__locationText")).toContainText("2 of 2");
+  await description.fill(`UX photo two ${testInfo.project.name}`);
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(page.locator("[data-hc-photos-replaced]")).toContainText("2 photos are listed below");
+  // When the room had more original photos than were added, the panel says the others are no longer shown.
+  if (original > 2) await expect(page.locator("[data-hc-photos-replaced]")).toContainText("no longer shown");
+  else await expect(page.locator("[data-hc-photos-replaced]")).not.toContainText("no longer shown");
+  await expect(page.getByText(/junior01(-\d+)?\.jpg/).first()).toBeVisible();
+  await expect(page.getByText(/junior02(-\d+)?\.jpg/).first()).toBeVisible();
+  expect(await noHorizontalScroll(page)).toBe(true);
+
+  // Leave the room as it was: no photos of our own, and no leftover uploads.
+  // (the form saves its draft by itself about 1.5 s after a change; wait for that before putting things back)
+  await expect.poll(async () => ((await (await api.get(`/api/rooms/${id}?draft=true&depth=0`)).json()).gallery ?? []).length, { timeout: 15000 }).toBe(2);
+  await api.patch(`/api/rooms/${id}?draft=true`, { data: { gallery: [] } });
+  const uploads = (await (await api.get("/api/media?where[filename][like]=junior0&limit=50&depth=0")).json()).docs as { id: string }[];
+  for (const m of uploads) await api.delete(`/api/media/${m.id}`);
 });
 
 test("log out and back in again (works on a phone too)", async ({ page }) => {
