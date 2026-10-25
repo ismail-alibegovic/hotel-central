@@ -359,6 +359,94 @@ html[data-theme="dark"] .hc-status__badge {
   color: var(--theme-elevation-800);
 }
 
+/* Photos tab of a room */
+.hc-photos {
+  margin: 0 0 1.5rem;
+}
+.hc-photos h3 {
+  margin: 0 0 0.5rem;
+}
+.hc-photos__steps {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  color: var(--theme-elevation-800);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.hc-photos__drop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 1rem;
+  border: 2px dashed var(--theme-elevation-150);
+  border-radius: var(--hc-radius);
+  background: var(--theme-elevation-50);
+  font-size: 0.9rem;
+}
+.hc-photos__drop--over {
+  border-color: var(--hc-olive);
+  background: var(--theme-elevation-100);
+}
+.hc-photos__button {
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--hc-deep);
+  color: var(--hc-ivory);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.hc-photos__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+html[data-theme="dark"] .hc-photos__button {
+  background: var(--hc-sage);
+  color: #11140f;
+}
+.hc-photos__button:focus-visible {
+  outline: 3px solid var(--hc-sage);
+  outline-offset: 2px;
+}
+.hc-photos__problems {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 4px solid #b42318;
+  border-radius: calc(var(--hc-radius) - 4px);
+  background: var(--theme-elevation-50);
+  font-size: 0.9rem;
+}
+.hc-photos__problems p,
+.hc-photos__problems ul {
+  margin: 0 0 0.3rem;
+}
+.hc-photos__problems ul {
+  padding-left: 1.1rem;
+}
+.hc-photos__live {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+}
+.hc-photos__live ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+.hc-photos__live img {
+  display: block;
+  width: 110px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: calc(var(--hc-radius) - 4px);
+  border: 1px solid var(--theme-elevation-150);
+}
+
 /* Phones: let the header and the document controls shrink and wrap instead of pushing the page wider than the screen. */
 @media (max-width: 760px) {
   .app-header__controls-wrapper,

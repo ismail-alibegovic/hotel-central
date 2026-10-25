@@ -79,12 +79,13 @@ export const Rooms: CollectionConfig = {
           label: "3. Photos",
           description: "The photos of the room. The first photo is the main one.",
           fields: [
+            { name: "photosHelp", type: "ui", admin: { components: { Field: "/cms/admin/RoomPhotosHelp#RoomPhotosHelp" } } },
             {
               name: "gallery",
               type: "array",
               label: "Room photos",
               labels: { singular: "Photo", plural: "Photos" },
-              admin: { description: "If you leave this empty, the current photos stay. Once you add photos, they replace the current ones (the first is the main photo). Drag to reorder." },
+              admin: { description: "If you leave this empty, the original photos stay. Once you add photos, only the photos in this list are shown (the first is the main photo). Drag to reorder." },
               maxRows: 12,
               fields: [{ name: "image", type: "upload", relationTo: "media", required: true, label: "Photo" }],
             },

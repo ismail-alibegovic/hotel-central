@@ -2782,7 +2782,7 @@ export interface Room {
       }[]
     | null;
   /**
-   * If you leave this empty, the current photos stay. Once you add photos, they replace the current ones (the first is the main photo). Drag to reorder.
+   * If you leave this empty, the original photos stay. Once you add photos, only the photos in this list are shown (the first is the main photo). Drag to reorder.
    */
   gallery?:
     | {
