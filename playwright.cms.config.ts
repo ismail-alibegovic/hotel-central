@@ -53,7 +53,9 @@ export default defineConfig({
         })),
         // The administration as hotel staff meet it (branding, start page, grouped forms, everyday flow); one room per project
         ...Object.entries(sizes).map(([name, viewport]) => ({ name: `admin-ux-${name}`, use: { viewport }, testMatch: /admin-ux\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] })),
-        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop", "admin-ux-mobile", "admin-ux-tablet", "admin-ux-desktop"] },
+        // Draft → preview next to the form (desktop and tablet; on a phone the split view is not offered)
+        ...(["tablet", "desktop"] as const).map((n) => ({ name: `preview-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /preview\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] })),
+        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop", "admin-ux-mobile", "admin-ux-tablet", "admin-ux-desktop", "preview-ui-tablet", "preview-ui-desktop"] },
         { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
         { name: "sections-api", testMatch: /sections-api\.spec\.ts/, dependencies: ["chrome-api"] },
         { name: "custom-pages-api", testMatch: /custom-pages-api\.spec\.ts/, dependencies: ["sections-api"] },

@@ -3,6 +3,7 @@
 import { useAuth, useDocumentInfo, useFormFields } from "@payloadcms/ui";
 import { useEffect, useState } from "react";
 import { DocumentTidy } from "./DocumentTidy";
+import { PreviewBar } from "./PreviewBar";
 import { PUBLISHED_NOW, SAVED_AS_DRAFT, SAVED_EVENT, type SavedKind } from "./messages";
 
 /**
@@ -46,6 +47,7 @@ export function StatusNote() {
   return (
     <>
       <DocumentTidy />
+      <PreviewBar />
       <aside className={`hc-status hc-status--${tone}`} role="status" data-hc-status={tone}>
         <p className="hc-status__head">
           <span className="hc-status__badge">{headline}</span>
@@ -59,6 +61,9 @@ export function StatusNote() {
         <p className="hc-status__steps">
           Steps: <strong>1.</strong> Edit <strong>2.</strong> Save Changes <strong>3.</strong> Preview Changes <strong>4.</strong>{" "}
           {isAdmin ? "Publish Changes" : "An administrator publishes"}
+        </p>
+        <p className="hc-status__steps">
+          “Preview Changes” (the eye button) shows the page as visitors will see it: next to the form on a wide screen, or instead of the form on a small one (click the eye again to come back).
         </p>
         {!isAdmin ? <p className="hc-status__steps">You are an editor: you can save changes, and an administrator publishes them.</p> : null}
         <p className="hc-status__limit">
