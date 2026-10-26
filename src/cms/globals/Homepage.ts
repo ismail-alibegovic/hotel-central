@@ -21,7 +21,7 @@ const photo = (name: string, label: string): Field => ({ ...imageField(name, { l
 export const Homepage: GlobalConfig = {
   slug: "homepage",
   label: "Homepage",
-  admin: { group: "Website Settings", hideAPIURL: true, description: "The texts and photos of the homepage. Empty fields keep the current ones.", components: adminOnlyPublish },
+  admin: { group: false, hideAPIURL: true, description: "The texts and photos of the homepage. Empty fields keep the current ones.", components: adminOnlyPublish },
   // Not staffUpdate (see Navigation): editors are held to drafts by the hooks.
   access: { read: publishedOrStaff, update: isStaff },
   versions: { drafts: { autosave: { interval: 1500, showSaveDraftButton: true } }, max: 25 },

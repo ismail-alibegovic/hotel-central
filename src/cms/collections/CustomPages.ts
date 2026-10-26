@@ -21,7 +21,7 @@ export const CustomPages: CollectionConfig = {
   slug: "custom-pages",
   labels: { singular: "New page", plural: "New pages" },
   admin: {
-    group: "Website Content",
+    group: false,
     hideAPIURL: true,
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "_status", "updatedAt"],

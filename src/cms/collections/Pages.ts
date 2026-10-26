@@ -17,12 +17,12 @@ export const Pages: CollectionConfig = {
   slug: "pages",
   labels: { singular: "Page", plural: "Pages" },
   admin: {
-    group: "Website Content",
+    group: false,
     hideAPIURL: true,
     description: "The pages that are already on the website (About, Spa, Restaurant…). Open a page to change its texts, photos and the order of its sections.",
     useAsTitle: "slug",
     defaultColumns: ["slug", "_status", "updatedAt"],
-    components: draftButtons,
+    components: { ...draftButtons, beforeList: ["/cms/admin/AddedPagesLink#AddedPagesLink"] },
   },
   // The seven pages exist; "Add new" would only leave a blank draft page behind, so only an administrator may add one.
   access: { read: publishedOrStaff, create: isAdmin, update: staffUpdate, delete: isAdmin },

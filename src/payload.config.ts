@@ -39,6 +39,7 @@ export default buildConfig({
       graphics: { Logo: "/cms/admin/Logo#Logo", Icon: "/cms/admin/Icon#Icon" },
       beforeLogin: ["/cms/admin/BeforeLogin#BeforeLogin"],
       afterLogin: ["/cms/admin/BeforeLogin#AfterLogin"],
+      beforeNavLinks: ["/cms/admin/SideNav#SideNav"],
       views: { dashboard: { Component: "/cms/admin/Dashboard#Dashboard" } },
     },
     livePreview: {

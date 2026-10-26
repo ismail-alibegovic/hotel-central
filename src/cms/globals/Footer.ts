@@ -14,7 +14,7 @@ import { revalidateGlobalAfterChange } from "../hooks/revalidateGlobal";
 export const Footer: GlobalConfig = {
   slug: "footer",
   label: "Footer",
-  admin: { group: "Website Settings", hideAPIURL: true, description: "The texts at the bottom of every page and the links to social media. Empty fields use the standard text.", components: adminOnlyPublish },
+  admin: { group: false, hideAPIURL: true, description: "The texts at the bottom of every page and the links to social media. Empty fields use the standard text.", components: adminOnlyPublish },
   // Not staffUpdate: for globals Payload evaluates update access against the stored document, which is "published", and
   // that would make the whole global read-only for editors. Editors are kept to drafts by the hooks below instead.
   access: { read: publishedOrStaff, update: isStaff },

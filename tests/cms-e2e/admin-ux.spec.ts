@@ -284,6 +284,54 @@ test("polish: friendly page names, no developer words on the common screens, and
   expect(await noHorizontalScroll(page)).toBe(true);
 });
 
+test("sidebar: one short list of working destinations; Team members for administrators only; every link opens", async ({ page }, testInfo) => {
+  // Below about 1366 px the menu is a drawer behind the "Open Menu" button (it closes again after each navigation).
+  const openMenu = async () => {
+    // Payload renders two toggles (one in the header on small screens); use whichever one is on screen.
+    const opener = page.locator('button.nav-toggler[aria-label="Open Menu"]:visible').first();
+    if (await opener.count()) await opener.click();
+    await expect(page.locator("#hc-nav-dashboard")).toBeInViewport();
+  };
+  const seen = async () => {
+    await openMenu();
+    return (await page.locator("[data-hc-sidenav] .nav__link-label").allInnerTexts()).map((t) => t.trim());
+  };
+  await uiLogin(page, ADMIN);
+  await page.goto("/admin");
+  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Navigation", "Footer", "Team members"]);
+  // Payload's own grouped list (two page lists, developer-style names) is gone.
+  await expect(page.locator("#nav-custom-pages, #nav-pages, #nav-rooms, #nav-global-homepage")).toHaveCount(0);
+  for (const [id, url, heading] of [
+    ["homepage", /globals\/homepage/, /Homepage/],
+    ["rooms", /collections\/rooms/, /Rooms/],
+    ["pages", /collections\/pages/, /Pages/],
+    ["media", /collections\/media/, /Photos & Media/],
+    ["navigation", /globals\/navigation/, /Navigation/],
+    ["footer", /globals\/footer/, /Footer/],
+    ["users", /collections\/users/, /Team members/],
+  ] as const) {
+    await openMenu();
+    await page.locator(`#hc-nav-${id}`).click();
+    await expect(page).toHaveURL(url);
+    await expect(page.locator("h1").first()).toContainText(heading);
+  }
+  await page.goto("/admin/collections/pages");
+  await expect(page.locator("[data-hc-added-pages] a")).toHaveAttribute("href", /custom-pages/);
+  expect(await noHorizontalScroll(page)).toBe(true);
+  await openMenu();
+  await page.waitForTimeout(800); // let the drawer finish sliding in before the picture
+  await page.screenshot({ path: path.join("docs/admin-ux/real-staging", `sidebar-admin-${testInfo.project.name.replace("admin-ux-", "")}.png`) });
+
+  await page.context().clearCookies();
+  await uiLogin(page, EDITOR);
+  await page.goto("/admin");
+  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Navigation", "Footer"]);
+  await openMenu();
+  await page.waitForTimeout(800); // let the drawer finish sliding in before the picture
+  await page.screenshot({ path: path.join("docs/admin-ux/real-staging", `sidebar-editor-${testInfo.project.name.replace("admin-ux-", "")}.png`) });
+  await page.context().clearCookies();
+});
+
 test("polish: only an administrator can add a page, so an editor cannot leave a blank page behind", async ({ page }) => {
   await uiLogin(page, EDITOR);
   await page.goto("/admin/collections/pages");

@@ -107,7 +107,8 @@ describe("labels in the editing forms", () => {
     const cfg = await config();
     const name = (slug: string) => (cfg.collections.find((c) => c.slug === slug)?.labels?.plural as string) ?? "";
     expect([name("rooms"), name("pages"), name("media"), name("custom-pages"), name("users")]).toEqual(["Rooms", "Pages", "Photos & Media", "New pages", "Team members"]);
-    for (const g of cfg.globals) expect(g.admin.group).toBe("Website Settings");
+    // The sidebar is built by SideNav (navItems.ts); Payload's own grouped list is switched off.
+    for (const g of cfg.globals) expect(g.admin.group).toBe(false);
     for (const c of cfg.collections.filter((c) => OURS.includes(c.slug))) expect((c.admin as { hideAPIURL?: boolean }).hideAPIURL, c.slug).toBe(true);
   });
 

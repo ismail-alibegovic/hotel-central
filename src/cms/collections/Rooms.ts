@@ -27,7 +27,7 @@ export const Rooms: CollectionConfig = {
   slug: "rooms",
   labels: { singular: "Room", plural: "Rooms" },
   admin: {
-    group: "Website Content",
+    group: false,
     hideAPIURL: true,
     description: "The description, photos and amenities of each room. Open a room and work through the tabs in order.",
     useAsTitle: "name",

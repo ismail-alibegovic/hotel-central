@@ -5,7 +5,7 @@ export const Media: CollectionConfig = {
   slug: "media",
   labels: { singular: "Photo", plural: "Photos & Media" },
   admin: {
-    group: "Website Content",
+    group: false,
     hideAPIURL: true,
     description: "The photo library. Add a new photo (JPG, PNG, WebP or AVIF, up to 8 MB) and write a short description. You then choose photos from here in rooms and pages.",
     useAsTitle: "filename",
