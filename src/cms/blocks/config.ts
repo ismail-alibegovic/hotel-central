@@ -36,21 +36,28 @@ export const imageField = (name: string, opts: { required?: boolean; label?: str
   type: "group",
   label: opts.label ?? name,
   fields: [
-    { name: "staticPath", type: "select", options: imageOptions, label: "Photo already on the website", admin: { description: "Pick one of the photos that are already on the website. A preview appears below." } },
-    { name: "staticPreview", type: "ui", admin: { components: { Field: "/cms/admin/StaticImagePreview#StaticImagePreview" } } },
-    { name: "upload", type: "upload", relationTo: "media", label: "Or upload a new photo", admin: { description: "If you choose a photo here, it is used instead of the one in the list above." } },
+    { name: "photoCurrent", type: "ui", admin: { components: { Field: "/cms/admin/PhotoCurrent#PhotoCurrent" } } },
     {
       name: "alt",
       type: "text",
       localized: true,
-      label: "Photo description (for visually impaired visitors)",
-      admin: { description: "One short sentence saying what is in the photo. Write it separately for Bosnian and English." },
+      label: "Photo description",
+      admin: { description: "One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English." },
       validate: ((value: string | null | undefined, { siblingData }: { siblingData: unknown }) => {
         const s = siblingData as { staticPath?: string; upload?: unknown };
         return opts.required && (s.staticPath || s.upload) && !value ? "Please add a short description of the photo (needed for accessibility)." : true;
       }) as TextFieldSingleValidation,
     },
-    { name: "position", type: "text", label: "Which part of the photo stays in view (optional)", admin: { description: "For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure." }, validate: ((v: string | null | undefined) => (!v || POSITION.test(v) ? true : "Use the form “50% 40%”.")) as TextFieldSingleValidation },
+    {
+      type: "collapsible",
+      label: "More photo options",
+      admin: { initCollapsed: true },
+      fields: [
+        { name: "staticPath", type: "select", options: imageOptions, label: "Use a photo that is already on the website", admin: { description: "Pick one of the website’s own photos. It is used when no uploaded photo is set." } },
+        { name: "upload", type: "upload", relationTo: "media", label: "Photo from the library", admin: { description: "Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo." } },
+        { name: "position", type: "text", label: "Which part of the photo stays in view (optional)", admin: { description: "For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure." }, validate: ((v: string | null | undefined) => (!v || POSITION.test(v) ? true : "Use the form “50% 40%”.")) as TextFieldSingleValidation },
+      ],
+    },
   ],
 });
 
