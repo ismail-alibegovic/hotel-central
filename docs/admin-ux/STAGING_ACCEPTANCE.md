@@ -11,7 +11,7 @@ Never change the booking button, and do not publish test text on a site real gue
 | # | Do this | You should see | Result |
 | --- | --- | --- | --- |
 | A1 ★ | Open `/admin`. Sign in to Vercel if asked, then to Hotel Central. | The **HOTEL CENTRAL** sign-in page: a welcome line and a short help text. No software logo. | |
-| A2 | Sign in with the administrator account. | The **start page**: large cards *Rooms, Pages, Photos & Media, Special Offers, Homepage, Navigation & Footer, Website Preview*. | |
+| A2 | Sign in with the administrator account. | The **start page**: large cards *Rooms, Pages, Photos & Media, Special Offers, Homepage, Navigation & Footer, Website Preview*. Open the menu (☰ on a small screen): *Dashboard, Homepage, Rooms, Pages, Photos & Media* and, under *Website Settings*, *Navigation, Footer, Team members*. There is one *Pages* entry, not two. | |
 | A3 | Look at the browser tab. | Title ends with “Hotel Central Website Manager”; small **HC** icon. | |
 | A4 | Click your picture (top right) → *Account settings*. | The page says **Account settings**, not the name of the software. | |
 
@@ -22,7 +22,7 @@ Never change the booking button, and do not publish test text on a site real gue
 | B2 | At the top right choose **Editing language: Bosanski**. | Field names say “— Bosanski”. | |
 | B3 | Tab **2. Room Description** → add a word at the end of the first paragraph. | The box at the top says **Draft**. | |
 | B4 ★ | Click **Save Changes**. | A message “**Saved as draft — not visible to guests yet.**” and the same line stays in the box at the top. | |
-| B5 | Click the **eye** (Preview Changes). | A new tab shows the room page **with** your word. | |
+| B5 | Click the **eye** (Preview Changes). | On a wide screen the preview opens next to the form and follows your typing within about 2 seconds (the bar above it says “Updated at …”; **Refresh preview** reloads it by hand). On a small screen it replaces the form; click the eye again to return. | |
 | B6 | Open `/bs/rooms/junior-suite` in a private window (or the **English** page `/en/rooms/junior-suite`). | The guest page does **not** show your word yet. | |
 | B7 ★ | Back in the form click **Publish Changes**. | A box asks first: it lists **Bosnian: 1 change — Description** and **English: no changes**, and says **Bosnian and English are published together**. | |
 | B8 | Click **Cancel**. | Nothing is published (check the guest page again). | |
@@ -40,10 +40,17 @@ Never change the booking button, and do not publish test text on a site real gue
 | C6 ★ | **Do not publish** this on a site that matters. To undo: remove both rows (the **X**), Save Changes. | The original photos are shown again in the panel. | |
 | C7 | On a **phone**, repeat C1–C2 with a photo from the camera roll. | Works; no sideways scrolling. | |
 
+## C2. Replacing one photo in a page section
+| # | Do this | You should see | Result |
+| --- | --- | --- | --- |
+| C2a ★ | **Homepage** → find a photo field (for example the social media photo or the background photo). | The photo guests see now, a **Replace photo** or **Add photo** button, then **Photo description**. File names and crop settings are folded under **More photo options**. | |
+| C2b | Click **Replace photo**, choose a JPG, describe it, **Save**. | The new photo appears in the box: “Your uploaded photo”. Nothing is public yet. | |
+| C2c | Click **Remove photo** (or **Go back to the website's photo**). | The box shows the earlier photo again. | |
+
 ## D. Pages, contact details and the homepage
 | # | Do this | You should see | Result |
 | --- | --- | --- | --- |
-| D1 | Start page → **Edit pages**. | Friendly names: *About, Contact, Location, Meetings & Events, Restaurant, Rooms overview, Spa*. Open **Contact**: the title says **Contact**, not “contact”. | |
+| D1 | Sidebar → **Pages**. | Friendly names: *About, Contact, Location, Meetings & Events, Restaurant, Rooms overview, Spa*. Open **Contact**: the title says **Contact**, not “contact”. | |
 | D2 ★ | In **Contact**, tab **Page Sections** → open the contact section. | You can edit “Reception — address and opening hours” and “Reservations — phone and e-mail” (per language). | |
 | D3 | Look at the website footer and the “Contact us” links. | **Know this limit:** the hotel's **phone number, e-mail and street address are fixed in the website code** and appear in the footer, the booking strip and the contact links. Staff can change the *text* of the Contact page, not those fixed values; changing them needs a developer today. | |
 | D4 | Start page → **Homepage**. | Texts and photos can be replaced; empty fields keep the built-in ones. Change one heading in Bosnian, Save Changes, Preview Changes. | |
@@ -62,7 +69,7 @@ Sign in as an **editor** (Team members → add one if needed).
 | --- | --- | --- | --- |
 | F1 ★ | Open a room. | The top box says “You are an editor… an administrator publishes”. **No Publish Changes button**, no *6. Advanced Settings* tab. | |
 | F2 ★ | Edit a description → **Save Changes**. | “Saved as draft — not visible to guests yet.” The guest page is unchanged. | |
-| F3 | Start page → **Edit pages**. | There is **no “Add new” button** (an editor cannot leave a blank page behind). **Team members** is not offered. | |
+| F3 | Sidebar → **Pages**. | There is **no “Add new” button** (an editor cannot leave a blank page behind). **Team members** is not in the menu. | |
 
 ## G. Both website languages and the phone
 | # | Do this | You should see | Result |

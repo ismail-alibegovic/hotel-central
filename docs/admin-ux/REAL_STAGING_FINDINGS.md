@@ -76,3 +76,54 @@ adapter configuration, the 8 MB and file-type limits, access rules and the whole
 
 **Left for a decision.** Importing the website's 119 photos into the library would make them selectable like uploaded ones, but it would
 write 119 rows and files to the hosted database and store, so it needs explicit approval (not done).
+
+## 3. Navigation: the sidebar
+
+**What was wrong.** The sidebar was Payload's own grouped list (Website Content / Website Settings / Administration) with *Pages* and
+*New pages* side by side, and the Homepage filed under "Website Settings". Staff cannot guess that "New pages" are pages that were added later.
+
+**Proposed and built** (PR "simpler sidebar"): one short list, built on the server from the signed-in person's permissions through
+Payload's supported `beforeNavLinks` slot (Payload's own list is switched off with `admin.group: false`; the frame, account menu and phone drawer are Payload's).
+
+| Entry | Administrator | Editor |
+| --- | --- | --- |
+| Dashboard, Homepage, Rooms, Pages, Photos & Media | yes | yes |
+| Website Settings → Navigation, Footer | yes | yes |
+| Website Settings → Team members | yes | no |
+
+Pages created in the CMS are reached from a line at the top of the Pages list ("Open added pages"); there is one Pages entry, and it stays highlighted while an added page is open.
+
+**Deliberately not listed** (nothing to open yet; each needs a content model, so it is a follow-up for approval, not a migration slipped in here):
+* **Offers**: offers are a section of a page (`OFFER_EXPIRY_PROPOSAL.md`). A stand-alone Offers list with expiry dates is that proposal.
+* **Hotel Information** (phone, e-mail, address): fixed in code today (see `STAGING_ACCEPTANCE.md` D3).
+* **Google & SEO**: a tab on every page and room, not a destination.
+
+## 4. Editing photos
+
+**What was wrong.** A photo field showed a drop-down of file names, a separate "Or upload a new photo" box, a long accessibility label and crop text, in that order.
+
+**Built** (PR "simpler photo field"): every photo field opens with **the photo guests see now** and one button, **Replace photo** (or **Add photo**), plus
+**Go back to the website's photo / Remove photo** for an uploaded one; then the **Photo description** in plain language. The website photo list,
+the library chooser and the crop setting are folded under **More photo options**; file names are not shown. The stored values are unchanged (no migration).
+
+**Not done.** Putting each page form in the order *title and text → photos → other sections → Google & SEO → advanced* was not attempted in this round. It is not yet known how much of it can be done without changing the section definitions (and their tests), so it is recorded as a follow-up to investigate.
+
+## 5. Contact page and permissions: verified in a real browser
+
+`tests/cms-e2e/contact.spec.ts` runs at 1440 px and 390 px (phone), against a production build and a disposable database:
+
+* **Administrator**, Bosnian: edit the reception text → *Save Changes* ("Saved as draft") → the public Bosnian **and** English pages do not change → the staff preview
+  (`/api/preview`) shows the draft on the **Bosnian** page (`lang="bs"`) and not on the English one → *Publish Changes* lists "Bosnian: 1 change" and "English: no changes" → the public Bosnian page changes, the English page does not.
+* **English** is edited and published the same way: the Bosnian text is not in the English form, and the English edit changes only the English page. The hotel's own text is put back and published at the end.
+* **Editor**: sees the form and *Save Changes*, no *Publish Changes*; the draft is not public; the server answers **403** to a publish and to adding a page; the editor sees only their own account; no Team members entry; no *Add new* on the pages list.
+* No horizontal scroll at 390 px.
+Adding or replacing photos is verified on the Homepage (`admin-ux.spec.ts`, "photo field") and on rooms ("Photos tab"), because the Contact page has no photo section.
+
+## 6. Still needs a decision or a person
+
+1. **Real Blob upload** on the hosted staging site (section 2). Needs a signed-in staff session; nothing was uploaded to the hosted store.
+2. **Importing the 119 built-in photos** into the library (section 2).
+3. **Offers as their own list, with expiry dates** (`OFFER_EXPIRY_PROPOSAL.md`): two nullable columns; migration needs approval.
+4. **Hotel Information** (phone, e-mail, address) as editable settings: new content model; needs approval.
+5. **Page-form section order** (section 4).
+6. **Merging and deploying** PRs #25 to the Contact PR, in order, and a staging redeploy: nothing has been merged or deployed. PR #17 (per-language publishing) is still not to be merged.

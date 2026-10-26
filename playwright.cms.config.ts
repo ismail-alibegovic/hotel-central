@@ -7,6 +7,7 @@ import { defineConfig } from "@playwright/test";
  *   parity-*  CMS-rendered About / Junior Suite must be pixel-identical to the static baselines (read-only)
  *   admin-*   browser-driven administration on mobile and desktop (edits the content)
  *   admin-ux-*  branding, start page, grouped room form and the everyday edit/save/preview/publish flow, at phone/tablet/desktop size
+ *   contact-ui-*  the Contact page end to end as administrator and editor (edit, save, preview, publish, BS/EN), phone and desktop
  *   api       REST/HTTP behaviour: roles, drafts, preview, locale isolation, fallback (ends by deleting a doc)
  *   chrome-*  navigation + footer globals: HTTP (roles, drafts, locales, link safety) and the admin UI
  *   visual-cms-* screenshots of CMS-only output (sections, a created page, an edited home page) in staff preview
@@ -55,7 +56,9 @@ export default defineConfig({
         ...Object.entries(sizes).map(([name, viewport]) => ({ name: `admin-ux-${name}`, use: { viewport }, testMatch: /admin-ux\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] })),
         // Draft → preview next to the form (desktop and tablet; on a phone the split view is not offered)
         ...(["tablet", "desktop"] as const).map((n) => ({ name: `preview-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /preview\.spec\.ts/, dependencies: ["admin-mobile", "admin-desktop"] })),
-        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop", "admin-ux-mobile", "admin-ux-tablet", "admin-ux-desktop", "preview-ui-tablet", "preview-ui-desktop"] },
+        { name: "contact-ui-desktop", use: { viewport: sizes.desktop }, testMatch: /contact\.spec\.ts/, dependencies: ["preview-ui-tablet", "preview-ui-desktop"] },
+        { name: "contact-ui-mobile", use: { viewport: sizes.mobile }, testMatch: /contact\.spec\.ts/, dependencies: ["contact-ui-desktop"] },
+        { name: "api", testMatch: /[\\/]cms\.spec\.ts$/, dependencies: ["admin-mobile", "admin-desktop", "admin-ux-mobile", "admin-ux-tablet", "admin-ux-desktop", "preview-ui-tablet", "preview-ui-desktop", "contact-ui-desktop", "contact-ui-mobile"] },
         { name: "chrome-api", testMatch: /chrome-api\.spec\.ts/, dependencies: ["api"] },
         { name: "sections-api", testMatch: /sections-api\.spec\.ts/, dependencies: ["chrome-api"] },
         { name: "custom-pages-api", testMatch: /custom-pages-api\.spec\.ts/, dependencies: ["sections-api"] },
