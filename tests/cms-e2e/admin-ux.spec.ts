@@ -318,12 +318,14 @@ test("sidebar: one short list of working destinations; Team members for administ
   await page.goto("/admin/collections/pages");
   await expect(page.locator("[data-hc-added-pages] a")).toHaveAttribute("href", /custom-pages/);
   expect(await noHorizontalScroll(page)).toBe(true);
+  await openMenu();
   await page.screenshot({ path: path.join("docs/admin-ux/real-staging", `sidebar-admin-${testInfo.project.name.replace("admin-ux-", "")}.png`) });
 
   await page.context().clearCookies();
   await uiLogin(page, EDITOR);
   await page.goto("/admin");
   expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Navigation", "Footer"]);
+  await openMenu();
   await page.screenshot({ path: path.join("docs/admin-ux/real-staging", `sidebar-editor-${testInfo.project.name.replace("admin-ux-", "")}.png`) });
   await page.context().clearCookies();
 });
