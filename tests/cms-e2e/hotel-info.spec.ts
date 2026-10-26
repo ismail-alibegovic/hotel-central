@@ -167,4 +167,8 @@ test("an editor can save a draft but is not offered Publish, and the public site
   await expect(page.getByText(/saved/i).first()).toBeVisible();
   await shot(page, "editor");
   expect(await (await request.get("/bs/contact")).text()).not.toContain("+387 33 404 404");
+  // The staff preview (the eye button opens the home page of the language being edited) shows the draft; the public site does not.
+  const preview = await page.request.get("/api/preview?path=%2Fbs");
+  expect(await preview.text()).toContain("+387 33 404 404");
+  expect(await (await request.get("/bs")).text()).not.toContain("+387 33 404 404");
 });

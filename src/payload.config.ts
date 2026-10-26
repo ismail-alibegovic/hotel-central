@@ -54,7 +54,8 @@ export default buildConfig({
         return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}${route}`)}`;
       },
       collections: ["pages", "custom-pages", "rooms"],
-      globals: ["homepage"],
+      // Hotel Information has no page of its own: its preview is the home page of the language being edited (header, footer, banner).
+      globals: ["homepage", "hotel-info"],
       breakpoints: [
         { label: "Mobile", name: "mobile", width: 390, height: 844 },
         { label: "Tablet", name: "tablet", width: 768, height: 1024 },
