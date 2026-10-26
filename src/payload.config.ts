@@ -15,6 +15,7 @@ import { Rooms } from "./cms/collections/Rooms";
 import { Users } from "./cms/collections/Users";
 import { Footer } from "./cms/globals/Footer";
 import { Homepage } from "./cms/globals/Homepage";
+import { HotelInfo } from "./cms/globals/HotelInfo";
 import { Navigation } from "./cms/globals/Navigation";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -64,7 +65,7 @@ export default buildConfig({
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
   collections: [Users, Media, Pages, CustomPages, Rooms],
-  globals: [Navigation, Footer, Homepage],
+  globals: [Navigation, Footer, Homepage, HotelInfo],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
   localization: {
     locales: [

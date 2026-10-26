@@ -4,6 +4,8 @@ import { AlternateLocales } from "@/components/AlternateLocales";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
 import { getCustomPage } from "@/cms/customPages";
+import { getHotelContact } from "@/cms/hotelInfo";
+import { followContact } from "@/cms/hotelInfoMerge";
 import { getRooms } from "@/cms/rooms";
 import { isValidSlug } from "@/cms/slugs";
 import { getDictionary } from "@/content/dictionary";
@@ -26,8 +28,9 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale, slug } = await params;
   const page = isValidSlug(slug) ? await getCustomPage(slug, locale) : null;
   if (!page) return {};
+  const meta = followContact({ title: page.title, description: page.description ?? "" }, await getHotelContact(locale));
   // Staff previewing a draft must never be indexable, whatever the page's own setting.
-  return pageMetadata(locale, `/${slug}`, page.title, page.description ?? "", page.ogImage, page.noindex || page.draft, customAlternates(locale, page.paths));
+  return pageMetadata(locale, `/${slug}`, meta.title, meta.description, page.ogImage, page.noindex || page.draft, customAlternates(locale, page.paths));
 }
 
 export default async function CustomPageRoute({ params }: P) {

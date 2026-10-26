@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
 import { getHome } from "@/cms/home";
+import { getHotelContact } from "@/cms/hotelInfo";
 import { getRooms } from "@/cms/rooms";
 import { EventsSection } from "@/components/home/EventsSection";
 import { FinalBooking } from "@/components/home/FinalBooking";
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const { dict, images, draft } = await getHome(locale, getDictionary(locale));
-  const { rooms } = await getRooms(locale);
+  const [{ rooms }, contact] = await Promise.all([getRooms(locale), getHotelContact(locale)]);
   return (
     <>
       <Hero locale={locale} dict={dict} images={images} />
@@ -38,9 +39,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <RoomCarousel locale={locale} dict={dict} rooms={rooms} />
       <SpaShowcase locale={locale} dict={dict} images={images} />
       <RestaurantShowcase locale={locale} dict={dict} images={images} />
-      <LocationSection locale={locale} dict={dict} images={images} />
+      <LocationSection locale={locale} dict={dict} images={images} contact={contact} />
       <EventsSection locale={locale} dict={dict} images={images} />
-      <FinalBooking dict={dict} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
+      <FinalBooking dict={dict} phone={contact.phone} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
       {/* Last on purpose: anything before the hero would shift its position in the React tree and change its generated ids. */}
       {draft && <LivePreviewListener />}
     </>

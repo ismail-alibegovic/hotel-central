@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Dictionary } from "@/content/dictionary";
+import type { Phone } from "@/cms/hotelInfoMerge";
 import { booking, hotel } from "@/content/hotel";
 import { FadeIn, RevealLines } from "../Reveal";
 import { PillLink } from "../ui";
@@ -9,10 +10,13 @@ export function FinalBooking({
   dict,
   image = "/images/3067.jpg",
   alt = "A suite at Hotel Central with a double bed and seating area",
+  phone = { display: hotel.phoneDisplay, href: hotel.phoneHref },
 }: {
   dict: Dictionary;
   image?: string;
   alt?: string;
+  /** The main number from Hotel Information. */
+  phone?: Phone;
 }) {
   const d = dict.home.final;
   return (
@@ -43,8 +47,8 @@ export function FinalBooking({
           <PillLink href={booking.bookingUrl} external tone="light">
             {d.cta}
           </PillLink>
-          <a href={hotel.phoneHref} className="label link-line opacity-85">
-            {hotel.phoneDisplay}
+          <a href={phone.href} className="label link-line opacity-85">
+            {phone.display}
           </a>
         </FadeIn>
       </div>

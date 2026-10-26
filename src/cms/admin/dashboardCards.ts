@@ -69,6 +69,15 @@ export function dashboardCards(can: Can, role: Role): Card[] {
     });
   }
 
+  if (can.global("hotel-info")) {
+    cards.push({
+      id: "hotel-info",
+      title: "Hotel Information",
+      text: "Phone numbers, e-mail addresses, the hotel's address and opening hours. A change here updates every page once it is published.",
+      links: [{ label: "Edit hotel information", href: "/admin/globals/hotel-info" }],
+    });
+  }
+
   if (can.global("navigation") || can.global("footer")) {
     const links: CardLink[] = [];
     if (can.global("navigation")) links.push({ label: "Navigation (menu)", href: "/admin/globals/navigation" });

@@ -97,11 +97,13 @@ export interface Config {
     navigation: Navigation;
     footer: Footer;
     homepage: Homepage;
+    'hotel-info': HotelInfo;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'hotel-info': HotelInfoSelect<false> | HotelInfoSelect<true>;
   };
   locale: 'en' | 'bs';
   widgets: {
@@ -140,6 +142,9 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
+  /**
+   * The website always keeps at least one administrator: the last one cannot be changed to Editor or removed.
+   */
   role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
@@ -5868,6 +5873,90 @@ export interface Homepage {
   createdAt?: string | null;
 }
 /**
+ * The hotel's phone numbers, e-mail addresses, address and opening hours. A change here updates every page of the website once it is published. Empty fields keep the current details.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotel-info".
+ */
+export interface HotelInfo {
+  id: string;
+  /**
+   * Drag to change the order. If the list is empty, the current number +387 33 561 800 is used.
+   */
+  phones?:
+    | {
+        /**
+         * As guests should see it, with the country code, for example “+387 33 561 800”.
+         */
+        number: string;
+        /**
+         * For example “Reception” / “Recepcija” or “Spa”. Write it in both languages.
+         */
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Drag to change the order. If the list is empty, the current address info@hotelcentral.ba is used.
+   */
+  emails?:
+    | {
+        address: string;
+        /**
+         * For example “Reservations” / “Rezervacije”.
+         */
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  address?: {
+    street?: string | null;
+    postalCode?: string | null;
+    city?: string | null;
+    /**
+     * Per language: “Bosnia and Herzegovina” / “Bosna i Hercegovina”. If empty, the current wording is used.
+     */
+    country?: string | null;
+  };
+  /**
+   * Add one entry per place (Reception, Restaurant, Spa…). Drag to change the order.
+   */
+  hours?:
+    | {
+        /**
+         * Used to show the right hours on the right page.
+         */
+        facility: 'reception' | 'restaurant' | 'cafe' | 'spa' | 'pool' | 'gym' | 'other';
+        /**
+         * For example “Reception” / “Recepcija” or “Club & Spa”.
+         */
+        name: string;
+        rows?:
+          | {
+              /**
+               * For example “Monday – Friday” / “Ponedjeljak – petak” or “Every day” / “Svaki dan”.
+               */
+              days: string;
+              /**
+               * 24-hour clock, for example “07:00 – 22:00”, or “07:00 – 15:00, 18:00 – 23:00”. Leave empty if closed.
+               */
+              time?: string | null;
+              closed?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * For example “Different hours on public holidays.”
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
@@ -6131,6 +6220,54 @@ export interface HomepageSelect<T extends boolean = true> {
               upload?: T;
               position?: T;
             };
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotel-info_select".
+ */
+export interface HotelInfoSelect<T extends boolean = true> {
+  phones?:
+    | T
+    | {
+        number?: T;
+        label?: T;
+        id?: T;
+      };
+  emails?:
+    | T
+    | {
+        address?: T;
+        label?: T;
+        id?: T;
+      };
+  address?:
+    | T
+    | {
+        street?: T;
+        postalCode?: T;
+        city?: T;
+        country?: T;
+      };
+  hours?:
+    | T
+    | {
+        facility?: T;
+        name?: T;
+        rows?:
+          | T
+          | {
+              days?: T;
+              time?: T;
+              closed?: T;
+              id?: T;
+            };
+        note?: T;
+        id?: T;
       };
   _status?: T;
   updatedAt?: T;

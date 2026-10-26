@@ -1,6 +1,6 @@
 import "server-only";
 import { draftMode, headers } from "next/headers";
-import type { CustomPage, Footer, Homepage, Navigation, Page, Room } from "@/payload-types";
+import type { CustomPage, Footer, Homepage, HotelInfo, Navigation, Page, Room } from "@/payload-types";
 import { locales, type Locale } from "@/lib/i18n";
 import { isStaffUser } from "./access";
 import { cmsEnabled } from "./enabled";
@@ -114,11 +114,11 @@ export async function getNoindexPaths(): Promise<Set<string> | null> {
   }
 }
 
-type GlobalSlug = "navigation" | "footer" | "homepage";
-type GlobalDoc<G extends GlobalSlug> = G extends "navigation" ? Navigation : G extends "footer" ? Footer : Homepage;
+type GlobalSlug = "navigation" | "footer" | "homepage" | "hotel-info";
+type GlobalDoc<G extends GlobalSlug> = G extends "navigation" ? Navigation : G extends "footer" ? Footer : G extends "hotel-info" ? HotelInfo : Homepage;
 
 /**
- * Read a global (navigation / footer) for a locale. Same rules as getCmsDoc: published only for the public,
+ * Read a global (navigation / footer / home page / hotel information) for a locale. Same rules as getCmsDoc: published only for the public,
  * drafts for previewing staff, null on any failure so the caller renders the built-in text.
  */
 export async function getCmsGlobal<G extends GlobalSlug>(slug: G, locale: Locale): Promise<GlobalDoc<G> | null> {

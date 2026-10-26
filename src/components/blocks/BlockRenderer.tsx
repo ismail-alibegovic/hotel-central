@@ -10,7 +10,9 @@ import { Arrow, PillLink } from "@/components/ui";
 import { CtaBand, Faq, Offers } from "./Sections";
 import type { Block, Cta, FaqBlock, SplitBlock } from "@/cms/blocks/types";
 import type { Dictionary } from "@/content/dictionary";
-import { booking, hotel, maps } from "@/content/hotel";
+import { getHotelContact } from "@/cms/hotelInfo";
+import { followContact } from "@/cms/hotelInfoMerge";
+import { booking, hotel } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
 import { fitStyle } from "@/lib/fit";
 import { href, type Locale } from "@/lib/i18n";
@@ -130,8 +132,13 @@ function RoomList({ rooms, locale, dict }: { rooms: Room[]; locale: Locale; dict
 /**
  * Turns resolved blocks into the existing Hotel Central components. Markup is identical to what the
  * hand-written pages used to render; the HTML-parity and visual tests guard that.
+ * Contact details come from Hotel Information; sections that still hold the built-in details as text follow it too.
  */
-export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]; locale: Locale; dict: Dictionary; rooms: Room[] }) {
+export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, rooms }: { blocks: Block[]; locale: Locale; dict: Dictionary; rooms: Room[] }) {
+  const contact = await getHotelContact(locale);
+  const blocks = followContact(stored, contact);
+  // e.g. the contact form's "email us at … or call …" messages
+  const dict = followContact(storedDict, contact);
   return (
     <>
       {blocks.map((b, i) => {
@@ -171,7 +178,7 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
           case "gallery":
             return <Gallery key={i} images={b.images} tone={b.tone} label={b.label} />;
           case "finalBooking":
-            return <FinalBooking key={i} dict={dict} {...(b.image ? { image: b.image } : {})} {...(b.alt ? { alt: b.alt } : {})} />;
+            return <FinalBooking key={i} dict={dict} phone={contact.phone} {...(b.image ? { image: b.image } : {})} {...(b.alt ? { alt: b.alt } : {})} />;
           case "arrival":
             return (
               <section key={i} className="relative overflow-hidden bg-ivory px-[var(--gutter)] py-16 text-ink md:py-[6vw]">
@@ -180,8 +187,8 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
                   <div className="md:col-span-7">
                     <div className="relative aspect-[4/3] overflow-hidden ring-1 ring-inset ring-ink/15 md:aspect-[16/11]">
                       <iframe
-                        title={`Map — ${hotel.name}, ${hotel.street}`}
-                        src={maps.embed}
+                        title={`Map — ${hotel.name}, ${contact.street}`}
+                        src={contact.mapEmbed}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         className="map-tint absolute inset-0 h-full w-full border-0"
@@ -189,9 +196,9 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
                     </div>
                     <div className="mt-6 flex flex-wrap items-center justify-between gap-6">
                       <address className="label not-italic">
-                        {hotel.name} · {hotel.street}, {hotel.postalCode} {hotel.city}
+                        {hotel.name} · {contact.street}, {contact.postalCode} {contact.city}
                       </address>
-                      <PillLink href={maps.directions} external>
+                      <PillLink href={contact.directions} external>
                         {dict.common.directions}
                       </PillLink>
                     </div>
@@ -212,9 +219,9 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
             );
           case "contact": {
             const items = [
-              { label: b.office.label, body: b.office.body, link: { href: hotel.phoneHref, text: hotel.phoneDisplay } },
+              { label: b.office.label, body: b.office.body, link: { href: contact.phone.href, text: contact.phone.display } },
               { label: b.reservations.label, body: b.reservations.body, link: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
-              { label: b.write.label, body: hotel.email, link: { href: `mailto:${hotel.email}`, text: dict.common.email } },
+              { label: b.write.label, body: contact.email, link: { href: `mailto:${contact.email}`, text: dict.common.email } },
               { label: b.social.label, body: b.social.body, link: { href: hotel.facebook, text: "Facebook", external: true } },
             ];
             return (
@@ -240,11 +247,11 @@ export function BlockRenderer({ blocks, locale, dict, rooms }: { blocks: Block[]
                     <address className="label mt-8 not-italic leading-[1.8]">
                       {hotel.name}
                       <br />
-                      {hotel.street}, {hotel.postalCode} {hotel.city}
+                      {contact.street}, {contact.postalCode} {contact.city}
                       <br />
-                      {locale === "bs" ? hotel.countryBs : hotel.country}
+                      {contact.country}
                       <br />
-                      <a href={maps.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
+                      <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
                         {dict.common.directions}
                       </a>
                     </address>

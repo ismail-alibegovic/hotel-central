@@ -26,8 +26,8 @@ afterAll(async () => h?.stop());
 
 describe("seeding", () => {
   it("creates both globals from the built-in text and is idempotent", async () => {
-    expect(await seedGlobals(payload)).toEqual({ navigation: "created", footer: "created" });
-    expect(await seedGlobals(payload)).toEqual({ navigation: "exists", footer: "exists" });
+    expect(await seedGlobals(payload)).toEqual({ navigation: "created", footer: "created", hotelInfo: "created" });
+    expect(await seedGlobals(payload)).toEqual({ navigation: "exists", footer: "exists", hotelInfo: "exists" });
   });
 
   it("merging the seeded globals back into the dictionary is lossless in both languages", async () => {
