@@ -18,6 +18,7 @@
     "cms:generate": "DATABASE_URL=${DATABASE_URL:-postgres://127.0.0.1/unused} PAYLOAD_SECRET=${PAYLOAD_SECRET:-unused} tsx scripts/cms/generate.mts",
     "test:cms-e2e": "tsx scripts/cms/e2e.mts",
     "cms:restore-drill": "tsx scripts/cms/restore-drill.mts",
+    "cms:rehearse": "tsx scripts/cms/migration-rehearsal.mts",
     "cms:backup-media": "tsx scripts/cms/backup-media.mts",
     "cms:preflight": "tsx scripts/cms/preflight.mts"
   },

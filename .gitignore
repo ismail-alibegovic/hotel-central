@@ -50,3 +50,6 @@ next-env.d.ts
 /src/payload-types.ts.bak
 /.tools/
 /.next-static/
+
+# local database backups and rehearsal reports (never commit)
+/backups/
