@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
 import { getHome } from "@/cms/home";
 import { getHotelContact } from "@/cms/hotelInfo";
+import { followContact } from "@/cms/hotelInfoMerge";
 import { getRooms } from "@/cms/rooms";
 import { EventsSection } from "@/components/home/EventsSection";
 import { FinalBooking } from "@/components/home/FinalBooking";
@@ -30,8 +31,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const { dict, images, draft } = await getHome(locale, getDictionary(locale));
-  const [{ rooms }, contact] = await Promise.all([getRooms(locale), getHotelContact(locale)]);
+  const [home, { rooms }, contact] = await Promise.all([getHome(locale, getDictionary(locale)), getRooms(locale), getHotelContact(locale)]);
+  const { images, draft } = home;
+  // Built-in sentences that mention the phone number or e-mail follow Hotel Information.
+  const dict = followContact(home.dict, contact);
   return (
     <>
       <Hero locale={locale} dict={dict} images={images} />

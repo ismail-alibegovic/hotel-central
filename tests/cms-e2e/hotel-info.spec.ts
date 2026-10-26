@@ -105,8 +105,9 @@ test("administrator changes the main phone and e-mail; every page in both langua
   const res = await publish(page);
   expect(res.status()).toBe(200);
 
+  const pages = ["", "/about", "/rooms", "/rooms/junior-suite", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
   for (const l of ["en", "bs"]) {
-    for (const p of [`/${l}`, `/${l}/contact`, `/${l}/spa`]) {
+    for (const p of pages.map((x) => `/${l}${x}`)) {
       const html = await (await request.get(p)).text();
       expect(html, p).toContain(phone);
       expect(html, p).toContain(`href="${href}"`);
@@ -135,6 +136,9 @@ test("invalid values are refused in the form with a plain explanation", async ({
   await number.fill("call reception");
   const res = await publish(page);
   expect(res.status()).toBe(400);
+  await expect(page.getByText("1 Error").first()).toBeVisible();
+  // On a phone Payload shows a field's explanation when the field is touched; on a wide screen it is shown at once.
+  await number.click();
   await expect(page.getByText(/Use digits, spaces and the signs/).first()).toBeVisible();
   await shot(page, "validation");
   expect(await (await page.request.get("/en/contact")).text()).not.toContain("call reception");
