@@ -11,7 +11,8 @@ records) — no table content was read and nothing was changed. The remaining st
 | Schema state | **188 tables** in `public` — exactly the initial schema of `main`; none of the 20 new Hotel Information tables exist; `payload_migrations` has **1** row (the initial migration). The Hotel Information migration is the only one pending. |
 | Role the app uses | `hc_cms` (login role, not superuser, no `BYPASSRLS`, no connection limit, may create tables in `public`). It **owns all 188 tables**; they carry no extra grants. |
 | Server limits | `max_connections` = 60 (direct connections; the pooler is separate) |
-| Staging code | Vercel project `hotel-central-cms-demo`, latest production deployment = commit `4f2e651` (the old `main`, before #30/#31), functions in **fra1** (same region as the database) |
+| Staging code | Vercel project `hotel-central-cms-demo`: latest **ready** production deployment = commit `4f2e651` (the old `main`, before #30/#31); the deployments of the merged `main` were **canceled** by the project's ignored-build-step, so the new code is **not** deployed there. Functions run in **fra1** (same region as the database). |
+| Public demo | Vercel project `hotel-central` (CMS off, no database; Production Branch `main`) auto-deployed both merges (`16459c0`, `9e652c8`): live site healthy, `/admin` and `/api/*` answer 404, the full smoke suite passes (117/117) against it |
 | Other projects in the account | `Estateline`, `Riverina Residence`: unrelated, not touched |
 
 ## 2. The migration and its rollback
@@ -64,7 +65,42 @@ Blob download path of `cms:backup-media` has still never run against a real stor
 **No scheduled backup exists.** Supabase Free does not provide one you can rely on; until a schedule is approved, the manual backup before each change is the only one.
 
 ## 5. Concurrent-write timeout (investigation)
-POOL_SECTION_PLACEHOLDER
+**Symptom:** two staff saving at the same moment make one or both saves fail with `timeout exceeded when trying to connect` after 4 seconds (the admin shows an error; nothing is
+half-saved, the transaction rolls back). It predates the two merges and is independent of them and of the migration. Reproduced locally.
+
+**Cause (traced in Payload 3.92's own code, not guessed):** the application's database pool is `max: 3` (`src/cms/db.ts`). Every save of a *document* (a page, a room,
+a team member) opens a transaction, which keeps one pooled connection for its whole duration, and then `checkDocumentLockStatus` calls `payload.db.find(...)` **without passing the request**,
+so that query cannot join the transaction and asks the pool for a *second* connection while the first is still held. That is a hold-and-wait: when as many saves are running as the pool has
+connections, every save holds one and waits for another, and all of them fail when the 4-second connection timeout expires. One page autosave alone uses up to 3 connections at once;
+a public page read uses 2; saving a global (Navigation, Footer, Homepage, Hotel Information) uses 2 and never deadlocked in any test.
+
+**Measured** (local PostgreSQL, one application process, `ok / total`; `*` = at least one request waited out the 4 s timeout):
+
+| Simultaneous requests | pool 3 (today) | 4 | 5 | 6 | 8 | 10 | 12 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| public page reads, 6 at once | 6/6 | 6/6 | 6/6 | 6/6 | 6/6 | | |
+| global saves, 6 at once | 6/6 | 6/6 | 6/6 | 6/6 | 6/6 | | |
+| **document saves**, 2 at once | **1/2\*** (profile edit: 0/2) | 2/2 | 2/2 | 2/2 | 2/2 | | |
+| document saves, 3 at once | **0/3\*** | 2/3\* | 3/3 | 3/3 | 3/3 | | |
+| document saves, 4 at once | 1/4\* | 2/4\* | 3/4\* | 4/4 | 4/4 | | |
+| document saves, 6 at once | 0/6\* | 2/6\* | 2/6\* | 2/6\* | 6/6 | | |
+| document saves, 4–10 at once (alternating autosave / profile edit) | | | | | | 4/4 … 10/10 | 4/4 … 10/10 |
+| **mixed**: 3 saving staff + 8 reads + 2 global saves, 5 rounds (65 requests) | **4/65** (5 of 5 rounds timed out) | | | **65/65** | | **65/65** | |
+
+**Does the staging configuration need adjusting? Yes — raise the pool from 3 to 10.**
+* With Fluid compute (on by default for Vercel projects created after 23 April 2025, so very likely on for this project created in October 2026 — **confirm under Project → Settings → Functions**) one function instance serves many requests at once, so
+  the 3-connection pool is shared by everyone using that instance. Two editors typing (each autosaves 1.5 s after they pause), a third publishing, and the public reading is enough.
+  The staging functions are in **fra1**, next to the database, so latency is not the issue; the limit is purely the pool size.
+* 10 is not a guess: 10 simultaneous document saves all succeeded, and the mixed load above passed completely from 6 up. It leaves headroom for the worst case of the hold-and-wait (`2 × simultaneous saves + 1`).
+* It is cheap on the database side: in transaction-pooling mode a client connection only occupies a server connection while a transaction runs. The server allows `max_connections` = 60 and `hc_cms` has no connection limit.
+  Before changing it, check **Project → Database → Settings → Connection pooling** (pool size, max client connections) and the Vercel instance limit: worst case is `10 × number of running instances` client connections.
+* Keep `connectionTimeoutMillis: 4000`: it is what makes the site fall back to its built-in content within seconds when the database is unreachable (the outage tests depend on it).
+* **The change is one line** (`max: 3` → `max: 10` in `src/cms/db.ts`, or better an environment override such as `DB_POOL_MAX` so staging can be tuned without a code deploy). It is **not** schema dependent and **not made yet**: it needs a code deploy, so it waits for your approval like the rest.
+
+Other options considered: disabling document locking (`lockDocuments: false`) removes the extra connection (the lock check returns early) but also removes the warning that stops two people overwriting each other, which staff rely on;
+turning transactions off (`transactionOptions: false`) removes the hold but gives up atomic saves. Neither is recommended. Two follow-ups worth doing: report the missing `req` in `checkDocumentLockStatus` to Payload (it should pass the request so the check joins the transaction),
+and call Vercel's `attachDatabasePool(pool)` (package `@vercel/functions`) so idle connections are released before a Fluid-compute instance is suspended (a new dependency, so it needs approval).
+**Not proven:** the measurements ran against a local server in a single process. They show the mechanism and the sizes at which it stops, not the exact failure rate on Supabase; the same test with the production settings (`max: 10`) should be repeated on staging after the change by two people saving at once.
 
 ## 6. Risks
 | # | Risk | Likelihood / impact | Mitigation |
@@ -74,7 +110,7 @@ POOL_SECTION_PLACEHOLDER
 | 3 | A 16-based backup/restore procedure fails on the 17 server | Was certain / medium | Fixed in the runbook; rehearsal enforces matching versions |
 | 4 | The backup was never run against the hosted database | Certain until done / medium | Run `npm run cms:rehearse` against it first (read-only) |
 | 5 | CI tests PostgreSQL 16, the hosted database is 17 | Low (285/285 pass on 17.9) / medium | Change `postgres:16` to `postgres:17` in `.github/workflows/ci.yml` (separate change, not made here) |
-| 6 | Pool exhaustion under concurrent staff edits (§5) | Medium on Fluid compute / medium | §5 |
+| 6 | Pool of 3 starves under concurrent staff edits: 3 simultaneous saves → 0 succeed (§5) | **High** on Fluid compute (likely on) / medium (saves fail with an error, nothing is lost) | Raise the pool to 10 after approval (§5) |
 | 7 | Rolling the schema back deletes what staff entered in Hotel Information | Low / low | Backup first; prefer code-only rollback |
 | 8 | Code deployed before the migration | Low / low (site falls back to the built-in details; the admin screen errors until the migration runs) | Order in §8 |
 
