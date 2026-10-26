@@ -343,6 +343,40 @@ test("polish: only an administrator can add a page, so an editor cannot leave a 
   await expect(page.getByRole("link", { name: "Add new" }).first()).toBeVisible();
 });
 
+test("photo field: shows the photo guests see, replaces it in one click, keeps file names and crop settings out of the way", async ({ page }, testInfo) => {
+  await uiLogin(page, ADMIN);
+  await page.goto("/admin/globals/homepage?locale=en");
+  const card = page.locator("[data-hc-photo-current]").first();
+  await expect(card).toBeVisible();
+  // Plain wording, no file names; the technical choices are folded away.
+  await expect(card).not.toContainText(/\.(jpe?g|png|webp|avif)/i);
+  const advanced = page.getByText("Use a photo that is already on the website").first();
+  await expect(advanced).toBeHidden();
+  await expect(page.getByText("Which part of the photo stays in view").first()).toBeHidden();
+  await page.getByText("More photo options", { exact: true }).first().click();
+  await expect(advanced).toBeVisible();
+  await page.getByText("More photo options", { exact: true }).first().click();
+  await expect(advanced).toBeHidden();
+
+  const had = await card.getAttribute("data-hc-photo-source");
+  await card.locator("[data-hc-photo-replace-input]").setInputFiles(path.join(process.cwd(), "public", "images", "junior01.jpg"));
+  await page.locator('input[id^="field-alt"]').fill(`UX replaced photo ${testInfo.project.name}`);
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(card).toHaveAttribute("data-hc-photo-source", "uploaded");
+  await expect(card).toContainText("Your uploaded photo");
+  await expect(card.locator("img")).toBeVisible();
+  await expect.poll(() => card.locator("img").evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
+  await expect(card.getByRole("button", { name: "Replace photo" })).toBeVisible();
+  expect(await noHorizontalScroll(page)).toBe(true);
+
+  // Undo, so nothing is left in the homepage draft or the library.
+  await card.getByRole("button", { name: /Go back to the website’s photo|Remove photo/ }).click();
+  await expect(card).toHaveAttribute("data-hc-photo-source", had ?? "none");
+  await page.waitForTimeout(2500); // let the automatic save of the undo settle
+  const uploads = (await (await api.get("/api/media?where[filename][like]=junior01&limit=50&depth=0")).json()).docs as { id: string; alt?: string }[];
+  for (const m of uploads) if (String(m.alt ?? "").startsWith("UX replaced photo")) await api.delete(`/api/media/${m.id}`);
+});
+
 test("Photos & Media: says what the library is (and why it may look empty), offers Add photos, and takes an upload", async ({ page }, testInfo) => {
   await uiLogin(page, ADMIN);
   const total = (await (await api.get("/api/media?limit=1&depth=0")).json()).totalDocs as number;

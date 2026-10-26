@@ -205,7 +205,11 @@ export interface Page {
         | {
             image?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -331,13 +335,9 @@ export interface Page {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -377,7 +377,11 @@ export interface Page {
             line?: ('hotel' | 'rooms' | 'spa' | 'restaurant' | 'location') | null;
             image1?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -503,13 +507,9 @@ export interface Page {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -517,7 +517,11 @@ export interface Page {
             };
             image2?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -643,13 +647,9 @@ export interface Page {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -721,7 +721,11 @@ export interface Page {
               | {
                   image?: {
                     /**
-                     * Pick one of the photos that are already on the website. A preview appears below.
+                     * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+                     */
+                    alt?: string | null;
+                    /**
+                     * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                      */
                     staticPath?:
                       | (
@@ -847,13 +851,9 @@ export interface Page {
                         )
                       | null;
                     /**
-                     * If you choose a photo here, it is used instead of the one in the list above.
+                     * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                      */
                     upload?: (string | null) | Media;
-                    /**
-                     * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-                     */
-                    alt?: string | null;
                     /**
                      * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                      */
@@ -869,7 +869,11 @@ export interface Page {
         | {
             image?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -995,13 +999,9 @@ export interface Page {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -1068,7 +1068,11 @@ export interface Page {
             items: {
               image?: {
                 /**
-                 * Pick one of the photos that are already on the website. A preview appears below.
+                 * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+                 */
+                alt?: string | null;
+                /**
+                 * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                  */
                 staticPath?:
                   | (
@@ -1194,13 +1198,9 @@ export interface Page {
                     )
                   | null;
                 /**
-                 * If you choose a photo here, it is used instead of the one in the list above.
+                 * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                  */
                 upload?: (string | null) | Media;
-                /**
-                 * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-                 */
-                alt?: string | null;
                 /**
                  * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                  */
@@ -1316,7 +1316,11 @@ export interface Page {
   metaDescription?: string | null;
   ogImage?: {
     /**
-     * Pick one of the photos that are already on the website. A preview appears below.
+     * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+     */
+    alt?: string | null;
+    /**
+     * Pick one of the website’s own photos. It is used when no uploaded photo is set.
      */
     staticPath?:
       | (
@@ -1442,13 +1446,9 @@ export interface Page {
         )
       | null;
     /**
-     * If you choose a photo here, it is used instead of the one in the list above.
+     * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
      */
     upload?: (string | null) | Media;
-    /**
-     * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-     */
-    alt?: string | null;
     /**
      * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
      */
@@ -1486,7 +1486,11 @@ export interface CustomPage {
         | {
             image?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -1612,13 +1616,9 @@ export interface CustomPage {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -1658,7 +1658,11 @@ export interface CustomPage {
             line?: ('hotel' | 'rooms' | 'spa' | 'restaurant' | 'location') | null;
             image1?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -1784,13 +1788,9 @@ export interface CustomPage {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -1798,7 +1798,11 @@ export interface CustomPage {
             };
             image2?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -1924,13 +1928,9 @@ export interface CustomPage {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -2002,7 +2002,11 @@ export interface CustomPage {
               | {
                   image?: {
                     /**
-                     * Pick one of the photos that are already on the website. A preview appears below.
+                     * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+                     */
+                    alt?: string | null;
+                    /**
+                     * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                      */
                     staticPath?:
                       | (
@@ -2128,13 +2132,9 @@ export interface CustomPage {
                         )
                       | null;
                     /**
-                     * If you choose a photo here, it is used instead of the one in the list above.
+                     * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                      */
                     upload?: (string | null) | Media;
-                    /**
-                     * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-                     */
-                    alt?: string | null;
                     /**
                      * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                      */
@@ -2150,7 +2150,11 @@ export interface CustomPage {
         | {
             image?: {
               /**
-               * Pick one of the photos that are already on the website. A preview appears below.
+               * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+               */
+              alt?: string | null;
+              /**
+               * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                */
               staticPath?:
                 | (
@@ -2276,13 +2280,9 @@ export interface CustomPage {
                   )
                 | null;
               /**
-               * If you choose a photo here, it is used instead of the one in the list above.
+               * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                */
               upload?: (string | null) | Media;
-              /**
-               * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-               */
-              alt?: string | null;
               /**
                * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                */
@@ -2349,7 +2349,11 @@ export interface CustomPage {
             items: {
               image?: {
                 /**
-                 * Pick one of the photos that are already on the website. A preview appears below.
+                 * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+                 */
+                alt?: string | null;
+                /**
+                 * Pick one of the website’s own photos. It is used when no uploaded photo is set.
                  */
                 staticPath?:
                   | (
@@ -2475,13 +2479,9 @@ export interface CustomPage {
                     )
                   | null;
                 /**
-                 * If you choose a photo here, it is used instead of the one in the list above.
+                 * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
                  */
                 upload?: (string | null) | Media;
-                /**
-                 * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-                 */
-                alt?: string | null;
                 /**
                  * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
                  */
@@ -2597,7 +2597,11 @@ export interface CustomPage {
   metaDescription?: string | null;
   ogImage?: {
     /**
-     * Pick one of the photos that are already on the website. A preview appears below.
+     * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+     */
+    alt?: string | null;
+    /**
+     * Pick one of the website’s own photos. It is used when no uploaded photo is set.
      */
     staticPath?:
       | (
@@ -2723,13 +2727,9 @@ export interface CustomPage {
         )
       | null;
     /**
-     * If you choose a photo here, it is used instead of the one in the list above.
+     * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
      */
     upload?: (string | null) | Media;
-    /**
-     * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-     */
-    alt?: string | null;
     /**
      * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
      */
@@ -2982,9 +2982,9 @@ export interface PagesSelect<T extends boolean = true> {
               image?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               eyebrow?: T;
@@ -3014,17 +3014,17 @@ export interface PagesSelect<T extends boolean = true> {
               image1?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               image2?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               primary?:
@@ -3100,9 +3100,9 @@ export interface PagesSelect<T extends boolean = true> {
                     image?:
                       | T
                       | {
+                          alt?: T;
                           staticPath?: T;
                           upload?: T;
-                          alt?: T;
                           position?: T;
                         };
                     id?: T;
@@ -3116,9 +3116,9 @@ export interface PagesSelect<T extends boolean = true> {
               image?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               id?: T;
@@ -3174,9 +3174,9 @@ export interface PagesSelect<T extends boolean = true> {
                     image?:
                       | T
                       | {
+                          alt?: T;
                           staticPath?: T;
                           upload?: T;
-                          alt?: T;
                           position?: T;
                         };
                     tag?: T;
@@ -3259,9 +3259,9 @@ export interface PagesSelect<T extends boolean = true> {
   ogImage?:
     | T
     | {
+        alt?: T;
         staticPath?: T;
         upload?: T;
-        alt?: T;
         position?: T;
       };
   noindex?: T;
@@ -3285,9 +3285,9 @@ export interface CustomPagesSelect<T extends boolean = true> {
               image?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               eyebrow?: T;
@@ -3317,17 +3317,17 @@ export interface CustomPagesSelect<T extends boolean = true> {
               image1?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               image2?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               primary?:
@@ -3403,9 +3403,9 @@ export interface CustomPagesSelect<T extends boolean = true> {
                     image?:
                       | T
                       | {
+                          alt?: T;
                           staticPath?: T;
                           upload?: T;
-                          alt?: T;
                           position?: T;
                         };
                     id?: T;
@@ -3419,9 +3419,9 @@ export interface CustomPagesSelect<T extends boolean = true> {
               image?:
                 | T
                 | {
+                    alt?: T;
                     staticPath?: T;
                     upload?: T;
-                    alt?: T;
                     position?: T;
                   };
               id?: T;
@@ -3477,9 +3477,9 @@ export interface CustomPagesSelect<T extends boolean = true> {
                     image?:
                       | T
                       | {
+                          alt?: T;
                           staticPath?: T;
                           upload?: T;
-                          alt?: T;
                           position?: T;
                         };
                     tag?: T;
@@ -3562,9 +3562,9 @@ export interface CustomPagesSelect<T extends boolean = true> {
   ogImage?:
     | T
     | {
+        alt?: T;
         staticPath?: T;
         upload?: T;
-        alt?: T;
         position?: T;
       };
   noindex?: T;
@@ -3761,7 +3761,11 @@ export interface Homepage {
   metaDescription?: string | null;
   ogImage?: {
     /**
-     * Pick one of the photos that are already on the website. A preview appears below.
+     * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+     */
+    alt?: string | null;
+    /**
+     * Pick one of the website’s own photos. It is used when no uploaded photo is set.
      */
     staticPath?:
       | (
@@ -3887,13 +3891,9 @@ export interface Homepage {
         )
       | null;
     /**
-     * If you choose a photo here, it is used instead of the one in the list above.
+     * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
      */
     upload?: (string | null) | Media;
-    /**
-     * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-     */
-    alt?: string | null;
     /**
      * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
      */
@@ -3912,7 +3912,11 @@ export interface Homepage {
      */
     image?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4038,13 +4042,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4068,7 +4068,11 @@ export interface Homepage {
      */
     imageLeft?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4194,13 +4198,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4211,7 +4211,11 @@ export interface Homepage {
      */
     imageCenter?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4337,13 +4341,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4354,7 +4354,11 @@ export interface Homepage {
      */
     imageRight?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4480,13 +4484,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4527,7 +4527,11 @@ export interface Homepage {
      */
     imageMain?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4653,13 +4657,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4670,7 +4670,11 @@ export interface Homepage {
      */
     imageSecondary?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4796,13 +4800,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4825,7 +4825,11 @@ export interface Homepage {
      */
     imageMain?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -4951,13 +4955,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -4968,7 +4968,11 @@ export interface Homepage {
      */
     imageCoffee?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5094,13 +5098,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5111,7 +5111,11 @@ export interface Homepage {
      */
     imageBuffet?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5237,13 +5241,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5272,7 +5272,11 @@ export interface Homepage {
      */
     image?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5398,13 +5402,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5426,7 +5426,11 @@ export interface Homepage {
      */
     imageMain?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5552,13 +5556,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5569,7 +5569,11 @@ export interface Homepage {
      */
     imageSecondary?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5695,13 +5699,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5724,7 +5724,11 @@ export interface Homepage {
      */
     image?: {
       /**
-       * Pick one of the photos that are already on the website. A preview appears below.
+       * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google. Write it separately for Bosnian and English.
+       */
+      alt?: string | null;
+      /**
+       * Pick one of the website’s own photos. It is used when no uploaded photo is set.
        */
       staticPath?:
         | (
@@ -5850,13 +5854,9 @@ export interface Homepage {
           )
         | null;
       /**
-       * If you choose a photo here, it is used instead of the one in the list above.
+       * Choose a photo from the photo library, or upload one. A library photo is used instead of the website photo.
        */
       upload?: (string | null) | Media;
-      /**
-       * One short sentence saying what is in the photo. Write it separately for Bosnian and English.
-       */
-      alt?: string | null;
       /**
        * For example “50% 40%”. Decides which part of the photo stays visible when it is cropped. Leave empty if unsure.
        */
@@ -5932,9 +5932,9 @@ export interface HomepageSelect<T extends boolean = true> {
   ogImage?:
     | T
     | {
+        alt?: T;
         staticPath?: T;
         upload?: T;
-        alt?: T;
         position?: T;
       };
   hero?:
@@ -5947,9 +5947,9 @@ export interface HomepageSelect<T extends boolean = true> {
         image?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -5967,25 +5967,25 @@ export interface HomepageSelect<T extends boolean = true> {
         imageLeft?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageCenter?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageRight?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -6016,17 +6016,17 @@ export interface HomepageSelect<T extends boolean = true> {
         imageMain?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageSecondary?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -6043,25 +6043,25 @@ export interface HomepageSelect<T extends boolean = true> {
         imageMain?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageCoffee?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageBuffet?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -6084,9 +6084,9 @@ export interface HomepageSelect<T extends boolean = true> {
         image?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -6102,17 +6102,17 @@ export interface HomepageSelect<T extends boolean = true> {
         imageMain?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
         imageSecondary?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
@@ -6126,9 +6126,9 @@ export interface HomepageSelect<T extends boolean = true> {
         image?:
           | T
           | {
+              alt?: T;
               staticPath?: T;
               upload?: T;
-              alt?: T;
               position?: T;
             };
       };
