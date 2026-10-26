@@ -350,12 +350,14 @@ test("photo field: shows the photo guests see, replaces it in one click, keeps f
   await expect(card).toBeVisible();
   // Plain wording, no file names; the technical choices are folded away.
   await expect(card).not.toContainText(/\.(jpe?g|png|webp|avif)/i);
+  // Payload lays its own toggle button over the label, so the toggle is what gets clicked.
+  const moreOptions = page.locator("div.collapsible", { has: page.locator(".row-label", { hasText: "More photo options" }) }).first().locator(".collapsible__toggle").first();
   const advanced = page.getByText("Use a photo that is already on the website").first();
   await expect(advanced).toBeHidden();
   await expect(page.getByText("Which part of the photo stays in view").first()).toBeHidden();
-  await page.getByText("More photo options", { exact: true }).first().click();
+  await moreOptions.click();
   await expect(advanced).toBeVisible();
-  await page.getByText("More photo options", { exact: true }).first().click();
+  await moreOptions.click();
   await expect(advanced).toBeHidden();
 
   const had = await card.getAttribute("data-hc-photo-source");
