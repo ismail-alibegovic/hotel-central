@@ -75,6 +75,7 @@ test("administrator's start page: one large button per task, in everyday words",
     ["media", "Photos & Media"],
     ["offers", "Special Offers"],
     ["homepage", "Homepage"],
+    ["hotel-info", "Hotel Information"],
     ["chrome", "Navigation & Footer"],
     ["preview", "Website Preview"],
   ]) {
@@ -298,7 +299,7 @@ test("sidebar: one short list of working destinations; Team members for administ
   };
   await uiLogin(page, ADMIN);
   await page.goto("/admin");
-  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Navigation", "Footer", "Team members"]);
+  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Hotel Information", "Navigation", "Footer", "Team members"]);
   // Payload's own grouped list (two page lists, developer-style names) is gone.
   await expect(page.locator("#nav-custom-pages, #nav-pages, #nav-rooms, #nav-global-homepage")).toHaveCount(0);
   for (const [id, url, heading] of [
@@ -306,6 +307,7 @@ test("sidebar: one short list of working destinations; Team members for administ
     ["rooms", /collections\/rooms/, /Rooms/],
     ["pages", /collections\/pages/, /Pages/],
     ["media", /collections\/media/, /Photos & Media/],
+    ["hotel-info", /globals\/hotel-info/, /Hotel Information/],
     ["navigation", /globals\/navigation/, /Navigation/],
     ["footer", /globals\/footer/, /Footer/],
     ["users", /collections\/users/, /Team members/],
@@ -325,7 +327,7 @@ test("sidebar: one short list of working destinations; Team members for administ
   await page.context().clearCookies();
   await uiLogin(page, EDITOR);
   await page.goto("/admin");
-  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Navigation", "Footer"]);
+  expect(await seen()).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Hotel Information", "Navigation", "Footer"]);
   await openMenu();
   await page.waitForTimeout(800); // let the drawer finish sliding in before the picture
   await page.screenshot({ path: path.join("docs/admin-ux/real-staging", `sidebar-editor-${testInfo.project.name.replace("admin-ux-", "")}.png`) });
