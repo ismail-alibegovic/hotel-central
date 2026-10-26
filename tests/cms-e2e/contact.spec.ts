@@ -78,7 +78,8 @@ test("editor: prepares a change to the Contact page as a draft, and can neither 
   const publish = await asEditor.patch(`/api/pages/${contactId}?locale=bs&depth=0`, { data: { _status: "published" } });
   expect(publish.status()).toBe(403);
   expect((await asEditor.post("/api/pages", { data: { slug: `x-${run}` } })).status()).toBe(403); // cannot add pages
-  expect([401, 403]).toContain((await asEditor.get("/api/users?limit=5")).status() === 200 ? 403 : 401); // sees only their own account (see admin-ui)
+  const users = (await (await asEditor.get("/api/users?limit=10&depth=0")).json()) as { docs?: { email: string }[] };
+  expect((users.docs ?? []).map((u) => u.email)).toEqual([EDITOR.email]); // an editor sees only their own account
   // Sidebar and list
   await page.goto("/admin");
   await expect(page.getByText("Team members", { exact: true })).toHaveCount(0);
