@@ -3,7 +3,7 @@ import type { Can, Role } from "./dashboardCards";
 /**
  * The sidebar of the admin, in the order staff think about their work. Pure so the rules can be tested: a destination is listed
  * only when it exists and the signed-in person may open it. Pages created in the CMS are reached from the Pages list (one entry
- * for regular users, not two), and Offers / Hotel Information have no screen of their own yet, so they are not listed.
+ * for regular users, not two), and Offers have no screen of their own yet, so they are not listed.
  */
 export type NavLink = { id: string; label: string; href: string };
 export type NavSection = { id: string; label: string; links: NavLink[] };
@@ -20,6 +20,7 @@ export function navItems(can: Can, role: Role): NavModel {
   if (can.collection("media")) top.push(link("media", "Photos & Media", "/admin/collections/media"));
 
   const settings: NavLink[] = [];
+  if (can.global("hotel-info")) settings.push(link("hotel-info", "Hotel Information", "/admin/globals/hotel-info"));
   if (can.global("navigation")) settings.push(link("navigation", "Navigation", "/admin/globals/navigation"));
   if (can.global("footer")) settings.push(link("footer", "Footer", "/admin/globals/footer"));
   if (role === "admin" && can.collection("users")) settings.push(link("users", "Team members", "/admin/collections/users"));

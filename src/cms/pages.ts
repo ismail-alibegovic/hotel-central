@@ -2,6 +2,8 @@ import "server-only";
 import { staticLayout } from "@/content/layouts";
 import type { PageKey, PageLayout } from "./blocks/types";
 import { getCmsDoc } from "./data";
+import { getHotelContact } from "./hotelInfo";
+import { followContact } from "./hotelInfoMerge";
 import { resolveImage, resolveLayout } from "./resolve";
 import type { Locale } from "@/lib/i18n";
 
@@ -13,6 +15,12 @@ const text = (v: string | null | undefined) => (v && v.trim() ? v.trim() : undef
  * `skipped` lists blocks left out because they are not translated yet (logged, never rendered half-empty).
  */
 export async function getPageLayout(page: PageKey, locale: Locale): Promise<PageLayout & { noindex: boolean; draft: boolean; source: "cms" | "static"; skipped: string[] }> {
+  const [layout, contact] = await Promise.all([readPageLayout(page, locale), getHotelContact(locale)]);
+  // Titles and descriptions for Google that mention the phone number or e-mail follow Hotel Information.
+  return { ...layout, meta: followContact(layout.meta, contact) };
+}
+
+async function readPageLayout(page: PageKey, locale: Locale): Promise<PageLayout & { noindex: boolean; draft: boolean; source: "cms" | "static"; skipped: string[] }> {
   const fallback = staticLayout(page, locale);
   const { doc, draft } = await getCmsDoc("pages", page, locale);
   if (!doc) return { ...fallback, noindex: false, draft, source: "static", skipped: [] };

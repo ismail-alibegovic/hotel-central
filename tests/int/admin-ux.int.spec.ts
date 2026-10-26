@@ -11,9 +11,9 @@ const only = (collections: string[], globals: string[] = []): Can => ({ collecti
 const TECHNICAL = /\b(slug|seo|blocks?|globals?|payload|json|api|schema|database|collection|endpoint|graphql|mongo|postgres)\b/i;
 
 describe("start page", () => {
-  it("offers the seven tasks to an administrator, in plain words", () => {
+  it("offers the eight tasks to an administrator, in plain words", () => {
     const cards = dashboardCards(all, "admin");
-    expect(cards.map((c) => c.title)).toEqual(["Rooms", "Pages", "Photos & Media", "Special Offers", "Homepage", "Navigation & Footer", "Website Preview"]);
+    expect(cards.map((c) => c.title)).toEqual(["Rooms", "Pages", "Photos & Media", "Special Offers", "Homepage", "Hotel Information", "Navigation & Footer", "Website Preview"]);
   });
 
   it("lists only what the person is allowed to use", () => {

@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/content/dictionary";
-import { hotel, maps } from "@/content/hotel";
+import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
+import { hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
@@ -8,7 +9,7 @@ import { Arrow, MetaRow, PillLink } from "../ui";
 import { img, type HomeImages } from "./homeImages";
 import { fitStyle } from "@/lib/fit";
 
-export function LocationSection({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
+export function LocationSection({ locale, dict, images, contact = builtInContact(locale) }: { locale: Locale; dict: Dictionary; images?: HomeImages; contact?: HotelContact }) {
   const d = dict.home.location;
   const photo = img(images?.location, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower on Ćumurija street", position: "62% 30%" });
   return (
@@ -35,12 +36,12 @@ export function LocationSection({ locale, dict, images }: { locale: Locale; dict
                 ))}
               </dl>
               <address className="label mt-6 not-italic leading-[1.7]">
-                {hotel.street}, {hotel.postalCode} {hotel.city}
+                {contact.street}, {contact.postalCode} {contact.city}
               </address>
             </FadeIn>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 md:pl-[7vw]">
-            <PillLink href={maps.directions} external tone="light">
+            <PillLink href={contact.directions} external tone="light">
               {dict.common.directions}
             </PillLink>
             <a href={href(locale, "/location")} className="label link-line flex items-center gap-3">
@@ -52,8 +53,8 @@ export function LocationSection({ locale, dict, images }: { locale: Locale; dict
         <div className="relative md:col-span-5 md:col-start-8">
           <FadeIn className="relative aspect-[4/5] w-full overflow-hidden bg-ivory md:aspect-[4/5.2]">
             <iframe
-              title={`Map — ${hotel.name}, ${hotel.street}`}
-              src={maps.embed}
+              title={`Map — ${hotel.name}, ${contact.street}`}
+              src={contact.mapEmbed}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="map-tint absolute inset-0 h-full w-full border-0"

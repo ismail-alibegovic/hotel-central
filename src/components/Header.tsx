@@ -8,9 +8,10 @@ import { useCallback, useEffect, useState } from "react";
 import type { Dictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
+import type { ContactLinks } from "@/cms/hotelInfoMerge";
 import { FullscreenMenu } from "./FullscreenMenu";
 
-export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictionary; contact: ContactLinks }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -110,7 +111,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </motion.header>
 
-      <FullscreenMenu id="site-menu" open={open} onClose={close} locale={locale} dict={dict} />
+      <FullscreenMenu id="site-menu" open={open} onClose={close} locale={locale} dict={dict} contact={contact} />
     </>
   );
 }

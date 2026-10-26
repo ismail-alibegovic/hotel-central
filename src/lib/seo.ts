@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { booking, hotel } from "@/content/hotel";
+import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
 import { locales, type Locale } from "./i18n";
 
 /** Canonical + hreflang alternates for a locale-agnostic path such as "/rooms". */
@@ -36,22 +37,23 @@ export function pageMetadata(
   };
 }
 
-export function hotelJsonLd(locale: Locale) {
+/** Structured data for search engines; contact details come from Hotel Information (built-in values by default). */
+export function hotelJsonLd(locale: Locale, contact: HotelContact = builtInContact(locale)) {
   return {
     "@context": "https://schema.org",
     "@type": "Hotel",
     name: hotel.name,
     url: `${hotel.siteUrl}/${locale}`,
-    telephone: hotel.phoneDisplay,
-    email: hotel.email,
+    telephone: contact.phone.display,
+    email: contact.email,
     starRating: { "@type": "Rating", ratingValue: hotel.stars },
     numberOfRooms: hotel.rooms,
     image: `${hotel.siteUrl}/images/3075.jpg`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: hotel.street,
-      postalCode: hotel.postalCode,
-      addressLocality: hotel.city,
+      streetAddress: contact.street,
+      postalCode: contact.postalCode,
+      addressLocality: contact.city,
       addressCountry: "BA",
     },
     amenityFeature: [

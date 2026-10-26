@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { MotionRoot } from "@/components/MotionRoot";
 import { MobileBookBar } from "@/components/MobileBookBar";
 import { getChrome } from "@/cms/chrome";
+import { getHotelContact } from "@/cms/hotelInfo";
+import { contactLinks, followContact } from "@/cms/hotelInfoMerge";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getDictionary } from "@/content/dictionary";
@@ -57,20 +59,24 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const { dict, social } = await getChrome(locale, getDictionary(locale));
+  const [chrome, contact] = await Promise.all([getChrome(locale, getDictionary(locale)), getHotelContact(locale)]);
+  const { social } = chrome;
+  // Built-in sentences that mention the phone number or e-mail (e.g. the contact form's messages) follow Hotel Information.
+  const dict = followContact(chrome.dict, contact);
+  const links = contactLinks(contact);
 
   return (
     <html lang={locale} className={`${gilda.variable} ${inter.variable}`}>
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd(locale)) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd(locale, contact)) }}
         />
         <MotionRoot>
-          <Header locale={locale} dict={dict} />
+          <Header locale={locale} dict={dict} contact={links} />
           <main id="content">{children}</main>
-          <Footer locale={locale} dict={dict} social={social} />
-          <MobileBookBar dict={dict} />
+          <Footer locale={locale} dict={dict} social={social} contact={contact} />
+          <MobileBookBar dict={dict} contact={links} />
         </MotionRoot>
       </body>
     </html>

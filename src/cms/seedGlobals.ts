@@ -30,12 +30,14 @@ const footData = (l: Locale) => {
   };
 };
 
+type Seeded = "created" | "exists";
+
 /**
- * Create the Navigation and Footer globals from the built-in text (English, then Bosnian onto the same rows).
- * A global that already has content is left alone, so repeated runs cannot overwrite editor changes.
+ * Create the Navigation, Footer and Hotel Information globals from the built-in values (English, then Bosnian onto the
+ * same rows). A global that already has content is left alone, so repeated runs cannot overwrite editor changes.
  */
-export async function seedGlobals(payload: Payload): Promise<{ navigation: "created" | "exists"; footer: "created" | "exists" }> {
-  const result = { navigation: "exists", footer: "exists" } as { navigation: "created" | "exists"; footer: "created" | "exists" };
+export async function seedGlobals(payload: Payload): Promise<{ navigation: Seeded; footer: Seeded; hotelInfo: Seeded }> {
+  const result: { navigation: Seeded; footer: Seeded; hotelInfo: Seeded } = { navigation: "exists", footer: "exists", hotelInfo: "exists" };
 
   const nav = await payload.findGlobal({ slug: "navigation", draft: true, depth: 0, overrideAccess: true });
   if (!nav.items?.length) {
@@ -68,6 +70,25 @@ export async function seedGlobals(payload: Payload): Promise<{ navigation: "crea
     void created;
     await payload.updateGlobal({ slug: "footer", locale: "bs", overrideAccess: true, data: { ...footData("bs"), _status: "published" } as never });
     result.footer = "created";
+  }
+
+  // The verified details from the code, so staff open a filled-in form. Labels and opening hours are left empty: they are not
+  // published by the hotel yet and must not be invented.
+  const info = await payload.findGlobal({ slug: "hotel-info", draft: true, depth: 0, overrideAccess: true });
+  if (!info.phones?.length && !info.emails?.length && !info.address?.street && !info.hours?.length) {
+    await payload.updateGlobal({
+      slug: "hotel-info",
+      locale: "en",
+      overrideAccess: true,
+      data: {
+        phones: [{ number: hotel.phoneDisplay }],
+        emails: [{ address: hotel.email }],
+        address: { street: hotel.street, postalCode: hotel.postalCode, city: hotel.city, country: hotel.country },
+        _status: "published",
+      } as never,
+    });
+    await payload.updateGlobal({ slug: "hotel-info", locale: "bs", overrideAccess: true, data: { address: { country: hotel.countryBs }, _status: "published" } as never });
+    result.hotelInfo = "created";
   }
   return result;
 }

@@ -1,14 +1,25 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionary";
-import { booking, hotel, maps } from "@/content/hotel";
+import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
+import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "./DecorativeLine";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { RevealLines } from "./Reveal";
 import { Arrow } from "./ui";
 
-export function Footer({ locale, dict, social = [{ label: "Facebook", href: hotel.facebook }] }: { locale: Locale; dict: Dictionary; social?: { label: string; href: string }[] }) {
+export function Footer({
+  locale,
+  dict,
+  social = [{ label: "Facebook", href: hotel.facebook }],
+  contact = builtInContact(locale),
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  social?: { label: string; href: string }[];
+  contact?: HotelContact;
+}) {
   const f = dict.footer;
   const year = new Date().getFullYear();
   return (
@@ -22,8 +33,8 @@ export function Footer({ locale, dict, social = [{ label: "Facebook", href: hote
           <span className="opacity-90">{f.reservationsBody}</span>
         </div>
         <div className="flex flex-wrap items-center gap-6">
-          <a href={hotel.phoneHref} className="label link-line">
-            {hotel.phoneDisplay}
+          <a href={contact.phone.href} className="label link-line">
+            {contact.phone.display}
           </a>
           <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="pill pill-light">
             <span>{dict.nav.book}</span>
@@ -45,28 +56,45 @@ export function Footer({ locale, dict, social = [{ label: "Facebook", href: hote
           <p className="mb-3 opacity-50">{f.address}</p>
           <p>{hotel.name}</p>
           <address className="not-italic">
-            {hotel.street}
+            {contact.street}
             <br />
-            {hotel.postalCode} {hotel.city}
+            {contact.postalCode} {contact.city}
             <br />
-            {locale === "bs" ? hotel.countryBs : hotel.country}
+            {contact.country}
           </address>
-          <a href={maps.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-3 inline-block opacity-80">
+          <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-3 inline-block opacity-80">
             {dict.common.directions}
           </a>
         </div>
         <div className="label space-y-1">
           <p className="mb-3 opacity-50">{f.contact}</p>
           <p>
-            <a href={hotel.phoneHref} className="link-line">
-              {hotel.phoneDisplay}
+            <a href={contact.phone.href} className="link-line">
+              {contact.phone.display}
             </a>
           </p>
           <p>
-            <a href={`mailto:${hotel.email}`} className="link-line normal-case tracking-[0.06em]">
-              {hotel.email}
+            <a href={`mailto:${contact.email}`} className="link-line normal-case tracking-[0.06em]">
+              {contact.email}
             </a>
           </p>
+          {/* Further numbers and addresses from Hotel Information (none by default), each with its label. */}
+          {contact.phones.slice(1).map((p) => (
+            <p key={p.href}>
+              {p.label && <span className="opacity-50">{p.label} </span>}
+              <a href={p.href} className="link-line">
+                {p.display}
+              </a>
+            </p>
+          ))}
+          {contact.emails.slice(1).map((e) => (
+            <p key={e.address}>
+              {e.label && <span className="opacity-50">{e.label} </span>}
+              <a href={`mailto:${e.address}`} className="link-line normal-case tracking-[0.06em]">
+                {e.address}
+              </a>
+            </p>
+          ))}
         </div>
         <nav aria-label={f.explore} className="label col-span-2 md:col-span-1">
           <p className="mb-3 opacity-50">{f.explore}</p>

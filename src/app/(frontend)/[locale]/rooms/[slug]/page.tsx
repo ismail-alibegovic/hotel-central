@@ -11,6 +11,8 @@ import { getDictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { getRoom, rooms as staticRooms } from "@/content/rooms";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
+import { getHotelContact } from "@/cms/hotelInfo";
+import { followContact } from "@/cms/hotelInfoMerge";
 import { getRooms, getRoomSeo } from "@/cms/rooms";
 import { href, locales, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -38,7 +40,9 @@ export default async function RoomPage({ params }: P) {
   const { rooms, draft } = await getRooms(locale);
   const room = rooms.find((r) => r.slug === slug);
   if (!room) notFound(); // hidden from the website in the CMS
-  const dict = getDictionary(locale);
+  const contact = await getHotelContact(locale);
+  // Built-in sentences that mention the phone number or e-mail follow Hotel Information.
+  const dict = followContact(getDictionary(locale), contact);
   const idx = rooms.findIndex((r) => r.slug === slug);
   const others = rooms.filter((r) => r.slug !== slug);
   const next = rooms[(idx + 1) % rooms.length];
@@ -133,7 +137,7 @@ export default async function RoomPage({ params }: P) {
         </div>
       </section>
 
-      <FinalBooking dict={dict} image={imgs[0].src} alt={imgs[0].alt} />
+      <FinalBooking dict={dict} phone={contact.phone} image={imgs[0].src} alt={imgs[0].alt} />
     </>
   );
 }

@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/content/dictionary";
-import { booking, hotel } from "@/content/hotel";
+import type { ContactLinks } from "@/cms/hotelInfoMerge";
+import { booking } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Arrow } from "./ui";
@@ -30,12 +31,14 @@ export function FullscreenMenu({
   onClose,
   locale,
   dict,
+  contact,
 }: {
   id: string;
   open: boolean;
   onClose: () => void;
   locale: Locale;
   dict: Dictionary;
+  contact: ContactLinks;
 }) {
   const pathname = usePathname();
   const [hovered, setHovered] = useState<string>("/");
@@ -152,21 +155,21 @@ export function FullscreenMenu({
               <div className="grid grid-cols-2 gap-8 border-t border-white/15 pt-6">
                 <div className="label space-y-1">
                   <p className="opacity-50">{dict.footer.address}</p>
-                  <p>{hotel.street}</p>
+                  <p>{contact.street}</p>
                   <p>
-                    {hotel.postalCode} {hotel.city}
+                    {contact.postalCode} {contact.city}
                   </p>
                 </div>
                 <div className="label space-y-1">
                   <p className="opacity-50">{dict.footer.contact}</p>
                   <p>
-                    <a href={hotel.phoneHref} className="link-line">
-                      {hotel.phoneDisplay}
+                    <a href={contact.phone.href} className="link-line">
+                      {contact.phone.display}
                     </a>
                   </p>
                   <p>
-                    <a href={`mailto:${hotel.email}`} className="link-line normal-case tracking-[0.06em]">
-                      {hotel.email}
+                    <a href={`mailto:${contact.email}`} className="link-line normal-case tracking-[0.06em]">
+                      {contact.email}
                     </a>
                   </p>
                 </div>

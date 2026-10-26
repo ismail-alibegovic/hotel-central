@@ -14,6 +14,7 @@ import { defineConfig } from "@playwright/test";
  *   home-*    home page global: HTTP (text, photographs, drafts, roles, validation) and the browser
  *   custom-pages-* pages created in the CMS: HTTP (localized addresses, drafts, preview, revalidation, sitemap, roles) and the browser
  *   sections-* offers / FAQ / CTA sections: HTTP (sample guard, preview isolation, rendering, languages) and the browser (keyboard FAQ, labels, buttons)
+ *   hotel-info-ui-* Hotel Information: phone/e-mail change published from the admin reaches every page in both languages; editor drafts; validation
  * E2E_PHASE=outage runs only the database-outage spec (the runner points the app at a closed database port first).
  */
 const outage = process.env.E2E_PHASE === "outage";
@@ -75,5 +76,8 @@ export default defineConfig({
         ...(["mobile", "desktop"] as const).map((n) => ({ name: `custom-pages-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /custom-pages-ui\.spec\.ts/, dependencies: ["custom-pages-api"] })),
         ...(["mobile", "desktop"] as const).map((n) => ({ name: `sections-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /sections-ui\.spec\.ts/, dependencies: ["sections-api"] })),
         ...(["mobile", "desktop"] as const).map((n) => ({ name: `chrome-ui-${n}`, use: { viewport: sizes[n] }, testMatch: /chrome-ui\.spec\.ts/, dependencies: ["chrome-api"] })),
+        // Hotel Information: admin edits + publish → every page follows; editor drafts only; invalid values refused (restores the seeded details at the end)
+        { name: "hotel-info-ui-desktop", use: { viewport: sizes.desktop }, testMatch: /hotel-info\.spec\.ts/, dependencies: ["chrome-api"] },
+        { name: "hotel-info-ui-mobile", use: { viewport: sizes.mobile }, testMatch: /hotel-info\.spec\.ts/, dependencies: ["hotel-info-ui-desktop"] },
       ],
 });
