@@ -5,7 +5,7 @@ import { MotionRoot } from "@/components/MotionRoot";
 import { MobileBookBar } from "@/components/MobileBookBar";
 import { getChrome } from "@/cms/chrome";
 import { getHotelContact } from "@/cms/hotelInfo";
-import { contactLinks } from "@/cms/hotelInfoMerge";
+import { contactLinks, followContact } from "@/cms/hotelInfoMerge";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getDictionary } from "@/content/dictionary";
@@ -59,7 +59,10 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const [{ dict, social }, contact] = await Promise.all([getChrome(locale, getDictionary(locale)), getHotelContact(locale)]);
+  const [chrome, contact] = await Promise.all([getChrome(locale, getDictionary(locale)), getHotelContact(locale)]);
+  const { social } = chrome;
+  // Built-in sentences that mention the phone number or e-mail (e.g. the contact form's messages) follow Hotel Information.
+  const dict = followContact(chrome.dict, contact);
   const links = contactLinks(contact);
 
   return (
