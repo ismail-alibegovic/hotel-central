@@ -285,9 +285,11 @@ test("polish: friendly page names, no developer words on the common screens, and
 });
 
 test("sidebar: one short list of working destinations; Team members for administrators only; every link opens", async ({ page }, testInfo) => {
-  const phone = (page.viewportSize()?.width ?? 1280) <= 1024;
+  // Below about 1366 px the menu is a drawer behind the "Open Menu" button (it closes again after each navigation).
   const openMenu = async () => {
-    if (phone && !(await page.locator("#hc-nav-dashboard").isVisible())) await page.locator(".nav-toggler, .nav__mobile-close, button[aria-label*='enu' i]").first().click();
+    const opener = page.getByRole("button", { name: "Open Menu" });
+    if (await opener.isVisible()) await opener.click();
+    await expect(page.locator("#hc-nav-dashboard")).toBeInViewport();
   };
   const seen = async () => {
     await openMenu();
