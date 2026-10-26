@@ -46,3 +46,33 @@ screen the form is shown first, the preview shows the saved draft, and coming ba
 **Limits to know.** The preview shows the *saved* draft, about 2 seconds behind typing. Payload's automatic save does not notice typing a
 text back to exactly what it started with straight after a manual "Save Changes" (click Save Changes again). Not exercised on the hosted
 staging site (needs a signed-in person; the checklist covers it).
+
+## 2. Photos & Media "appears empty"
+
+**Confirmed facts** (checked against the hosted staging resources, without reading any secret):
+* The staging database has **0 rows** in the photo library table.
+* The Vercel Blob store `hotel-central-cms-demo-media` exists, is **public** (the Payload adapter needs a public store), is connected to the
+  staging project (production, preview and development), its token is valid (not expired), billing is active, and it holds **0 files**.
+* The website's own photographs (119 files in the website's `public/images`) are **not library entries**: they are files of the website,
+  chosen in page sections through "Photo already on the website". They were never part of the library, by design.
+* Permissions are not the cause: administrators and editors may create photos; only administrators may delete them.
+
+**Root cause.** Nothing has ever been uploaded, so the library is truly empty, and the screen gave no explanation: the generic "No results"
+message did not say what the library is, why it is empty, where the website's photos are, or how to add one.
+
+**What was changed.** The top of Photos & Media now says *"Your photo library is empty. Nothing has been uploaded yet."*, explains that the
+website's own photos are built in (and lists them, read only, in a collapsible block, so nothing is a mystery), and offers one obvious
+**Add photos** action (several files, or drag them in). Files are checked first with plain advice (iPhone HEIC, wrong type, over 8 MB); uploading
+uses Payload's own upload box, so storage, limits and access rules are unchanged. Once photos exist, the same place shows the count and the
+button. The photo description is explained in plain words ("read aloud to visitors who cannot see the photo, and helps Google"). Nothing is
+imported, changed or deleted.
+
+**Real Blob upload: not verified on the hosted site, and why.** An upload to the hosted store needs a signed-in staff session on the staging
+site (protected by Vercel Authentication, which must stay on) and the store's secret token, which I do not have and must not read. The
+configuration is right (store public, connected, token valid), but no file has ever been written to it. The first real photo uploaded by a
+signed-in person is the verification: **Photos & Media → Add photos → choose a JPG → describe it → Save**, then check that the photo shows in
+the library and that the file appears in the Blob store (it reports count 1). The local tests cover everything up to the storage call (the
+adapter configuration, the 8 MB and file-type limits, access rules and the whole upload dialog against the local file store).
+
+**Left for a decision.** Importing the website's 119 photos into the library would make them selectable like uploaded ones, but it would
+write 119 rows and files to the hosted database and store, so it needs explicit approval (not done).

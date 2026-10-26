@@ -170,7 +170,7 @@ export interface User {
 export interface Media {
   id: string;
   /**
-   * One short sentence saying what is in the photo (for visually impaired visitors). Write it separately for Bosnian and English.
+   * One short sentence saying what is in the photo, for example “King-size bed by the window”. It is read aloud to visitors who cannot see the photo and helps Google understand it. Write it separately for Bosnian and English.
    */
   alt: string;
   /**
