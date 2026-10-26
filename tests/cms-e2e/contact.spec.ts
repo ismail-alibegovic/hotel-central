@@ -119,7 +119,12 @@ test("administrator: edit → Save Changes → Preview → Publish, Bosnian and 
   const dialog = page.locator("[data-hc-publish-summary]");
   await expect(dialog).toContainText("Bosnian and English are published together");
   await expect(dialog.locator('[data-language="bs"]')).toContainText(/1 change/, { timeout: 15000 });
-  await expect(dialog.locator('[data-language="en"]')).toContainText("no changes");
+  // What the Bosnian line lists (the section that was edited) must not be listed for English. Other tests may leave their own unpublished
+  // English changes on this page (for example a Google title), so "no changes" is not assumed.
+  const bsLine = (await dialog.locator('[data-language="bs"]').innerText()).split("—").slice(1).join("—").trim();
+  expect(bsLine.length).toBeGreaterThan(0);
+  const enLine = await dialog.locator('[data-language="en"]').innerText();
+  for (const name of bsLine.split(",").map((x) => x.trim()).filter(Boolean)) expect(enLine).not.toContain(name);
   await page.locator("#action-publish-confirm").click();
   await expect(page.getByText(/Published — guests can see this now/).first()).toBeVisible({ timeout: 15000 });
   await expect.poll(async () => (await publicText(request, "bs")).includes(bs), { timeout: 15000 }).toBe(true);
