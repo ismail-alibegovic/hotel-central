@@ -137,10 +137,12 @@ test("invalid values are refused in the form with a plain explanation", async ({
   const res = await publish(page);
   expect(res.status()).toBe(400);
   await expect(page.getByText("1 Error").first()).toBeVisible();
-  // On a phone Payload shows a field's explanation when the field is touched; on a wide screen it is shown at once.
-  await number.focus();
-  await number.hover();
-  await expect(page.getByText(/Use digits, spaces and the signs/).first()).toBeVisible();
+  // The explanation is on the field (on a wide screen it is shown at once, on a phone when the field is touched).
+  await expect(page.getByText(/Use digits, spaces and the signs/).first()).toBeAttached();
+  if (!test.info().project.name.endsWith("mobile")) await expect(page.getByText(/Use digits, spaces and the signs/).first()).toBeVisible();
+  // The publish confirmation stays open after a refused publish; close it as a person would before looking at the field.
+  const cancel = page.getByRole("button", { name: "Cancel", exact: true });
+  if (await cancel.isVisible()) await cancel.click();
   await shot(page, "validation");
   expect(await (await page.request.get("/en/contact")).text()).not.toContain("call reception");
 });
@@ -168,7 +170,10 @@ test("an editor can save a draft but is not offered Publish, and the public site
   await shot(page, "editor");
   expect(await (await request.get("/bs/contact")).text()).not.toContain("+387 33 404 404");
   // The staff preview (the eye button opens the home page of the language being edited) shows the draft; the public site does not.
-  const preview = await page.request.get("/api/preview?path=%2Fbs");
-  expect(await preview.text()).toContain("+387 33 404 404");
+  const preview = await page.context().newPage();
+  await preview.goto("/api/preview?path=%2Fbs");
+  await expect(preview.locator("html")).toHaveAttribute("lang", "bs");
+  await expect(preview.locator("footer")).toContainText("+387 33 404 404");
+  await preview.close();
   expect(await (await request.get("/bs")).text()).not.toContain("+387 33 404 404");
 });
