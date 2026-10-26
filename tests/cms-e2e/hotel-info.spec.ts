@@ -138,7 +138,8 @@ test("invalid values are refused in the form with a plain explanation", async ({
   expect(res.status()).toBe(400);
   await expect(page.getByText("1 Error").first()).toBeVisible();
   // On a phone Payload shows a field's explanation when the field is touched; on a wide screen it is shown at once.
-  await number.click();
+  await number.focus();
+  await number.hover();
   await expect(page.getByText(/Use digits, spaces and the signs/).first()).toBeVisible();
   await shot(page, "validation");
   expect(await (await page.request.get("/en/contact")).text()).not.toContain("call reception");
