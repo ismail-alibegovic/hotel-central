@@ -1,4 +1,20 @@
-# Hotel Central Sarajevo — website
+# Hotel Central Sarajevo — website redesign
+
+**A bilingual, editorial website redesign for Hotel Central Sarajevo, with an optional Payload CMS so hotel staff can edit pages, rooms and media themselves.** Built as a redesign proposal for the hotel; it is not yet the hotel's live site.
+
+**Demo:** [hotel-central-pi.vercel.app](https://hotel-central-pi.vercel.app)
+
+### Highlights
+
+- **Faithful art direction** — homepage compositions are container-query "artboards" measured from the design reference, so type and frames scale exactly at every width.
+- **Real booking integration** — the date picker posts the same fields as the hotel's existing eZee booking engine; room pages deep-link to room-specific availability.
+- **Opt-in headless CMS** — Payload (Postgres, Vercel Blob storage, live preview) with role-based access, editable rooms, pages and SEO fields; the static site keeps working when the CMS is disabled.
+- **Quality gates in CI** — lint, typecheck and build; Playwright smoke tests across EN/BS × mobile/tablet/desktop; CI-rendered visual-regression snapshots; Vitest CMS integration tests; scripted backup/restore drill.
+- **Accessible, honest content** — `prefers-reduced-motion` support without hydration issues; every fact sourced from the hotel's own site, with open questions listed rather than invented.
+
+---
+
+## Design reference
 
 Editorial, photography-led website for Hotel Central Sarajevo (Ćumurija 8), built as a
 high-fidelity adaptation of the supplied Grand Emily Hotel reference: same composition,
