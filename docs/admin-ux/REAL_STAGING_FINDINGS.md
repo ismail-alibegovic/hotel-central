@@ -106,8 +106,7 @@ Pages created in the CMS are reached from a line at the top of the Pages list ("
 **Go back to the website's photo / Remove photo** for an uploaded one; then the **Photo description** in plain language. The website photo list,
 the library chooser and the crop setting are folded under **More photo options**; file names are not shown. The stored values are unchanged (no migration).
 
-**Not done.** Putting each page form in the order *title and text → photos → other sections → Google & SEO → advanced*: a page's content is one ordered list of sections, and the
-fields inside a section are set by the section type, so a reorder would change the section definitions and their tests; it is recorded as a follow-up rather than forced.
+**Not done.** Putting each page form in the order *title and text → photos → other sections → Google & SEO → advanced* was not attempted in this round. It is not yet known how much of it can be done without changing the section definitions (and their tests), so it is recorded as a follow-up to investigate.
 
 ## 5. Contact page and permissions: verified in a real browser
 
