@@ -163,3 +163,31 @@ test("room editing persists and leaves the booking link intact", async ({ page, 
   expect(html).toContain(name);
   expect(html).toContain("roomtypeunkid=18019000000000000010");
 });
+
+test("the only administrator cannot change their own role to Editor or delete their account in the admin", async ({ page }) => {
+  // The seeded administrator is the only one on this database (the guard itself is covered path by path in tests/int/last-admin.int.spec.ts).
+  const admins = (await (await api.get("/api/users?where[role][equals]=admin&depth=0&limit=10")).json()).docs as { id: string; email: string }[];
+  expect(admins.map((a) => a.email)).toEqual([ADMIN.email]);
+  const id = admins[0].id;
+
+  await uiLogin(page, ADMIN);
+  await page.goto(`/admin/collections/users/${id}`);
+  await expect(page.getByText("The website always keeps at least one administrator")).toBeVisible();
+  await page.locator("#field-role").click();
+  await page.getByText("Editor (can save changes, cannot publish)", { exact: true }).click();
+  const [res] = await Promise.all([page.waitForResponse((r) => r.url().includes(`/api/users/${id}`) && r.request().method() === "PATCH"), page.locator("#action-save").click()]);
+  expect(res.status()).toBe(409);
+  await expect(page.getByText("This is the only administrator account").first()).toBeVisible();
+
+  // Delete from the document's menu, then confirm: refused with the same explanation.
+  await page.reload();
+  await page.locator(".doc-controls__popup button, button.popup-button").last().click();
+  await page.locator("#action-delete").click();
+  const [del] = await Promise.all([page.waitForResponse((r) => r.url().includes(`/api/users/${id}`) && r.request().method() === "DELETE"), page.locator("#confirm-action, .confirmation-modal button").last().click()]);
+  expect(del.status()).toBe(409);
+  await expect(page.getByText("This is the only administrator account").first()).toBeVisible();
+
+  const after = (await (await api.get(`/api/users/${id}?depth=0`)).json()) as { role: string };
+  expect(after.role).toBe("admin");
+  expect(await noHorizontalScroll(page)).toBe(true);
+});

@@ -63,6 +63,6 @@ Final integration: every PR was merged only with all four required jobs green on
 7. CI: the Ubuntu package mirror is intermittently slow; the install script retries with cleanup (see TESTING.md).
 
 ## Approvals still needed before the CMS can go live (none done)
-- Provision staging resources (MongoDB Atlas, Vercel Blob, staging Vercel project) per `docs/operations/`; run `npm run cms:preflight`.
+- Provision staging resources (Supabase PostgreSQL, Vercel Blob, staging Vercel project) per `docs/operations/CMS_STAGING.md`; run `npm run cms:preflight`. *(Updated: the CMS moved from MongoDB to PostgreSQL in #19; the hosted demo now runs on Supabase.)*
 - Enable branch protection on `main` (require `quality`, `smoke`, `visual`, `cms`).
 - Decide when to run `cms:seed` on staging and who the first administrators are.

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { adminFieldAccess, isAdmin, isAdminUser, isStaffUser } from "../access";
+import { keepLastAdminOnDelete, keepLastAdminOnUpdate } from "../hooks/lastAdmin";
 
 /**
  * Payload lets ANYONE register the first account on an empty database, and that account becomes the
@@ -48,7 +49,10 @@ export const Users: CollectionConfig = {
         const { totalDocs } = await req.payload.count({ collection: "users", overrideAccess: true });
         return { ...data, role: totalDocs === 0 ? "admin" : (data.role ?? "editor") };
       },
+      // There is always at least one administrator (src/cms/hooks/lastAdmin.ts).
+      keepLastAdminOnUpdate,
     ],
+    beforeDelete: [keepLastAdminOnDelete],
   },
   fields: [
     { name: "name", type: "text", label: "Full name" },
@@ -65,6 +69,7 @@ export const Users: CollectionConfig = {
       ],
       // Nobody but an admin can grant or change a role, so editors cannot escalate themselves.
       access: { create: adminFieldAccess, update: adminFieldAccess },
+      admin: { description: "The website always keeps at least one administrator: the last one cannot be changed to Editor or removed." },
     },
   ],
 };

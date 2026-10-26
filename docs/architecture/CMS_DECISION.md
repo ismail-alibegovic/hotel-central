@@ -1,6 +1,6 @@
 # CMS Architecture Decision — Payload for Hotel Central
 
-Status: **APPROVED 2026-10-23** (Option A; MongoDB Atlas M0 for dev/staging; Vercel Blob for staging media; admins publish, editors draft only) — subject to successful integration tests. Date: 2026-10-23
+Status: **APPROVED 2026-10-23**, database part **superseded**: the CMS runs on PostgreSQL (Supabase for the hosted demo) since #19 — see the update in §3 and `docs/operations/CMS_STAGING.md`. Original decision: (Option A; MongoDB Atlas M0 for dev/staging; Vercel Blob for staging media; admins publish, editors draft only) — subject to successful integration tests. Date: 2026-10-23
 Scope: Phase 1 decision input (`HOTEL_CENTRAL_CMS_IMPLEMENTATION_PLAN.md` §Phase 1). No CMS code, no database, no deployment, no paid resource was created for this document.
 
 Evidence legend: **[V]** verified in this session (command/source named) · **[S]** verified by a throwaway spike in a scratch copy · **[U]** unverified / from general knowledge — re-check before relying on it (mainly prices and plan limits).
