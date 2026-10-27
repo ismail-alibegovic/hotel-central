@@ -1,16 +1,18 @@
 # Progress (resume here)
-Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under `wordpress/`.
+Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under `wordpress/`. Nothing deployed; production/DNS/hosting untouched.
 
 ## Done
-- [x] Foundation: WP 6.9.4 + Elementor 4.3.5 + Polylang 3.9.1 (+ SQLite integration for zero-dependency local runs) via `scripts/setup.sh` (verified on a clean directory: install + seed ≈ 15 s)
-- [x] Theme `hotel-central`: tokens, type, pills, hairline loops, artboard compositions, header, full-screen menu, footer, mobile book bar, animations, reduced-motion
-- [x] Core plugin: Rooms/Offers/Enquiries CPTs, Hotel Information, booking bar (eZee POST), rooms carousel, rooms list, contact form (REST), SEO/OG/JSON-LD, redirects, same-slug routing for Polylang
-- [x] Pages (EN + BS, genuine Elementor documents): home, about, rooms, spa, restaurant, meetings-events, location, contact; room detail template; 404
-- [x] Content exported from Next.js source (`content/*.json`; regenerate from repo root with `npx tsx --tsconfig tsconfig.json wordpress/scripts/dump-content.ts`, then copy to `plugin/hotel-central-core/data/`)
-- [x] Tests: `tests/functional.js` (18 checks), `tests/elementor-editor.js` (real Elementor editor open/edit/save), `tests/shots.js` + `tests/evidence/*.jpg` (12 pages × 390/768/1440)
-- [x] Docs: README, docs/INSTALL, ARCHITECTURE, EDITING, LAUNCH, VERIFICATION; `scripts/package.sh` builds the migration package
+- [x] Foundation, theme, core plugin, 16 Elementor pages (EN+BS), rooms CPT, booking, forms, SEO, redirects (see README / docs/ARCHITECTURE)
+- [x] **Fidelity pass (this session)**: Next.js rendered next to WordPress at 390/768/1440; every page ≤ 1.2 % height difference; element-level fixes — docs/FIDELITY.md, sheets in tests/evidence/compare/
+- [x] **Safe seeding**: `seed.php` never overwrites edited content (pages hash-checked, rooms/menus/settings/translations only created when missing); explicit `HC_SEED_RESET=1`, refused on `production` environment type
+- [x] **MariaDB 10.11** install verified (`WP_DB_NAME=… ./scripts/setup.sh`): 18/18 functional, mobile suite, editor save
+- [x] **All 16 pages** open, edit and save in the Elementor editor (`tests/elementor-all.js`), slugs unchanged after save (fix: `wp_unique_post_slug` guard — saving /en/about/ used to become /en/about-2/)
+- [x] Mobile navigation + booking suite (`tests/mobile.js`, 21 checks)
+- [x] Accessibility: axe-core 0 violations on 12 URLs × 2 widths (`tests/axe.js`); Lighthouse a11y 96–97, best-practices 100 (`tests/lighthouse.js`)
+- [x] Elementor console error traced to WordPress core `wp-auth-check.min.js` (heartbeat), not our code, no functional effect
+- [x] Performance: Elementor front-end JS dequeued on the public site; results in docs/VERIFICATION.md
 
-## Open / ideas
-- Pixel-diff against a rendered Next.js build (needs `npm ci` + build; not done — comparison was by reading the components and visual review)
-- Offers: post type + `[hc_offers]` exist; no sample offers were created (the Next.js site only had flagged demo content)
-- Real SMTP, production hosting, DNS, redirects review: need the hotel (see docs/LAUNCH.md)
+## Open
+- Offers section has no sample content (post type + `[hc_offers]` exist)
+- Firefox/Safari/real devices, real SMTP, motion frame-comparison: not done
+- Production hosting/DNS/redirect review need the hotel (docs/LAUNCH.md)

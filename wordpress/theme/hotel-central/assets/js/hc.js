@@ -18,7 +18,7 @@
       el.dataset.opDone = '1';
       var clone = el.cloneNode(true);
       clone.className = clone.className.replace(/hc-op-[\w-]+/g, '').replace(/\bbase\b/, '').trim();
-      var wrap = h('div', { 'class': 'hc-overprint hc-clip ' + m[1], 'aria-hidden': 'true' });
+      var wrap = h('div', { 'class': 'hc-overprint hc-clip ' + m[1], 'aria-hidden': 'true', inert: '' });
       wrap.appendChild(clone);
       el.parentNode.appendChild(wrap);
     });

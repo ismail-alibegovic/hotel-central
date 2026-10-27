@@ -41,3 +41,15 @@ add_filter('request', function ($qv) {
     }
     return $qv;
 }, 20);
+
+/* WordPress suffixes a slug (-2) when any other post uses it; Polylang only de-duplicates within one language when it knows the
+   post's language. Saving a page in Elementor must never turn /en/about/ into /en/about-2/ just because /bs/about/ exists. */
+add_filter('wp_unique_post_slug', function ($slug, $post_id, $status, $type, $parent, $original) {
+    if ($slug === $original || !function_exists('pll_get_post_language')) return $slug;
+    $lang = pll_get_post_language((int) $post_id);
+    if (!$lang) return $slug;
+    global $wpdb;
+    $ids = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_name=%s AND post_type=%s AND post_parent=%d AND ID<>%d AND post_status NOT IN ('trash','auto-draft')", $original, $type, (int) $parent, (int) $post_id));
+    foreach ($ids as $id) if (pll_get_post_language((int) $id) === $lang) return $slug;
+    return $original;
+}, 20, 6);

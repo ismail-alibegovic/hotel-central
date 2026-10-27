@@ -1,22 +1,24 @@
-# Verification — what was actually run (2026-10-27, headless Chromium via Playwright, PHP 8.3 built-in server, SQLite)
+# Verification (2026-10-27, headless Chromium/Playwright; PHP 8.3 built-in server)
 
-| Check | Result |
+Run everything: `node tests/functional.js`, `node tests/mobile.js`, `node tests/elementor-all.js`, `AXE=…/axe.min.js node tests/axe.js`, `node tests/lighthouse.js`, `node tests/compare.js` (needs the Next.js app on :3100).
+
+| Area | Result |
 | --- | --- |
-| Clean install with `scripts/setup.sh` into an empty directory, then `tests/functional.js` against it | 18/18 pass |
-| WordPress renders all 12 URLs (EN/BS pages, room detail) at 390 / 768 / 1440 px, no horizontal overflow, no JS errors | pass — screenshots in `tests/evidence/` |
-| **Elementor Free editor** opens a seeded page (92 elements), selecting a heading opens its panel, editing + *Publish/Update* persists and renders on the front end (`tests/elementor-editor.js`) | pass |
-| Menu opens/closes (Esc), 8 items; booking bar: range select → "3 nights" → POST fields `eZ_chkin/eZ_chkout/eZ_Nights/eZ_adult/eZ_child/eZ_room/calformat` open `live.ipms247.com/booking/book-rooms-hotelcentralsarajevo` in a new tab | pass |
-| Rooms carousel advances (text + photo swap) | pass |
-| Contact form: validation messages, delivery (mail captured by the dev mail log), honeypot/rate-limit implemented | pass (delivery with a real mail server not tested) |
-| EN↔BS language switch keeps the page; BS content/UI strings | pass |
-| Redirects: legacy `/club-spa/` → `/en/spa/`, typo slug `/rooms/presidental-suite/`, `/about/` → `/en/about/`; 404 page | pass |
-| SEO: title/description/canonical/OG/hreflang/JSON-LD present; sitemap lists EN+BS pages (when indexing is enabled); staging is `noindex` | pass |
+| **Fidelity vs Next.js** (390/768/1440, 11 pages) | height within ±1.2 %, element probes match on hero/title/spacing/typography — docs/FIDELITY.md; sheets in `tests/evidence/compare/` |
+| **Database** | SQLite (default) **and MariaDB 10.11** (`WP_DB_NAME=hotel WP_DB_USER=hc WP_DB_PASS=… WP_DB_HOST=127.0.0.1:3307 ./scripts/setup.sh`): functional 18/18, mobile suite pass, editor open/edit/save pass |
+| **Elementor Free** — open, edit, save, restore every page | 16/16 pages (home, about, rooms, spa, restaurant, meetings-events, location, contact × EN/BS); slugs unchanged after save |
+| Elementor editor console error `Cannot read properties of undefined (reading 'hasClass')` | comes from WordPress core `wp-includes/js/wp-auth-check.min.js` (heartbeat tick handler); appears intermittently in long editor sessions on any theme; saving, editing and rendering unaffected. Not caused by the theme/plugin |
+| **Mobile navigation + booking** (iPhone-13 emulation, 21 checks) | menu open/close/scroll-lock, 46 px links, navigation, language switch from menu; booking bottom sheet (full width, one month, 44 px days), range → nights, steppers, scrim, eZee POST fields + new tab, no-dates hint; sticky book bar show/hide; no horizontal scroll |
+| Desktop functional (18 checks) | menu, booking bar, carousel, contact form delivery/validation, EN↔BS, redirects, 404, no JS errors |
+| **Accessibility** (axe-core, WCAG 2 A/AA + best practice, 12 URLs × 1440/390) | **0 violations** after fixes (decorative overprint clones made `inert`, footer headings → text, book bar as labelled `aside`). Manual: skip link, focus trap in menu, `Esc`, visible focus outline, `prefers-reduced-motion`, `lang` per language, alt text from the media library |
+| Lighthouse (simulated, staging = `noindex`) | accessibility 96–97, best-practices 100, SEO 69 (only because staging is `noindex`; 100 expected at launch) |
+| Lighthouse performance (local PHP dev server, no caching/CDN, simulated 4G/CPU) | mobile 79 (home) / 84 (rooms) / 92 (room) / 94 (contact); desktop 60 / 62 / 76 / 63. Home LCP is the hero caption, which the design fades in after 1.6 s (same choreography as the Next.js site); TBT ≤ 40 ms; CLS 0. Page weight 0.3–1.0 MB mobile, photographs ≤ 710 KB. Elementor front-end JS removed from public pages. Expect better with page caching, gzip/brotli and a CDN |
+| Seeding safety | first run creates; re-run refreshes only unedited pages and reports skipped ones; `HC_SEED_RESET=1` refused when `WP_ENVIRONMENT_TYPE=production`, allowed for local/development/staging |
 
 ## Not verified / known limitations
-* **No pixel comparison against the Next.js build** (not built in this environment). Layout follows the Next.js components' measurements; small differences are possible (spacing, hero overlay, Elementor wrapper behaviour).
-* Google Maps iframe and the eZee engine are external and unreachable in the test sandbox (map renders blank there). The booking POST was intercepted, not submitted to the live engine.
-* Real e-mail delivery, Safari/Firefox and real mobile devices, accessibility audit (axe), performance (Lighthouse) — not run.
-* Elementor logs one internal console error (`reading 'hasClass'`) inside its own editor; no effect observed.
-* Re-running `seed.php` overwrites Elementor edits on the seeded pages. Elementor Free has no Theme Builder, so header/footer/menu are theme code (text via Hotel Information, Menus and Polylang strings).
-* Display font is Gilda Display (OFL), as in the Next.js site; Balkind is unlicensed.
-* Production migration, DNS and hosting were not touched and need explicit approval.
+* Firefox and Safari (only Chromium installed), real phones, screen readers (NVDA/VoiceOver).
+* Motion timing is ported (same durations/easings) but not frame-compared with the Next.js build.
+* Real e-mail delivery (mail is logged to `wp-content/mail.log` in dev), the live eZee engine (POST intercepted), Google Maps offline in the sandbox.
+* Performance numbers are from a local PHP built-in server; re-measure on the real host.
+* Elementor Free has no Theme Builder: header/footer/menu are theme code.
+* Production migration, DNS and hosting untouched; need explicit approval.

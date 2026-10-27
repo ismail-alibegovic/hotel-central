@@ -47,3 +47,14 @@ function hc_menu_key($href) {
 }
 function hc_current_key() { return hc_menu_key(home_url(add_query_arg([]))); }
 require_once get_theme_file_path('inc/render.php');
+
+/* ───────── Performance ─────────
+   The pages use only static Elementor widgets (heading, text, image, button, icon list, shortcode), so Elementor's front-end
+      JavaScript (≈ 300 KB with jQuery) is not needed on the public site; it still loads in the editor and preview. */
+add_action('wp_enqueue_scripts', function () {
+    if (is_admin() || !class_exists('\Elementor\Plugin')) return;
+    $p = \Elementor\Plugin::$instance;
+    if ($p->preview->is_preview_mode() || $p->editor->is_edit_mode() || is_user_logged_in() && isset($_GET['elementor-preview'])) return;
+    foreach (['elementor-frontend', 'elementor-frontend-modules', 'elementor-webpack-runtime', 'elementor-waypoints', 'elementor-core-js', 'swiper', 'share-link', 'elementor-dialog', 'e-sticky'] as $h) { wp_dequeue_script($h); wp_deregister_script($h); }
+    wp_dequeue_script('jquery-migrate');
+}, 1000);

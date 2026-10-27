@@ -44,7 +44,7 @@ const results = []; const ok = (n, c, d = '') => { results.push([c ? 'PASS' : 'F
   ok('room detail has book link', (await p.$$('a[href*="roomwisedata.php"]')).length >= 1);
   const r2 = await p.request.get(base + '/club-spa/', { maxRedirects: 0 }); ok('legacy redirect /club-spa/ → /en/spa/', r2.status() === 301 && /\/en\/spa\/$/.test(r2.headers().location || ''), r2.headers().location);
   const r3 = await p.request.get(base + '/rooms/presidental-suite/', { maxRedirects: 0 }); ok('legacy typo slug redirect', r3.status() === 301 && /presidential-suite/.test(r3.headers().location || ''), r3.headers().location);
-  const r4 = await p.request.get(base + '/about/', { maxRedirects: 0 }); ok('unprefixed /about/ → /en/about/', r4.status() === 301 && /\/en\/about\/$/.test(r4.headers().location || ''), r4.headers().location);
+  const r4 = await p.request.get(base + '/about/', { maxRedirects: 0 }); ok('unprefixed /about/ → /en|bs/about/ (language cookie / Accept-Language)', r4.status() === 301 && /\/(en|bs)\/about\/$/.test(r4.headers().location || ''), r4.headers().location);
   const r5 = await p.goto(base + '/en/nope/'); ok('404 page', r5.status() === 404);
   ok('no JS errors', errs.length === 0, errs.join(' | '));
   await b.close();

@@ -34,6 +34,8 @@ const base = process.argv[2] || 'http://localhost:8080', pass = process.env.WP_A
     } catch (e) { console.log(`FAIL #${pg.id} ${pg.slug}: ${e.message.split('\n')[0]}`); }
     for (const e of errs) allErr[e] = (allErr[e] || 0) + 1;
   }
+  const after = await (await p.request.get(base + '/wp-json/wp/v2/pages?per_page=100&_fields=id,slug', { headers: { 'X-WP-Nonce': nonce } })).json();
+  const slugOk = real.every((x) => (after.find((y) => y.id === x.id) || {}).slug === x.slug); console.log(slugOk ? 'PASS slugs unchanged after saving in Elementor' : 'FAIL a slug changed after saving'); if (!slugOk) ok = -1;
   console.log(`${ok}/${real.length} pages opened, edited, saved and restored`);
   console.log('editor page errors:', JSON.stringify(allErr, null, 1));
   await b.close(); process.exit(ok === real.length ? 0 : 1);

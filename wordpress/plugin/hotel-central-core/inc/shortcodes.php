@@ -80,7 +80,7 @@ add_shortcode('hc_room_carousel', function () {
             <div class="hc-label hc-rc__meta" style="left:78.7%;top:4.85%" aria-live="polite"><p style="display:flex;gap:3.4em"><span style="font-variant-numeric:tabular-nums">(<span data-idx>01</span>)</span><span><?php echo esc_html($d['right']); ?></span></p><p class="hc-rc__fadeswap" data-meta style="margin-top:.4em;opacity:.8"><?php echo esc_html($r['name']); ?><br><?php echo esc_html($r['size']); ?></p></div>
             <div class="hc-rc__base" style="position:absolute;inset:0;z-index:1;pointer-events:none"><?php echo hc_rc_layer($r); ?></div>
             <div class="hc-rc__frame" data-frame><div class="hc-rc__slide"><img src="<?php echo esc_url($r['img']); ?>" alt="<?php echo esc_attr($r['alt']); ?>" style="object-position:<?php echo esc_attr($r['pos']); ?>"></div></div>
-            <div class="hc-rc__over" aria-hidden="true"><?php echo hc_rc_layer($r); ?></div>
+            <div class="hc-rc__over" aria-hidden="true" inert><?php echo hc_rc_layer($r); ?></div>
             <button type="button" class="hc-rc__next" data-next aria-label="<?php echo esc_attr($labels['next']); ?>"><span class="hc-label-sm"><?php echo esc_html($labels['next']); ?></span></button>
             <div class="hc-rc__dk" style="bottom:10.9%;left:53.76%" data-actions><?php echo $actions; ?></div>
             <div class="hc-rc__dk" style="bottom:10.9%;left:78.7%;font-size:.74cqw;text-transform:uppercase;line-height:1.5;letter-spacing:.1em"><div class="hc-rc__fadeswap" data-amen><?php echo $amen($r['list']); ?></div></div>
