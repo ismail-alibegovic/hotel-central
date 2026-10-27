@@ -67,6 +67,7 @@ function hc_info($key = null) {
     return $key ? ($all[$key] ?? '') : $all;
 }
 function hc_room_booking_url($room_type_id) {
+    if (!$room_type_id) return hc_info('booking_url'); // a room added by staff without an engine id still links to the booking page
     return 'https://live.ipms247.com/booking/roomwisedata.php?hid=' . rawurlencode(hc_info('hotel_id')) . '&roomtypeunkid=' . rawurlencode($room_type_id);
 }
 

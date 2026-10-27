@@ -1,6 +1,6 @@
 <?php
 // Router for PHP's built-in server (local/staging preview): serves static files, sends everything else to WordPress.
-$root = realpath(__DIR__ . '/../site');
+$root = realpath($_SERVER['DOCUMENT_ROOT'] ?: (__DIR__ . '/../site')); // the -t directory given to php -S
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $file = $root . $path;
 if ($path !== '/' && is_file($file)) return false;

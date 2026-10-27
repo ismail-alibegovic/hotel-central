@@ -6,6 +6,8 @@
  */
 if (!defined('ABSPATH')) exit;
 require_once __DIR__ . '/lib/pages.php';
+require_once __DIR__ . '/lib/kit.php';
+require_once __DIR__ . '/lib/templates.php';
 @set_time_limit(0); ini_set('memory_limit', '1024M');
 global $wpdb, $RESET, $FIRST;
 wp_set_current_user(1);
@@ -54,6 +56,10 @@ update_option('show_on_front', 'page');
     foreach (['elementor_disable_color_schemes' => 'yes', 'elementor_disable_typography_schemes' => 'yes', 'elementor_google_font' => '0', 'elementor_load_fa4_shim' => '', 'elementor_unfiltered_files_upload' => '0',
           'elementor_cpt_support' => ['page', 'hc_offer'], 'elementor_optimized_gutenberg_loading' => '1', 'elementor_element_cache_ttl' => '', 'elementor_allow_tracking' => 'no', 'elementor_onboarded' => '1', 'elementor_tracker_notice' => '1'] as $k => $v) update_option($k, $v);
 update_option('elementor_experiment-container', 'active');
+    // Elementor 4's "atomic"/V4 editor is a second, class-based widget system. The site is built on the classic container + widgets (which the design
+    // system and the template library target), so the panel offers only those — one clear set of widgets for the hotel staff.
+    foreach (['e_atomic_elements', 'e_opt_in_v4'] as $x) update_option('elementor_experiment-' . $x, 'inactive');
+    $say('design system (Elementor Kit) → kit #' . hc_apply_kit());
 } else $say('settings left untouched (already seeded)');
 
 /* ───────── 3. Content + media helpers ───────── */
@@ -173,6 +179,9 @@ foreach ($pageDefs as $key => [$slug, $titles]) {
 }
 if ($FIRST || $RESET) { update_option('page_on_front', $pageIds['home']['en']); update_option('page_for_posts', 0); }
 update_option('hc_positions', array_merge((array) get_option('hc_positions', []), HC_El::$positions));
+
+/* ───────── 5b. Template library (Elementor → Saved Templates) ───────── */
+hc_seed_templates(new HC_Ctx('en', $D['en'], $ROOMS, $importImage), $RESET, $say);
 
 /* ───────── 6. Menus (one per language, assigned to the theme location) ───────── */
 $theme = get_option('stylesheet'); $nav = (array) PLL()->options->get('nav_menus');

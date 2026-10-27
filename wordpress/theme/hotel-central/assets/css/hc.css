@@ -28,20 +28,30 @@ body.hc{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--font
 :where(.hc) button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* ───────── Elementor neutralising: the design system, not the Kit defaults, owns type/colour/spacing ───────── */
-.hc .elementor{--widgets-spacing:0px;--widgets-spacing-row:0;--widgets-spacing-column:0}
-.hc .e-con{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--gap:0px;--row-gap:0px;--column-gap:0px;--content-width:100%}
-.hc .e-con>.e-con-inner{max-width:none;padding:0}
-:where(.hc .elementor-widget){margin:0}
+/* ───────── Elementor ↔ design system ─────────
+   Containers/widgets created by the seeder and the template library carry the markers .hc-c / .hc-w: they own their spacing and
+   inherit type from their section. Anything an editor adds from scratch has no marker and simply uses the Elementor Kit
+   (Site Settings: global colours, fonts, heading/button styles, content width, padding), which is configured to match the site. */
+.hc .e-con.hc-c{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--gap:0px;--row-gap:0px;--column-gap:0px;--content-width:100%}
+.hc .e-con.hc-c>.e-con-inner{max-width:none;padding:0}
+.hc .elementor-widget.hc-w{--kit-widget-spacing:0px;--widgets-spacing:0px;--widgets-spacing-row:0px;--widgets-spacing-column:0px}
 .hc .elementor-widget-container{margin:0;padding:0}
-:where(.hc .elementor-widget:not(:last-child)){margin-block-end:0}
-.hc .elementor-heading-title{font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:inherit;margin:0;padding:0;font-size:inherit}
-.hc .elementor-widget-text-editor{font-family:inherit;color:inherit;font-size:inherit;line-height:inherit}
-.hc .elementor-widget-text-editor p{margin:0}
-.hc .elementor-widget-image img{display:block;width:100%;border-radius:0;box-shadow:none}
-.hc .elementor-kit-*,.hc [class*="elementor-kit-"]{--e-global-color-text:var(--ink)}
+.hc :where(.hc-w) .elementor-heading-title{font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;letter-spacing:inherit;text-transform:inherit;margin:0;padding:0;font-size:inherit}
+.hc :where(.elementor-widget-text-editor.hc-w){font-family:inherit;color:inherit;font-size:inherit;line-height:inherit;letter-spacing:inherit;text-transform:inherit}
+.hc .elementor-widget-text-editor.hc-w p{margin:0}
+.hc .elementor-widget-text-editor:not(.hc-w) p+p{margin-top:1em}
+.hc .elementor-widget-image.hc-w img{display:block;width:100%;border-radius:0;box-shadow:none}
 .hc .elementor a{color:inherit}
-.hc .elementor-widget-button .elementor-button{background:transparent;color:inherit;border-radius:0;padding:0;font-family:inherit;font-weight:inherit;text-transform:inherit;letter-spacing:inherit;fill:currentColor}
+.hc .hc-text-link .elementor-button,.hc .hc-text-link .elementor-button:hover{background:transparent;color:inherit;border-radius:0}
+/* dark sections flip the Kit colours, so headings, text and buttons added from scratch are white there */
+.hc-deep,.hc-olive,.hc-ink{--e-global-color-text:#fff;--e-global-color-primary:#fff;--e-global-color-secondary:#fff;--e-global-color-accent:#fff}
+.hc-deep .elementor-widget-button:not(.hc-w) .elementor-button,.hc-olive .elementor-widget-button:not(.hc-w) .elementor-button,.hc-ink .elementor-widget-button:not(.hc-w) .elementor-button{color:#fff;border-color:#fff}
+.hc-deep .elementor-widget-button:not(.hc-w) .elementor-button:hover,.hc-olive .elementor-widget-button:not(.hc-w) .elementor-button:hover,.hc-ink .elementor-widget-button:not(.hc-w) .elementor-button:hover{background:#fff;color:var(--ink);border-color:#fff}
+/* raw Elementor Button widgets: thin outlined pill + house arrow (colour flips on dark sections) */
+.hc .elementor-widget-button:not(.hc-w) .elementor-button{background:transparent;color:var(--ink);border:1px solid currentColor;border-radius:999px;padding:14px 30px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;line-height:1.5;fill:currentColor;transition:background-color .5s var(--ease-out),color .5s var(--ease-out),border-color .5s var(--ease-out)}
+.hc .elementor-widget-button:not(.hc-w) .elementor-button:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.hc .elementor-widget-button:not(.hc-w) .elementor-button .elementor-button-content-wrapper{display:inline-flex;align-items:center;gap:.9em}
+.hc .elementor-widget-button:not(.hc-w) .elementor-button .elementor-button-content-wrapper::after{content:"";width:22px;height:9px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 9' fill='none'%3E%3Cpath d='M0 4.5h20.5M17 1l3.8 3.5L17 8' stroke='black' stroke-width='.9'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 9' fill='none'%3E%3Cpath d='M0 4.5h20.5M17 1l3.8 3.5L17 8' stroke='black' stroke-width='.9'/%3E%3C/svg%3E") center/contain no-repeat}
 .hc-page{display:block}
 .elementor-editor-active .hc-header,.elementor-editor-active .hc-menu{position:absolute}
 
@@ -867,7 +877,6 @@ html.menu-lock{overflow:hidden}
 @media(min-width:1024px){
 .hc .hc-split.hc-deep .hc-split__text>.hc-title,.hc .hc-split.hc-olive .hc-split__text>.hc-title,.hc .hc-split.hc-ink .hc-split__text>.hc-title{width:calc(100% + 12vw)!important;max-width:none}
 }
-:root{--kit-widget-spacing:0px}
 .hc .elementor-widget.hc-eyebrow{margin-bottom:24px}
 .hc .hc-home-hero .elementor-widget.hc-eyebrow{margin-bottom:20px}
 @media(min-width:1024px){.hc .hc-home-hero .elementor-widget.hc-eyebrow{margin-bottom:2.6vh}}
@@ -905,3 +914,25 @@ html.menu-lock{overflow:hidden}
 .hc-menu__info .hc-lang{align-self:end}
 .hc-foot-info{padding-bottom:47px}
 @media(min-width:1024px){.hc-foot-info{padding-bottom:56px}}
+
+/* ───────── Template-library sections ───────── */
+.hc-band{padding:80px var(--gutter);text-align:center}
+@media(min-width:1024px){.hc-band{padding-block:8vw}}
+.hc .hc-band__in{display:flex;flex-direction:column;align-items:center;gap:32px;max-width:60ch;margin:0 auto}
+.hc .hc-band__in>.elementor-widget{width:auto;max-width:100%}
+.hc-band .hc-title{font-size:var(--fs-m,11vw);line-height:.9}
+@media(min-width:1024px){.hc-band .hc-title{font-size:5vw}}
+.hc-mapsec{padding:64px var(--gutter)}
+@media(min-width:1024px){.hc-mapsec{padding-block:6vw}}
+.hc .hc-mapsec__g{display:grid;gap:40px;grid-template-columns:1fr;align-items:center}
+@media(min-width:1024px){.hc .hc-mapsec__g{grid-template-columns:7fr 5fr;gap:4vw}}
+.hc .hc-mapsec__t{gap:24px;align-items:flex-start}
+.hc .hc-mapsec__t .hc-title{font-size:var(--fs-m,11vw);line-height:.9}
+@media(min-width:1024px){.hc .hc-mapsec__t .hc-title{font-size:4vw}}
+.hc .hc-map-w iframe{filter:grayscale(1) sepia(.2) contrast(.94) brightness(.86);display:block}
+.hc-dyn--rooms{background:var(--deep)}
+.hc-offers{padding:64px var(--gutter);display:flex;flex-direction:column;gap:40px}
+@media(min-width:1024px){.hc-offers{padding-block:6vw}}
+.hc-offers .hc-title{font-size:var(--fs-m,11vw);line-height:.9}
+@media(min-width:1024px){.hc-offers .hc-title{font-size:5vw}}
+.hc .hc-mapsec__g>.elementor-widget,.hc .hc-mapsec__g .hc-map-w{width:100%}

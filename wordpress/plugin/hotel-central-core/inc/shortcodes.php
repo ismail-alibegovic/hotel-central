@@ -186,3 +186,11 @@ add_shortcode('hc_offers', function ($a) {
 
 /* ───────── [hc_deco variant="hotel" tone="light"] ───────── */
 add_shortcode('hc_deco', function ($a) { $a = shortcode_atts(['variant' => 'hotel', 'tone' => 'dark'], $a); return hc_deco($a['variant'], $a['tone']); });
+
+/* ───────── [hc_hours] — opening hours from Hotel Information → Opening hours ───────── */
+add_shortcode('hc_hours', function () {
+    $rows = ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_restaurant' => 'Restaurant', 'hours_spa' => 'Club & Spa', 'hours_checkin' => 'Check-in / check-out'];
+    $o = '';
+    foreach ($rows as $k => $label) if (hc_info($k)) $o .= '<div class="row"><span class="k hc-label">' . esc_html($label) . '</span><span class="v hc-label">' . esc_html(hc_info($k)) . '</span></div>';
+    return $o ? '<div class="hc-kv hc-label is-dark">' . $o . '</div>' : '';
+});

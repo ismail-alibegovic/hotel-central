@@ -13,12 +13,12 @@ class HC_El {
         $kids = array_values(array_filter($kids));
         foreach ($kids as &$k) if ($k['elType'] === 'container') $k['isInner'] = true;
         return ['id' => self::id(), 'elType' => 'container', 'isInner' => false, 'settings' => array_merge([
-            'content_width' => 'full', 'flex_direction' => 'column', 'css_classes' => $cls,
+            'content_width' => 'full', 'flex_direction' => 'column', 'css_classes' => trim($cls . ' hc-c'),
             'flex_gap' => ['column' => '0', 'row' => '0', 'isLinked' => true, 'unit' => 'px', 'size' => 0],
         ], $s), 'elements' => $kids];
     }
     static function w($type, $settings, $cls = '') {
-        if ($cls !== '') $settings['_css_classes'] = $cls;
+        $settings['_css_classes'] = trim($cls . ' hc-w');
         return ['id' => self::id(), 'elType' => 'widget', 'widgetType' => $type, 'settings' => $settings, 'elements' => []];
     }
     /** @param array|string $title lines joined with <br> */

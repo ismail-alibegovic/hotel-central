@@ -49,12 +49,33 @@ function hc_current_key() { return hc_menu_key(home_url(add_query_arg([]))); }
 require_once get_theme_file_path('inc/render.php');
 
 /* ───────── Performance ─────────
-   The pages use only static Elementor widgets (heading, text, image, button, icon list, shortcode), so Elementor's front-end
-      JavaScript (≈ 300 KB with jQuery) is not needed on the public site; it still loads in the editor and preview. */
+   Elementor's front-end JavaScript (≈ 300 KB with jQuery) is only needed by interactive widgets (accordion, tabs, toggle, carousels,
+   galleries/lightbox, counters, video…). The public site drops it on pages that use only static widgets (heading, text, image, button,
+   icon list, shortcode, HTML, spacer, divider, icon / image box, map…); Elementor "Entrance animations" are handled by hc.js.
+   The editor and preview always load everything. As soon as an editor adds an interactive widget, the scripts come back by themselves. */
+function hc_static_widgets() { return ['heading', 'text-editor', 'image', 'button', 'icon-list', 'shortcode', 'html', 'spacer', 'divider', 'icon', 'icon-box', 'image-box', 'google_maps', 'star-rating', 'menu-anchor', 'read-more', 'text-path', 'social-icons', 'sidebar', 'wp-widget-text']; }
+function hc_widget_types($elements, &$out = []) {
+    foreach ((array) $elements as $el) {
+        if (($el['elType'] ?? '') === 'widget') $out[$el['widgetType'] ?? '?'] = true;
+        if (!empty($el['elements'])) hc_widget_types($el['elements'], $out);
+    }
+    return array_keys($out);
+}
+function hc_page_needs_elementor_js($post_id) {
+    $key = 'hc_wt_' . $post_id . '_' . get_post_modified_time('U', true, $post_id);
+    $cached = get_transient($key);
+    if ($cached === false) {
+        $data = json_decode((string) get_post_meta($post_id, '_elementor_data', true), true);
+        $cached = array_values(array_diff(hc_widget_types($data ?: []), hc_static_widgets())) ? 'yes' : 'no';
+        set_transient($key, $cached, DAY_IN_SECONDS);
+    }
+    return $cached === 'yes';
+}
 add_action('wp_enqueue_scripts', function () {
     if (is_admin() || !class_exists('\Elementor\Plugin')) return;
     $p = \Elementor\Plugin::$instance;
-    if ($p->preview->is_preview_mode() || $p->editor->is_edit_mode() || is_user_logged_in() && isset($_GET['elementor-preview'])) return;
+    if ($p->preview->is_preview_mode() || $p->editor->is_edit_mode() || isset($_GET['elementor-preview'])) return;
+    if (is_singular() && hc_page_needs_elementor_js(get_queried_object_id())) return;
     foreach (['elementor-frontend', 'elementor-frontend-modules', 'elementor-webpack-runtime', 'elementor-waypoints', 'elementor-core-js', 'swiper', 'share-link', 'elementor-dialog', 'e-sticky'] as $h) { wp_dequeue_script($h); wp_deregister_script($h); }
     wp_dequeue_script('jquery-migrate');
 }, 1000);

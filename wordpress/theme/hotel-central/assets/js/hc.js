@@ -45,11 +45,14 @@
   }
 
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    es.forEach(function (e) { if (e.isIntersecting) { (e.target._hcReveal || [e.target]).forEach(function (x) { x.classList.add('is-in'); }); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 }) : null;
   function reveal(el, immediate) {
     if (reduce || !io || editor) { el.classList.add('is-in'); return; }
-    if (immediate) setTimeout(function () { el.classList.add('is-in'); }, 60); else io.observe(el);
+    if (immediate) { setTimeout(function () { el.classList.add('is-in'); }, 60); return; }
+    // a fully clipped element (clip-path: inset(100%)) never counts as intersecting, so the observer watches the nearest ancestor that has a box
+    var host = el.parentElement; while (host && getComputedStyle(host).display === 'contents') host = host.parentElement;
+    if (getComputedStyle(el).clipPath !== 'none' && host) { (host._hcReveal = host._hcReveal || []).push(el); io.observe(host); } else io.observe(el);
   }
 
   function initMotion() {
@@ -86,7 +89,15 @@
   function initChrome() {
     var header = $('#hc-header'), btn = $('[data-menu-btn]'), menu = $('[data-menu]'), label = $('[data-menu-label]'), bar = $('[data-bookbar]');
     var open = false;
-    function solid() { header.classList.toggle('is-solid', scrollY > 40 && !open); }
+    // A page that does not open with a photograph or a dark section (e.g. a new page built from an empty canvas) gets the solid bar from the start.
+    var forced = (function () {
+      var first = $('.hc-page .elementor > *'); if (!first) return false;
+      var cs = getComputedStyle(first), m = /rgba?\((\d+)[ ,]+(\d+)[ ,]+(\d+)(?:[ ,/]+([\d.]+))?/.exec(cs.backgroundColor || '');
+      var dark = !!(first.querySelector('.hc-hero__img, .hc-home-hero__in') || first.matches('.hc-hero, .hc-home-hero, .hc-final')) || cs.backgroundImage !== 'none';
+      if (!dark && m && (m[4] === undefined || +m[4] > 0.5)) dark = (0.2126 * m[1] + 0.7152 * m[2] + 0.0722 * m[3]) / 255 < 0.45;
+      return !dark;
+    })();
+    function solid() { header.classList.toggle('is-solid', (forced || scrollY > 40) && !open); }
     function set(v) {
       open = v; menu.classList.toggle('is-open', v); header.classList.toggle('menu-open', v); btn.classList.toggle('menu-open', v);
       btn.setAttribute('aria-expanded', v); label.textContent = v ? label.dataset.open : label.dataset.closed; root.classList.toggle('menu-lock', v); solid();
@@ -282,8 +293,19 @@
     });
   }
 
+  /* Elementor "Entrance animation" (Advanced → Motion Effects) without Elementor's own JavaScript */
+  function initEntrance() {
+    $$('.elementor-invisible[data-settings]').forEach(function (el) {
+      var cfg; try { cfg = JSON.parse(el.getAttribute('data-settings')); } catch (e) { return; }
+      var name = cfg._animation || cfg.animation; if (!name) return;
+      var go = function () { setTimeout(function () { el.classList.remove('elementor-invisible'); if (!reduce) el.classList.add('animated', name); }, reduce ? 0 : (cfg._animation_delay || 0)); };
+      if (reduce || editor || !io2) go(); else { el._go = go; io2.observe(el); }
+    });
+  }
+  var io2 = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target._go(); io2.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 }) : null;
+
   function init() {
-    initMotion(); initPar(); initChrome();
+    initMotion(); initEntrance(); initPar(); initChrome();
     $$('[data-hc-bb]').forEach(initBookingBar); $$('[data-hc-rc]').forEach(initCarousel); $$('[data-hc-form]').forEach(initForm);
   }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
