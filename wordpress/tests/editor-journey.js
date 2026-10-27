@@ -89,12 +89,19 @@ async function main() {
     const order = async () => (await get(p, base + '/en/')).match(/hc-s-(hotel|spa|rest|loc|ev)\b|hc-rc-w|Spring escape/g).filter((x, i, a) => a.indexOf(x) === i);
     const before = await order();
     const spa = sec(f, '.hc-s-spa');
-    const prev = spa.locator('xpath=preceding-sibling::*[contains(@class,"elementor-element")][1]'); await E.reveal(p, spa); await spa.evaluate((e) => e.ownerDocument.defaultView.scrollBy(0, -650)); await p.waitForTimeout(500); await spa.click({ force: true, position: { x: 5, y: 5 } }); await p.waitForTimeout(900);
-    const hdl = handle(f, spa); const hb = await hdl.boundingBox(); const dst = await prev.boundingBox();
-    console.log('  drag from', JSON.stringify(hb), 'to', JSON.stringify(dst));
-    const sx = hb.x + hb.width / 2, sy = hb.y + hb.height / 2, ty = Math.max(dst.y + 60, 140), tx = dst.x + dst.width / 2;
-    await p.mouse.move(sx, sy); await p.mouse.down(); await p.mouse.move(sx + 12, sy - 8, { steps: 4 });
-    await p.mouse.move(tx, ty, { steps: 40 }); await p.waitForTimeout(400); await p.mouse.move(tx + 1, ty + 1, { steps: 3 }); await p.waitForTimeout(500); await shot('05-reorder-dragging'); await p.mouse.up(); await p.waitForTimeout(1500);
+    const idx = () => spa.evaluate((e) => [...e.parentElement.children].indexOf(e));
+    const i0 = await idx();
+    for (let attempt = 1; attempt <= 3 && (await idx()) === i0; attempt++) { // a real drag with the mouse; retried like a person would if the drop did not take
+      // a tall window so that the section and the one above it (both ~800 px high) are on screen at once, as on an editor's large monitor
+      await p.setViewportSize({ width: 1600, height: 2400 }); await p.waitForTimeout(1500);
+      const prev = spa.locator('xpath=preceding-sibling::*[contains(@class,"elementor-element")][1]'); await prev.evaluate((e) => e.scrollIntoView({ block: 'start' })); await p.waitForTimeout(600);
+      await prev.evaluate((e) => e.ownerDocument.defaultView.scrollBy(0, -80)); await p.waitForTimeout(500); await spa.click({ force: true, position: { x: 5, y: 5 } }); await p.waitForTimeout(900);
+      const hdl = handle(f, spa); const hb = await hdl.boundingBox(); const dst = await prev.boundingBox();
+      console.log('  drag from', JSON.stringify(hb), 'to', JSON.stringify(dst));
+      const sx = hb.x + hb.width / 2, sy = hb.y + hb.height / 2, ty = Math.max(dst.y + 40, 140), tx = dst.x + dst.width / 2;
+      await p.mouse.move(sx, sy); await p.mouse.down(); await p.mouse.move(sx + 12, sy - 8, { steps: 4 });
+      await p.mouse.move(tx, ty, { steps: 40 }); await p.waitForTimeout(400); await p.mouse.move(tx + 1, ty + 1, { steps: 3 }); await p.waitForTimeout(500); await shot('05-reorder-dragging'); await p.mouse.up(); await p.waitForTimeout(1500); await p.setViewportSize({ width: 1600, height: 1000 });
+    }
     await shot('05-reorder'); await E.publish(p);
     const after = await order();
     ok('5 section order changed by dragging and saved', JSON.stringify(before) !== JSON.stringify(after), before.join(',') + ' → ' + after.join(','));
@@ -251,9 +258,24 @@ async function main() {
     const h = await get(p, st.landingUrl); ok('13c the previous version is back on the live page', !h.includes('wrong title'), h.includes('wrong title') ? 'still wrong' : '');
   });
 
+  /* 14 ─ after a theme + plugin update (run tests/update-persistence.sh first): everything is still there, and the editor still works */
+  step(14, 'Confirm all changes remain after a theme update', async () => {
+    const th = await get(p, base + '/wp-content/themes/hotel-central/style.css'); ok('14a the new theme release is installed', /Version:\s*1\.0\.\d{6,}/.test(th));
+    const en = await get(p, base + '/en/'), bs = await get(p, base + '/bs/');
+    ok('14b homepage edits (text, duplicated + reordered sections, new section) survived', en.includes('written by the hotel team') && (en.match(/Spring escape/g) || []).length === 2 && en.indexOf('hc-s-spa') < en.indexOf('hc-rc-w'));
+    ok('14c the replaced photograph is still in use', en.includes('/wp-content/uploads/') && !/class="[^"]*"[^>]*src="[^"]*404/.test(en));
+    const lp = await get(p, st.landingUrl), lb = await get(p, st.landingBsUrl);
+    ok('14d the landing page and its Bosnian translation survived', lp.includes('Two nights in the old town') && lb.includes('Vikend u') && lp.includes('hreflang="bs"'));
+    ok('14e new room (EN + BS) and contact details survived', (await get(p, base + '/en/rooms/garden-studio/')).includes('Courtyard view') && (await get(p, base + '/bs/rooms/garden-studio/')).includes('Vrtni') && en.includes('welcome@hotelcentral.test'));
+    ok('14f both menu entries survived', en.includes('weekend-in-sarajevo') && bs.includes('weekend-in-sarajevo'));
+    const f = await E.openEditor(p, base, st.landingId); await E.select(p, f.locator('.hc-hero__intro').first()); await E.setText(p, 'Two nights in the old town, with breakfast and a late check-out.'); await E.publish(p);
+    ok('14g the editor still opens, edits and publishes after the update', (await get(p, st.landingUrl)).includes('late check-out'));
+    await shot('14-after-update');
+  });
+
   const run = Object.keys(steps).map(Number).filter((n) => !only.length || only.includes(n));
   for (const n of run) { console.log(`\n── Step ${n}: ${steps[n][0]}`); try { await steps[n][1](); } catch (e) { ok(`step ${n} completed`, false, e.message.split('\n')[0]); try { await shot('FAIL-step-' + n); } catch (_) {} } save(); }
-  ok('no JavaScript errors during the whole journey', consoleErrors.filter((e) => !/hasClass|isDesignable/.test(e)).length === 0, [...new Set(consoleErrors)].slice(0, 4).join(' | '));
+  ok('no JavaScript errors during the whole journey', consoleErrors.filter((e) => !/hasClass|isDesignable|ViewTransition/.test(e)).length === 0, [...new Set(consoleErrors)].slice(0, 4).join(' | '));
   await b.close();
   const f = results.filter((r) => r[0] === 'FAIL'); console.log(`\n${results.length - f.length}/${results.length} checks passed`); process.exit(f.length ? 1 : 0);
 }

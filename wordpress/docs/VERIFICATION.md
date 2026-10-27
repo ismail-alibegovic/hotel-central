@@ -22,3 +22,28 @@ Run everything: `node tests/functional.js`, `node tests/mobile.js`, `node tests/
 * Performance numbers are from a local PHP built-in server; re-measure on the real host.
 * Elementor Free has no Theme Builder: header/footer/menu are theme code.
 * Production migration, DNS and hosting untouched; need explicit approval.
+
+## Elementor editing system (third pass) — real-browser editor journey
+Environment: WordPress 6.9.4, Elementor 4.3.5 Free (e_atomic_elements / v4 opt-in off → classic widgets), Polylang 3.9.1 Free, **MariaDB 10.11** (also SQLite for the regression suites), PHP 8.3, headless Chromium (Playwright) at 1600 px. A separate **Editor-role** user (`hotel_editor`, random password in the git-ignored `wordpress/.local/editor-credentials.txt`) performs every step through wp-admin and the Elementor editor — mouse/keyboard only; HTTP is used only to read published pages back.
+
+`tests/journey-all.sh <site> <url>` = reset to seeded state → steps 1–13 → install a new theme + plugin release as real copies (`wp theme install --force`) → step 14. Latest run: **34/34 checks (steps 1–13) + 8/8 (step 14) + 12/12 update-persistence**. Evidence: `tests/evidence/editor-journey/` (RESULT.txt, RESULT-update.txt, step screenshots, `new-landing-{en,bs}-{desktop,tablet,mobile}.png`).
+
+| # | Action (as Editor) | Verified |
+|---|---|---|
+| 1 | edit homepage text in Elementor | live on `/en/` |
+| 2 | replace a photograph (media library upload) | new file served 200, old file still in library |
+| 3 | add a section by dragging Heading/Text/Button | live, correct position, brand font from Site Settings with no classes |
+| 4 | duplicate a section (context menu) | appears twice |
+| 5 | reorder sections by mouse drag | order changed and saved |
+| 6–7 | new page from empty canvas; insert 3 saved templates; customise; publish | live, site chrome present, page uses global styling, axe 0 violations at 1440/390 |
+| 8 | "Hide on mobile" | hidden at 390, visible at 1440 |
+| 9 | Create BS copy → translate → publish | `/bs/<same-slug>/`, hreflang both ways, footer language switch lands on the sibling page |
+| 10 | add both pages to menus | EN menu/footer and BS menu/footer |
+| 11 | new room (EN) + BS copy | in rooms list and homepage carousel, `/en|bs/rooms/garden-studio/`, books via general booking page; room-type-id field absent for Editors |
+| 12 | change phone/e-mail/hours | header, menu, footer, contact, location (EN+BS); booking-engine screen refused for Editors; booking write via POST ignored |
+| 13 | publish a wrong edit, restore from Revisions | previous title live again |
+| 14 | theme + plugin update, seeder re-run | pages/templates (edited ones), Kit, hotel info, menus, translations, rooms, media identical; editor still opens, edits, publishes |
+
+Regression after the refactor (SQLite site): functional 18/18, mobile suite pass, `elementor-all` 16/16 pages edit/save/restore with slugs unchanged, axe 0 violations (12 URLs × 2 widths), fidelity vs Next.js page-height difference ≤ 1.1 % at 390/768/1440 (`tests/compare.js`), 31 templates render without horizontal overflow at 1440/390 (`tests/templates-preview.js`).
+
+Defects found and fixed by the journey: image reveal animation never fired (IntersectionObserver ignores fully clipped targets and `display:contents` parents); hotel-information save was discarded for Editors (three sanitisers on one option); new pages/rooms take the language of the admin-bar filter (documented, `new_lang`); `openEditor` waited for an element on empty pages; template names matched case-insensitively ("Homepage hero" for "Page hero"). Not testable here: Firefox/Safari, real SMTP, production hosting.

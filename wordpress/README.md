@@ -19,3 +19,5 @@ php -S 0.0.0.0:8080 -t site scripts/router.php   # http://localhost:8080  (admin
 node tests/functional.js && node tests/shots.js tests/shots   # needs Playwright
 ```
 See `docs/INSTALL.md` for MySQL hosting and `docs/VERIFICATION.md` for what was and was not tested.
+
+**Editing:** docs/EDITING.md (staff guide) · docs/ELEMENTOR-SYSTEM.md (design system, template library, native vs custom, limitations) · tests: `tests/journey-all.sh`.

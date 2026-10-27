@@ -12,6 +12,8 @@ Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under 
 - [x] Elementor console error traced to WordPress core `wp-auth-check.min.js` (heartbeat), not our code, no functional effect
 - [x] Performance: Elementor front-end JS dequeued on the public site; results in docs/VERIFICATION.md
 
+- [x] **Complete Elementor Free editing system (this session)**: Kit design system, 31-template library, editor admin hardening (Hotel Information split, room-type lock, Create-BS-copy, Main menu box), full 14-step Editor journey in a real browser incl. theme-update persistence — docs/EDITING.md, docs/ELEMENTOR-SYSTEM.md, docs/VERIFICATION.md
+
 ## Open
 - Offers section has no sample content (post type + `[hc_offers]` exist)
 - Firefox/Safari/real devices, real SMTP, motion frame-comparison: not done
