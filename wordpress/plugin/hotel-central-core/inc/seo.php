@@ -45,3 +45,6 @@ add_action('wp_head', function () {
 add_filter('robots_txt', function ($out) {
     return $out . "\nSitemap: " . home_url('/wp-sitemap.xml') . "\n";
 }, 10);
+
+// Core sitemaps are filtered to one language by Polylang; list every language (hreflang links are in each page's <head>).
+add_filter('wp_sitemaps_posts_query_args', function ($args) { $args['lang'] = ''; return $args; });

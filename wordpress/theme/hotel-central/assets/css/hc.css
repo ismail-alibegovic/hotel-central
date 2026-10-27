@@ -839,3 +839,13 @@ html.menu-lock{overflow:hidden}
 .hc .hc-kv.is-split .row{flex-wrap:nowrap}
 .hc .hc-kv.is-split .v{flex:1 1 0}
 .hc .hc-kv.is-split .k{flex:0 0 auto}
+.hc .hc-contact__list{border-top:1px solid rgb(2 13 16/.2);border-bottom:1px solid rgb(2 13 16/.2)}
+.hc .hc-contact__list>.li{padding:24px 0;gap:8px;align-items:flex-start}
+.hc .hc-contact__list>.li+.li{border-top:1px solid rgb(2 13 16/.2)}
+.hc .hc-contact__list>.li .hc-body{margin:0 0 4px}
+.hc .hc-arrival .ol{border-top:1px solid rgb(2 13 16/.2);border-bottom:1px solid rgb(2 13 16/.2)}
+.hc .hc-arrival .ol>.li{padding:20px 0;gap:8px}
+.hc .hc-arrival .ol>.li+.li{border-top:1px solid rgb(2 13 16/.2)}
+.hc .hc-mb-6{margin-bottom:24px}
+.hc .hc-contact address{margin-top:32px}
+.hc button.hc-pill{border:1px solid currentColor;padding:0 1.9em;background:transparent}.hc button.hc-pill.is-fill{border-color:#fff}
