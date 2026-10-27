@@ -39,7 +39,7 @@
     parts.forEach(function (p, i) {
       var l = h('span', { 'class': 'hc-line' }), s = h('span', null, p.trim());
       s.style.setProperty('--d', (base + i * 0.12) + 's'); s.style.transitionDelay = (base + i * 0.12) + 's';
-      l.appendChild(s); host.appendChild(l);
+      l.appendChild(s); host.appendChild(l); host.appendChild(doc.createTextNode(' '));
     });
     el.classList.add('is-ready');
   }
@@ -165,24 +165,30 @@
           for (var n = 1; n <= count; n++) (function (day) {
             var dt = new Date(d0.getFullYear(), d0.getMonth(), day), btn = h('button', { type: 'button', 'class': 'hc-cal__day', 'aria-label': dt.toDateString() }, '<span>' + day + '</span>');
             var past = dt < today; if (past) btn.disabled = true;
-            var isS = st.start && +dt === +st.start, isE = st.end && +dt === +st.end, endv = st.end || (st.start && st.hover && st.hover > st.start ? st.hover : null);
-            if (isS || isE) btn.classList.add('is-edge');
-            if (st.start && endv && dt > st.start && dt < endv) btn.classList.add('in-range');
-            if (isS && endv) btn.classList.add('is-start'); if (endv && +dt === +endv) btn.classList.add('is-end');
+            btn._d = dt;
             btn.addEventListener('click', function () {
               st.hint = false;
               if (!st.start || st.end) { st.start = dt; st.end = null; } else if (dt <= st.start) { st.start = dt; } else { st.end = dt; }
               values(); renderPanel();
             });
-            btn.addEventListener('mouseenter', function () { if (st.start && !st.end) { st.hover = dt; paintHover(); } });
+            btn.addEventListener('mouseenter', function () { if (st.start && !st.end) { st.hover = dt; paint(); } });
             days.appendChild(btn);
           })(n);
           mon.appendChild(days); grid.appendChild(mon);
         }
         wrap.appendChild(grid);
       }
-      function paintHover() { draw(); }
-      draw(); return wrap;
+      // classes only (no re-render), so hovering never replaces the element under the pointer
+      function paint() {
+        var endv = st.end || (st.start && st.hover && st.hover > st.start ? st.hover : null);
+        $$('.hc-cal__day', wrap).forEach(function (b) {
+          var dt = b._d, isS = st.start && +dt === +st.start, isE = st.end && +dt === +st.end;
+          b.classList.toggle('is-edge', !!(isS || isE));
+          b.classList.toggle('in-range', !!(st.start && endv && dt > st.start && dt < endv));
+          b.classList.toggle('is-start', !!(isS && endv)); b.classList.toggle('is-end', !!(endv && +dt === +endv));
+        });
+      }
+      draw(); paint(); return wrap;
     }
     function renderPanel() {
       var p = st.panel; if (!p) return; var keepScroll = panelEl && panelEl.scrollTop;

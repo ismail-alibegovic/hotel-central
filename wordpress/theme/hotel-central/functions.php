@@ -15,7 +15,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('hc', get_theme_file_uri('assets/css/hc.css'), [], filemtime(get_theme_file_path('assets/css/hc.css')));
     wp_enqueue_script('hc', get_theme_file_uri('assets/js/hc.js'), [], filemtime(get_theme_file_path('assets/js/hc.js')), ['in_footer' => true, 'strategy' => 'defer']);
     wp_dequeue_style('wp-block-library'); wp_dequeue_style('global-styles'); wp_dequeue_style('classic-theme-styles');
-}, 20);
+}, 999);
 
 add_action('wp_head', function () {
     echo '<script>document.documentElement.classList.add("hc-js")</script>' . "\n";

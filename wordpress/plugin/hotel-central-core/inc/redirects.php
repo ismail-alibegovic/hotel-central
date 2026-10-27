@@ -20,3 +20,24 @@ add_action('template_redirect', function () {
         if (url_to_postid(trailingslashit($target))) { wp_safe_redirect(trailingslashit($target), 301); exit; }
     }
 }, 1);
+
+/* Same slug in both languages (/en/about/ and /bs/about/, as on the Next.js site):
+   WordPress resolves "pagename" with get_page_by_path(), which returns the first match regardless of language.
+   Resolve it within the requested Polylang language instead and query the page by ID. */
+add_filter('request', function ($qv) {
+    foreach (['hc_room', 'hc_offer'] as $cpt) {
+        if (!empty($qv[$cpt]) && !empty($qv['lang']) && function_exists('pll_get_post_language')) {
+            global $wpdb;
+            foreach ($wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_name=%s AND post_type=%s AND post_status='publish'", $qv[$cpt], $cpt)) as $id)
+                if (pll_get_post_language((int) $id) === $qv['lang']) { unset($qv[$cpt], $qv['name']); $qv['p'] = (int) $id; $qv['post_type'] = $cpt; break; }
+        }
+    }
+    if (empty($qv['pagename']) || empty($qv['lang']) || !function_exists('pll_get_post_language')) return $qv;
+    global $wpdb;
+    $path = trim($qv['pagename'], '/');
+    $ids = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_name=%s AND post_type='page' AND post_status='publish'", basename($path)));
+    foreach ($ids as $id) {
+        if (pll_get_post_language((int) $id) === $qv['lang'] && get_page_uri((int) $id) === $path) { unset($qv['pagename']); $qv['page_id'] = (int) $id; break; }
+    }
+    return $qv;
+}, 20);

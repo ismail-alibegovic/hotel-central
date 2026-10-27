@@ -7,6 +7,7 @@
 if (!defined('ABSPATH')) exit;
 require_once __DIR__ . '/lib/pages.php';
 @set_time_limit(0); ini_set('memory_limit', '1024M');
+global $wpdb;
 wp_set_current_user(1);
 $ROOT = dirname(__DIR__);
 $IMG_DIR = realpath($ROOT . '/../public/images');
@@ -24,7 +25,7 @@ foreach ([['English', 'en', 'en_US', 'gb'], ['Bosanski', 'bs', 'bs_BA', 'ba']] a
     $r = $amodel->add_language(['name' => $name, 'slug' => $slug, 'locale' => $loc, 'rtl' => 0, 'term_group' => $i, 'flag' => $flag]);
     $say("language $slug: " . (is_wp_error($r) ? $r->get_error_message() : 'added'));
 }
-$r = PLL()->options->merge(['default_lang' => 'en', 'force_lang' => 1, 'hide_default' => false, 'rewrite' => true, 'browser' => true, 'redirect_lang' => false, 'media_support' => false,
+$r = PLL()->options->merge(['default_lang' => 'en', 'force_lang' => 1, 'hide_default' => false, 'rewrite' => true, 'browser' => true, 'redirect_lang' => true, 'media_support' => false,
     'post_types' => array_values(array_unique(array_merge((array) PLL()->options->get('post_types'), ['hc_room', 'hc_offer'])))]);
 if (is_wp_error($r)) $say('polylang options: ' . $r->get_error_message());
 PLL()->options->save();
@@ -77,12 +78,15 @@ $importImage = function ($file, $alt = '') use ($IMG_DIR, $say) {
     return $cache[$key] = $alias;
 };
 
+$GLOBALS['hc_slugs'] = [];
 function hc_upsert_post($type, $slug, $lang, $args, $key) {
     global $wpdb;
     $id = (int) $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_hc_key' AND meta_value=%s LIMIT 1", $key));
     $args = array_merge(['post_type' => $type, 'post_status' => 'publish', 'post_name' => $slug], $args);
     if ($id && get_post($id)) { $args['ID'] = $id; wp_update_post($args); } else { $id = wp_insert_post($args); update_post_meta($id, '_hc_key', $key); }
     pll_set_post_language($id, $lang);
+    // Polylang allows the same slug in each language; WordPress would have suffixed it before the language was known.
+    $GLOBALS['hc_slugs'][$id] = $slug;
     return $id;
 }
 
@@ -172,6 +176,9 @@ foreach ($seen as $en => $bs) $mo->add_entry($mo->make_entry($en, $bs));
 $mo->export_to_db($bsLang);
 $say("UI strings translated: " . count($seen));
 
+// Polylang allows the same slug in each language; WordPress suffixed it (-2) before the language was known, and Elementor's save re-runs that check.
+foreach ($GLOBALS['hc_slugs'] as $pid => $slug) { $wpdb->update($wpdb->posts, ['post_name' => $slug], ['ID' => $pid]); clean_post_cache($pid); }
 \Elementor\Plugin::$instance->files_manager->clear_cache();
+PLL()->model->clean_languages_cache(); // static front page per language is cached on the language objects
 flush_rewrite_rules(true);
 $say('done');

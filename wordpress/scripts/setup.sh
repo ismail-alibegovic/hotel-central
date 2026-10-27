@@ -24,6 +24,8 @@ fi
 # Theme + custom plugin are symlinked so edits in the repo are live.
 ln -sfn "$ROOT/theme/hotel-central" "$SITE/wp-content/themes/hotel-central"
 ln -sfn "$ROOT/plugin/hotel-central-core" "$SITE/wp-content/plugins/hotel-central-core"
+# Local/staging: log outgoing mail to a file instead of sending (remove for production; see docs/INSTALL.md)
+[ "${HC_DEV_MAIL:-1}" = 1 ] && $WP config set HC_MAIL_LOG "$SITE/wp-content/mail.log" --type=constant --quiet || true
 $WP plugin activate elementor polylang hotel-central-core
 $WP theme activate hotel-central
 $WP eval-file "$ROOT/scripts/seed.php"
