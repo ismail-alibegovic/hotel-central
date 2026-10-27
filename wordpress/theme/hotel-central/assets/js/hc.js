@@ -37,9 +37,9 @@
     var parts = host.innerHTML.split(/<br\s*\/?>/i), base = parseFloat(el.getAttribute('data-delay') || getComputedStyle(el).getPropertyValue('--d')) || 0;
     host.innerHTML = '';
     parts.forEach(function (p, i) {
-      var l = h('span', { 'class': 'hc-line' }), s = h('span', null, p.trim());
+      var l = h('span', { 'class': 'hc-line' }), s = h('span', null, p.trim() + ' ');
       s.style.setProperty('--d', (base + i * 0.12) + 's'); s.style.transitionDelay = (base + i * 0.12) + 's';
-      l.appendChild(s); host.appendChild(l); host.appendChild(doc.createTextNode(' '));
+      l.appendChild(s); host.appendChild(l);
     });
     el.classList.add('is-ready');
   }

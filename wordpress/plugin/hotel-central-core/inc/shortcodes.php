@@ -162,7 +162,7 @@ add_shortcode('hc_contact_form', function () {
         <div class="f"><input id="hcf-email" name="email" type="email" required autocomplete="email" placeholder=" "><label class="l hc-label" for="hcf-email"><?php echo esc_html(hc_t('contact.email')); ?></label><p class="err" data-err="email" hidden></p></div>
         <div class="f"><input id="hcf-phone" name="phone" type="tel" autocomplete="tel" placeholder=" "><label class="l hc-label" for="hcf-phone"><?php echo esc_html(hc_t('contact.phone')); ?></label></div>
         <div class="f sel"><select id="hcf-subject" name="subject"><?php foreach ($subjects as $s) echo '<option>' . esc_html($s) . '</option>'; ?></select><label class="l hc-label" for="hcf-subject"><?php echo esc_html(hc_t('contact.subject')); ?></label></div>
-        <div class="f"><textarea id="hcf-message" name="message" required rows="5" placeholder=" "></textarea><label class="l hc-label" for="hcf-message"><?php echo esc_html(hc_t('contact.message')); ?></label><p class="err" data-err="message" hidden></p></div>
+        <div class="f full"><textarea id="hcf-message" name="message" required rows="5" placeholder=" "></textarea><label class="l hc-label" for="hcf-message"><?php echo esc_html(hc_t('contact.message')); ?></label><p class="err" data-err="message" hidden></p></div>
         <div class="hp" aria-hidden="true"><label>Company<input name="company" tabindex="-1" autocomplete="off"></label></div>
         <label class="consent hc-body"><input type="checkbox" name="consent"><span><?php echo esc_html(hc_t('contact.consent')); ?></span></label><p class="err" data-err="consent" hidden></p>
         <button type="submit" class="hc-pill hc-pill-dark"><span><?php echo esc_html(hc_t('contact.send')); ?></span></button>
