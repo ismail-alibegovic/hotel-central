@@ -1,0 +1,22 @@
+{
+ "/": "/en/",
+ "/about": "/en/about/",
+ "/rooms": "/en/rooms/",
+ "/club-spa": "/en/spa/",
+ "/club-spa/gym": "/en/spa/",
+ "/club-spa/pool-spa": "/en/spa/",
+ "/facilities": "/en/",
+ "/facilities/restaurant-central": "/en/restaurant/",
+ "/facilities/fitness-club": "/en/spa/",
+ "/facilities/wellness-day-spa": "/en/spa/",
+ "/contact": "/en/contact/",
+ "/our-location-2": "/en/location/",
+ "/our-location": "/en/location/",
+ "/facilities/meetings-and-events": "/en/meetings-events/",
+ "/rooms/single-room": "/en/rooms/single-room/",
+ "/rooms/standard-twin-double": "/en/rooms/standard-twin-double/",
+ "/rooms/deluxe-superior-double-twin": "/en/rooms/superior-double-room/",
+ "/rooms/family-room-2-double-twin-with-connecting-door": "/en/rooms/family-room/",
+ "/rooms/presidental-suite": "/en/rooms/presidential-suite/",
+ "/rooms/junior-suite": "/en/rooms/junior-suite/"
+}

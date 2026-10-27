@@ -1,0 +1,32 @@
+{
+ "hotel": {
+  "name": "Hotel Central Sarajevo",
+  "shortName": "Hotel Central",
+  "stars": 4,
+  "rooms": 32,
+  "street": "Ćumurija 8",
+  "postalCode": "71000",
+  "city": "Sarajevo",
+  "country": "Bosnia and Herzegovina",
+  "countryBs": "Bosna i Hercegovina",
+  "phoneDisplay": "+387 33 561 800",
+  "phoneHref": "tel:+38733561800",
+  "email": "info@hotelcentral.ba",
+  "website": "https://www.hotelcentral.ba/",
+  "facebook": "https://www.facebook.com/hotel.central.568"
+ },
+ "booking": {
+  "hotelId": "hotelcentralsarajevo",
+  "bookingUrl": "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo",
+  "formAction": "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo",
+  "calFormat": "dd-mm-yy",
+  "maxAdults": 10,
+  "maxChildren": 10,
+  "maxRooms": 16
+ },
+ "maps": {
+  "query": "Hotel Central, Ćumurija 8, 71000 Sarajevo",
+  "directions": "https://www.google.com/maps/dir/?api=1&destination=Hotel%20Central%2C%20%C4%86umurija%208%2C%2071000%20Sarajevo%2C%20Bosnia%20and%20Herzegovina",
+  "embed": "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sHotel+Central%2C+%C4%86umurija+8%2C+Sarajevo!6i16"
+ }
+}
