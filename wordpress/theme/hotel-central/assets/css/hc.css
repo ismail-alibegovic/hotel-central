@@ -900,3 +900,6 @@ html.menu-lock{overflow:hidden}
 .hc .hc-rc__dk.hc-rc__ctl{display:none}
 @media(min-width:1024px){.hc .hc-rc__dk.hc-rc__ctl{display:flex}}
 @media(max-width:1023px){.hc-s-spa .hc-meta .r,.hc-s-rest .hc-meta .r{display:none}}
+.hc-menu nav ol>li+li{margin-top:.6vh}
+.hc-menu__info{align-items:center}
+.hc-menu__info .hc-lang{align-self:end}

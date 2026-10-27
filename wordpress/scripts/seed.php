@@ -7,11 +7,22 @@
 if (!defined('ABSPATH')) exit;
 require_once __DIR__ . '/lib/pages.php';
 @set_time_limit(0); ini_set('memory_limit', '1024M');
-global $wpdb;
+global $wpdb, $RESET, $FIRST;
 wp_set_current_user(1);
 $ROOT = dirname(__DIR__);
 $IMG_DIR = realpath($ROOT . '/../public/images');
 $say = function ($m) { fwrite(STDERR, "[seed] $m\n"); };
+
+/* ── Safety: the seeder never silently overwrites content.
+   • first run  → creates everything and records `hc_seeded`
+   • re-run     → creates what is missing; refreshes an Elementor page only if nobody edited it since it was seeded;
+                  skips edited pages/rooms/menus/settings and says so
+   • HC_SEED_RESET=1 (development/staging only, refused on production) → deliberately overwrites everything seeded. ── */
+$RESET = getenv('HC_SEED_RESET') === '1';
+$FIRST = !get_option('hc_seeded');
+if ($RESET && wp_get_environment_type() === 'production') { fwrite(STDERR, "[seed] REFUSED: HC_SEED_RESET=1 on a production environment (set WP_ENVIRONMENT_TYPE=local|development|staging for a dev reset).\n"); exit(1); }
+if ($RESET) $say('RESET requested: seeded content, menus and settings will be overwritten (all Elementor edits lost).');
+$GLOBALS['hc_skipped'] = [];
 
 /* ───────── 1. Polylang: English (default) + Bosnian, /en/ and /bs/ prefixes ───────── */
 $opts = get_option('polylang', []);
@@ -25,13 +36,14 @@ foreach ([['English', 'en', 'en_US', 'gb'], ['Bosanski', 'bs', 'bs_BA', 'ba']] a
     $r = $amodel->add_language(['name' => $name, 'slug' => $slug, 'locale' => $loc, 'rtl' => 0, 'term_group' => $i, 'flag' => $flag]);
     $say("language $slug: " . (is_wp_error($r) ? $r->get_error_message() : 'added'));
 }
-$r = PLL()->options->merge(['default_lang' => 'en', 'force_lang' => 1, 'hide_default' => false, 'rewrite' => true, 'browser' => true, 'redirect_lang' => true, 'media_support' => false,
+if ($FIRST || $RESET) $r = PLL()->options->merge(['default_lang' => 'en', 'force_lang' => 1, 'hide_default' => false, 'rewrite' => true, 'browser' => true, 'redirect_lang' => true, 'media_support' => false,
     'post_types' => array_values(array_unique(array_merge((array) PLL()->options->get('post_types'), ['hc_room', 'hc_offer'])))]);
-if (is_wp_error($r)) $say('polylang options: ' . $r->get_error_message());
+if (($FIRST || $RESET) && is_wp_error($r) && $r->get_error_message()) $say('polylang options: ' . $r->get_error_message());
 PLL()->options->save();
 PLL()->model->clean_languages_cache();
 
 /* ───────── 2. Site settings ───────── */
+if ($FIRST || $RESET) {
 update_option('blogname', 'Hotel Central Sarajevo');
 update_option('blogdescription', 'Four-star boutique hotel in the heart of Sarajevo');
 update_option('timezone_string', 'Europe/Sarajevo');
@@ -39,9 +51,10 @@ update_option('date_format', 'j. n. Y.');
 update_option('permalink_structure', '/%postname%/');
 update_option('blog_public', 0); // staging: noindex. Set to 1 at launch (docs/LAUNCH.md).
 update_option('show_on_front', 'page');
-foreach (['elementor_disable_color_schemes' => 'yes', 'elementor_disable_typography_schemes' => 'yes', 'elementor_google_font' => '0', 'elementor_load_fa4_shim' => '', 'elementor_unfiltered_files_upload' => '0',
+    foreach (['elementor_disable_color_schemes' => 'yes', 'elementor_disable_typography_schemes' => 'yes', 'elementor_google_font' => '0', 'elementor_load_fa4_shim' => '', 'elementor_unfiltered_files_upload' => '0',
           'elementor_cpt_support' => ['page', 'hc_offer'], 'elementor_optimized_gutenberg_loading' => '1', 'elementor_element_cache_ttl' => '', 'elementor_allow_tracking' => 'no', 'elementor_onboarded' => '1', 'elementor_tracker_notice' => '1'] as $k => $v) update_option($k, $v);
 update_option('elementor_experiment-container', 'active');
+} else $say('settings left untouched (already seeded)');
 
 /* ───────── 3. Content + media helpers ───────── */
 $D = json_decode(file_get_contents($ROOT . '/content/dictionary.json'), true);
@@ -79,12 +92,18 @@ $importImage = function ($file, $alt = '') use ($IMG_DIR, $say) {
 };
 
 $GLOBALS['hc_slugs'] = [];
+function hc_is_new() { return $GLOBALS['hc_last_new']; }
 function hc_upsert_post($type, $slug, $lang, $args, $key) {
     global $wpdb;
     $id = (int) $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_hc_key' AND meta_value=%s LIMIT 1", $key));
     $args = array_merge(['post_type' => $type, 'post_status' => 'publish', 'post_name' => $slug], $args);
-    if ($id && get_post($id)) { $args['ID'] = $id; wp_update_post($args); } else { $id = wp_insert_post($args); update_post_meta($id, '_hc_key', $key); }
-    pll_set_post_language($id, $lang);
+    global $RESET;
+    $GLOBALS['hc_last_new'] = true;
+    if ($id && get_post($id)) {
+        $GLOBALS['hc_last_new'] = false;
+        if ($RESET) { $args['ID'] = $id; wp_update_post($args); }
+    } else { $id = wp_insert_post($args); update_post_meta($id, '_hc_key', $key); }
+    if ($GLOBALS['hc_last_new'] || $RESET) pll_set_post_language($id, $lang);
     // Polylang allows the same slug in each language; WordPress would have suffixed it before the language was known.
     $GLOBALS['hc_slugs'][$id] = $slug;
     return $id;
@@ -98,7 +117,7 @@ foreach ($ROOMS as $i => $r) {
         $gal = []; $pos = [];
         foreach ($r['images'] as $im) { $gal[] = $importImage(basename($im['src']), $im['alt'][$lang]); $pos[] = $im['position'] ?? '50% 50%'; }
         $id = hc_upsert_post('hc_room', $r['slug'], $lang, ['post_title' => $r['name'][$lang], 'post_excerpt' => $r['summary'][$lang], 'menu_order' => $i], "room:{$r['slug']}:$lang");
-        foreach ([
+        if (hc_is_new() || $RESET) foreach ([
             'hc_room_type_id' => $r['roomTypeId'], 'hc_size_m2' => $r['sizeM2'], 'hc_size_label' => $r['sizeLabel'][$lang], 'hc_title_lines' => implode("\n", $r['titleLines'][$lang]),
             'hc_feature' => $r['feature'][$lang], 'hc_description' => implode("\n", $r['description'][$lang]), 'hc_highlights' => implode("\n", $r['highlights'][$lang]),
             'hc_amenities' => implode("\n", $r['amenities'][$lang]), 'hc_gallery' => implode(',', $gal), 'hc_gallery_pos' => implode("\n", $pos),
@@ -132,26 +151,36 @@ foreach ($pageDefs as $key => [$slug, $titles]) {
             $lay = $LAY[$lang][$key]; $elements = hc_build_blocks($lay['blocks'], $ctx); $meta = $lay['meta']; $title = $titles[$lang]; $ogFile = basename($lay['ogImage'] ?? '3075.jpg');
         }
         $id = hc_upsert_post('page', $slug === 'home' ? 'home' : $slug, $lang, ['post_title' => $title, 'post_excerpt' => $meta['description'], 'post_content' => ''], "page:$key:$lang");
-        update_post_meta($id, '_hc_seo_title', $key === 'home' ? $meta['title'] : $meta['title'] . ' — Hotel Central Sarajevo');
-        update_post_meta($id, '_hc_seo_desc', $meta['description']);
-        update_post_meta($id, '_hc_seo_image', $importImage($ogFile, ''));
-        update_post_meta($id, '_elementor_edit_mode', 'builder'); update_post_meta($id, '_elementor_template_type', 'wp-page'); update_post_meta($id, '_wp_page_template', 'default');
-        $doc = \Elementor\Plugin::$instance->documents->get($id, false);
-        $doc->save(['elements' => $elements, 'settings' => ['post_status' => 'publish', 'template' => 'default']]);
+        $new = hc_is_new();
+        $stored = (string) get_post_meta($id, '_elementor_data', true);
+        $pristine = $new || ($stored !== '' && md5($stored) === get_post_meta($id, '_hc_seed_hash', true));
+        if ($RESET || $pristine) {
+            if ($new || $RESET) {
+                update_post_meta($id, '_hc_seo_title', $key === 'home' ? $meta['title'] : $meta['title'] . ' — Hotel Central Sarajevo');
+                update_post_meta($id, '_hc_seo_desc', $meta['description']);
+                update_post_meta($id, '_hc_seo_image', $importImage($ogFile, ''));
+            }
+            update_post_meta($id, '_elementor_edit_mode', 'builder'); update_post_meta($id, '_elementor_template_type', 'wp-page'); update_post_meta($id, '_wp_page_template', 'default');
+            $doc = \Elementor\Plugin::$instance->documents->get($id, false);
+            $doc->save(['elements' => $elements, 'settings' => ['post_status' => 'publish', 'template' => 'default']]);
+            update_post_meta($id, '_hc_seed_hash', md5((string) get_post_meta($id, '_elementor_data', true)));
+            $say("page $key/$lang → $id " . ($new ? 'created' : ($RESET ? 'RESET' : 'refreshed (unedited)')));
+        } else { $GLOBALS['hc_skipped'][] = "page $key/$lang (#$id) was edited in Elementor"; $say("page $key/$lang → $id SKIPPED (edited in Elementor; HC_SEED_RESET=1 overwrites)"); }
         $trans[$lang] = $id; $pageIds[$key][$lang] = $id;
         $say("page $key/$lang → $id (" . count($elements) . ' sections)');
     }
     pll_save_post_translations($trans);
 }
-update_option('page_on_front', $pageIds['home']['en']);
-update_option('page_for_posts', 0);
-update_option('hc_positions', HC_El::$positions);
+if ($FIRST || $RESET) { update_option('page_on_front', $pageIds['home']['en']); update_option('page_for_posts', 0); }
+update_option('hc_positions', array_merge((array) get_option('hc_positions', []), HC_El::$positions));
 
 /* ───────── 6. Menus (one per language, assigned to the theme location) ───────── */
 $theme = get_option('stylesheet'); $nav = (array) PLL()->options->get('nav_menus');
 foreach (['en', 'bs'] as $lang) {
     $name = 'Main menu ' . strtoupper($lang);
-    $menu = wp_get_nav_menu_object($name); $mid = $menu ? $menu->term_id : wp_create_nav_menu($name);
+    $menu = wp_get_nav_menu_object($name);
+    if ($menu && !$RESET) { $nav[$theme]['primary'][$lang] = $nav[$theme]['primary'][$lang] ?? $menu->term_id; continue; }
+    $mid = $menu ? $menu->term_id : wp_create_nav_menu($name);
     foreach ((array) wp_get_nav_menu_items($mid) as $it) wp_delete_post($it->ID, true);
     $order = ['home', 'about', 'rooms', 'spa', 'restaurant', 'meetings-events', 'location', 'contact'];
     foreach ($order as $n => $key) wp_update_nav_menu_item($mid, 0, ['menu-item-title' => $D[$lang]['nav']['items'][$n]['label'], 'menu-item-object' => 'page', 'menu-item-object-id' => $pageIds[$key][$lang], 'menu-item-type' => 'post_type', 'menu-item-status' => 'publish', 'menu-item-position' => $n + 1]);
@@ -172,7 +201,7 @@ foreach (['nav', 'booking', 'common', 'footer', 'contact', 'notFound'] as $g) $w
 $walk($D['en']['home']['rooms'], $D['bs']['home']['rooms']); $walk($D['en']['home']['final'], $D['bs']['home']['final']);
 $bsLang = PLL()->model->get_language('bs');
 $mo = new PLL_MO(); $mo->import_from_db($bsLang);
-foreach ($seen as $en => $bs) $mo->add_entry($mo->make_entry($en, $bs));
+foreach ($seen as $en => $bs) if ($RESET || $mo->translate($en) === $en) $mo->add_entry($mo->make_entry($en, $bs)); // never replaces a translation an editor changed
 $mo->export_to_db($bsLang);
 $say("UI strings translated: " . count($seen));
 
@@ -181,4 +210,6 @@ foreach ($GLOBALS['hc_slugs'] as $pid => $slug) { $wpdb->update($wpdb->posts, ['
 \Elementor\Plugin::$instance->files_manager->clear_cache();
 PLL()->model->clean_languages_cache(); // static front page per language is cached on the language objects
 flush_rewrite_rules(true);
+update_option('hc_seeded', time());
+if ($GLOBALS['hc_skipped']) $say('NOTE — left untouched: ' . implode('; ', $GLOBALS['hc_skipped']));
 $say('done');
