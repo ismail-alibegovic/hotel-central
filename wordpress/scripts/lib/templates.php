@@ -11,7 +11,7 @@ function hc_b_band($c, $tone = 'ivory', $title = ['A short', 'headline'], $text 
     return $E::con("hc-band hc-$tone", [$E::con('hc-band__in', [
         $E::heading($title, 'h2', 'hc-title hc-lines hc-fit-84-12'),
         $E::text(hc_p($text), 'hc-body hc-fade'),
-        $E::button($cta, '#', 'hc-pill-w hc-tone-' . ($dark ? 'light' : 'dark')),
+        $E::button($cta, hc_info('booking_url'), 'hc-pill-w hc-tone-' . ($dark ? 'light' : 'dark')),
     ])]);
 }
 function hc_b_native_map($c) {
@@ -33,14 +33,14 @@ function hc_b_dynamic($shortcode, $cls, $tone = 'deep') {
 /** @return array<string, array{title:string,type:string,elements:array}> */
 function hc_template_defs($c) {
     $E = 'HC_El'; $T = [];
-    $img = fn($f, $alt = 'Replace this photograph') => ['src' => "/images/$f", 'alt' => $alt];
+    $img = fn($f, $alt = '') => ['src' => "/images/$f", 'alt' => $alt]; // empty alt: the picture's own alt text from the Media Library is used (no placeholder text can reach the public page)
     $hero = ['type' => 'hero', 'image' => $img('3064.jpg'), 'eyebrow' => 'Eyebrow line', 'title' => ['Page', 'title'], 'intro' => 'Write a short introduction to this page here.', 'meta' => ['Hotel Central', '(Section)', 'Ćumurija 8']];
     $split = fn($tone, $rev, $line) => ['type' => 'split', 'tone' => $tone, 'reverse' => $rev, 'label' => '(01) Section label', 'index' => 'Hotel Central, Sarajevo', 'title' => ['Section', 'title'],
         'body' => ['Write the main paragraph of this section here. Keep it short and warm.', 'A second, quieter paragraph is optional — delete it if you do not need it.'], 'line' => $line,
-        'images' => [$img('3075.jpg'), $img('p11.jpg')], 'primary' => ['label' => 'Call to action', 'link' => ['kind' => 'internal', 'href' => '#', 'external' => false]]];
+        'images' => [$img('3075.jpg'), $img('p11.jpg')], 'primary' => ['label' => 'Call to action', 'link' => ['kind' => 'internal', 'href' => hc_info('booking_url'), 'external' => true]]];
     $splitFacts = $split('ivory', false, 'hotel'); $splitFacts['facts'] = [['k' => 'Label', 'v' => 'Value'], ['k' => 'Label', 'v' => 'Value'], ['k' => 'Label', 'v' => 'Value']]; unset($splitFacts['primary']);
     $gal = fn($tone) => ['type' => 'gallery', 'tone' => $tone, 'images' => array_map(fn($f) => $img($f), ['p05.jpg', 'final-6202.jpg', '3073.jpg', 'dorucak5.jpg', 'junior02.jpg'])];
-    $final = ['image' => '/images/3067.jpg', 'alt' => 'Replace this photograph'];
+    $final = ['image' => '/images/3067.jpg', 'alt' => ''];
     $sec = function ($key, $title, $el) use (&$T) { $T["hc/section/$key"] = ['title' => "HC · $title", 'type' => 'container', 'elements' => [$el]]; };
 
     $sec('hero', 'Page hero (photo, title, intro, meta row)', hc_b_hero($hero, $c));
@@ -52,6 +52,8 @@ function hc_template_defs($c) {
     $sec('split-olive-reverse', 'Editorial split — olive, photo right', hc_b_split($split('olive', true, 'spa'), $c));
     $sec('split-facts', 'Editorial split with fact table', hc_b_split($splitFacts, $c));
     $sec('facts', 'Fact table (label / value rows)', hc_b_facts(['label' => 'Facilities', 'items' => [['k' => 'Label', 'v' => 'Value'], ['k' => 'Label', 'v' => 'Value'], ['k' => 'Label', 'v' => 'Value'], ['k' => 'Label', 'v' => 'Value']]], $c));
+    $sec('price-list', 'Price list (name / price rows)', hc_b_facts(['label' => 'Prices', 'items' => [['k' => 'Treatment or item', 'v' => '00 €'], ['k' => 'Treatment or item', 'v' => '00 €'], ['k' => 'Treatment or item', 'v' => '00 €'], ['k' => 'Treatment or item', 'v' => '00 €']]], $c));
+    $sec('opening-hours', 'Opening hours (automatic, from Hotel Information)', HC_El::con('hc-factsec hc-ivory', [HC_El::con('g', [HC_El::text(hc_p('Opening hours'), 'hc-label'), HC_El::shortcode('[hc_hours]')])]));
     $sec('statement', 'Large statement', hc_b_statement(['label' => '(—)', 'text' => 'One sentence that says what makes this place special.', 'tone' => 'ivory'], $c));
     $sec('gallery-light', 'Photo gallery — light', hc_b_gallery($gal('ivory'), $c));
     $sec('gallery-deep', 'Photo gallery — deep olive', hc_b_gallery($gal('deep'), $c));

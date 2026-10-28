@@ -34,7 +34,7 @@ $langs = hc_lang_urls();
     <nav aria-label="<?php echo esc_attr(hc_t('nav.menu')); ?>">
       <ol>
         <?php foreach ($items as $i => $it): $k = hc_menu_key($it['href']); ?>
-        <li><a href="<?php echo esc_url($it['href']); ?>" data-preview="<?php echo esc_attr($previews[$k] ?? '3075.jpg'); ?>" style="--i:<?php echo (int) $i; ?>"<?php echo $k === $cur ? ' aria-current="page"' : ''; ?>><span class="n hc-label-sm"><?php echo esc_html(hc_pad($i + 1)); ?></span><span class="t"><?php echo esc_html($it['label']); ?></span></a></li>
+        <li><a href="<?php echo esc_url($it['href']); ?>" data-preview="<?php echo esc_attr($previews[$k] ?? '3075.jpg'); ?>" style="--i:<?php echo (int) $i; ?>"<?php echo $k === $cur ? ' aria-current="page"' : ''; ?>><span class="n hc-label-sm"><?php echo esc_html(hc_pad($i + 1)); ?></span><span class="t"><?php echo esc_html($it['label']); ?></span></a><?php if (!empty($it['children'])) { echo '<span class="hc-sub">'; foreach ($it['children'] as $ch) echo '<a class="hc-label hc-link-line" href="' . esc_url($ch['href']) . '">' . esc_html($ch['label']) . '</a>'; echo '</span>'; } ?></li>
         <?php endforeach; ?>
       </ol>
     </nav>

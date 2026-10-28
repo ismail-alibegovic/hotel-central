@@ -1,11 +1,11 @@
-before: {"pages":"9887e3a01a2d8e1bfd6ed660eb884bcb","n_pages":19,"n_templates":32,"rooms":14,"kit":"b5e3df2633f8af1ba3ca2195a71b68bd","hotel":"ef5ad62199bf76e2bc870a78ec0d1d16","menus":"45bf1bf2634d9645e5a0eeafec72c120","translations":"cbf0cfa40222357b1fd39e47f8287771","media":131,"theme":"1.0.1793143261","plugin":"1.0.1793143261"}
+before: {"pages":"7c0988c1fd26a59272a976f45336371c","n_pages":25,"n_templates":34,"rooms":14,"kit":"b5e3df2633f8af1ba3ca2195a71b68bd","hotel":"c279d3a7cf038666215982a0375319c2","menus":"6d6b4f2bdb8bb3f963e6934d906296e7","translations":"19f9557307f0198d66f3cac2e9a9b439","media":115,"theme":"1.0.0","plugin":"1.0.0"}
 Theme updated successfully.
 Success: Installed 1 of 1 themes.
 Plugin updated successfully.
 Success: Installed 1 of 1 plugins.
 plugin still active
 theme still active
-after:  {"pages":"9887e3a01a2d8e1bfd6ed660eb884bcb","n_pages":19,"n_templates":32,"rooms":14,"kit":"b5e3df2633f8af1ba3ca2195a71b68bd","hotel":"ef5ad62199bf76e2bc870a78ec0d1d16","menus":"45bf1bf2634d9645e5a0eeafec72c120","translations":"cbf0cfa40222357b1fd39e47f8287771","media":131,"theme":"1.0.1793143275","plugin":"1.0.1793143275"}
+after:  {"pages":"7c0988c1fd26a59272a976f45336371c","n_pages":25,"n_templates":34,"rooms":14,"kit":"b5e3df2633f8af1ba3ca2195a71b68bd","hotel":"c279d3a7cf038666215982a0375319c2","menus":"6d6b4f2bdb8bb3f963e6934d906296e7","translations":"19f9557307f0198d66f3cac2e9a9b439","media":115,"theme":"1.0.1793150507","plugin":"1.0.1793150507"}
 PASS pages  
 PASS n_pages  
 PASS n_templates  
@@ -15,9 +15,9 @@ PASS hotel
 PASS menus  
 PASS translations  
 PASS media  
-PASS theme 1.0.1793143261 → 1.0.1793143275
-PASS plugin 1.0.1793143261 → 1.0.1793143275
+PASS theme 1.0.0 → 1.0.1793150507
+PASS plugin 1.0.0 → 1.0.1793150507
 [seed] settings left untouched (already seeded)
-[seed] template library: 31 created/refreshed, 0 left untouched (edited)
+[seed] template library: 33 created/refreshed, 0 left untouched (edited)
 [seed] NOTE — left untouched: page home/en (#83) was edited in Elementor
 PASS seeder re-run left edited pages, settings, menus and rooms untouched

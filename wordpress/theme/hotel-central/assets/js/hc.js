@@ -97,6 +97,7 @@
       if (!dark && m && (m[4] === undefined || +m[4] > 0.5)) dark = (0.2126 * m[1] + 0.7152 * m[2] + 0.0722 * m[3]) / 255 < 0.45;
       return !dark;
     })();
+    if (forced) root.classList.add('hc-solid-start'); // content of a page without a hero starts below the bar
     function solid() { header.classList.toggle('is-solid', (forced || scrollY > 40) && !open); }
     function set(v) {
       open = v; menu.classList.toggle('is-open', v); header.classList.toggle('menu-open', v); btn.classList.toggle('menu-open', v);

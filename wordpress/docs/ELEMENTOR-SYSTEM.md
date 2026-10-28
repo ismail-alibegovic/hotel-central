@@ -8,7 +8,7 @@
 * **Seeded vs. new elements:** elements created by the seeder/templates carry the marker classes `hc-c` / `hc-w` and own their spacing and typography (pixel parity with the Next.js site); anything an editor adds has no marker and uses the Kit.
 
 ## Saved-template library (Elementor → Templates → Saved Templates, "HC · …"; `scripts/lib/templates.php`)
-Page hero · Homepage hero with booking bar · Editorial split ×7 (light/deep/olive, photo left/right, with facts) · Fact table · Large statement · Photo gallery ×3 · Text band + button ×2 · Booking call-to-action · Map + arrival list · Map + text (Elementor Google Maps, any address) · Contact details + form · Rooms list · Rooms carousel · Offers grid · four homepage "artboard" compositions · 3 full-page templates (landing, content, starter). Inserted from the editor's folder icon → *Templates*. The seeder refreshes a template only if nobody edited it.
+Page hero · Price list · Opening hours · Homepage hero with booking bar · Editorial split ×7 (light/deep/olive, photo left/right, with facts) · Fact table · Large statement · Photo gallery ×3 · Text band + button ×2 · Booking call-to-action · Map + arrival list · Map + text (Elementor Google Maps, any address) · Contact details + form · Rooms list · Rooms carousel · Offers grid · four homepage "artboard" compositions · 3 full-page templates (landing, content, starter). Inserted from the editor's folder icon → *Templates*. The seeder refreshes a template only if nobody edited it.
 
 ## Native Elementor vs. custom
 | Native Elementor Free (editable in the editor) | Custom (needs code; kept only because it is functional) |

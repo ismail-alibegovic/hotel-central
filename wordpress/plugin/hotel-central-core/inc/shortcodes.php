@@ -117,7 +117,7 @@ add_shortcode('hc_room_list', function () {
     foreach ($rooms as $i => $r) {
         $flip = $i % 2 === 1; $im = $r['images'][0] ?? null;
         $o .= '<article class="' . ($flip ? 'flip' : '') . '"><a class="m" href="' . esc_url($r['url']) . '" aria-label="' . esc_attr($r['name']) . '">' . ($im ? hc_photo($im['id'], $im['alt'], $im['pos'], '', 'up', 3) : '') . '</a>';
-        $o .= '<div class="t"><div class="top hc-label"><span style="font-variant-numeric:tabular-nums">(' . hc_pad($i + 1) . ')</span><span>' . esc_html($r['size_label']) . '</span></div><div class="mid">';
+        $o .= '<div class="t"><div class="top hc-label"><span style="font-variant-numeric:tabular-nums">(' . hc_pad($i + 1) . ')</span><span>' . esc_html($r['size_label']) . '</span>' . ($r['price'] ? '<span class="hc-room-price">' . esc_html($r['price']) . '</span>' : '') . '</div><div class="mid">';
         $o .= '<p class="feat">' . esc_html($r['feature']) . '</p>';
         $o .= '<h2 class="hc-lines hc-fit" data-fit="84,13" data-hc-link="' . esc_url($r['url']) . '"><a href="' . esc_url($r['url']) . '">' . implode('<br>', array_map('esc_html', $r['title_lines'])) . '</a></h2>';
         $o .= '<p class="sum hc-body hc-fade">' . esc_html($r['summary']) . '</p></div>';
@@ -171,6 +171,15 @@ add_shortcode('hc_contact_form', function () {
     <?php return ob_get_clean();
 });
 
+function hc_offer_meta_html($p) {
+    $pr = get_post_meta($p->ID, 'hc_offer_price', true); $v = get_post_meta($p->ID, 'hc_offer_valid', true);
+    return ($pr || $v) ? '<p class="hc-label hc-offer__meta">' . ($pr ? '<span class="pr">' . esc_html($pr) . '</span>' : '') . ($v ? '<span class="va">' . esc_html($v) . '</span>' : '') . '</p>' : '';
+}
+function hc_offer_button_html($p) {
+    $t = get_post_meta($p->ID, 'hc_offer_button', true); if (!$t) return '';
+    $l = get_post_meta($p->ID, 'hc_offer_link', true) ?: hc_info('booking_url'); $ext = strpos($l, home_url()) !== 0;
+    return '<p><a class="hc-pill hc-pill-dark" href="' . esc_url($l) . '"' . ($ext ? ' target="_blank" rel="noopener noreferrer"' : '') . '><span>' . esc_html($t) . '</span></a></p>';
+}
 /* ───────── [hc_offers] — offers custom post type as cards ───────── */
 add_shortcode('hc_offers', function ($a) {
     $a = shortcode_atts(['limit' => 6], $a);
@@ -179,7 +188,7 @@ add_shortcode('hc_offers', function ($a) {
     $posts = get_posts($args); if (!$posts) return '';
     $o = '<div class="hc-offers__g">';
     foreach ($posts as $p) {
-        $o .= '<article class="hc-offer">' . (has_post_thumbnail($p) ? hc_photo(get_post_thumbnail_id($p), $p->post_title, '50% 50%', '', 'up') : '') . '<h3>' . esc_html($p->post_title) . '</h3><div class="hc-body">' . wp_kses_post(wpautop($p->post_excerpt ?: $p->post_content)) . '</div></article>';
+        $o .= '<article class="hc-offer">' . (has_post_thumbnail($p) ? hc_photo(get_post_thumbnail_id($p), $p->post_title, '50% 50%', '', 'up') : '') . '<h3>' . esc_html($p->post_title) . '</h3>' . hc_offer_meta_html($p) . '<div class="hc-body">' . wp_kses_post(wpautop($p->post_excerpt ?: $p->post_content)) . '</div>' . hc_offer_button_html($p) . '</article>';
     }
     return $o . '</div>';
 });
@@ -189,7 +198,9 @@ add_shortcode('hc_deco', function ($a) { $a = shortcode_atts(['variant' => 'hote
 
 /* ───────── [hc_hours] — opening hours from Hotel Information → Opening hours ───────── */
 add_shortcode('hc_hours', function () {
-    $rows = ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_restaurant' => 'Restaurant', 'hours_spa' => 'Club & Spa', 'hours_checkin' => 'Check-in / check-out'];
+    $bs = hc_lang() === 'bs';
+    $rows = $bs ? ['hours_reception' => 'Recepcija', 'hours_breakfast' => 'Doručak', 'hours_restaurant' => 'Restoran', 'hours_spa' => 'Klub i spa', 'hours_checkin' => 'Prijava / odjava']
+        : ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_restaurant' => 'Restaurant', 'hours_spa' => 'Club & Spa', 'hours_checkin' => 'Check-in / check-out'];
     $o = '';
     foreach ($rows as $k => $label) if (hc_info($k)) $o .= '<div class="row"><span class="k hc-label">' . esc_html($label) . '</span><span class="v hc-label">' . esc_html(hc_info($k)) . '</span></div>';
     return $o ? '<div class="hc-kv hc-label is-dark">' . $o . '</div>' : '';

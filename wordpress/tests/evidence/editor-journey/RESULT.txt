@@ -1,7 +1,7 @@
 ── Step 1: Edit the homepage text
 PASS 1 homepage text edited in Elementor and live
 ── Step 2: Replace a photograph
-PASS 2 photograph replaced from the media library and live — http://localhost:8090/wp-content/uploads/2026/10/new-photo-5.jpg
+PASS 2 photograph replaced from the media library and live — http://localhost:8090/wp-content/uploads/2026/10/new-photo-1.jpg
 PASS 2b new image file is served (HTTP 200)
 PASS 2c the previous photograph still exists in the media library
 ── Step 3: Add a new section
@@ -15,7 +15,7 @@ PASS 4 section duplicated (appears twice) — 2
   drag from {"x":937.5,"y":1272.546875,"width":25,"height":24} to {"x":300,"y":157.703125,"width":1300,"height":1113.84375}
 PASS 5 section order changed by dragging and saved — hc-s-hotel,hc-rc-w,hc-s-spa,hc-s-rest,hc-s-loc,Spring escape,hc-s-ev → hc-s-hotel,hc-s-spa,hc-rc-w,hc-s-rest,hc-s-loc,Spring escape,hc-s-ev
 ── Step 6: Create a landing page from scratch and insert saved templates
-PASS 6 new page created in WordPress admin — post 1143
+PASS 6 new page created in WordPress admin — post 2633
 PASS 7 three saved templates inserted and customised, page published — http://localhost:8090/en/weekend-in-sarajevo/
 PASS 7b the landing page uses the site chrome (header, footer, menu)
 ── Step 8: Change a responsive layout setting
@@ -42,7 +42,7 @@ PASS 12 phone and e-mail changed once and updated in header menu, footer, contac
 PASS 12b the Booking engine settings are closed to editors
 ── Step 13: Restore an earlier version of a page from Elementor history
 PASS 13a a wrong edit was published
-PASS 13b revisions are listed — 8 revisions
+PASS 13b revisions are listed — 9 revisions
 PASS 13b2 an earlier revision shows the previous title in the editor preview — revision #2
 PASS 13c the previous version is back on the live page
 PASS no JavaScript errors during the whole journey — Transition was aborted because of invalid state. ViewTransition opt-in disabled | Cannot read properties of undefined (reading 'isDesignable')

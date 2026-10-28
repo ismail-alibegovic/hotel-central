@@ -32,6 +32,7 @@ function hc_room_fields() {
         'hc_room_type_id' => ['Booking-engine room type ID', 'text', 'The eZee room type id used for the room-specific "Check availability" link.'],
         'hc_size_m2' => ['Size (m²)', 'number', ''],
         'hc_size_label' => ['Size label', 'text', 'e.g. "Room size 26 m²" / "Veličina sobe 26 m²"'],
+        'hc_price' => ['Price (optional)', 'text', 'Shown on the room page and in the rooms list when filled in, e.g. "from 95 € per night" / "od 95 € po noći". Leave empty to hide.'],
         'hc_title_lines' => ['Display title (one line per row)', 'textarea', 'The serif title broken into editorial lines, e.g. "Standard" then "Twin/Double".'],
         'hc_feature' => ['Defining feature', 'text', 'Short line set in grotesk above the title.'],
         'hc_description' => ['Description (one paragraph per line)', 'textarea', ''],
@@ -59,9 +60,19 @@ function hc_room($p) {
     foreach ($ids as $i => $a) $imgs[] = ['id' => $a, 'alt' => get_post_meta($a, '_wp_attachment_image_alt', true) ?: $p->post_title, 'pos' => $pos[$i] ?? '50% 50%'];
     return [
         'id' => $id, 'slug' => $p->post_name, 'name' => $p->post_title, 'url' => get_permalink($id), 'summary' => $p->post_excerpt,
-        'type_id' => get_post_meta($id, 'hc_room_type_id', true), 'size_m2' => get_post_meta($id, 'hc_size_m2', true), 'size_label' => get_post_meta($id, 'hc_size_label', true),
+        'type_id' => get_post_meta($id, 'hc_room_type_id', true), 'size_m2' => get_post_meta($id, 'hc_size_m2', true), 'size_label' => get_post_meta($id, 'hc_size_label', true), 'price' => get_post_meta($id, 'hc_price', true),
         'title_lines' => hc_lines_list(get_post_meta($id, 'hc_title_lines', true)) ?: [$p->post_title], 'feature' => get_post_meta($id, 'hc_feature', true),
         'description' => hc_lines_list(get_post_meta($id, 'hc_description', true)), 'highlights' => hc_lines_list(get_post_meta($id, 'hc_highlights', true)),
         'amenities' => hc_lines_list(get_post_meta($id, 'hc_amenities', true)), 'images' => $imgs,
+    ];
+}
+
+/** Offer details: price, validity and button. */
+function hc_offer_fields() {
+    return [
+        'hc_offer_price' => ['Price', 'text', 'e.g. "from 240 € for 3 nights" / "od 240 € za 3 noći". Leave empty to hide.'],
+        'hc_offer_valid' => ['Valid', 'text', 'e.g. "1 March – 30 June 2027" / "1. mart – 30. juni 2027."'],
+        'hc_offer_button' => ['Button text', 'text', 'e.g. "Book this offer". Leave empty for no button.'],
+        'hc_offer_link' => ['Button link', 'url', 'Full address or leave empty to use the booking page.'],
     ];
 }

@@ -13,6 +13,7 @@ Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under 
 - [x] Performance: Elementor front-end JS dequeued on the public site; results in docs/VERIFICATION.md
 
 - [x] **Complete Elementor Free editing system (this session)**: Kit design system, 31-template library, editor admin hardening (Hotel Information split, room-type lock, Create-BS-copy, Main menu box), full 14-step Editor journey in a real browser incl. theme-update persistence — docs/EDITING.md, docs/ELEMENTOR-SYSTEM.md, docs/VERIFICATION.md
+- [x] **Client acceptance audit (15 requirements)**: 14 PASS, 1 PARTIAL (external SMTP) — docs/CLIENT_ACCEPTANCE.md, Bosnian guide docs/UPUTSTVO.md, training plan docs/TRAINING.md, tests/acceptance-all.sh (65/65)
 
 ## Open
 - Offers section has no sample content (post type + `[hc_offers]` exist)

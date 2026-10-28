@@ -97,6 +97,12 @@ $importImage = function ($file, $alt = '') use ($IMG_DIR, $say) {
     return $cache[$key] = $alias;
 };
 
+// earlier versions of the template library created alias attachments / library alt texts reading "Replace this photograph": remove them (rows only — the files belong to the original attachments)
+$bad = $wpdb->get_col("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_hc_alias' AND meta_value LIKE '%|Replace this photograph'");
+foreach ($bad as $aid) { $wpdb->delete($wpdb->postmeta, ['post_id' => $aid]); $wpdb->delete($wpdb->posts, ['ID' => $aid]); clean_post_cache($aid); }
+$wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_key='_wp_attachment_image_alt' AND meta_value='Replace this photograph'");
+if ($bad) $say('removed ' . count($bad) . ' placeholder alias attachments');
+
 $GLOBALS['hc_slugs'] = [];
 function hc_is_new() { return $GLOBALS['hc_last_new']; }
 function hc_upsert_post($type, $slug, $lang, $args, $key) {

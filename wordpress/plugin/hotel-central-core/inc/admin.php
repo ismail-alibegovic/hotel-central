@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 
 add_action('add_meta_boxes', function () {
     add_meta_box('hc_room', 'Room details', 'hc_room_box', 'hc_room', 'normal', 'high');
+    add_meta_box('hc_offer', 'Offer details', 'hc_offer_box', 'hc_offer', 'normal', 'high');
     foreach (['page', 'hc_room', 'hc_offer'] as $pt) add_meta_box('hc_seo', 'Search engines & sharing', 'hc_seo_box', $pt, 'normal', 'default');
 });
 add_action('init', function () { add_post_type_support('page', 'excerpt'); });
@@ -32,12 +33,24 @@ add_action('save_post_hc_room', function ($id) {
     foreach (hc_room_fields() as $k => [$l, $type]) if (isset($_POST[$k]) && ($k !== 'hc_room_type_id' || current_user_can('manage_options'))) update_post_meta($id, $k, $type === 'textarea' ? sanitize_textarea_field(wp_unslash($_POST[$k])) : sanitize_text_field(wp_unslash($_POST[$k])));
 });
 
+function hc_offer_box($post) {
+    wp_nonce_field('hc_offer', 'hc_offer_n'); echo '<table class="form-table">';
+    foreach (hc_offer_fields() as $k => [$label, $type, $help]) printf('<tr><th><label for="%1$s">%2$s</label></th><td><input class="large-text" type="%3$s" id="%1$s" name="%1$s" value="%4$s"><p class="description">%5$s</p></td></tr>', esc_attr($k), esc_html($label), esc_attr($type), esc_attr(get_post_meta($post->ID, $k, true)), esc_html($help));
+    echo '</table><p class="description">Title = offer name; the Excerpt = short description shown on the cards; Featured image (right) = photograph.</p>';
+}
+add_action('save_post_hc_offer', function ($id) {
+    if (!isset($_POST['hc_offer_n']) || !wp_verify_nonce($_POST['hc_offer_n'], 'hc_offer') || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || !current_user_can('edit_post', $id)) return;
+    foreach (hc_offer_fields() as $k => [$l, $type]) if (isset($_POST[$k])) update_post_meta($id, $k, $type === 'url' ? esc_url_raw(wp_unslash($_POST[$k])) : sanitize_text_field(wp_unslash($_POST[$k])));
+});
+
 function hc_seo_box($post) {
     wp_nonce_field('hc_seo', 'hc_seo_n');
     $t = get_post_meta($post->ID, '_hc_seo_title', true); $d = get_post_meta($post->ID, '_hc_seo_desc', true); $i = get_post_meta($post->ID, '_hc_seo_image', true);
     echo '<p><label>Page title (browser tab & search results)<br><input class="large-text" name="_hc_seo_title" value="' . esc_attr($t) . '"></label></p>';
     echo '<p><label>Description (search results & link previews; the Excerpt is used when empty)<br><textarea class="large-text" rows="2" name="_hc_seo_desc">' . esc_textarea($d) . '</textarea></label></p>';
-    echo '<p><label>Sharing image (media ID, optional)<br><input type="number" name="_hc_seo_image" value="' . esc_attr($i) . '"></label></p>';
+    echo '<p>Sharing image (optional)<br><input type="hidden" id="hc_seo_image" name="_hc_seo_image" value="' . esc_attr($i) . '"><span id="hc_seo_thumb">' . ($i ? wp_get_attachment_image((int) $i, [120, 80]) : '') . '</span> <button type="button" class="button" id="hc_seo_pick">Choose image…</button> <button type="button" class="button-link" id="hc_seo_clear">remove</button></p>';
+    echo '<p class="description">Picture alt texts (for search engines and screen readers) are edited in Media → Library → click the picture → "Alternative Text". The address (URL slug) is in the page\'s Permalink / Quick Edit.</p>';
+    echo '<script>jQuery(function($){var f;$("#hc_seo_pick").on("click",function(e){e.preventDefault();f=f||wp.media({title:"Sharing image",multiple:false,library:{type:"image"}});f.off("select").on("select",function(){var a=f.state().get("selection").first().toJSON();$("#hc_seo_image").val(a.id);$("#hc_seo_thumb").html("<img src=\""+(a.sizes&&a.sizes.thumbnail?a.sizes.thumbnail.url:a.url)+"\" style=\"max-width:120px;height:auto\">")});f.open()});$("#hc_seo_clear").on("click",function(){$("#hc_seo_image").val("");$("#hc_seo_thumb").empty()})});</script>';
 }
 add_action('save_post', function ($id) {
     if (!isset($_POST['hc_seo_n']) || !wp_verify_nonce($_POST['hc_seo_n'], 'hc_seo') || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || !current_user_can('edit_post', $id)) return;
@@ -66,6 +79,29 @@ add_action('admin_menu', function () {
     // editors get Menus only: no theme customiser, widgets or editor screens
     remove_submenu_page('themes.php', 'customize.php'); remove_submenu_page('themes.php', 'themes.php'); remove_submenu_page('themes.php', 'widgets.php');
 }, 999);
+add_action('admin_menu', function () { // runs last: whatever WordPress, the theme or Elementor added, an Editor keeps Appearance → Menus only
+    if (current_user_can('manage_options')) return;
+    global $submenu;
+    if (!empty($submenu['themes.php'])) $submenu['themes.php'] = array_values(array_filter($submenu['themes.php'], function ($i) { return $i[2] === 'nav-menus.php'; }));
+    remove_menu_page('tools.php'); remove_menu_page('edit-comments.php');
+}, PHP_INT_MAX);
+add_action('admin_init', function () {
+    global $pagenow; if (current_user_can('manage_options')) return;
+    if (in_array($pagenow, ['themes.php', 'customize.php', 'widgets.php', 'site-editor.php'], true) && !isset($_GET['page'])) { wp_safe_redirect(admin_url('nav-menus.php')); exit; }
+});
+add_action('admin_head', function () {
+    if (current_user_can('manage_options')) return;
+    echo '<style>#adminmenu a[href*="page=elementor-app"]{display:none!important}</style>'; // Elementor Pro promotion page (Theme Builder is not part of the free version)
+});
+/* "Additional CSS" is code: Editors cannot add it. */
+add_filter('map_meta_cap', function ($caps, $cap) { return $cap === 'edit_css' && !current_user_can('manage_options') ? ['do_not_allow'] : $caps; }, 10, 2);
+/* Site-wide design is administrator-only: the Elementor Site Settings (global colours, fonts, spacing, breakpoints) restyle every page.
+   Editors keep full page editing and the saved templates but cannot change the Kit. Define HC_EDITORS_MAY_EDIT_DESIGN as true in wp-config.php to lift this. */
+add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
+    if (!in_array($cap, ['edit_post', 'delete_post', 'publish_post', 'edit_page', 'delete_page'], true) || empty($args[0])) return $caps;
+    if ((defined('HC_EDITORS_MAY_EDIT_DESIGN') && HC_EDITORS_MAY_EDIT_DESIGN) || (int) $args[0] !== (int) get_option('elementor_active_kit')) return $caps;
+    return user_can($user_id, 'manage_options') ? $caps : ['do_not_allow'];
+}, 10, 4);
 
 /* ───────── "Show in main menu" box on pages ───────── */
 function hc_primary_menu_id($lang) {
@@ -135,7 +171,7 @@ add_action('admin_post_hc_copy_translation', function () {
     $have = pll_get_post_translations($id);
     if (isset($have[$lang])) { wp_safe_redirect(get_edit_post_link($have[$lang], 'raw')); exit; }
     global $wpdb;
-    $new = wp_insert_post(['post_type' => $src->post_type, 'post_status' => 'draft', 'post_title' => $src->post_title, 'post_excerpt' => $src->post_excerpt, 'post_content' => $src->post_content, 'menu_order' => $src->menu_order, 'post_name' => $src->post_name, 'post_parent' => 0]);
+    $new = wp_insert_post(['post_type' => $src->post_type, 'post_status' => 'draft', 'post_title' => $src->post_title, 'post_excerpt' => $src->post_excerpt, 'post_content' => $src->post_content, 'menu_order' => $src->menu_order, 'post_name' => $src->post_name, 'post_parent' => ($src->post_parent && function_exists('pll_get_post') ? (int) pll_get_post($src->post_parent, $lang) : 0)]);
     if (is_wp_error($new) || !$new) wp_die('Could not create the copy.');
     pll_set_post_language($new, $lang);
     foreach ($wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=%d", $id)) as $m) {
@@ -148,3 +184,7 @@ add_action('admin_post_hc_copy_translation', function () {
     $to = get_post_meta($new, '_elementor_edit_mode', true) === 'builder' ? admin_url('post.php?post=' . $new . '&action=elementor') : get_edit_post_link($new, 'raw');
     wp_safe_redirect($to); exit;
 });
+
+/* Pages are built in Elementor; the WordPress block editor adds nothing for them. The classic screen keeps the boxes editors need
+   (permalink, Parent, Language, Search engines & sharing, Main menu) in plain sight instead of a collapsed "Meta Boxes" bar. */
+add_filter('use_block_editor_for_post_type', function ($use, $type) { return $type === 'page' ? false : $use; }, 10, 2);

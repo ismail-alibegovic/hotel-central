@@ -109,12 +109,8 @@ async function main() {
 
   /* 6+7 ─ new landing page from an empty canvas, built from the template library */
   step(6, 'Create a landing page from scratch and insert saved templates', async () => {
-    await p.goto(base + '/wp-admin/post-new.php?post_type=page&new_lang=en'); await p.waitForTimeout(3000);
-    const close = p.locator('button[aria-label="Close"]'); if (await close.first().isVisible().catch(() => false)) await close.first().click().catch(() => {});
-    const frame = p.frameLocator('iframe[name="editor-canvas"]'); const title = (await frame.locator('h1[aria-label="Add title"], .wp-block-post-title').count()) ? frame.locator('h1[aria-label="Add title"], .wp-block-post-title').first() : p.locator('#title');
-    await title.click(); await p.keyboard.type('Weekend in Sarajevo'); await p.waitForTimeout(500);
-    await p.getByRole('button', { name: /Save draft/ }).click().catch(() => {}); await p.waitForTimeout(2500);
-    st.landingId = Number(new URL(p.url()).searchParams.get('post')) || Number((await p.evaluate(() => wp.data.select('core/editor').getCurrentPostId())));
+    await p.goto(base + '/wp-admin/post-new.php?post_type=page&new_lang=en'); await p.fill('#title', 'Weekend in Sarajevo'); await p.locator('#save-post').click(); await p.waitForLoadState(); await p.waitForTimeout(1500);
+    st.landingId = Number(new URL(p.url()).searchParams.get('post'));
     ok('6 new page created in WordPress admin', st.landingId > 0, 'post ' + st.landingId); save();
     await p.goto(`${base}/wp-admin/post.php?post=${st.landingId}&action=elementor`); await p.waitForSelector('#elementor-panel', { timeout: 120000 }); await p.waitForTimeout(5000); await E.closeNavigator(p);
     const f = p.frameLocator('#elementor-preview-iframe'); await shot('06-empty-canvas');
@@ -187,7 +183,7 @@ async function main() {
     // English: the "Main menu" box on the page screen; Bosnian: Appearance → Menus
     await p.goto(`${base}/wp-admin/post.php?post=${st.landingId}&action=edit`); await p.waitForTimeout(3500);
     const wel = p.locator('button[aria-label="Close"]'); if (await wel.first().isVisible().catch(() => false)) await wel.first().click().catch(() => {});
-    const cb = p.locator('input[name=hc_nav_on]'); await cb.scrollIntoViewIfNeeded(); await cb.check(); await p.locator('input[name=hc_nav_label]').fill('Weekend'); await p.getByRole('button', { name: /^(Update|Save)$/ }).first().click(); await p.waitForTimeout(3500);
+    const cb = p.locator('input[name=hc_nav_on]'); await cb.scrollIntoViewIfNeeded(); await cb.check(); await p.locator('input[name=hc_nav_label]').fill('Weekend'); await p.locator('#publish').click(); await p.waitForTimeout(3500);
     await p.goto(base + '/wp-admin/nav-menus.php'); await p.waitForTimeout(2000);
     // pick the Bosnian menu
     const sel = p.locator('#select-menu-to-edit'); const opts = await sel.locator('option').allTextContents(); const bsOpt = opts.find((o) => /BS/.test(o)); await sel.selectOption({ label: bsOpt }); await p.getByRole('button', { name: 'Select' }).click().catch(() => {}); await p.waitForTimeout(2500);

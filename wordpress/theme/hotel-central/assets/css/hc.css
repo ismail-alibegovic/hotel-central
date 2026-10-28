@@ -636,7 +636,7 @@ html.menu-lock{overflow:hidden}
 .hc-factsec{padding:64px var(--gutter)}
 @media(min-width:1024px){.hc-factsec{padding-block:6vw}}
 .hc-factsec .g{display:grid;gap:40px}
-@media(min-width:1024px){.hc-factsec .g{grid-template-columns:repeat(12,1fr);column-gap:2vw}.hc-factsec .g>:first-child{grid-column:span 3}.hc-factsec .g>:last-child{grid-column:5/span 6}}
+@media(min-width:1024px){.hc-factsec .g{grid-template-columns:repeat(12,1fr);column-gap:2vw}.hc-factsec .g>.elementor-element:where(:not(.elementor-element~.elementor-element)){grid-column:span 3}.hc-factsec .g>.elementor-element:where(:not(:has(~.elementor-element))){grid-column:5/span 6}.hc-factsec:where(:not(.e-con)) .g>:first-child{grid-column:span 3}.hc-factsec:where(:not(.e-con)) .g>:last-child{grid-column:5/span 6}}
 .hc-statement{padding:80px var(--gutter);text-align:center}
 @media(min-width:1024px){.hc-statement{padding-block:8vw}}
 .hc-statement .hc-label{margin-bottom:32px}
@@ -645,7 +645,8 @@ html.menu-lock{overflow:hidden}
 .hc-gallery{padding:64px var(--gutter)}
 @media(min-width:1024px){.hc-gallery{padding-block:6vw}}
 .hc-gallery .g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.hc-gallery .g>*:first-child{grid-column:span 2;aspect-ratio:4/5}
+.hc-gallery .g>.elementor-element:where(:not(.elementor-element~.elementor-element)){grid-column:span 2;aspect-ratio:4/5}
+.hc-gallery:where(:not(.e-con)) .g>*:first-child{grid-column:span 2;aspect-ratio:4/5}
 .hc-gallery .g>*:nth-child(2){aspect-ratio:3/4}
 .hc-gallery .g>*:nth-child(3){aspect-ratio:4/3}
 .hc-gallery .g>*:nth-child(4){aspect-ratio:4/3}
@@ -667,7 +668,7 @@ html.menu-lock{overflow:hidden}
 @media(min-width:1024px){.hc-arrival>.hc-deco,.hc-contact>.hc-deco{display:block}}
 .hc-arrival__g,.hc-contact__g{position:relative;z-index:1;display:grid;gap:48px}
 @media(min-width:1024px){.hc-arrival__g,.hc-contact__g{grid-template-columns:repeat(12,1fr);column-gap:2vw}}
-@media(min-width:1024px){.hc-arrival__g>:first-child{grid-column:span 7}.hc-arrival__g>:last-child{grid-column:9/span 4}}
+@media(min-width:1024px){.hc-arrival__g>.elementor-element:where(:not(.elementor-element~.elementor-element)){grid-column:span 7}.hc-arrival__g>.elementor-element:where(:not(:has(~.elementor-element))){grid-column:9/span 4}.hc-arrival__g:where(:not(.e-con))>:first-child{grid-column:span 7}.hc-arrival__g:where(:not(.e-con))>:last-child{grid-column:9/span 4}}
 .hc-arrival .hc-mapbox{aspect-ratio:4/3;box-shadow:0 0 0 1px rgb(2 13 16/.15)}
 @media(min-width:1024px){.hc-arrival .hc-mapbox{aspect-ratio:16/11}}
 .hc-arrival__bar{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;margin-top:24px}
@@ -681,7 +682,7 @@ html.menu-lock{overflow:hidden}
 .hc-contact__list .hc-body{margin:8px 0 12px}
 .hc-contact__list a.hc-link-line{display:inline-flex;gap:12px;align-items:center}
 .hc-contact address{margin-top:32px;line-height:1.8}
-@media(min-width:1024px){.hc-contact__g>:first-child{grid-column:span 4}.hc-contact__g>:last-child{grid-column:6/span 7}}
+@media(min-width:1024px){.hc-contact__g>.elementor-element:where(:not(.elementor-element~.elementor-element)){grid-column:span 4}.hc-contact__g>.elementor-element:where(:not(:has(~.elementor-element))){grid-column:6/span 7}.hc-contact__g:where(:not(.e-con))>:first-child{grid-column:span 4}.hc-contact__g:where(:not(.e-con))>:last-child{grid-column:6/span 7}}
 .hc-contact h2{font-family:var(--font-display);text-transform:uppercase;font-weight:400;font-size:11vw;line-height:.9;margin:0 0 40px}
 @media(min-width:1024px){.hc-contact h2{font-size:4.4vw}}
 
@@ -936,3 +937,15 @@ html.menu-lock{overflow:hidden}
 .hc-offers .hc-title{font-size:var(--fs-m,11vw);line-height:.9}
 @media(min-width:1024px){.hc-offers .hc-title{font-size:5vw}}
 .hc .hc-mapsec__g>.elementor-widget,.hc .hc-mapsec__g .hc-map-w{width:100%}
+
+/* optional prices (rooms, offers) — rendered only when an editor fills them in */
+.hc-room-price{opacity:.85}.hc-room-price--detail{margin:0 0 24px}
+.hc-offer__meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 14px}.hc-offer__meta .pr{opacity:1}.hc-offer__meta .va{opacity:.6}
+
+/* sub-pages in the full-screen menu (only present when an editor nests items in Appearance → Menus) */
+.hc-menu nav .hc-sub{display:flex;flex-wrap:wrap;gap:6px 22px;padding:2px 0 1.2vh 0}
+@media(min-width:640px){.hc-menu nav .hc-sub{padding-left:48px}}@media(min-width:1024px){.hc-menu nav .hc-sub{padding-left:60px}}
+.hc-menu nav .hc-sub a{opacity:.7}
+
+.hc-solid-start .hc-page .elementor>.e-con:where(:not(.e-con~.e-con)){margin-top:var(--header-h)}
+

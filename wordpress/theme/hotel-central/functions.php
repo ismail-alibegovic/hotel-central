@@ -5,7 +5,7 @@ add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('html5', ['search-form', 'gallery', 'caption', 'style', 'script']);
-    register_nav_menus(['primary' => 'Main menu (full-screen)']);
+    register_nav_menus(['primary' => 'Main menu (full-screen)', 'footer' => 'Footer links (optional)']);
     remove_action('wp_head', 'print_emoji_detection_script', 7);
     remove_action('wp_print_styles', 'print_emoji_styles');
 });
@@ -32,13 +32,20 @@ add_filter('wp_robots', function ($r) { return $r; });
 
 /** Main-menu items for the current language: the Menus screen if set up, else the built-in list. */
 function hc_menu_items() {
-    $items = [];
-    $locs = get_nav_menu_locations();
+    $items = []; $locs = get_nav_menu_locations();
     if (!empty($locs['primary'])) {
-        foreach ((array) wp_get_nav_menu_items($locs['primary']) as $m) if ((int) $m->menu_item_parent === 0) $items[] = ['href' => $m->url, 'label' => $m->title];
+        $all = (array) wp_get_nav_menu_items($locs['primary']); $kids = [];
+        foreach ($all as $m) if ((int) $m->menu_item_parent) $kids[(int) $m->menu_item_parent][] = ['href' => $m->url, 'label' => $m->title];
+        foreach ($all as $m) if ((int) $m->menu_item_parent === 0) $items[] = ['href' => $m->url, 'label' => $m->title, 'children' => $kids[(int) $m->ID] ?? []];
     }
     if (!$items) foreach (hc_dict()['nav']['items'] as $it) $items[] = ['href' => hc_url($it['href']), 'label' => $it['label']];
     return $items;
+}
+/** Footer "Explore" list: the Footer links menu of the current language when one is assigned, otherwise the main menu. */
+function hc_footer_items() {
+    $locs = get_nav_menu_locations(); $items = [];
+    if (!empty($locs['footer'])) foreach ((array) wp_get_nav_menu_items($locs['footer']) as $m) if ((int) $m->menu_item_parent === 0) $items[] = ['href' => $m->url, 'label' => $m->title, 'blank' => in_array('hc-blank', (array) $m->classes, true) || $m->target === '_blank'];
+    return $items ?: hc_menu_items();
 }
 function hc_menu_key($href) {
     $p = trim((string) wp_parse_url($href, PHP_URL_PATH), '/');

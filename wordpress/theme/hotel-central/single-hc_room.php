@@ -16,6 +16,7 @@ while (have_posts()) : the_post();
       <p class="hc-label" style="margin-bottom:32px"><?php echo esc_html($r['name']); ?></p>
       <p class="big hc-lines hc-fit" data-fit="86,12"><?php echo implode('<br>', array_map('esc_html', $big)); ?></p>
       <div class="txt"><?php foreach ($r['description'] as $i => $p) echo '<p class="hc-body hc-fade' . ($i ? ' op-80' : '') . '" style="--d:' . ($i * .08) . 's">' . esc_html($p) . '</p>'; ?></div>
+      <?php if (!empty($r['price'])) echo '<p class="hc-label hc-room-price hc-room-price--detail">' . esc_html($r['price']) . '</p>'; ?>
       <div class="acts"><a class="hc-pill hc-pill-dark" href="<?php echo esc_url(hc_room_booking_url($r['type_id'])); ?>" target="_blank" rel="noopener noreferrer"><span><?php echo esc_html(hc_t('common.checkAvailability')); ?></span></a><a class="hc-label hc-link-line" href="<?php echo esc_url(hc_info('booking_url')); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html(hc_t('nav.book')); ?></a></div>
     </div>
     <div>

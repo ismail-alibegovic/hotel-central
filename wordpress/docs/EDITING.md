@@ -1,5 +1,7 @@
 # Hotel Central — editing guide (for hotel staff)
 
+> Bosanska verzija ovog uputstva: **UPUTSTVO.md**. Plan obuke: **TRAINING.md**.
+
 You need a WordPress account with the **Editor** role. Everything below is done in the browser; no code, no FTP.
 Log in at `/wp-admin/`. The language switch in the top admin bar ("All languages / English / Bosanski") only filters lists — **always check the Language box** (or use *Add new* while the filter shows the language you want) when you create something new.
 
@@ -12,7 +14,7 @@ Log in at `/wp-admin/`. The language switch in the top admin bar ("All languages
 
 ## 2. Sections: add, duplicate, move, delete
 * **Add:** click the **＋** between sections (or the grey *Add new container* area) → drag *Heading*, *Text Editor*, *Button*, *Image*, *Google Maps* … from the left panel.
-* **Add a ready-made section:** click the **folder icon** → tab **Templates** → search "HC" → *Insert*. There are 31 (see the list below). Replace text and photos, publish.
+* **Add a ready-made section:** click the **folder icon** → tab **Templates** → search "HC" → *Insert*. There are 33 (see the list below). Replace text and photos, publish.
 * **Duplicate:** right-click the section's small dotted handle (top-centre of the selected section) → *Duplicate*.
 * **Move:** drag the section's dotted handle up or down. (Or open *Structure* and drag there.)
 * **Delete:** right-click the handle → *Delete* (or select it and press Delete). Undo with Ctrl+Z.
