@@ -1,0 +1,6 @@
+<!-- @dsCard group="Forms" height=230 subtitle="Underline field with floating label; error state" -->
+<form class="tone-ivory" style="padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:24px 32px" onsubmit="return false">
+  <div class="cf"><input id="a" placeholder=" "><label for="a" class="label">Name</label></div>
+  <div class="cf"><input id="b" placeholder=" " value="guest@example.com"><label for="b" class="label">E-mail</label></div>
+  <div class="cf" style="grid-column:span 2"><input id="c" placeholder=" " aria-invalid="true" aria-describedby="c-err"><label for="c" class="label">Message</label><p id="c-err" class="err label-sm" role="alert">Please write a message</p></div>
+</form>

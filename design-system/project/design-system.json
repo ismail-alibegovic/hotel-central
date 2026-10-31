@@ -1,0 +1,186 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-31T18:20:00Z"
+ },
+ "title": "Hotel Central",
+ "namespace": "HotelCentral",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Logos",
+  "Lines",
+  "Photography"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "m",
+   "order": [
+    "hc-favicon.svg",
+    "hc-icon.svg",
+    "hc-wordmark-manager.svg"
+   ],
+   "files": {
+    "hc-favicon.svg": {
+     "name": "hc-favicon.svg",
+     "blob": "dccba5a5ba5df5e3fb2aadf941d92d42",
+     "size": 225,
+     "type": "image/svg+xml"
+    },
+    "hc-icon.svg": {
+     "name": "hc-icon.svg",
+     "blob": "8b084ced0e13616da3a95abcd70ff62c",
+     "size": 313,
+     "type": "image/svg+xml"
+    },
+    "hc-wordmark-manager.svg": {
+     "name": "hc-wordmark-manager.svg",
+     "blob": "e254d93ec050299033e3325d16b52b6c",
+     "size": 579,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Lines": {
+   "name": "Lines",
+   "tile": "l",
+   "order": [
+    "line-hotel.svg",
+    "line-rooms.svg",
+    "line-spa.svg",
+    "line-restaurant.svg",
+    "line-location.svg",
+    "line-footer.svg"
+   ],
+   "files": {
+    "line-hotel.svg": {
+     "name": "line-hotel.svg",
+     "blob": "10517f41f74e0362461870f73b728c6e",
+     "size": 392,
+     "type": "image/svg+xml"
+    },
+    "line-rooms.svg": {
+     "name": "line-rooms.svg",
+     "blob": "9b82f07b95bdb361c7ab9ade360367a7",
+     "size": 513,
+     "type": "image/svg+xml"
+    },
+    "line-spa.svg": {
+     "name": "line-spa.svg",
+     "blob": "3df0e2ca3407d087d4e358af63e4485f",
+     "size": 339,
+     "type": "image/svg+xml"
+    },
+    "line-restaurant.svg": {
+     "name": "line-restaurant.svg",
+     "blob": "9b89f5c645794bb4140b474b83950510",
+     "size": 336,
+     "type": "image/svg+xml"
+    },
+    "line-location.svg": {
+     "name": "line-location.svg",
+     "blob": "c2575622b0eb89a1223454da45b68f9d",
+     "size": 309,
+     "type": "image/svg+xml"
+    },
+    "line-footer.svg": {
+     "name": "line-footer.svg",
+     "blob": "b705980e91857e0010fdebb3111ce21a",
+     "size": 339,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Photography": {
+   "name": "Photography",
+   "tile": "l",
+   "order": [
+    "3075.jpg",
+    "3073.jpg",
+    "3069.jpg",
+    "3064.jpg",
+    "3067.jpg",
+    "hc-comfort-2.jpg",
+    "final-6202.jpg",
+    "final-6230.jpg",
+    "dorucak6.jpg",
+    "img_9216.jpg"
+   ],
+   "files": {
+    "3075.jpg": {
+     "name": "3075.jpg",
+     "blob": "8052a9f0117faed3b9c224e9a64a86c2",
+     "size": 571265,
+     "type": "image/jpeg"
+    },
+    "3073.jpg": {
+     "name": "3073.jpg",
+     "blob": "2fddade95969e3d39ebece8faad7a144",
+     "size": 727902,
+     "type": "image/jpeg"
+    },
+    "3069.jpg": {
+     "name": "3069.jpg",
+     "blob": "0e704fe93241869d63a55ffa99538328",
+     "size": 623899,
+     "type": "image/jpeg"
+    },
+    "3064.jpg": {
+     "name": "3064.jpg",
+     "blob": "23a2bf1b72b4cb37902cc28eb9bd6580",
+     "size": 616580,
+     "type": "image/jpeg"
+    },
+    "3067.jpg": {
+     "name": "3067.jpg",
+     "blob": "2c8110d6ef577da015f9c75ba5ce4456",
+     "size": 645188,
+     "type": "image/jpeg"
+    },
+    "hc-comfort-2.jpg": {
+     "name": "hc-comfort-2.jpg",
+     "blob": "1790601a73669fc508fa8b7f76e95714",
+     "size": 113624,
+     "type": "image/jpeg"
+    },
+    "final-6202.jpg": {
+     "name": "final-6202.jpg",
+     "blob": "8250d9617c76cc182066642eec44c5fd",
+     "size": 183667,
+     "type": "image/jpeg"
+    },
+    "final-6230.jpg": {
+     "name": "final-6230.jpg",
+     "blob": "956c6ae8ef35f14e54f62d1023d17cc6",
+     "size": 314433,
+     "type": "image/jpeg"
+    },
+    "dorucak6.jpg": {
+     "name": "dorucak6.jpg",
+     "blob": "755b512ae47376845680ee5509470d05",
+     "size": 138773,
+     "type": "image/jpeg"
+    },
+    "img_9216.jpg": {
+     "name": "img_9216.jpg",
+     "blob": "2eddd3ec233d6f20e07d47804c783250",
+     "size": 516277,
+     "type": "image/jpeg"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Ismail Alibegovic",
+  "at": "2026-10-31T18:20:00Z",
+  "via": "GitHub · ismail-alibegovic/hotel-central@9e652c8",
+  "note": "First sync: 22 colours (2 themes), 13 text styles, 10 spacing, 4 radii, 12 static component cards, 19 assets."
+ }
+}

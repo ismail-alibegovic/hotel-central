@@ -1,0 +1,37 @@
+<!-- @dsCard height=320 -->
+<div class="cv">
+  <svg class="art" viewBox="0 0 960 320" width="960" height="320" aria-hidden="true">
+    <!--
+      blocks: deep slab 288×320 (bleeds top/bottom/right), olive 144×184, sage pill 240×56 (rx = half the short side, radius-pill), theme-elevation-1000 square 96×96 (ink in light, ivory in dark)
+      arrangement: one tall slab with satellites, all right of x=480, square corners (radius-none) except the pill
+      pattern: literal motif, one hairline loop (DecorativeLine "footer" path) in sage; chosen because the README names the organic hairline loops as the brand's signature ornament
+      scales: offsets in 48px (gutter-max + 12) steps, 1px non-scaling stroke as in DecorativeLine, pill height 56 ≈ pill-height + touch-min band
+    -->
+    <defs><clipPath id="zone"><rect x="480" y="0" width="480" height="320"/></clipPath></defs>
+    <rect class="b-deep" x="672" y="0" width="288" height="320"/>
+    <rect class="b-olive" x="528" y="48" width="144" height="184"/>
+    <rect class="b-ink" x="816" y="48" width="96" height="96"/>
+    <rect class="b-sage pillr" x="576" y="232" width="240" height="56"/>
+    <g clip-path="url(#zone)">
+      <path class="loop" transform="translate(480 0) scale(0.468 0.5)" d="M-10 300 C 160 240, 300 360, 480 300 C 640 246, 700 120, 820 140 C 920 156, 920 260, 860 270 C 800 280, 790 200, 860 170 C 930 140, 990 150, 1040 170"/>
+    </g>
+  </svg>
+  <div class="txt">
+    <h1>Hotel<br>Central</h1>
+    <p>Editorial, photography-led, quiet. Sarajevo's old town in ivory and olive.</p>
+  </div>
+</div>
+<style>
+  html, body { margin: 0; }
+  .cv { position: relative; width: 960px; height: 320px; overflow: hidden; background: var(--theme-bg); color: var(--theme-text); }
+  .art { position: absolute; inset: 0; }
+  .b-deep { fill: var(--deep); }
+  .b-olive { fill: var(--olive); }
+  .b-sage { fill: var(--sage); }
+  .b-ink { fill: var(--theme-elevation-1000); }
+  .pillr { rx: 28px; }
+  .loop { fill: none; stroke: var(--sage); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .txt { position: absolute; left: 40px; bottom: 36px; max-width: 420px; }
+  .txt h1 { margin: 0; font-family: "Gilda Display", Didot, Georgia, serif; font-weight: 400; font-size: 108px; line-height: .95; letter-spacing: .005em; }
+  .txt p { margin: 14px 0 0; font-family: "Helvetica Neue", Helvetica, Inter, Arial, sans-serif; font-size: 13px; line-height: 1.5; color: var(--theme-elevation-800); }
+</style>
