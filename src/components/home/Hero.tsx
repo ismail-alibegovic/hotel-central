@@ -39,7 +39,7 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[55%_38%] [filter:saturate(0.8)_contrast(1.02)_brightness(0.96)]"
+            className="object-cover object-[55%_38%] [filter:saturate(0.45)_contrast(1.04)_brightness(0.9)_sepia(0.16)]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
@@ -65,15 +65,9 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             />
           </h1>
 
-          {/* CH-003: the booking search is a clearly framed panel with the site's one solid booking button. */}
-          <FadeIn immediate delay={1.0} className="relative z-[10] mt-9 w-full max-w-[560px] md:mt-[5.4vh] md:w-auto md:max-w-none">
-            <div className="rounded-[18px] border border-white/30 bg-deep/70 px-5 pb-5 pt-4 shadow-[0_30px_80px_-30px_rgba(2,13,16,0.7)] backdrop-blur-md md:rounded-full md:py-3 md:pl-9 md:pr-3">
-              <p className="label mb-3 flex items-center gap-3 text-white/85 md:hidden">
-                <span aria-hidden className="h-px w-6 bg-white/70" />
-                {dict.booking.best}
-              </p>
-              <BookingBar locale={locale} dict={dict} />
-            </div>
+          {/* CH-003: the booking search sits on the photograph as in the original design; its filled button is the action. */}
+          <FadeIn immediate delay={1.0} className="relative z-[10] mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
+            <BookingBar locale={locale} dict={dict} />
           </FadeIn>
         </div>
 

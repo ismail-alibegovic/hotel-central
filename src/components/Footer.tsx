@@ -6,6 +6,7 @@ import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
 import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "./DecorativeLine";
+import { FooterFrame } from "./FooterFrame";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import Image from "next/image";
 import { BrandLogo } from "./BrandLogo";
@@ -25,16 +26,39 @@ export function Footer({
   const f = dict.footer;
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-deep text-white">
-      <DecorativeLine variant="footer" tone="light" className="z-0" opacity={0.7} />
+    <FooterFrame>
+      <DecorativeLine variant="footer" tone="light" className="z-0" opacity={0.5} />
 
-      {/* Reservations strip */}
-      <div className="relative z-[1] grid gap-6 border-b border-white/15 px-[var(--gutter)] py-8 md:grid-cols-[1fr_auto] md:items-center md:py-7">
+      {/* CH-018: the three logos of the house together — Central Fitness Club · Hotel Central · Central Day Spa */}
+      <div className="relative z-[1] px-[var(--gutter)] pb-10 pt-14 md:pb-12 md:pt-[5vw]">
+        <ul aria-label={f.family} className="flex items-center justify-center gap-5 min-[420px]:gap-8 md:gap-14">
+          <li>
+            <Link href={href(locale, "/centralfitnessclub")} className="block opacity-85 transition-opacity duration-500 hover:opacity-100">
+              <Image src="/brand/central-fitness-club-mark-white.png" alt="Central Fitness Club" width={542} height={640} className="h-[52px] w-auto min-[420px]:h-[60px] md:h-[78px]" />
+            </Link>
+          </li>
+          <li aria-hidden className="h-12 w-px bg-white/25 md:h-16" />
+          <li>
+            <Link href={href(locale)} aria-label={dict.nav.homeLabel} className="block">
+              <BrandLogo variant="full" tone="light" alt="" className="w-[88px] min-[420px]:w-[100px] md:w-[128px]" />
+            </Link>
+          </li>
+          <li aria-hidden className="h-12 w-px bg-white/25 md:h-16" />
+          <li>
+            <Link href={href(locale, "/dayspa")} className="block opacity-85 transition-opacity duration-500 hover:opacity-100">
+              <Image src="/brand/central-day-spa-mark-white.png" alt="Central Day Spa" width={640} height={579} className="h-[46px] w-auto min-[420px]:h-[54px] md:h-[70px]" />
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* Reservations */}
+      <div className="relative z-[1] mx-[var(--gutter)] flex flex-col items-center gap-5 border-y border-white/15 py-7 text-center md:flex-row md:justify-between md:text-left">
         <div className="label flex flex-col gap-1 md:flex-row md:gap-10">
           <span className="opacity-55">{f.reservations}</span>
           <span className="opacity-90">{f.reservationsBody}</span>
         </div>
-        <div className="flex flex-wrap items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           <a href={contact.phone.href} className="label link-line">
             {contact.phone.display}
           </a>
@@ -45,30 +69,8 @@ export function Footer({
         </div>
       </div>
 
-      {/* CH-018: the hotel's logo (not oversized type), with the two sister brands beside it */}
-      <div className="relative z-[1] flex flex-col gap-10 px-[var(--gutter)] py-12 md:flex-row md:items-end md:justify-between md:py-14">
-        <Link href={href(locale)} aria-label={dict.nav.homeLabel} className="inline-block self-start">
-          <BrandLogo variant="full" tone="light" alt={hotel.name} className="w-[120px] md:w-[136px]" />
-        </Link>
-        <div>
-          <p className="label mb-4 opacity-60">{f.family}</p>
-          <ul className="flex items-end gap-8">
-            <li>
-              <Link href={href(locale, "/centralfitnessclub")} className="block transition-transform duration-500 hover:-translate-y-0.5">
-                <Image src="/brand/central-fitness-club-mark-white.png" alt="Central Fitness Club" width={542} height={640} className="h-[72px] w-auto md:h-[80px]" />
-              </Link>
-            </li>
-            <li>
-              <Link href={href(locale, "/dayspa")} className="block transition-transform duration-500 hover:-translate-y-0.5">
-                <Image src="/brand/central-day-spa-mark-white.png" alt="Central Day Spa" width={640} height={579} className="h-[64px] w-auto md:h-[72px]" />
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       {/* Information */}
-      <div className="relative z-[1] grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/15 px-[var(--gutter)] py-10 md:grid-cols-[1.1fr_1fr_1.4fr_0.8fr_0.8fr] md:py-12">
+      <div className="relative z-[1] grid grid-cols-2 gap-x-6 gap-y-10 px-[var(--gutter)] py-10 md:grid-cols-[1.1fr_1fr_1.6fr_0.8fr_0.7fr] md:py-12">
         <div className="label space-y-1">
           <p className="mb-3 opacity-50">{f.address}</p>
           <p>{hotel.name}</p>
@@ -148,6 +150,6 @@ export function Footer({
         </p>
         <p>{f.credits}</p>
       </div>
-    </footer>
+    </FooterFrame>
   );
 }

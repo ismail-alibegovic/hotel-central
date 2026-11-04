@@ -240,7 +240,7 @@ export function BookingBar({
             type="button"
             onClick={submit}
             aria-describedby={`${uid}-note`}
-            className="btn-book btn-book-light w-full !min-h-[50px] md:!min-h-[48px] md:w-auto md:!px-7"
+            className="btn-book btn-book-light w-full !min-h-[50px] md:!min-h-[40px] md:w-auto md:!px-6"
           >
             <span>{b.go}</span>
             <Arrow />
