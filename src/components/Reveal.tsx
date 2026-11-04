@@ -91,3 +91,21 @@ export function FadeIn({
     </M>
   );
 }
+
+/**
+ * A hairline that draws itself once in view, from its top-left: a horizontal rule grows to the right, a vertical one
+ * downwards. It is a transform on one element, so it stays crisp and costs nothing while scrolling.
+ */
+export function DrawLine({ className = "", delay = 0.1 }: { className?: string; delay?: number }) {
+  const reduce = useReducedMotionSafe();
+  return (
+    <motion.span
+      aria-hidden
+      className={`block origin-top-left ${className}`}
+      initial={{ scaleX: 0, scaleY: 0 }}
+      whileInView={{ scaleX: 1, scaleY: 1 }}
+      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+      transition={reduce ? { duration: 0 } : { duration: 1.8, ease: [0.65, 0, 0.35, 1], delay }}
+    />
+  );
+}

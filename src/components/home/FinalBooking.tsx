@@ -26,7 +26,7 @@ export function FinalBooking({
         alt={alt}
         fill
         sizes="100vw"
-        className="object-cover [filter:saturate(0.75)_contrast(1.02)_brightness(0.86)]"
+        className="object-cover [filter:saturate(0.4)_contrast(1.04)_brightness(0.84)]"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.45),rgba(2,13,16,0.3)_45%,rgba(2,13,16,0.55))]" />
 
