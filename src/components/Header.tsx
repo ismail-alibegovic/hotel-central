@@ -40,8 +40,11 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
     setOpen(false);
   }
 
-  const solid = scrolled && !open;
   const current = pathname?.replace(/^\/(en|bs)/, "") || "/";
+  // Central Fitness Club and Central Day Spa read like sites of their own: the hotel shrinks to a slim bar above their
+  // own navigation (rendered by their section layouts), still one click from the hotel, the menu and booking.
+  const sub = current.startsWith("/centralfitnessclub") || current.startsWith("/dayspa");
+  const solid = (scrolled || sub) && !open;
   const quick = [
     { path: "/centralfitnessclub", label: dict.nav.fitness },
     { path: "/dayspa", label: dict.nav.spa },
@@ -60,12 +63,12 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
         animate={{ opacity: 1, y: 0 }}
         transition={reduce ? { duration: 0 } : { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
         className={`fixed inset-x-0 top-0 z-[70] transition-[background-color,color,box-shadow] duration-500 ease-[var(--ease-out)] ${
-          solid ? "bg-deep/95 text-white backdrop-blur-md" : "bg-transparent text-white"
+          sub && !open ? "bg-ink text-white" : solid ? "bg-deep/95 text-white backdrop-blur-md" : "bg-transparent text-white"
         }`}
       >
         <div
           className={`relative grid grid-cols-[1fr_auto_1fr] items-center border-b px-[var(--gutter)] transition-[height,border-color] duration-500 ${
-            solid ? "h-[60px] border-white/10 md:h-[68px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
+            sub ? "h-[var(--sub-bar-h)] border-white/10" : solid ? "h-[60px] border-white/10 md:h-[68px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
           } ${open ? "border-transparent" : ""}`}
         >
           {/* Left: menu + direct links to the two new sections */}
@@ -87,7 +90,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               </span>
               <span className="hidden min-[380px]:inline">{open ? dict.nav.close : dict.nav.menu}</span>
             </button>
-            <nav aria-label={dict.nav.sections} className="hidden items-center gap-7 xl:flex">
+            <nav aria-label={dict.nav.sections} className={`hidden items-center gap-7 ${sub ? "" : "xl:flex"}`}>
               {quick.map((q) => (
                 <Link
                   key={q.path}
@@ -107,23 +110,23 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               tone="light"
               priority
               alt=""
-              className={`w-[118px] transition-[width] duration-500 min-[400px]:w-[134px] md:w-[168px] ${solid ? "md:w-[150px]" : ""}`}
+              className={`transition-[width] duration-500 ${sub ? "w-[84px] md:w-[96px]" : `w-[118px] min-[400px]:w-[134px] md:w-[168px] ${solid ? "md:w-[150px]" : ""}`}`}
             />
           </Link>
 
           {/* Right: language, rooms, booking */}
           <div className="flex items-center justify-end gap-6 lg:gap-8">
             <LanguageSwitcher locale={locale} label={dict.nav.language} className="hidden lg:flex" />
-            <Link href={href(locale, "/rooms")} className="label hidden opacity-90 transition-opacity hover:opacity-100 md:inline-flex">
+            <Link href={href(locale, "/rooms")} className={`label hidden opacity-90 transition-opacity hover:opacity-100 ${sub ? "" : "md:inline-flex"}`}>
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
             <a
               href={booking.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`btn-book btn-book-light -mr-1 !min-h-[40px] !px-4 !text-[10px] md:!min-h-[44px] md:!px-6 md:!text-[11px]`}
+              className={`btn-book btn-book-light -mr-1 ${sub ? "!min-h-[30px] !px-4 !text-[9.5px] !shadow-none" : "!min-h-[40px] !px-4 !text-[10px] md:!min-h-[44px] md:!px-6 md:!text-[11px]"}`}
             >
-              <span>{dict.nav.book}</span>
+              <span>{sub ? dict.nav.bookRoom : dict.nav.book}</span>
               <Arrow className="hidden md:block" />
               <span className="sr-only"> — {dict.booking.opensNew}</span>
             </a>

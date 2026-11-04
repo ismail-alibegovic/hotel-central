@@ -14,6 +14,7 @@ const en = {
     skip: "Skip to content",
     fitness: "Fitness Club",
     spa: "Day Spa",
+    bookRoom: "Book a room",
     sections: "Fitness and spa",
     homeLabel: "Hotel Central Sarajevo — home",
     items: [
@@ -216,6 +217,7 @@ const bs: Dictionary = {
     skip: "Preskoči na sadržaj",
     fitness: "Fitness Club",
     spa: "Day Spa",
+    bookRoom: "Rezerviši sobu",
     sections: "Fitness i spa",
     homeLabel: "Hotel Central Sarajevo — početna",
     items: [

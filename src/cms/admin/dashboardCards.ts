@@ -78,6 +78,18 @@ export function dashboardCards(can: Can, role: Role): Card[] {
     });
   }
 
+  if (can.global("fitness-club") || can.global("day-spa")) {
+    const links: { label: string; href: string }[] = [];
+    if (can.global("fitness-club")) links.push({ label: "Class timetable & membership", href: "/admin/globals/fitness-club" });
+    if (can.global("day-spa")) links.push({ label: "Spa treatments & prices", href: "/admin/globals/day-spa" });
+    cards.push({
+      id: "club-spa",
+      title: "Fitness Club & Day Spa",
+      text: "This month's class timetable, the membership options and prices, and the spa's treatments and prices.",
+      links,
+    });
+  }
+
   if (can.global("navigation") || can.global("footer")) {
     const links: CardLink[] = [];
     if (can.global("navigation")) links.push({ label: "Navigation (menu)", href: "/admin/globals/navigation" });

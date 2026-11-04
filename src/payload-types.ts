@@ -98,12 +98,16 @@ export interface Config {
     footer: Footer;
     homepage: Homepage;
     'hotel-info': HotelInfo;
+    'fitness-club': FitnessClub;
+    'day-spa': DaySpa;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     'hotel-info': HotelInfoSelect<false> | HotelInfoSelect<true>;
+    'fitness-club': FitnessClubSelect<false> | FitnessClubSelect<true>;
+    'day-spa': DaySpaSelect<false> | DaySpaSelect<true>;
   };
   locale: 'en' | 'bs';
   widgets: {
@@ -4508,6 +4512,23 @@ export interface Homepage {
     metaRight?: string | null;
     body?: string | null;
   };
+  /**
+   * The section with the two areas. Empty fields use the standard text. The two photos are set below, under “Photos of this section”.
+   */
+  club?: {
+    metaLeft?: string | null;
+    metaCenter?: string | null;
+    metaRight?: string | null;
+    /**
+     * Each new line of text becomes a new line, as in the design.
+     */
+    title?: string | null;
+    intro?: string | null;
+    fitnessBody?: string | null;
+    fitnessCta?: string | null;
+    spaBody?: string | null;
+    spaCta?: string | null;
+  };
   spa?: {
     metaLeft?: string | null;
     metaCenter?: string | null;
@@ -5957,6 +5978,135 @@ export interface HotelInfo {
   createdAt?: string | null;
 }
 /**
+ * The class timetable and the membership options of Central Fitness Club. A change appears on the club's pages once it is published.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fitness-club".
+ */
+export interface FitnessClub {
+  id: string;
+  /**
+   * For example “November 2026” / “Novembar 2026.”
+   */
+  month?: string | null;
+  /**
+   * For example holiday changes or “Booking at reception”.
+   */
+  note?: string | null;
+  /**
+   * Add one row per class. The website sorts them by day and start time. Leave the list empty to show the “timetable on its way” message.
+   */
+  sessions?:
+    | {
+        day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+        /**
+         * 24-hour time, e.g. 18:30
+         */
+        start: string;
+        /**
+         * e.g. 19:15
+         */
+        end?: string | null;
+        /**
+         * For example “Pilates” or “Aqua aerobic”.
+         */
+        name: string;
+        instructor?: string | null;
+        /**
+         * e.g. “Studio” / “Pool”.
+         */
+        studio?: string | null;
+        /**
+         * e.g. “Beginners welcome”.
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * For example “Prices include VAT” or how to pay.
+   */
+  membershipNote?: string | null;
+  plans?:
+    | {
+        /**
+         * e.g. “Monthly membership” / “Mjesečna članarina”.
+         */
+        name: string;
+        /**
+         * As guests should read it, e.g. “80 KM”. Empty = “Price on request”.
+         */
+        price?: string | null;
+        /**
+         * e.g. “per month” / “mjesečno”.
+         */
+        period?: string | null;
+        description?: string | null;
+        includes?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The treatments and prices of Central Day Spa. A change appears on the spa page once it is published. Leave the list empty to keep the current price list (October 2026).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "day-spa".
+ */
+export interface DaySpa {
+  id: string;
+  /**
+   * Shown above the prices, e.g. “November 2026” / “Novembar 2026.”
+   */
+  updated?: string | null;
+  note?: string | null;
+  /**
+   * Drag to change the order. Names are written in both languages; durations and prices are shared.
+   */
+  categories?:
+    | {
+        /**
+         * e.g. “Massages” / “Masaže”.
+         */
+        name: string;
+        intro?: string | null;
+        items?:
+          | {
+              name: string;
+              /**
+               * e.g. “45 min” or “60 min (30+30)”.
+               */
+              duration?: string | null;
+              /**
+               * As guests should read it, e.g. “65 KM” or “50–80 KM”.
+               */
+              price: string;
+              includes?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
@@ -6086,6 +6236,19 @@ export interface HomepageSelect<T extends boolean = true> {
         metaIndex?: T;
         metaRight?: T;
         body?: T;
+      };
+  club?:
+    | T
+    | {
+        metaLeft?: T;
+        metaCenter?: T;
+        metaRight?: T;
+        title?: T;
+        intro?: T;
+        fitnessBody?: T;
+        fitnessCta?: T;
+        spaBody?: T;
+        spaCta?: T;
       };
   spa?:
     | T
@@ -6267,6 +6430,80 @@ export interface HotelInfoSelect<T extends boolean = true> {
               id?: T;
             };
         note?: T;
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fitness-club_select".
+ */
+export interface FitnessClubSelect<T extends boolean = true> {
+  month?: T;
+  note?: T;
+  sessions?:
+    | T
+    | {
+        day?: T;
+        start?: T;
+        end?: T;
+        name?: T;
+        instructor?: T;
+        studio?: T;
+        note?: T;
+        id?: T;
+      };
+  membershipNote?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        period?: T;
+        description?: T;
+        includes?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        featured?: T;
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "day-spa_select".
+ */
+export interface DaySpaSelect<T extends boolean = true> {
+  updated?: T;
+  note?: T;
+  categories?:
+    | T
+    | {
+        name?: T;
+        intro?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              duration?: T;
+              price?: T;
+              includes?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
         id?: T;
       };
   _status?: T;

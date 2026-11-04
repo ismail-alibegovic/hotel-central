@@ -33,6 +33,9 @@
 
   --gutter: clamp(16px, 2.5vw, 36px);
   --header-h: 64px;
+  /* Slim hotel bar above the Fitness Club / Day Spa navigation */
+  --sub-bar-h: 44px;
+  --sub-nav-h: 60px;
 }
 @media (min-width: 1024px) {
   :root { --header-h: 88px; }

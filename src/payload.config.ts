@@ -13,6 +13,8 @@ import { CustomPages } from "./cms/collections/CustomPages";
 import { Pages } from "./cms/collections/Pages";
 import { Rooms } from "./cms/collections/Rooms";
 import { Users } from "./cms/collections/Users";
+import { DaySpa } from "./cms/globals/DaySpa";
+import { FitnessClub } from "./cms/globals/FitnessClub";
 import { Footer } from "./cms/globals/Footer";
 import { Homepage } from "./cms/globals/Homepage";
 import { HotelInfo } from "./cms/globals/HotelInfo";
@@ -44,7 +46,10 @@ export default buildConfig({
       views: { dashboard: { Component: "/cms/admin/Dashboard#Dashboard" } },
     },
     livePreview: {
-      url: ({ data, collectionConfig, locale }) => {
+      url: ({ data, collectionConfig, globalConfig, locale }) => {
+        // The club and spa price lists preview on their own pages.
+        const globalPage = globalConfig?.slug === "fitness-club" ? "/centralfitnessclub/timetable" : globalConfig?.slug === "day-spa" ? "/dayspa" : null;
+        if (globalPage) return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}${globalPage}`)}`;
         const raw = (data as { slug?: string | Record<string, string> })?.slug;
         const slug = typeof raw === "object" && raw ? raw[locale?.code ?? "en"] : raw;
         // Globals (the home page) have no slug: preview the language's home page, through the authenticated preview route.
@@ -55,7 +60,7 @@ export default buildConfig({
       },
       collections: ["pages", "custom-pages", "rooms"],
       // Hotel Information has no page of its own: its preview is the home page of the language being edited (header, footer, banner).
-      globals: ["homepage", "hotel-info"],
+      globals: ["homepage", "hotel-info", "fitness-club", "day-spa"],
       breakpoints: [
         { label: "Mobile", name: "mobile", width: 390, height: 844 },
         { label: "Tablet", name: "tablet", width: 768, height: 1024 },
@@ -66,7 +71,7 @@ export default buildConfig({
   // Only REST is exposed; GraphQL is off so there is a single, tested write path.
   graphQL: { disable: true },
   collections: [Users, Media, Pages, CustomPages, Rooms],
-  globals: [Navigation, Footer, Homepage, HotelInfo],
+  globals: [Navigation, Footer, Homepage, HotelInfo, FitnessClub, DaySpa],
   // bs and en are authored independently; a missing translation stays empty (never silently English).
   localization: {
     locales: [

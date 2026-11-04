@@ -13,6 +13,7 @@ export const allowedExternalHosts = [
   "hotelcentral.ba",
   "www.hotelcentral.ba",
   "live.ipms247.com", // the hotel's booking engine
+  "form.lime-booking.com", // Central Day Spa's existing online booking form
   "www.facebook.com",
   "facebook.com",
   "www.instagram.com",

@@ -65,19 +65,34 @@ export const Homepage: GlobalConfig = {
       fields: [t("metaLeft", "Top strip — left"), t("metaCenter", "Top strip — centre"), t("metaIndex", "Number"), t("metaRight", "Word before the room number"), area("body", "Text")],
     },
     {
-      name: "spa",
+      name: "club",
       type: "group",
-      label: "4 · Club & Spa",
+      label: "4 · Central Fitness Club & Central Day Spa",
+      admin: { description: "The section with the two areas. Empty fields use the standard text. The two photos are set below, under “Photos of this section”." } as never,
       fields: [
         t("metaLeft", "Top strip — left"),
         t("metaCenter", "Top strip — centre"),
         t("metaRight", "Top strip — right"),
         lines("title", "Heading"),
-        area("body", "Text"),
-        textRows("facts", ["Item", "Short list"], "Short list under the text."),
-        t("cta", "Button"),
-        photo("imageMain", "Large photo"),
-        photo("imageSecondary", "Small photo"),
+        area("intro", "Introduction"),
+        area("fitnessBody", "Central Fitness Club — text"),
+        t("fitnessCta", "Central Fitness Club — button"),
+        area("spaBody", "Central Day Spa — text"),
+        t("spaCta", "Central Day Spa — button"),
+      ],
+    },
+    {
+      // The former single "Club & Spa" section (CH-004 split it in two). Its texts are no longer shown and are kept only so
+      // no stored content is deleted; its two photos are the photos of the new section.
+      name: "spa",
+      type: "group",
+      label: "4b · Photos of this section",
+      fields: [
+        ...[t("metaLeft", "Top strip — left"), t("metaCenter", "Top strip — centre"), t("metaRight", "Top strip — right"), lines("title", "Heading"), area("body", "Text"), textRows("facts", ["Item", "Short list"], "Short list under the text."), t("cta", "Button")].map(
+          (f) => ({ ...f, admin: { ...(f as { admin?: object }).admin, hidden: true } }) as typeof f,
+        ),
+        photo("imageMain", "Central Fitness Club photo"),
+        photo("imageSecondary", "Central Day Spa photo"),
       ],
     },
     {

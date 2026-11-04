@@ -14,6 +14,7 @@ export function homeToCms(d: Dictionary) {
     hotel: { ...h.hotel, title: h.hotel.title.join("\n") },
     rooms: { ...h.rooms },
     spa: { ...h.spa, title: h.spa.title.join("\n"), facts: rows(h.spa.facts) },
+    club: { metaLeft: h.club.metaLeft, metaCenter: h.club.metaCenter, metaRight: h.club.metaRight, title: h.club.title.join("\n"), intro: h.club.intro, fitnessBody: h.club.fitness.body, fitnessCta: h.club.fitness.cta, spaBody: h.club.spa.body, spaCta: h.club.spa.cta },
     restaurant: { ...h.restaurant, title: h.restaurant.title.join("\n") },
     location: { ...h.location, title: h.location.title.join("\n"), facts: h.location.facts.map((f) => ({ k: f.k, v: f.v })) },
     events: { ...h.events, title: h.events.title.join("\n") },
