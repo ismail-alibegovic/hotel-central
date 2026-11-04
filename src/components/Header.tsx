@@ -47,7 +47,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
         animate={{ opacity: 1, y: 0 }}
         transition={reduce ? { duration: 0 } : { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
         className={`fixed inset-x-0 top-0 z-[70] text-white transition-[background-color,height,backdrop-filter] duration-700 ease-[var(--ease-out)] ${
-          solid ? "bg-deep/95 backdrop-blur-md" : "bg-transparent"
+          solid ? "bg-deep/95" : "bg-transparent"
         }`}
       >
         <div

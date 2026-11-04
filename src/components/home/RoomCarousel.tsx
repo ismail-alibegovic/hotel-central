@@ -9,7 +9,6 @@ import type { Dictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
 import { href, type Locale } from "@/lib/i18n";
-import { DecorativeLine } from "../DecorativeLine";
 import { Arrow, ArrowLeft } from "../ui";
 
 const ease = [0.76, 0, 0.24, 1] as const;
@@ -149,8 +148,6 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
       </div>
 
       <div className="comp aspect-[390/650] md:aspect-[1025/640]">
-        <DecorativeLine variant="rooms" tone="light" className="z-0 hidden md:block" />
-
         {/* Desktop editorial metadata */}
         <div className="label absolute left-[2.54%] top-[4.85%] z-[4] hidden md:block">{d.metaLeft}</div>
         <div className="absolute left-[53.76%] top-[4.85%] z-[4] hidden w-[18.6%] md:block">
@@ -178,7 +175,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
           </AnimatePresence>
         </div>
 
-        {/* Base title (white on olive), beneath the photograph */}
+        {/* Base title (white on deep), beneath the photograph */}
         <div className="pointer-events-none absolute inset-0 z-[1]">
           <AnimatePresence initial={false}>
             <TitleLayer key={index} room={room} locale={locale} idx={index} dir={dir} />

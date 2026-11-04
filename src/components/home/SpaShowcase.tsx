@@ -1,119 +1,109 @@
+import type { CSSProperties } from "react";
 import type { Dictionary } from "@/content/dictionary";
 import { href, type Locale } from "@/lib/i18n";
-import { DecorativeLine } from "../DecorativeLine";
-import { Photo } from "../Photo";
-import { FadeIn, RevealLines } from "../Reveal";
+import { fitStyle } from "@/lib/fit";
+import { DrawLine, FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
-import { img, type HomeImages } from "./homeImages";
+import type { HomeImages } from "./homeImages";
 
-const BIG = "[--x:40%] [--y:15.5%] [--w:57.46%] [--h:64%]";
+const pad = (n: number) => String(n + 1).padStart(2, "0");
 
-function SpaTitle({ lines, className = "" }: { lines: string[]; className?: string }) {
+/** "Club & Spa" → ["C", "S"]: the initials of the words, never the ampersand. */
+function initials(name: string) {
+  const letters = name
+    .split(/\s+/)
+    .filter((w) => /^\p{L}/u.test(w))
+    .map((w) => w[0].toUpperCase());
+  return letters.length >= 2 ? letters.slice(0, 2) : [name.slice(0, 1).toUpperCase(), ""];
+}
+
+/**
+ * The Club & Spa emblem, drawn in the house idiom: live type and 1px hairlines in currentColor, no image file.
+ * A tracked ring of text (slowly turning, still for reduced motion) around a serif monogram.
+ */
+function Emblem({ name, className = "" }: { name: string; className?: string }) {
+  const [a, b] = initials(name);
+  // Non-breaking spaces: SVG collapses the trailing space, which glued the last dot to "Hotel".
+  const ring = `Hotel Central · ${name} · Sarajevo · `.replace(/ /g, "\u00a0");
+  const r = 166;
+  const circumference = 2 * Math.PI * r;
   return (
-    <div className={`font-display absolute left-[6%] top-[23%] text-[8.4cqw] leading-[0.9] ${className}`}>
-      <RevealLines lines={lines} lineClassName={["", "pl-[14.5cqw]"]} />
+    <div aria-hidden className={`relative aspect-square ${className}`}>
+      {/* Ring of text: an HTML layer, so the slow turn is a compositor-only transform */}
+      <div className="absolute inset-0 animate-[emblem-turn_90s_linear_infinite] motion-reduce:animate-none">
+        <svg viewBox="0 0 400 400" className="h-full w-full" fill="none">
+          <defs>
+            <path id="spa-ring" d={`M200 ${200 - r} a ${r} ${r} 0 1 1 0 ${2 * r} a ${r} ${r} 0 1 1 0 ${-2 * r}`} />
+          </defs>
+          <text className="font-sans" fill="currentColor" fontSize="11.5" letterSpacing="0" style={{ textTransform: "uppercase" }}>
+            <textPath href="#spa-ring" textLength={circumference - 6} lengthAdjust="spacing">
+              {ring}
+            </textPath>
+          </text>
+        </svg>
+      </div>
+      <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" fill="none">
+        <circle cx="200" cy="200" r="196" stroke="currentColor" strokeOpacity="0.28" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <circle cx="200" cy="200" r="142" stroke="currentColor" strokeOpacity="0.5" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <path d="M200 92v26M200 282v26" stroke="currentColor" strokeOpacity="0.5" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <div className="font-display absolute inset-0 flex items-center justify-center leading-none">
+        <span className="text-[length:calc(var(--emblem)*0.27)]">{a}</span>
+        <span className="mx-[0.12em] translate-y-[-0.1em] text-[length:calc(var(--emblem)*0.11)] normal-case opacity-80">&amp;</span>
+        <span className="text-[length:calc(var(--emblem)*0.27)]">{b}</span>
+      </div>
     </div>
   );
 }
 
-export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
+/**
+ * Club & Spa without photographs: an emblem, the heading and a numbered "circuit" of the facilities
+ * joined by one hairline, on the ink ground (the homepage keeps a single green, `deep`).
+ * `images` is accepted for compatibility with the CMS (the spa photo fields are hidden there).
+ */
+export function SpaShowcase({ locale, dict }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.spa;
-  const main = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool with a wave mosaic", position: "50% 60%" });
-  const mainM = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool", position: "40% 60%" });
-  const second = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "Candle-lit treatment room of the day spa", position: "50% 50%" });
-  const secondM = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "" });
+  const facts = d.facts;
   return (
-    <section aria-labelledby="spa-title" className="relative overflow-hidden bg-olive text-white">
-      <h2 id="spa-title" className="sr-only">
-        {d.title.join(" ")}
-      </h2>
+    <section aria-labelledby="spa-title" className="relative overflow-hidden bg-ink pb-16 pt-[30px] text-white md:pb-[5.5vw] md:pt-[3vw]">
+      <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} />
 
-      {/* Desktop artboard */}
-      <div className="comp hidden aspect-[1025/700] md:block">
-        <DecorativeLine variant="spa" tone="light" className="z-0" />
-        <div className="absolute inset-x-0 top-[4.4%] z-[4]">
-          <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} />
-        </div>
-
-        <SpaTitle lines={d.title} className="z-[1]" />
-
-        <div className={`rect z-[2] ${BIG}`}>
-          <Photo
-            src={main.src}
-            alt={main.alt}
-            sizes="58vw"
-            position={main.position}
-            className="h-full w-full"
-            grade="grade-dark"
-            parallax={5}
-          />
-        </div>
-        <div className="rect z-[2] [--x:6%] [--y:51%] [--w:17%] [--h:37%]">
-          <Photo
-            src={second.src}
-            alt={second.alt}
-            sizes="18vw"
-            position={second.position}
-            className="h-full w-full"
-            parallax={6}
-          />
-        </div>
-
-        <div aria-hidden className={`clip-rect pointer-events-none absolute inset-0 z-[3] ${BIG}`}>
-          <SpaTitle lines={d.title} />
-        </div>
-
-        <FadeIn as="p" className="absolute left-[25.4%] top-[62%] z-[4] w-[12.2%] text-[0.98cqw] leading-[1.5] opacity-90">
-          {d.body}
+      <div className="mt-12 grid grid-cols-1 items-center gap-12 px-[var(--gutter)] md:mt-[4vw] md:grid-cols-12 md:gap-x-[2vw]">
+        <FadeIn className="mx-auto w-[64vw] max-w-[340px] [--emblem:64vw] md:col-span-5 md:w-[27vw] md:max-w-[440px] md:[--emblem:min(27vw,440px)]" y={0}>
+          <Emblem name={d.metaLeft} className="w-full" />
         </FadeIn>
 
-        <div className="absolute left-[40%] top-[84.5%] z-[4] flex w-[57.46%] items-start justify-between gap-8">
-          <ul className="grid max-w-[34cqw] grid-cols-2 gap-x-[3cqw] gap-y-[0.5em] text-[0.78cqw] uppercase tracking-[0.14em]">
-            {d.facts.map((f) => (
-              <li key={f} className="flex items-center gap-3 border-t border-white/20 pt-[0.6em]">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <PillLink href={href(locale, "/spa")} tone="light" className="!h-[2.9cqw] !text-[0.8cqw]">
-            {d.cta}
-          </PillLink>
+        <div className="md:col-span-6 md:col-start-7">
+          <h2 id="spa-title" className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[5.6vw]" style={fitStyle(d.title, 82, 13)}>
+            <RevealLines lines={d.title} lineClassName={["", "pl-[6vw] md:pl-[7vw]"]} />
+          </h2>
+          <div className="mt-10 flex flex-col items-start gap-8 md:mt-[3.4vw] md:pl-[7vw]">
+            <FadeIn as="p" className="body-copy max-w-[44ch] opacity-85">
+              {d.body}
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <PillLink href={href(locale, "/spa")} tone="light">
+                {d.cta}
+              </PillLink>
+            </FadeIn>
+          </div>
         </div>
       </div>
 
-      {/* Mobile recomposition */}
-      <div className="relative pb-16 pt-[30px] md:hidden">
-        <MetaRow left={d.metaLeft} center={d.metaCenter} />
-        <div className="comp mt-8 aspect-[390/470]">
-          <div className="font-display absolute left-[4%] top-0 z-[1] text-[12.2cqw] leading-[0.9]">
-            <RevealLines lines={d.title} lineClassName={["", "pl-[6cqw]"]} />
-          </div>
-          <div className="rect z-[2] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
-            <Photo src={mainM.src} alt={mainM.alt} sizes="82vw" grade="grade-dark" className="h-full w-full" position={mainM.position} />
-          </div>
-          <div aria-hidden className="clip-rect pointer-events-none absolute inset-0 z-[3] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
-            <div className="font-display absolute left-[4%] top-0 text-[12.2cqw] leading-[0.9]">
-              <RevealLines lines={d.title} lineClassName={["", "pl-[6cqw]"]} />
-            </div>
-          </div>
-          <div className="rect z-[4] [--x:4%] [--y:72%] [--w:30%] [--h:40%]">
-            <Photo src={secondM.src} alt={secondM.alt} sizes="30vw" className="h-full w-full" position={secondM.position} />
-          </div>
-        </div>
-        <div className="mt-28 space-y-8 px-[var(--gutter)]">
-          <p className="body-copy max-w-[34ch] opacity-90">{d.body}</p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[10px] uppercase tracking-[0.14em]">
-            {d.facts.map((f) => (
-              <li key={f} className="border-t border-white/20 pt-2">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <PillLink href={href(locale, "/spa")} tone="light">
-            {d.cta}
-          </PillLink>
-        </div>
-      </div>
+      {/* The circuit: one hairline, a station per facility */}
+      <ol
+        className="relative mx-[var(--gutter)] mt-14 grid grid-cols-1 md:mt-[5vw] md:grid-cols-[repeat(var(--n),minmax(0,1fr))]"
+        style={{ "--n": facts.length } as CSSProperties}
+      >
+        <DrawLine className="absolute left-[3.5px] top-0 bottom-0 w-px bg-white/30 md:left-0 md:right-0 md:top-[27px] md:bottom-auto md:h-px md:w-auto" />
+        {facts.map((f, i) => (
+          <FadeIn as="li" key={f} delay={0.25 + i * 0.08} y={8} className="relative pb-6 pl-8 last:pb-0 md:pb-0 md:pl-0 md:pr-[1.5vw]">
+            <span className="label-sm absolute left-8 top-0 opacity-55 md:static md:block">{pad(i)}</span>
+            <span aria-hidden className="absolute left-0 top-[5px] h-2 w-2 rounded-full border border-white/70 bg-ink md:top-[24px]" />
+            <span className="label block pt-5 md:pt-[34px]">{f}</span>
+          </FadeIn>
+        ))}
+      </ol>
     </section>
   );
 }

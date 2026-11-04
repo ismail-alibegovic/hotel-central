@@ -74,10 +74,11 @@ export const Homepage: GlobalConfig = {
         t("metaRight", "Top strip — right"),
         lines("title", "Heading"),
         area("body", "Text"),
-        textRows("facts", ["Item", "Short list"], "Short list under the text."),
+        textRows("facts", ["Item", "Short list"], "The numbered list along the line at the bottom of the section (pool, sauna, …)."),
         t("cta", "Button"),
-        photo("imageMain", "Large photo"),
-        photo("imageSecondary", "Small photo"),
+        // This section has no photographs any more (an emblem instead). The fields stay in the database, hidden.
+        { ...photo("imageMain", "Large photo"), admin: { hidden: true } } as Field,
+        { ...photo("imageSecondary", "Small photo"), admin: { hidden: true } } as Field,
       ],
     },
     {

@@ -26,10 +26,9 @@ export function FinalBooking({
         alt={alt}
         fill
         sizes="100vw"
-        className="object-cover [filter:saturate(0.22)_contrast(1.1)_brightness(0.55)_sepia(0.3)_hue-rotate(28deg)]"
+        className="grade-night object-cover"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55),rgba(2,13,16,0.25)_45%,rgba(2,13,16,0.6))]" />
-      <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
 
       <div className="relative flex flex-col items-center px-[var(--gutter)] py-28 text-center">
         <FadeIn className="label mb-8 flex items-center gap-4">

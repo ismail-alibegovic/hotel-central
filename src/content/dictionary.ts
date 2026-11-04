@@ -60,6 +60,7 @@ const en = {
     email: "Email",
     scroll: "Scroll",
     backHome: "Back to home",
+    showMap: "Show the map",
   },
   home: {
     heroLabel: "Sarajevo",
@@ -231,6 +232,7 @@ const bs: Dictionary = {
     email: "Email",
     scroll: "Skrolaj",
     backHome: "Nazad na početnu",
+    showMap: "Prikaži mapu",
   },
   home: {
     heroLabel: "Sarajevo",

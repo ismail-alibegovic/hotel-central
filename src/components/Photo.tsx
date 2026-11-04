@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 
 type Grade = "grade" | "grade-dark" | "grade-soft" | "none";
 
@@ -48,29 +48,21 @@ export function Photo({
   parallax = 0,
   veil = 0,
 }: PhotoProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotionSafe();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [`${-parallax}%`, `${parallax}%`]);
-
   const dir = reveal === true ? "up" : reveal || null;
   const animate = !!dir;
 
   return (
     <motion.div
-      ref={ref}
-      className={`relative overflow-hidden bg-deep/40 ${className}`}
+      className={`relative overflow-hidden bg-ink/10 ${className}`}
       initial={animate ? { clipPath: clipFrom[dir] } : false}
       whileInView={animate ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
       viewport={{ once: true, margin: "0px 0px -12% 0px" }}
       transition={reduce ? { duration: 0 } : { duration: 1.4, ease: [0.65, 0, 0.35, 1] }}
     >
-      <motion.div
-        className="absolute inset-0"
-        style={parallax && !reduce ? { y, scale: 1 + (parallax * 2.4) / 100 } : undefined}
-      >
+      <Parallax amount={reduce ? 0 : parallax}>
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-transform"
           initial={animate ? { scale: 1.18 } : false}
           whileInView={animate ? { scale: 1 } : undefined}
           viewport={{ once: true, margin: "0px 0px -12% 0px" }}
@@ -86,8 +78,28 @@ export function Photo({
             style={{ objectPosition: position }}
           />
         </motion.div>
-      </motion.div>
+      </Parallax>
       {veil > 0 && <div className="pointer-events-none absolute inset-0 bg-ink" style={{ opacity: veil }} />}
+    </motion.div>
+  );
+}
+
+/**
+ * Gentle vertical drift while the frame crosses the viewport. Only frames that ask for it subscribe to scroll,
+ * so a page of still photographs does no work at all while scrolling.
+ */
+function Parallax({ amount, children }: { amount: number; children: ReactNode }) {
+  if (!amount) return <div className="absolute inset-0">{children}</div>;
+  return <ParallaxLayer amount={amount}>{children}</ParallaxLayer>;
+}
+
+function ParallaxLayer({ amount, children }: { amount: number; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [`${-amount}%`, `${amount}%`]);
+  return (
+    <motion.div ref={ref} className="absolute inset-0 will-change-transform" style={{ y, scale: 1 + (amount * 2.4) / 100 }}>
+      {children}
     </motion.div>
   );
 }

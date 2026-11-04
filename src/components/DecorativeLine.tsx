@@ -48,28 +48,25 @@ export function DecorativeLine({
   const reduce = useReducedMotionSafe();
   const stroke =
     tone === "light" ? "rgba(255,255,255,0.42)" : tone === "sage" ? "rgba(161,170,130,0.7)" : "rgba(2,13,16,0.32)";
+  // The line is revealed by a wipe across the whole drawing, never by animating the stroke's dash pattern: with a
+  // stretched viewBox and a non-scaling stroke, dash lengths are measured in screen pixels, which is what made the
+  // drawn lines look broken (dotted, half-drawn) on wide screens.
   return (
-    <svg
+    <motion.svg
       aria-hidden
       className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       viewBox="0 0 1025 640"
       preserveAspectRatio="none"
       fill="none"
       style={{ opacity }}
+      initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+      transition={reduce ? { duration: 0 } : { duration: 2.4, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
     >
       {linePaths[variant].map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          stroke={stroke}
-          strokeWidth={1}
-          vectorEffect="non-scaling-stroke"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-          transition={reduce ? { duration: 0 } : { duration: 3.2, ease: [0.65, 0, 0.35, 1], delay: 0.2 + i * 0.4 }}
-        />
+        <path key={i} d={d} stroke={stroke} strokeWidth={1} vectorEffect="non-scaling-stroke" />
       ))}
-    </svg>
+    </motion.svg>
   );
 }

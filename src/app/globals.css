@@ -122,6 +122,11 @@ img { user-select: none; }
 .grade-soft {
   filter: saturate(0.6) contrast(1.02) sepia(0.1);
 }
+/* Full-bleed photographs behind white type (home hero, final booking): neutral and dark, with no colour cast,
+   so the only green on the page is the deep section ground. */
+.grade-night {
+  filter: grayscale(0.88) sepia(0.12) contrast(1.08) brightness(0.58);
+}
 
 /* ───────────────────────── Buttons ───────────────────────── */
 .pill {
@@ -208,6 +213,10 @@ img { user-select: none; }
   0% { transform: translateY(-100%); }
   55% { transform: translateY(0%); }
   100% { transform: translateY(100%); }
+}
+
+@keyframes emblem-turn {
+  to { transform: rotate(360deg); }
 }
 
 @keyframes heroin {

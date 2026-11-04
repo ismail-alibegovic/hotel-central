@@ -38,13 +38,12 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[50%_42%] [filter:saturate(0.22)_contrast(1.12)_brightness(0.62)_sepia(0.32)_hue-rotate(28deg)]"
+            className="grade-night object-cover object-[50%_42%]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
         {/* Restrained veil: darker crown for the navigation, darker floor for the caption */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.62)_0%,rgba(2,13,16,0.18)_26%,rgba(2,13,16,0.22)_62%,rgba(2,13,16,0.7)_100%)]" />
-        <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
       </motion.div>
       </div>
 
