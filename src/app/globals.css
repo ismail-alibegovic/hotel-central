@@ -10,6 +10,21 @@
   --deep: #363a2a;
   --ivory: #f4f0ec;
 
+
+  /* Sub-brand colours, used only on their own pages and cards (confirmed by the agency as the brands' colours).
+     Central Fitness Club — the green of the club's logo artwork (#093128). */
+  --fit-green: #093128;
+  --fit-deep: #061f1a;
+  --fit-line: #1f4a3f;
+  --fit-mist: #e9efec;
+
+  /* Central Day Spa — the burgundy of the spa's own logo (#3f171f), with the lilac and blush of its price lists. */
+  --spa-wine: #3f171f;
+  --spa-plum: #6b3a4a;
+  --spa-lilac: #c8a0c0;
+  --spa-blush: #f3ebe8;
+  --spa-paper: #faf6f3;
+
   --hairline-light: rgb(255 255 255 / 0.28);
   --hairline-dark: rgb(2 13 16 / 0.22);
 
@@ -34,6 +49,18 @@
   --color-sage: var(--sage);
   --color-deep: var(--deep);
   --color-ivory: var(--ivory);
+  --color-fit-green: var(--fit-green);
+  --color-fit-deep: var(--fit-deep);
+  --color-fit-line: var(--fit-line);
+  --color-fit-mist: var(--fit-mist);
+  --color-spa-wine: var(--spa-wine);
+  --color-spa-plum: var(--spa-plum);
+  --color-spa-lilac: var(--spa-lilac);
+  --color-spa-blush: var(--spa-blush);
+  --color-spa-paper: var(--spa-paper);
+  --font-athletic: var(--font-barlow), "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-geo: var(--font-montserrat), Montserrat, "Helvetica Neue", Arial, sans-serif;
+  --font-spa: var(--font-marcellus), Marcellus, Optima, "Candara", serif;
   --font-display: var(--font-gilda), "Gilda Display", "Didot", serif;
   --font-sans: "Helvetica Neue", Helvetica, var(--font-inter), Arial, sans-serif;
 }
@@ -122,6 +149,10 @@ img { user-select: none; }
 .grade-soft {
   filter: saturate(0.6) contrast(1.02) sepia(0.1);
 }
+/* Brighter, truer grade for the refreshed homepage (CH-001): keeps the archive photos calm without dimming them. */
+.grade-bright {
+  filter: saturate(0.78) contrast(1.03) brightness(1.02);
+}
 
 /* ───────────────────────── Buttons ───────────────────────── */
 .pill {
@@ -169,6 +200,35 @@ img { user-select: none; }
   transform: scaleX(1);
   transform-origin: left;
 }
+
+/* The booking call-to-action (CH-003): the only FILLED button on the site (every other button is a thin outline), in the
+   existing palette — deep olive with ivory text on light backgrounds (10.6:1), ivory with ink text on photographs and
+   dark sections (btn-book-light, 17:1) — so "Book now / Check availability" is always the most visible action. */
+.btn-book {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  min-height: 46px;
+  padding: 0 1.8em;
+  border-radius: 999px;
+  border: 1px solid var(--deep);
+  background: var(--deep);
+  color: var(--ivory);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px -16px rgb(2 13 16 / 0.5);
+  transition: background-color 0.45s var(--ease-out), color 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+}
+.btn-book:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.btn-book-light { background: var(--ivory); border-color: var(--ivory); color: var(--ink); }
+.btn-book-light:hover { background: var(--white); border-color: var(--white); color: var(--ink); }
+.btn-book .arrow { transition: transform 0.6s var(--ease-out); }
+.btn-book:hover .arrow { transform: translateX(5px); }
+.btn-book:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
 /* ───────────────────────── Editorial compositions ─────────────────────────
    A composition is a container-query box. Children are positioned in % of the box

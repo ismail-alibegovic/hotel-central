@@ -11,7 +11,8 @@ import { img, type HomeImages } from "./homeImages";
 import { FadeIn, RevealLines } from "../Reveal";
 
 export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
-  const photo = img(images?.hero, { src: "/images/3075.jpg", alt: "Hotel Central's corner tower and façade on Ćumurija street, lit at night" });
+  // CH-001: the daytime façade (brighter, truer to the hotel's own branding) replaces the night shot; still editable in the CMS.
+  const photo = img(images?.hero, { src: "/images/3064.jpg", alt: "Hotel Central's white façade and corner tower on Ćumurija street", position: "55% 38%" });
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -38,13 +39,12 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[50%_42%] [filter:saturate(0.22)_contrast(1.12)_brightness(0.62)_sepia(0.32)_hue-rotate(28deg)]"
+            className="object-cover object-[55%_38%] [filter:saturate(0.8)_contrast(1.02)_brightness(0.96)]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
-        {/* Restrained veil: darker crown for the navigation, darker floor for the caption */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.62)_0%,rgba(2,13,16,0.18)_26%,rgba(2,13,16,0.22)_62%,rgba(2,13,16,0.7)_100%)]" />
-        <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
+        {/* Light veil: just enough crown for the navigation and floor for the caption; the photograph stays bright */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.5)_0%,rgba(2,13,16,0.12)_24%,rgba(2,13,16,0.16)_55%,rgba(2,13,16,0.62)_100%)]" />
       </motion.div>
       </div>
 
@@ -65,8 +65,15 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             />
           </h1>
 
-          <FadeIn immediate delay={1.25} className="relative z-[10] mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
-            <BookingBar locale={locale} dict={dict} />
+          {/* CH-003: the booking search is a clearly framed panel with the site's one solid booking button. */}
+          <FadeIn immediate delay={1.0} className="relative z-[10] mt-9 w-full max-w-[560px] md:mt-[5.4vh] md:w-auto md:max-w-none">
+            <div className="rounded-[18px] border border-white/30 bg-deep/70 px-5 pb-5 pt-4 shadow-[0_30px_80px_-30px_rgba(2,13,16,0.7)] backdrop-blur-md md:rounded-full md:py-3 md:pl-9 md:pr-3">
+              <p className="label mb-3 flex items-center gap-3 text-white/85 md:hidden">
+                <span aria-hidden className="h-px w-6 bg-white/70" />
+                {dict.booking.best}
+              </p>
+              <BookingBar locale={locale} dict={dict} />
+            </div>
           </FadeIn>
         </div>
 

@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 import { useRef } from "react";
 
-type Grade = "grade" | "grade-dark" | "grade-soft" | "none";
+type Grade = "grade" | "grade-dark" | "grade-soft" | "grade-bright" | "none";
 
 type PhotoProps = {
   src: string;

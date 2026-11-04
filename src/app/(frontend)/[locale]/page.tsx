@@ -4,6 +4,7 @@ import { getHome } from "@/cms/home";
 import { getHotelContact } from "@/cms/hotelInfo";
 import { followContact } from "@/cms/hotelInfoMerge";
 import { getRooms } from "@/cms/rooms";
+import { ClubSpaShowcase } from "@/components/home/ClubSpaShowcase";
 import { EventsSection } from "@/components/home/EventsSection";
 import { FinalBooking } from "@/components/home/FinalBooking";
 import { Hero } from "@/components/home/Hero";
@@ -11,7 +12,6 @@ import { HotelExperience } from "@/components/home/HotelExperience";
 import { LocationSection } from "@/components/home/LocationSection";
 import { RestaurantShowcase } from "@/components/home/RestaurantShowcase";
 import { RoomCarousel } from "@/components/home/RoomCarousel";
-import { SpaShowcase } from "@/components/home/SpaShowcase";
 import { getDictionary } from "@/content/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { alternates } from "@/lib/seo";
@@ -40,10 +40,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <Hero locale={locale} dict={dict} images={images} />
       <HotelExperience locale={locale} dict={dict} images={images} />
       <RoomCarousel locale={locale} dict={dict} rooms={rooms} />
-      <SpaShowcase locale={locale} dict={dict} images={images} />
+      {/* CH-004: two distinct areas, Central Fitness Club and Central Day Spa */}
+      <ClubSpaShowcase locale={locale} dict={dict} images={images} />
       <RestaurantShowcase locale={locale} dict={dict} images={images} />
-      <LocationSection locale={locale} dict={dict} images={images} contact={contact} />
+      {/* CH-005: Meetings & Events now comes before Location */}
       <EventsSection locale={locale} dict={dict} images={images} />
+      <LocationSection locale={locale} dict={dict} images={images} contact={contact} />
       <FinalBooking dict={dict} phone={contact.phone} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
       {/* Last on purpose: anything before the hero would shift its position in the React tree and change its generated ids. */}
       {draft && <LivePreviewListener />}

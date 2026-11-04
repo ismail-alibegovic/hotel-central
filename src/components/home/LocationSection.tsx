@@ -13,8 +13,8 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
   const d = dict.home.location;
   const photo = img(images?.location, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower on Ćumurija street", position: "62% 30%" });
   return (
-    <section aria-labelledby="location-title" className="relative overflow-hidden bg-deep pb-16 pt-[30px] text-white md:pb-[6vw] md:pt-[3vw]">
-      <DecorativeLine variant="location" tone="light" className="z-0 hidden md:block" />
+    <section aria-labelledby="location-title" className="relative overflow-hidden bg-sage pb-16 pt-[30px] text-ink md:pb-[6vw] md:pt-[3vw]">
+      <DecorativeLine variant="location" tone="dark" className="z-0 hidden md:block" />
       <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} className="relative z-[2]" />
 
       <div className="relative z-[2] mt-10 grid grid-cols-1 gap-12 px-[var(--gutter)] md:mt-[5vw] md:grid-cols-12 md:gap-x-[2vw]">
@@ -27,10 +27,10 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
               {d.body}
             </FadeIn>
             <FadeIn delay={0.1}>
-              <dl className="label divide-y divide-white/20 border-y border-white/20">
+              <dl className="label divide-y divide-ink/25 border-y border-ink/25">
                 {d.facts.map((f) => (
                   <div key={f.k} className="flex justify-between gap-6 py-[0.85em]">
-                    <dt className="opacity-55">{f.k}</dt>
+                    <dt className="opacity-75">{f.k}</dt>
                     <dd className="text-right">{f.v}</dd>
                   </div>
                 ))}
@@ -41,7 +41,7 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
             </FadeIn>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 md:pl-[7vw]">
-            <PillLink href={contact.directions} external tone="light">
+            <PillLink href={contact.directions} external tone="dark">
               {dict.common.directions}
             </PillLink>
             <a href={href(locale, "/location")} className="label link-line flex items-center gap-3">
@@ -59,7 +59,7 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
               referrerPolicy="no-referrer-when-downgrade"
               className="map-tint absolute inset-0 h-full w-full border-0"
             />
-            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/15" />
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" />
           </FadeIn>
           <div className="absolute -bottom-8 left-3 w-[38%] md:-bottom-[3vw] md:-left-[6vw] md:w-[38%]">
             <Photo
@@ -68,7 +68,7 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
               sizes="(min-width: 1024px) 16vw, 42vw"
               position={photo.position}
               className="aspect-[3/4]"
-              grade="grade"
+              grade="grade-bright"
             />
           </div>
         </div>

@@ -3,7 +3,7 @@ import type { Dictionary } from "@/content/dictionary";
 import type { Phone } from "@/cms/hotelInfoMerge";
 import { booking, hotel } from "@/content/hotel";
 import { FadeIn, RevealLines } from "../Reveal";
-import { PillLink } from "../ui";
+import { Arrow } from "../ui";
 import { fitStyle } from "@/lib/fit";
 
 export function FinalBooking({
@@ -26,10 +26,9 @@ export function FinalBooking({
         alt={alt}
         fill
         sizes="100vw"
-        className="object-cover [filter:saturate(0.22)_contrast(1.1)_brightness(0.55)_sepia(0.3)_hue-rotate(28deg)]"
+        className="object-cover [filter:saturate(0.75)_contrast(1.02)_brightness(0.86)]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55),rgba(2,13,16,0.25)_45%,rgba(2,13,16,0.6))]" />
-      <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.45),rgba(2,13,16,0.3)_45%,rgba(2,13,16,0.55))]" />
 
       <div className="relative flex flex-col items-center px-[var(--gutter)] py-28 text-center">
         <FadeIn className="label mb-8 flex items-center gap-4">
@@ -44,9 +43,11 @@ export function FinalBooking({
           {d.body}
         </FadeIn>
         <FadeIn delay={0.3} className="mt-9 flex flex-col items-center gap-5">
-          <PillLink href={booking.bookingUrl} external tone="light">
-            {d.cta}
-          </PillLink>
+          <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="btn-book btn-book-light !min-h-[52px] !px-9">
+            <span>{d.cta}</span>
+            <Arrow />
+            <span className="sr-only"> — {dict.booking.opensNew}</span>
+          </a>
           <a href={phone.href} className="label link-line opacity-85">
             {phone.display}
           </a>

@@ -37,8 +37,8 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
             position={main.position}
             sizes="50vw"
             className="h-full w-full"
-            grade="grade-dark"
-            veil={0.3}
+            grade="grade"
+            veil={0.25}
             reveal="right"
             parallax={4}
           />
@@ -62,7 +62,7 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
             {d.body}
           </FadeIn>
           <FadeIn delay={0.15}>
-            <PillLink href={href(locale, "/meetings-events")} className="!h-[2.9cqw] !text-[0.8cqw]">
+            <PillLink href={href(locale, "/conference")} className="!h-[2.9cqw] !text-[0.8cqw]">
               {d.cta}
             </PillLink>
           </FadeIn>
@@ -72,7 +72,7 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
       {/* Mobile */}
       <div className="md:hidden">
         <div className="relative">
-          <Photo src={mainM.src} alt={mainM.alt} position={mainM.position} sizes="100vw" className="aspect-[4/5]" grade="grade-dark" />
+          <Photo src={mainM.src} alt={mainM.alt} position={mainM.position} sizes="100vw" className="aspect-[4/5]" grade="grade" veil={0.28} />
           <div className="font-display absolute bottom-8 left-[var(--gutter)] text-[length:var(--fs-m)] leading-[0.9] text-white" style={fitStyle(d.title, 80, 13)}>
             <RevealLines lines={d.title} lineClassName={["", "pl-[8vw]"]} />
           </div>
@@ -82,7 +82,7 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
             {d.metaLeft} · {d.metaRight}
           </p>
           <p className="body-copy max-w-[38ch]">{d.body}</p>
-          <PillLink href={href(locale, "/meetings-events")}>{d.cta}</PillLink>
+          <PillLink href={href(locale, "/conference")}>{d.cta}</PillLink>
         </div>
       </div>
     </section>

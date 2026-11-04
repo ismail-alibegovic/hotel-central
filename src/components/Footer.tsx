@@ -6,7 +6,8 @@ import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "./DecorativeLine";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { RevealLines } from "./Reveal";
+import Image from "next/image";
+import { BrandLogo } from "./BrandLogo";
 import { Arrow } from "./ui";
 
 export function Footer({
@@ -36,18 +37,33 @@ export function Footer({
           <a href={contact.phone.href} className="label link-line">
             {contact.phone.display}
           </a>
-          <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="pill pill-light">
+          <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="btn-book btn-book-light">
             <span>{dict.nav.book}</span>
             <Arrow />
           </a>
         </div>
       </div>
 
-      {/* Typographic statement */}
-      <div className="relative z-[1] px-[var(--gutter)] pb-6 pt-14 md:pb-[2vw] md:pt-[5vw]">
-        <p aria-hidden className="font-display text-[17vw] leading-[0.84] md:text-[14.5vw]">
-          <RevealLines lines={f.statement} lineClassName={["", "pl-[5vw] md:pl-[22vw]"]} />
-        </p>
+      {/* CH-018: the hotel's logo (not oversized type), with the two sister brands beside it */}
+      <div className="relative z-[1] flex flex-col gap-10 px-[var(--gutter)] py-12 md:flex-row md:items-end md:justify-between md:py-14">
+        <Link href={href(locale)} aria-label={dict.nav.homeLabel} className="inline-block self-start">
+          <BrandLogo variant="full" tone="light" alt={hotel.name} className="w-[120px] md:w-[136px]" />
+        </Link>
+        <div>
+          <p className="label mb-4 opacity-60">{f.family}</p>
+          <ul className="flex items-end gap-8">
+            <li>
+              <Link href={href(locale, "/centralfitnessclub")} className="block transition-transform duration-500 hover:-translate-y-0.5">
+                <Image src="/brand/central-fitness-club-mark-white.png" alt="Central Fitness Club" width={542} height={640} className="h-[72px] w-auto md:h-[80px]" />
+              </Link>
+            </li>
+            <li>
+              <Link href={href(locale, "/dayspa")} className="block transition-transform duration-500 hover:-translate-y-0.5">
+                <Image src="/brand/central-day-spa-mark-white.png" alt="Central Day Spa" width={640} height={579} className="h-[64px] w-auto md:h-[72px]" />
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
 
       {/* Information */}
@@ -81,7 +97,7 @@ export function Footer({
           {/* Further numbers and addresses from Hotel Information (none by default), each with its label. */}
           {contact.phones.slice(1).map((p) => (
             <p key={p.href}>
-              {p.label && <span className="opacity-50">{p.label} </span>}
+              {p.label && <span className="opacity-55">{p.label} </span>}
               <a href={p.href} className="link-line">
                 {p.display}
               </a>
@@ -89,7 +105,7 @@ export function Footer({
           ))}
           {contact.emails.slice(1).map((e) => (
             <p key={e.address}>
-              {e.label && <span className="opacity-50">{e.label} </span>}
+              {e.label && <span className="opacity-55">{e.label} </span>}
               <a href={`mailto:${e.address}`} className="link-line normal-case tracking-[0.06em]">
                 {e.address}
               </a>

@@ -9,8 +9,16 @@ import type { Dictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import type { ContactLinks } from "@/cms/hotelInfoMerge";
+import { BrandLogo } from "./BrandLogo";
 import { FullscreenMenu } from "./FullscreenMenu";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Arrow } from "./ui";
 
+/**
+ * Site header (CH-001, CH-003): the official Hotel Central logo in the centre, the menu on the left with direct links to
+ * the Fitness Club and the Day Spa on wide screens, and on the right the language switcher, the rooms link and the one
+ * filled "Book now" button (ivory, the only filled button on the site). Transparent over the hero photograph; deep olive once the visitor scrolls.
+ */
 export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictionary; contact: ContactLinks }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -33,6 +41,11 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
   }
 
   const solid = scrolled && !open;
+  const current = pathname?.replace(/^\/(en|bs)/, "") || "/";
+  const quick = [
+    { path: "/centralfitnessclub", label: dict.nav.fitness },
+    { path: "/dayspa", label: dict.nav.spa },
+  ];
 
   return (
     <>
@@ -45,18 +58,18 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={reduce ? { duration: 0 } : { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
-        className={`fixed inset-x-0 top-0 z-[70] text-white transition-[background-color,height,backdrop-filter] duration-700 ease-[var(--ease-out)] ${
-          solid ? "bg-deep/95 backdrop-blur-md" : "bg-transparent"
+        transition={reduce ? { duration: 0 } : { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+        className={`fixed inset-x-0 top-0 z-[70] transition-[background-color,color,box-shadow] duration-500 ease-[var(--ease-out)] ${
+          solid ? "bg-deep/95 text-white backdrop-blur-md" : "bg-transparent text-white"
         }`}
       >
         <div
-          className={`relative grid grid-cols-[1fr_auto_1fr] items-stretch border-b px-[var(--gutter)] transition-[height,border-color] duration-700 ${
-            solid ? "h-[56px] border-white/10 md:h-[64px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
+          className={`relative grid grid-cols-[1fr_auto_1fr] items-center border-b px-[var(--gutter)] transition-[height,border-color] duration-500 ${
+            solid ? "h-[60px] border-white/10 md:h-[68px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
           } ${open ? "border-transparent" : ""}`}
         >
-          {/* Left: menu */}
-          <div className="flex items-center">
+          {/* Left: menu + direct links to the two new sections */}
+          <div className="flex items-center gap-8">
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -65,47 +78,54 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               className="label group -ml-2 flex min-h-[44px] items-center gap-[14px] py-3 pl-2 pr-3"
             >
               <span aria-hidden className="relative block h-[9px] w-[18px]">
-                <span
-                  className={`absolute left-0 top-0 h-px bg-current transition-all duration-500 ${
-                    open ? "top-1/2 w-full rotate-45" : "w-full"
-                  }`}
-                />
+                <span className={`absolute left-0 top-0 h-px bg-current transition-all duration-500 ${open ? "top-1/2 w-full rotate-45" : "w-full"}`} />
                 <span
                   className={`absolute bottom-0 left-0 h-px bg-current transition-all duration-500 ${
                     open ? "bottom-auto top-1/2 w-full -rotate-45" : "w-[62%] group-hover:w-full"
                   }`}
                 />
               </span>
-              <span>{open ? dict.nav.close : dict.nav.menu}</span>
+              <span className="hidden min-[380px]:inline">{open ? dict.nav.close : dict.nav.menu}</span>
             </button>
+            <nav aria-label={dict.nav.sections} className="hidden items-center gap-7 xl:flex">
+              {quick.map((q) => (
+                <Link
+                  key={q.path}
+                  href={href(locale, q.path)}
+                  aria-current={current.startsWith(q.path) ? "page" : undefined}
+                  className="label link-line opacity-90 transition-opacity hover:opacity-100"
+                >
+                  {q.label}
+                </Link>
+              ))}
+            </nav>
           </div>
 
-          {/* Centre: wordmark */}
-          <Link
-            href={href(locale)}
-            className="flex items-center justify-center whitespace-nowrap text-[11px] tracking-[0.34em] uppercase min-[400px]:text-[12px] md:text-[13px] md:tracking-[0.42em] xl:text-[15px]"
-            aria-label="Hotel Central Sarajevo — home"
-          >
-            <span className="pl-[0.42em]">Hotel Central</span>
+          {/* Centre: the hotel's logo */}
+          <Link href={href(locale)} className="flex items-center justify-center" aria-label={dict.nav.homeLabel}>
+            <BrandLogo
+              tone="light"
+              priority
+              alt=""
+              className={`w-[118px] transition-[width] duration-500 min-[400px]:w-[134px] md:w-[168px] ${solid ? "md:w-[150px]" : ""}`}
+            />
           </Link>
 
-          {/* Right: rooms + book */}
-          <div className="flex items-stretch justify-end">
-            <Link
-              href={href(locale, "/rooms")}
-              className="label hidden items-center px-6 opacity-90 transition-opacity hover:opacity-100 md:flex lg:px-10"
-            >
+          {/* Right: language, rooms, booking */}
+          <div className="flex items-center justify-end gap-6 lg:gap-8">
+            <LanguageSwitcher locale={locale} label={dict.nav.language} className="hidden lg:flex" />
+            <Link href={href(locale, "/rooms")} className="label hidden opacity-90 transition-opacity hover:opacity-100 md:inline-flex">
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
             <a
               href={booking.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`label -mr-2 flex min-h-[44px] items-center pl-5 pr-2 md:mr-0 md:border-l md:pl-8 md:pr-0 lg:pl-11 ${
-                solid ? "border-white/10" : "border-[var(--hairline-light)]"
-              }`}
+              className={`btn-book btn-book-light -mr-1 !min-h-[40px] !px-4 !text-[10px] md:!min-h-[44px] md:!px-6 md:!text-[11px]`}
             >
-              <span className="link-line">{dict.nav.book}</span>
+              <span>{dict.nav.book}</span>
+              <Arrow className="hidden md:block" />
+              <span className="sr-only"> — {dict.booking.opensNew}</span>
             </a>
           </div>
         </div>

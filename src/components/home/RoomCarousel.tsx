@@ -127,7 +127,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
 
   const actions = (
     <div className="flex flex-wrap items-center gap-x-6 gap-y-4 md:flex-col-reverse md:items-start md:gap-[1.6cqw]">
-      <a href={bookHref} target="_blank" rel="noopener noreferrer" className="pill pill-light md:!h-[2.9cqw] md:!text-[0.8cqw]">
+      <a href={bookHref} target="_blank" rel="noopener noreferrer" className="btn-book btn-book-light md:!min-h-[2.9cqw] md:!text-[0.8cqw]">
         <span>{dict.common.checkAvailability}</span>
       </a>
       <Link href={roomHref} className="label link-line flex items-center gap-3 md:!text-[0.8cqw]">
@@ -140,7 +140,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
     <section
       aria-roledescription="carousel"
       aria-label={dict.nav.rooms}
-      className="relative overflow-hidden bg-deep pb-12 pt-[30px] text-white [--gutter-pct:4.1%] md:pb-0 md:pt-0 md:[--gutter-pct:2.54%]"
+      className="relative overflow-hidden bg-olive pb-12 pt-[30px] text-white [--gutter-pct:4.1%] md:pb-0 md:pt-0 md:[--gutter-pct:2.54%]"
     >
       {/* Mobile header */}
       <div className="label mb-8 grid grid-cols-2 gap-4 px-[var(--gutter)] md:hidden">
@@ -212,7 +212,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
                   alt={room.images[0].alt[locale]}
                   fill
                   sizes="(min-width: 1024px) 46vw, 92vw"
-                  className="grade object-cover"
+                  className="grade-bright object-cover"
                   style={{ objectPosition: room.images[0].position ?? "50% 50%" }}
                   priority={index === 0}
                 />

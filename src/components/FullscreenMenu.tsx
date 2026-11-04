@@ -16,9 +16,10 @@ const previews: Record<string, string> = {
   "/": "/images/3075.jpg",
   "/about": "/images/3064.jpg",
   "/rooms": "/images/p05.jpg",
-  "/spa": "/images/3069.jpg",
+  "/centralfitnessclub": "/images/pool-01.jpg",
+  "/dayspa": "/images/final-6230.jpg",
   "/restaurant": "/images/dorucak5.jpg",
-  "/meetings-events": "/images/3073.jpg",
+  "/conference": "/images/3073.jpg",
   "/location": "/images/3064.jpg",
   "/contact": "/images/3075.jpg",
 };
@@ -178,7 +179,7 @@ export function FullscreenMenu({
                   href={booking.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="pill pill-light justify-self-start"
+                  className="btn-book btn-book-light justify-self-start"
                 >
                   <span>{dict.nav.book}</span>
                   <Arrow />

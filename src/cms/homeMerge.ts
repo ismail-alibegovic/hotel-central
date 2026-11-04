@@ -65,6 +65,9 @@ export function mergeHome(dict: Dictionary, doc: Homepage | null): HomeContent {
       metaIndex: text(g.rooms.metaIndex) ?? h.rooms.metaIndex,
       metaRight: text(g.rooms.metaRight) ?? h.rooms.metaRight,
     },
+    // The Fitness / Spa split (CH-004) has no CMS text fields yet (adding them needs a database migration); its two
+    // photographs follow the existing "Club & Spa" photo fields.
+    club: h.club,
     spa: {
       metaLeft: text(g.spa.metaLeft) ?? h.spa.metaLeft,
       metaCenter: text(g.spa.metaCenter) ?? h.spa.metaCenter,
