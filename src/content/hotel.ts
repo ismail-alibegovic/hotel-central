@@ -19,6 +19,8 @@ export const hotel = {
   email: "info@hotelcentral.ba",
   website: "https://www.hotelcentral.ba/",
   facebook: "https://www.facebook.com/hotel.central.568",
+  /** The hotel's Instagram profile (supplied by the hotel, November 2026). */
+  instagram: "https://www.instagram.com/hotelcentralsarajevo/",
   /** Canonical origin for metadata; see src/lib/site.ts (NEXT_PUBLIC_SITE_URL, Vercel fallbacks). */
   siteUrl,
 } as const;

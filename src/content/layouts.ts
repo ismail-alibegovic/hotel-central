@@ -22,7 +22,7 @@ export const pagePaths: Record<PageKey, string> = {
   rooms: "/rooms",
   spa: "/spa",
   restaurant: "/restaurant",
-  "meetings-events": "/meetings-events",
+  "meetings-events": "/conference",
   location: "/location",
   contact: "/contact",
 };
@@ -43,7 +43,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
           split({ label: a.story.label, index: "Hotel Central, Sarajevo", title: a.story.title, body: a.story.body, line: "hotel", images: [img("3075.jpg", "The hotel's façade lit at night", "45% 40%"), img("p11.jpg", "Terrace of the presidential suite above the rooftops")], facts: a.facts }),
           split({ tone: "deep", reverse: true, label: a.rooms.label, title: a.rooms.title, body: a.rooms.body, line: "rooms", images: [img("3067.jpg", "A suite with patterned wallpaper and seating area"), img("dorucak6.jpg", "Bosnian coffee served at breakfast")], primary: { label: a.rooms.cta, link: internal(locale, "/rooms") } }),
           { type: "statement", text: a.statement, label: "(—)", tone: "ivory" },
-          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("3069.jpg", "The heated 25-metre pool"), img("final-6230.jpg", "Relaxation lounge of the spa")], primary: { label: a.wellness.cta, link: internal(locale, "/spa") } }),
+          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("3069.jpg", "The heated 25-metre pool"), img("final-6230.jpg", "Relaxation lounge of the spa")], primary: { label: a.wellness.cta, link: internal(locale, "/centralfitnessclub") }, secondary: { label: a.wellness.cta2, link: internal(locale, "/dayspa") } }),
           { type: "gallery", tone: "ivory", images: [img("p05.jpg", "Living room of the presidential suite"), img("final-6202.jpg", "Treatment room of the day spa"), img("3073.jpg", "The conference room"), img("dorucak5.jpg", "Breakfast at Restaurant Central"), img("junior02.jpg", "Junior suite bedroom")] },
           { type: "finalBooking", image: "/images/3075.jpg", alt: "Hotel Central at night" },
         ],
@@ -106,6 +106,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         ogImage: "/images/3073.jpg",
         blocks: [
           { type: "hero", image: img("3073.jpg", "The conference room on the third floor"), eyebrow: e.hero.eyebrow, title: e.hero.title, intro: e.hero.intro, meta: ["60–70", "(Meetings & events)", dict.home.events.metaRight] },
+          { type: "cta", tone: "ivory", sample: false, label: e.enquiry.label, title: e.enquiry.title, body: e.enquiry.body, primary: { label: e.enquiry.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } }, secondary: { label: hotel.phoneDisplay, link: { kind: "phone", href: hotel.phoneHref, external: false } } },
           split({ tone: "deep", label: e.room.label, title: e.room.title, body: e.room.body, line: "rooms", images: [img("img_9202.jpg", "Theatre-style seating in the conference room"), img("img_9289.jpg", "Conference room door sign")], facts: e.facts }),
           { type: "gallery", tone: "ivory", images: [img("img_9226.jpg", "Conference chairs in soft focus"), img("img_9235.jpg", "Projector detail"), img("img_9216.jpg", "Seating with delegate microphones"), img("img_9180.jpg", "Reception counter in the conference area"), img("img_9271.jpg", "Rows of conference chairs")] },
           split({
@@ -116,10 +117,11 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             body: e.business.body,
             line: "spa",
             images: [img("img_9223.jpg", "Microphone on the conference desk"), img("img_9236.jpg", "Projection screen")],
-            primary: { label: e.business.cta, link: internal(locale, "/contact") },
-            secondary: { label: hotel.email, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
+            primary: { label: e.business.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
+            secondary: { label: hotel.phoneDisplay, link: { kind: "phone", href: hotel.phoneHref, external: false } },
           }),
-          { type: "finalBooking" },
+          { type: "facts", label: e.packages.label, items: e.packages.items },
+          { type: "cta", tone: "olive", sample: false, label: e.enquiry.label, title: e.enquiry.title, body: e.enquiry.body, primary: { label: e.enquiry.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } }, secondary: { label: hotel.phoneDisplay, link: { kind: "phone", href: hotel.phoneHref, external: false } } },
         ],
       };
     }
@@ -142,7 +144,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: c.meta,
         ogImage: "/images/3075.jpg",
         blocks: [
-          { type: "hero", image: img("3075.jpg", "Hotel Central at night", "50% 40%"), eyebrow: c.hero.eyebrow, title: c.hero.title, intro: c.hero.intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
+          { type: "hero", image: img("3064.jpg", "Hotel Central's white façade and corner tower on Ćumurija street", "55% 38%"), eyebrow: c.hero.eyebrow, title: c.hero.title, intro: c.hero.intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
           { type: "contact", office: { label: c.office, body: c.officeBody }, reservations: { label: c.reservations, body: c.reservationsBody }, write: { label: c.write }, social: { label: c.social, body: c.socialBody } },
         ],
       };

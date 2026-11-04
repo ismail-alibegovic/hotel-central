@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Photographs uploaded through the CMS are served from Vercel Blob (public store).
   images: { remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }] },
+  // Old addresses keep working (CH-009, CH-014): the combined Club & Spa page became Central Day Spa and Central Fitness
+  // Club; Meetings & Events moved to /conference (proposed sitemap). Permanent, so search engines move with them.
+  async redirects() {
+    return [
+      { source: "/:locale(en|bs)/spa", destination: "/:locale/dayspa", permanent: true },
+      { source: "/:locale(en|bs)/meetings-events", destination: "/:locale/conference", permanent: true },
+    ];
+  },
   // Belt and braces for non-official deployments (covers non-HTML assets too).
   async headers() {
     // The admin and the CMS API must never be indexed, even on the official domain.

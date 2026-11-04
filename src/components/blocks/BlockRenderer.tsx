@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { ContactForm } from "@/components/ContactForm";
 import { DecorativeLine } from "@/components/DecorativeLine";
 import { FinalBooking } from "@/components/home/FinalBooking";
 import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/components/page/PageParts";
@@ -12,6 +11,7 @@ import type { Block, Cta, FaqBlock, SplitBlock } from "@/cms/blocks/types";
 import type { Dictionary } from "@/content/dictionary";
 import { getHotelContact } from "@/cms/hotelInfo";
 import { followContact } from "@/cms/hotelInfoMerge";
+import { spaContact } from "@/content/dayspa";
 import { booking, hotel } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
 import { fitStyle } from "@/lib/fit";
@@ -218,47 +218,118 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
               </section>
             );
           case "contact": {
-            const items = [
-              { label: b.office.label, body: b.office.body, link: { href: contact.phone.href, text: contact.phone.display } },
-              { label: b.reservations.label, body: b.reservations.body, link: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
-              { label: b.write.label, body: contact.email, link: { href: `mailto:${contact.email}`, text: dict.common.email } },
-              { label: b.social.label, body: b.social.body, link: { href: hotel.facebook, text: "Facebook", external: true } },
+            // CH-016 / CH-017: no contact form — direct phone and e-mail only, large tap targets for phones.
+            const social = [
+              { label: "Facebook", href: hotel.facebook },
+              { label: "Instagram", href: hotel.instagram },
             ];
+            const tile = "group flex min-h-[92px] flex-col justify-between gap-4 border border-ink/15 bg-white/60 p-6 transition-colors duration-500 hover:border-ink hover:bg-white md:p-8";
             return (
               <section key={i} className="relative overflow-hidden bg-ivory px-[var(--gutter)] py-16 text-ink md:py-[6vw]">
                 <DecorativeLine variant="hotel" className="z-0 hidden md:block" />
-                <div className="relative z-[1] grid gap-14 md:grid-cols-12 md:gap-x-[2vw]">
-                  <div className="md:col-span-4">
-                    <ul className="divide-y divide-ink/20 border-y border-ink/20">
-                      {items.map((c, n) => (
-                        <FadeIn as="li" key={c.label} delay={n * 0.06} className="py-6">
-                          <p className="label mb-2 opacity-60">{c.label}</p>
-                          <p className="body-copy mb-3">{c.body}</p>
-                          <a
-                            href={c.link.href}
-                            {...("external" in c.link && c.link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className="label link-line inline-flex items-center gap-3"
-                          >
-                            {c.link.text} <Arrow />
+                <div className="relative z-[1] grid gap-4 md:grid-cols-2 md:gap-5">
+                  <FadeIn>
+                    <a href={contact.phone.href} className={tile}>
+                      <span>
+                        <span className="label block opacity-60">{b.office.label}</span>
+                        <span className="body-copy mt-2 block max-w-[40ch] opacity-80">{b.office.body}</span>
+                      </span>
+                      <span className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                        <span className="whitespace-nowrap font-display text-[clamp(24px,6.6vw,44px)] leading-none tracking-[0.01em]">{contact.phone.display}</span>
+                        <span className="label inline-flex items-center gap-3">
+                          {dict.common.call} <Arrow />
+                        </span>
+                      </span>
+                    </a>
+                  </FadeIn>
+                  <FadeIn delay={0.05}>
+                    <a href={`mailto:${contact.email}`} className={tile}>
+                      <span>
+                        <span className="label block opacity-60">{b.write.label}</span>
+                      </span>
+                      <span className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                        <span className="min-w-0 break-words font-display text-[clamp(20px,5.6vw,40px)] normal-case leading-none tracking-[0.01em]">{contact.email}</span>
+                        <span className="label inline-flex shrink-0 items-center gap-3">
+                          {dict.common.email} <Arrow />
+                        </span>
+                      </span>
+                    </a>
+                  </FadeIn>
+                  <FadeIn delay={0.1} className="md:col-span-2">
+                    <div className="flex flex-col gap-6 border border-ink/15 bg-white/60 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+                      <div>
+                        <p className="label opacity-60">{b.reservations.label}</p>
+                        <p className="body-copy mt-2 max-w-[56ch] opacity-80">{b.reservations.body}</p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                        <a href={contact.phone.href} className="label link-line">
+                          {contact.phone.display}
+                        </a>
+                        <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="btn-book">
+                          <span>{dict.common.bookOnline}</span>
+                          <Arrow />
+                          <span className="sr-only"> — {dict.booking.opensNew}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </FadeIn>
+                  {/* Further numbers and addresses from Hotel Information (none by default), each with its label. */}
+                  {(contact.phones.length > 1 || contact.emails.length > 1) && (
+                    <ul className="grid gap-3 md:col-span-2 md:grid-cols-3">
+                      {contact.phones.slice(1).map((p) => (
+                        <li key={p.href}>
+                          <a href={p.href} className="label flex min-h-[56px] items-center justify-between gap-4 border border-ink/15 px-5 hover:border-ink">
+                            <span className="opacity-60">{p.label}</span> <span>{p.display}</span>
                           </a>
-                        </FadeIn>
+                        </li>
+                      ))}
+                      {contact.emails.slice(1).map((e) => (
+                        <li key={e.address}>
+                          <a href={`mailto:${e.address}`} className="label flex min-h-[56px] items-center justify-between gap-4 border border-ink/15 px-5 normal-case tracking-[0.06em] hover:border-ink">
+                            <span className="uppercase tracking-[0.16em] opacity-60">{e.label}</span> <span>{e.address}</span>
+                          </a>
+                        </li>
                       ))}
                     </ul>
-                    <address className="label mt-8 not-italic leading-[1.8]">
-                      {hotel.name}
-                      <br />
-                      {contact.street}, {contact.postalCode} {contact.city}
-                      <br />
-                      {contact.country}
-                      <br />
-                      <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
-                        {dict.common.directions}
+                  )}
+                </div>
+
+                <div className="relative z-[1] mt-14 grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-3">
+                  <address className="label not-italic leading-[1.8]">
+                    {hotel.name}
+                    <br />
+                    {contact.street}, {contact.postalCode} {contact.city}
+                    <br />
+                    {contact.country}
+                    <br />
+                    <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
+                      {dict.common.directions}
+                    </a>
+                  </address>
+                  <div className="label space-y-2">
+                    <p className="mb-3 opacity-60">{dict.common.alsoHere}</p>
+                    <p>
+                      <span className="opacity-60">{dict.common.spaPhone} </span>
+                      <a href={spaContact.phone.href} className="link-line">
+                        {spaContact.phone.display}
                       </a>
-                    </address>
+                    </p>
+                    <p>
+                      <Link href={href(locale, "/centralfitnessclub")} className="link-line">
+                        {dict.common.fitnessPage}
+                      </Link>
+                    </p>
                   </div>
-                  <div className="md:col-span-7 md:col-start-6">
-                    <h2 className="font-display mb-10 text-[11vw] leading-[0.9] md:text-[4.4vw]">{dict.contact.formTitle}</h2>
-                    <ContactForm locale={locale} dict={dict} />
+                  <div className="label space-y-2">
+                    <p className="mb-3 opacity-60">{b.social.label}</p>
+                    <p className="body-copy normal-case tracking-normal opacity-80">{b.social.body}</p>
+                    <p className="flex gap-6">
+                      {social.map((x) => (
+                        <a key={x.href} href={x.href} target="_blank" rel="noopener noreferrer" className="link-line">
+                          {x.label}
+                        </a>
+                      ))}
+                    </p>
                   </div>
                 </div>
               </section>

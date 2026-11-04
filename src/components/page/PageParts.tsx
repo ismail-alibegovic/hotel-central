@@ -39,10 +39,10 @@ export function PageHero({
         fill
         priority
         sizes="100vw"
-        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(0.28)_contrast(1.1)_brightness(0.6)_sepia(0.3)_hue-rotate(28deg)] motion-reduce:animate-none"
+        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(0.7)_contrast(1.04)_brightness(0.86)_sepia(0.08)] motion-reduce:animate-none"
         style={{ objectPosition: image.position ?? "50% 50%" }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.6)_0%,rgba(2,13,16,0.15)_35%,rgba(2,13,16,0.65)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55)_0%,rgba(2,13,16,0.18)_35%,rgba(2,13,16,0.6)_100%)]" />
       <div className="relative flex flex-1 flex-col items-center justify-center px-[var(--gutter)] pt-[var(--header-h)] text-center">
         <FadeIn immediate delay={0.6} className="label mb-6 flex items-center gap-4">
           <span aria-hidden className="h-px w-8 bg-white/50" />

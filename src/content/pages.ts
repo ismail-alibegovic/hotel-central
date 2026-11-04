@@ -19,10 +19,10 @@ const en = {
     },
     rooms: {
       label: "(02) Rooms",
-      title: ["Completely", "refurbished"],
+      title: ["Rooms with", "a sense of place"],
       body: [
-        "Each of our completely refurbished, well-appointed rooms is designed with your comfort in mind, featuring modern amenities and stylish decor.",
-        "Start your day with a delicious breakfast buffet and Bosnian coffee at our on-site restaurant.",
+        "Thirty-two rooms and suites, from a quiet single room to the presidential suite with its own terrace above the rooftops. Each is well appointed and thoughtfully furnished, with the comforts you expect from a four-star hotel and the calm you need after a day in the city.",
+        "Every morning begins with a buffet breakfast of local and international favourites — and Bosnian coffee — at our on-site restaurant.",
       ],
       cta: "View rooms & suites",
     },
@@ -30,10 +30,11 @@ const en = {
       label: "(03) Unwind",
       title: ["After a day", "of sightseeing"],
       body: [
-        "Unwind and relax in our sauna, steam room and 25 m pool as well as our state of the art fitness center spread over three floors.",
+        "Unwind in the sauna, the steam room and the heated 25-metre pool of Central Fitness Club, train in its gym over three floors, or book a treatment at Central Day Spa.",
         "Our friendly and attentive staff are always on hand to ensure you have a memorable stay.",
       ],
-      cta: "Explore Club & Spa",
+      cta: "Central Fitness Club",
+      cta2: "Central Day Spa",
     },
     facts: [
       { k: "Category", v: "Four stars" },
@@ -44,8 +45,8 @@ const en = {
     statement: "A perfect blend of comfort, convenience and hospitality.",
   },
   rooms: {
-    meta: { title: "Rooms & Suites", description: "Six categories of refurbished rooms and suites at Hotel Central Sarajevo, from the single room to the presidential suite with terrace." },
-    hero: { eyebrow: "Rooms & suites", title: ["Rooms", "& suites"], intro: "Six categories, each completely refurbished and designed with your comfort in mind." },
+    meta: { title: "Rooms & Suites", description: "Six categories of rooms and suites at Hotel Central Sarajevo, from the single room to the presidential suite with terrace." },
+    hero: { eyebrow: "Rooms & suites", title: ["Rooms", "& suites"], intro: "Six categories of rooms and suites, each well appointed and designed with your comfort in mind." },
     size: "Size",
   },
   spa: {
@@ -133,6 +134,23 @@ const en = {
       { k: "Hotel", v: "32 rooms · 65–70 guests" },
       { k: "Pricing", v: "On individual request" },
     ],
+    enquiry: {
+      label: "Enquiries",
+      title: ["Plan your", "event with us"],
+      body: "Tell us the date, the number of guests and what you need — our team will send you a tailored proposal.",
+      cta: "Request a proposal",
+    },
+    packages: {
+      label: "Corporate & meeting packages",
+      items: [
+        { k: "Conference room", v: "Third floor, separate wing · up to 60–70 seats" },
+        { k: "Equipment", v: "Full IT equipment · flexible seating layouts" },
+        { k: "Coffee breaks", v: "Food and drinks for your programme" },
+        { k: "Catered lunches", v: "A bespoke menu from our culinary team" },
+        { k: "Accommodation", v: "32 rooms · 65–70 guests" },
+        { k: "Pricing", v: "Defined per event, on individual request" },
+      ],
+    },
   },
   location: {
     meta: { title: "Location", description: "Hotel Central is at Ćumurija 8 in the centre of Sarajevo, near the Sacred Heart Cathedral, the Latin Bridge and Baščaršija." },
@@ -141,46 +159,50 @@ const en = {
     transport: [
       {
         title: "Taxi",
-        body: "A taxi from the airport costs approximately 15 € / 30 KM and can be booked through our reception desk.",
+        body: "Sarajevo International Airport is approximately 10–12 km from the hotel — usually 20–25 minutes by car, depending on traffic. A taxi usually costs approximately 30–35 KM (about 15–18 €), but fares vary; our reception can book one for you.",
       },
       {
         title: "Airport coach",
-        body: "From Sarajevo Airport, ask for the Hotel Central stop at the Latin Bridge or at the Sacred Heart Cathedral. The ticket is normally 2.50 € / 5.00 KM single and 4 € / 8.00 KM return. The hotel is approximately 25 minutes from the airport. Timetables are on centrotrans.com.",
+        body: "The Centrotrans airport coach leaves from outside the arrivals hall; ask the driver for the Hotel Central stop at the Latin Bridge or the Sacred Heart Cathedral. The return stop to the airport is the same. A single ticket is approximately 5 KM (about 2.50 €), a return about 8 KM — prices may vary. Timetables are on centrotrans.com.",
       },
       {
         title: "Bus & tram",
-        body: "Bus stops beside the hotel serve the centre and surroundings, usually every 5–6 minutes. Tram no. 3 runs between Ilidža and Baščaršija (Old Town). Tickets are around 0.90 € / 1.80 KM.",
+        body: "Bus stops beside the hotel serve the centre and surroundings, with buses every few minutes during the day. Tram no. 3 runs between Ilidža and Baščaršija (Old Town). Single tickets cost around 1–2 KM; fares may change.",
       },
       {
         title: "Sightseeing bus",
-        body: "The Centrotrans sightseeing bus stops 50 m outside the hotel. Tours run daily from May to September, starting at 12:00 and 14:00.",
+        body: "The Centrotrans sightseeing bus stops about 50 m from the hotel. Tours usually run daily in the summer season (May to September); please check times and tickets with the operator.",
       },
       {
-        title: "By car",
-        body: "Enter “Hotel Central, Ćumurija, Sarajevo” as your destination. Leave the car in our secure, gated car park and explore on foot.",
+        title: "By car & parking",
+        body: "Enter “Hotel Central, Ćumurija 8, Sarajevo” as your destination. The hotel does not have its own car park; several public and commercial car parks are nearby, and our reception will gladly advise you.",
+      },
+      {
+        title: "Please note",
+        body: "Distances, travel times and fares are approximate and can change; they are given as a guide only.",
       },
     ],
     walk: {
       label: "(02) On foot",
-      title: ["Leave the car", "and walk"],
+      title: ["See the city", "on foot"],
       body: [
-        "Sarajevo suits the walkers. Why not leave the car in our secure, gated car park and just walk. We're in the city center and almost all sights are situated in walking distance.",
+        "Sarajevo suits the walker. We're in the city centre, and almost all of the sights are within walking distance — Baščaršija, the Latin Bridge and the Sacred Heart Cathedral are all close by.",
         "It's the best way to stumble upon something interesting along the way.",
       ],
     },
     nearby: "Nearby",
-    landmarks: ["Sacred Heart Cathedral", "Latin Bridge", "Baščaršija & the Old Bazaar", "Sarajevo International Airport · approx. 25 min"],
+    landmarks: ["Sacred Heart Cathedral", "Latin Bridge", "Baščaršija & the Old Bazaar", "Sarajevo International Airport · approx. 10–12 km"],
   },
   contact: {
     meta: { title: "Contact", description: "Contact Hotel Central Sarajevo: Ćumurija 8, 71000 Sarajevo · +387 33 561 800 · info@hotelcentral.ba" },
-    hero: { eyebrow: "Contact", title: ["We're", "standing by"], intro: "Our hotel office and reservation agents are happy to help." },
-    office: "Hotel office",
-    officeBody: "Please contact our hotel office for all general questions.",
-    reservations: "Reservation office",
-    reservationsBody: "We have agents waiting to talk to you about your hotel booking.",
-    write: "Send us an email",
-    social: "Social media",
-    socialBody: "Visit us on Facebook for the latest updates and news.",
+    hero: { eyebrow: "Contact", title: ["Our team", "is here for you"], intro: "Our team is here to answer your questions. Call us or send us an e-mail — we will be glad to help." },
+    office: "Reception & hotel office",
+    officeBody: "For all general questions, at any time of your stay.",
+    reservations: "Reservations",
+    reservationsBody: "Our reservations team will gladly help you with your booking, or book online directly with the hotel.",
+    write: "E-mail",
+    social: "Follow us",
+    socialBody: "News and moments from Hotel Central.",
   },
 };
 
@@ -200,10 +222,10 @@ const bs: PagesContent = {
     },
     rooms: {
       label: "(02) Sobe",
-      title: ["Potpuno", "renovirane"],
+      title: ["Sobe sa", "dušom grada"],
       body: [
-        "Svaka od naših renoviranih, dobro opremljenih soba uređena je modernim sadržajima i elegantnim enterijerom, pružajući maksimalnu udobnost.",
-        "Započnite dan ukusnim doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu.",
+        "Trideset dvije sobe i apartmana, od mirne jednokrevetne sobe do predsjedničkog apartmana sa vlastitom terasom iznad sarajevskih krovova. Svaka je dobro opremljena i pažljivo uređena, sa udobnošću koju očekujete od hotela sa četiri zvjezdice i mirom koji Vam treba nakon dana u gradu.",
+        "Svako jutro počinje doručkom na bazi švedskog stola sa domaćim i internacionalnim jelima — i bosanskom kafom — u našem hotelskom restoranu.",
       ],
       cta: "Pogledajte sobe i apartmane",
     },
@@ -211,10 +233,11 @@ const bs: PagesContent = {
       label: "(03) Opuštanje",
       title: ["Nakon dana", "razgledanja"],
       body: [
-        "Opustite se u našoj finskoj sauni, parnoj kupelji i bazenu od 25 metara, kao i u vrhunskom fitnes centru koji se prostire na tri etaže.",
-        "Ljubazno i pažljivo osoblje našeg hotela uvijek je pri ruci kako bi vam osiguralo nezaboravan boravak.",
+        "Opustite se u sauni, parnoj kupelji i grijanom bazenu od 25 metara u Central Fitness Clubu, trenirajte u teretani na tri sprata ili rezervišite tretman u Central Day Spa.",
+        "Ljubazno i pažljivo osoblje našeg hotela uvijek je pri ruci kako bi Vam osiguralo nezaboravan boravak.",
       ],
-      cta: "Istražite Club & Spa",
+      cta: "Central Fitness Club",
+      cta2: "Central Day Spa",
     },
     facts: [
       { k: "Kategorija", v: "Četiri zvjezdice" },
@@ -225,8 +248,8 @@ const bs: PagesContent = {
     statement: "Savršen spoj udobnosti i gostoprimstva.",
   },
   rooms: {
-    meta: { title: "Sobe i apartmani", description: "Šest kategorija renoviranih soba i apartmana u Hotelu Central Sarajevo, od jednokrevetne sobe do predsjedničkog apartmana sa terasom." },
-    hero: { eyebrow: "Sobe i apartmani", title: ["Sobe", "i apartmani"], intro: "Šest kategorija, svaka potpuno renovirana i uređena za maksimalnu udobnost." },
+    meta: { title: "Sobe i apartmani", description: "Šest kategorija soba i apartmana u Hotelu Central Sarajevo, od jednokrevetne sobe do predsjedničkog apartmana sa terasom." },
+    hero: { eyebrow: "Sobe i apartmani", title: ["Sobe", "i apartmani"], intro: "Šest kategorija soba i apartmana, dobro opremljenih i uređenih za Vašu udobnost." },
     size: "Veličina",
   },
   spa: {
@@ -314,6 +337,23 @@ const bs: PagesContent = {
       { k: "Hotel", v: "32 sobe · 65–70 osoba" },
       { k: "Cijene", v: "Prema individualnom upitu" },
     ],
+    enquiry: {
+      label: "Upiti",
+      title: ["Planirajte", "događaj s nama"],
+      body: "Recite nam datum, broj gostiju i šta Vam je potrebno — naš tim će Vam poslati ponudu po mjeri.",
+      cta: "Zatražite ponudu",
+    },
+    packages: {
+      label: "Korporativni i konferencijski paketi",
+      items: [
+        { k: "Konferencijska sala", v: "Treći sprat, odvojeni dio · do 60–70 mjesta" },
+        { k: "Oprema", v: "Kompletna informatička oprema · fleksibilan raspored sjedenja" },
+        { k: "Kafe pauze", v: "Hrana i piće za Vaš program" },
+        { k: "Ručak za događaje", v: "Jelovnik po mjeri našeg kulinarskog tima" },
+        { k: "Smještaj", v: "32 sobe · 65–70 osoba" },
+        { k: "Cijene", v: "Prema individualnom upitu, za svaki događaj" },
+      ],
+    },
   },
   location: {
     meta: { title: "Lokacija", description: "Hotel Central se nalazi na adresi Ćumurija 8, u centru Sarajeva, u blizini Katedrale, Latinske ćuprije i Baščaršije." },
@@ -322,46 +362,50 @@ const bs: PagesContent = {
     transport: [
       {
         title: "Taxi",
-        body: "Taxi od aerodroma košta otprilike 18 € / 35 KM, a od hotela do aerodroma 15 € / 30 KM. Taxi se može rezervisati preko recepcije hotela.",
+        body: "Međunarodni aerodrom Sarajevo udaljen je približno 10–12 km od hotela — vožnja obično traje 20–25 minuta, u zavisnosti od saobraćaja. Taxi obično košta otprilike 30–35 KM (oko 15–18 €), ali cijene se razlikuju; recepcija Vam ga rado može naručiti.",
       },
       {
         title: "Autobus sa aerodroma",
-        body: "Na izlazu sa aerodroma nalazi se autobus Centrotrans; zamolite vozača za stanicu kod Latinske ćuprije ili Katedrale Srca Isusova. Karta košta 2,50 € / 5,00 KM u jednom pravcu i 4,00 € / 8,00 KM povratna. Hotel je udaljen otprilike 25 minuta od aerodroma. Red vožnje: centrotrans.com.",
+        body: "Autobus Centrotrans polazi ispred dolaznog terminala; zamolite vozača za stanicu kod Latinske ćuprije ili Katedrale Srca Isusova. Stanica za povratak na aerodrom je ista. Karta u jednom pravcu košta otprilike 5 KM (oko 2,50 €), povratna oko 8 KM — cijene su podložne promjenama. Red vožnje: centrotrans.com.",
       },
       {
         title: "Autobus i tramvaj",
-        body: "Stanice gradskog prijevoza nalaze se u blizini hotela; autobusi obično voze svakih 5–6 minuta. Tramvaj broj 3 saobraća od Ilidže do Baščaršije. Karta košta oko 0,90 € / 1,80 KM.",
+        body: "Stanice gradskog prijevoza nalaze se u blizini hotela, a autobusi tokom dana voze svakih nekoliko minuta. Tramvaj broj 3 saobraća od Ilidže do Baščaršije. Pojedinačna karta košta oko 1–2 KM; cijene su podložne promjenama.",
       },
       {
         title: "Turistički bus",
-        body: "Stanica turističkog autobusa Centrotrans nalazi se 50 m od hotela. Ture se realizuju svaki dan od maja do septembra, sa početkom u 12:00 i 14:00.",
+        body: "Stanica turističkog autobusa Centrotrans nalazi se oko 50 m od hotela. Ture se obično realizuju svaki dan u ljetnoj sezoni (od maja do septembra); termine i cijene provjerite kod prevoznika.",
       },
       {
-        title: "Autom",
-        body: "Kao destinaciju unesite „Hotel Central, Ćumurija 8, Sarajevo“. Ostavite auto na našem sigurnom, ograđenom parkingu i istražite grad pješice.",
+        title: "Autom i parking",
+        body: "Kao destinaciju unesite „Hotel Central, Ćumurija 8, Sarajevo“. Hotel ne raspolaže vlastitim parkingom; u blizini se nalazi nekoliko javnih i komercijalnih parkinga, a recepcija će Vam rado pomoći.",
+      },
+      {
+        title: "Napomena",
+        body: "Udaljenosti, trajanje putovanja i cijene su okvirni i mogu se promijeniti; navedeni su samo kao orijentacija.",
       },
     ],
     walk: {
       label: "(02) Pješice",
-      title: ["Ostavite auto", "i prošetajte"],
+      title: ["Grad", "pješice"],
       body: [
-        "Sarajevo je pogodno za šetanje, a može biti frustrirajuće za vozače. Zašto ne biste ostavili auto na parkingu i jednostavno šetali? Nalazimo se u srcu grada i skoro sve znamenitosti su u blizini.",
+        "Sarajevo je pogodno za šetanje. Nalazimo se u samom centru grada i skoro sve znamenitosti su na pješačkoj udaljenosti — Baščaršija, Latinska ćuprija i Katedrala su u neposrednoj blizini.",
         "To je i najbolji način da „naletite“ na nešto interesantno.",
       ],
     },
     nearby: "U blizini",
-    landmarks: ["Katedrala Srca Isusova", "Latinska ćuprija", "Baščaršija i Stari grad", "Međunarodni aerodrom Sarajevo · oko 25 min"],
+    landmarks: ["Katedrala Srca Isusova", "Latinska ćuprija", "Baščaršija i Stari grad", "Međunarodni aerodrom Sarajevo · oko 10–12 km"],
   },
   contact: {
     meta: { title: "Kontakt", description: "Kontaktirajte Hotel Central Sarajevo: Ćumurija 8, 71000 Sarajevo · +387 33 561 800 · info@hotelcentral.ba" },
-    hero: { eyebrow: "Kontakt", title: ["Tu smo", "za Vas"], intro: "Naš hotelski ured i recepcija rado će Vam pomoći." },
-    office: "Hotelski ured",
-    officeBody: "Za sva opća pitanja obratite se našem hotelskom uredu.",
+    hero: { eyebrow: "Kontakt", title: ["Naš tim", "je tu za Vas"], intro: "Naš tim rado će odgovoriti na sva Vaša pitanja. Nazovite nas ili nam pošaljite e-mail — rado ćemo pomoći." },
+    office: "Recepcija i hotelski ured",
+    officeBody: "Za sva opća pitanja, u bilo koje vrijeme Vašeg boravka.",
     reservations: "Rezervacije",
-    reservationsBody: "Naši agenti rado će razgovarati s Vama o rezervaciji.",
-    write: "Pošaljite email",
-    social: "Društvene mreže",
-    socialBody: "Posjetite nas na Facebooku za najnovije vijesti.",
+    reservationsBody: "Naš tim za rezervacije rado će Vam pomoći oko rezervacije, a možete rezervisati i online, direktno kod hotela.",
+    write: "E-mail",
+    social: "Pratite nas",
+    socialBody: "Novosti i trenuci iz Hotela Central.",
   },
 };
 

@@ -5,7 +5,10 @@ import type { Footer, Navigation } from "@/payload-types";
 import { resolveLink, validateLink } from "./links";
 
 export type SocialLink = { label: string; href: string };
-export const staticSocial: SocialLink[] = [{ label: "Facebook", href: hotel.facebook }];
+export const staticSocial: SocialLink[] = [
+  { label: "Facebook", href: hotel.facebook },
+  { label: "Instagram", href: hotel.instagram },
+];
 
 const text = (v: string | null | undefined) => (v && v.trim() ? v.trim() : undefined);
 const lines = (v: string | null | undefined) => {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionary";
+import { staticSocial } from "@/cms/chromeMerge";
 import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
 import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
@@ -13,7 +14,7 @@ import { Arrow } from "./ui";
 export function Footer({
   locale,
   dict,
-  social = [{ label: "Facebook", href: hotel.facebook }],
+  social = staticSocial,
   contact = builtInContact(locale),
 }: {
   locale: Locale;

@@ -131,7 +131,7 @@ export const rooms: Room[] = [
     },
     amenities: {
       en: ["Minibar / Refrigerator", "Tea/coffee maker", "Safety deposit box", "Flat TV screen", "Telephone", "Air conditioning", "Hairdryer", "Iron and ironing board", "Bathrobe/Slippers", "Writing desk", "Free toiletries", "Toilet", "Private bathroom with shower", "Wake-up service", "Closet", "Towels", "Linen", "Free WiFi"],
-      bs: ["Minibar", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Posteljina", "Besplatan WiFi"],
+      bs: ["Minibar", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica sa tušem", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Posteljina", "Besplatan WiFi"],
     },
     images: [
       img("img_9067.jpg", "Superior double room with damask wallpaper", "Superior dvokrevetna soba", "50% 60%"),
@@ -159,13 +159,13 @@ export const rooms: Room[] = [
         "A perfect space for a family or a group of friends.",
       ],
       bs: [
-        "Obiteljska – četverokrevetna soba nalazi se u modernom tek izgrađenom dijelu hotela. Pruža prostranost od preko 50 kvadrata i opremljena je sa 2 udobna bračna kreveta ili sa 4 odvojena kreveta. 2 kupatila.",
+        "Obiteljska – četverokrevetna soba nalazi se u modernom tek izgrađenom dijelu hotela. Pruža prostranost od preko 50 kvadrata i opremljena je sa 2 udobna bračna kreveta ili sa 4 odvojena kreveta.",
         "Savršena soba za porodicu ili grupu prijatelja.",
       ],
     },
     highlights: {
-      en: ["Over 50 m²", "Two double or four single beds", "Sofa bed", "LCD flat screen TV", "Tea/coffee maker", "Bathrobe & slippers", "Free WiFi"],
-      bs: ["Preko 50 m²", "2 bračna ili 4 odvojena kreveta", "Dva kupatila", "TV ravnog ekrana", "Kuhalo za kafu/čaj", "Ogrtač i papuče", "Besplatan WiFi"],
+      en: ["Over 50 m²", "Two double or four single beds", "Air conditioning", "LCD flat screen TV", "Tea/coffee maker", "Bathrobe & slippers", "Free WiFi"],
+      bs: ["Preko 50 m²", "2 bračna ili 4 odvojena kreveta", "Klima uređaj", "TV ravnog ekrana", "Kuhalo za kafu/čaj", "Ogrtač i papuče", "Besplatan WiFi"],
     },
     amenities: {
       en: ["Safety deposit box", "LCD flat screen TV", "Tea/coffee maker", "Telephone", "Air conditioning", "Hairdryer", "Iron and ironing board", "Desk", "Toilet", "Free toiletries", "Private bathroom", "Bathrobe & slippers", "Wake-up service", "Wardrobe or closet", "Towels", "Sofa bed", "Free WiFi"],
@@ -186,7 +186,7 @@ export const rooms: Room[] = [
     sizeLabel: { en: "Room size 37 m²", bs: "Veličina sobe 37 m²" },
     name: { en: "Junior Suite", bs: "Junior Suite" },
     titleLines: { en: ["Junior", "Suite"], bs: ["Junior", "Suite"] },
-    feature: { en: "King-size bed", bs: "King size krevet" },
+    feature: { en: "Queen/King-size bed", bs: "Queen/King size krevet" },
     summary: {
       en: "Spacious suite with a flat-screen cable TV, a seating area, tea and coffee making facilities, a mini bar and a spacious bathroom.",
       bs: "Prostrani polu-apartman sa TV ravnog ekrana, udobnim prostorom za sjedenje, minibarom i prostranom kupaonicom.",
@@ -203,7 +203,7 @@ export const rooms: Room[] = [
     },
     highlights: {
       en: ["Queen/King size bed", "Seating area", "Sofa", "Bath tub / shower", "Tea/coffee maker", "Mini bar", "Free WiFi"],
-      bs: ["Visoki queen/king size krevet", "Prostor za sjedenje", "Sofa na rasklapanje", "Kada/tuš", "Kuhalo za kafu/čaj", "Minibar", "Besplatan WiFi"],
+      bs: ["Visoki queen/king size krevet", "Prostor za sjedenje", "Sofa", "Kada/tuš", "Kuhalo za kafu/čaj", "Minibar", "Besplatan WiFi"],
     },
     amenities: {
       en: ["Tea/Coffee maker", "Mini bar", "Safety deposit box", "TV flat screen", "Cable channels", "Telephone", "Air conditioning", "Hairdryer", "Iron & ironing board", "Bathrobe & slippers", "Desk", "Seating area", "Free toiletries", "Toilet", "Private bathroom – shower/bath tub", "Queen/King size beds (> 2 metres)", "Closet", "Sofa", "Wake-up service", "Towels", "Linen", "Free WiFi"],
@@ -212,7 +212,7 @@ export const rooms: Room[] = [
     images: [
       img("junior02.jpg", "Junior suite bedroom", "Spavaći dio Junior suite", "50% 55%"),
       img("junior01.jpg", "Seating area of the junior suite", "Prostor za sjedenje u Junior suite"),
-      img("junior03.jpg", "Junior suite with a king-size bed", "Junior suite sa king size krevetom"),
+      img("junior03.jpg", "Junior suite with a large double bed", "Junior suite sa velikim bračnim krevetom"),
     ],
   },
   {

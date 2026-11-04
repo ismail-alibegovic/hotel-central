@@ -5,7 +5,8 @@ import { hotel } from "@/content/hotel";
 import { rooms } from "@/content/rooms";
 import { locales } from "@/lib/i18n";
 
-const base = ["", "/about", "/rooms", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
+// The draft Central Café page (/about/cafe, awaiting the client's decision) is deliberately not listed.
+const base = ["", "/about", "/rooms", "/centralfitnessclub", "/centralfitnessclub/membership", "/centralfitnessclub/timetable", "/dayspa", "/restaurant", "/conference", "/location", "/contact"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Rooms the CMS has hidden are left out; if the CMS is off or unreachable every static room is listed.
