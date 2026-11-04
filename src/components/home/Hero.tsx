@@ -39,7 +39,7 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[55%_38%] [filter:saturate(0.4)_contrast(1.04)_brightness(0.9)_sepia(0.05)]"
+            className="object-cover object-[55%_38%] [filter:saturate(0.45)_contrast(1.04)_brightness(0.9)_sepia(0.16)]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>

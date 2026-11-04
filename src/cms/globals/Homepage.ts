@@ -87,12 +87,10 @@ export const Homepage: GlobalConfig = {
     },
     {
       // The former single "Club & Spa" section (CH-004 split it in two). Its texts are no longer shown and are kept only so
-      // no stored content is deleted. Its two photos were the photos of the new section, which now shows the two logos
-      // instead, so the whole group is hidden (kept in the database, no migration).
+      // no stored content is deleted; its two photos are the photos of the new section.
       name: "spa",
       type: "group",
       label: "4b · Photos of this section",
-      admin: { hidden: true },
       fields: [
         ...[t("metaLeft", "Top strip — left"), t("metaCenter", "Top strip — centre"), t("metaRight", "Top strip — right"), lines("title", "Heading"), area("body", "Text"), textRows("facts", ["Item", "Short list"], "Short list under the text."), t("cta", "Button")].map(
           (f) => ({ ...f, admin: { ...(f as { admin?: object }).admin, hidden: true } }) as typeof f,

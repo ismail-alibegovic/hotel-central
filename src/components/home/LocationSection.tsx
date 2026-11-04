@@ -2,7 +2,7 @@ import type { Dictionary } from "@/content/dictionary";
 import { builtInContact, type HotelContact } from "@/cms/hotelInfoMerge";
 import { hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
-import { MapOnDemand } from "../MapOnDemand";
+import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { Arrow, MetaRow, PillLink } from "../ui";
@@ -13,7 +13,8 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
   const d = dict.home.location;
   const photo = img(images?.location, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower on Ćumurija street", position: "62% 30%" });
   return (
-    <section aria-labelledby="location-title" className="relative overflow-hidden bg-ivory pb-16 pt-[30px] text-ink md:pb-[6vw] md:pt-[3vw]">
+    <section aria-labelledby="location-title" className="relative overflow-hidden bg-sage pb-16 pt-[30px] text-ink md:pb-[6vw] md:pt-[3vw]">
+      <DecorativeLine variant="location" tone="dark" className="z-0 hidden md:block" />
       <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} className="relative z-[2]" />
 
       <div className="relative z-[2] mt-10 grid grid-cols-1 gap-12 px-[var(--gutter)] md:mt-[5vw] md:grid-cols-12 md:gap-x-[2vw]">
@@ -51,11 +52,12 @@ export function LocationSection({ locale, dict, images, contact = builtInContact
 
         <div className="relative md:col-span-5 md:col-start-8">
           <FadeIn className="relative aspect-[4/5] w-full overflow-hidden bg-ivory md:aspect-[4/5.2]">
-            <MapOnDemand
+            <iframe
               title={`Map — ${hotel.name}, ${contact.street}`}
               src={contact.mapEmbed}
-              address={`${contact.street}, ${contact.city}`}
-              label={dict.common.showMap}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="map-tint absolute inset-0 h-full w-full border-0"
             />
             <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" />
           </FadeIn>

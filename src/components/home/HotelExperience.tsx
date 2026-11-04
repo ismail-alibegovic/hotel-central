@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/content/dictionary";
 import { href, type Locale } from "@/lib/i18n";
+import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
@@ -27,7 +28,7 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
 
 export function HotelExperience({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.hotel;
-  const left = img(images?.hotelLeft, { src: "/images/img_9088.jpg", alt: "A writing desk and reading lamp in a guest room", position: "45% 50%" });
+  const left = img(images?.hotelLeft, { src: "/images/final-6230.jpg", alt: "Relaxation lounge of the Club & Spa with a forest mural", position: "38% 50%" });
   const center = img(images?.hotelCenter, { src: "/images/3064.jpg", alt: "The white façade and corner tower of Hotel Central in Sarajevo's old town", position: "56% 30%" });
   const right = img(images?.hotelRight, { src: "/images/dorucak5.jpg", alt: "Restaurant Central breakfast buffet", position: "50% 50%" });
   return (
@@ -41,6 +42,7 @@ export function HotelExperience({ locale, dict, images }: { locale: Locale; dict
         <div className="absolute inset-x-0 top-[4.85%] z-[4] hidden md:block">
           <MetaRow left={d.metaLeft} center={d.metaCenter} index={d.metaIndex} right={d.metaRight} rightSub={d.metaRightSub} />
         </div>
+        <DecorativeLine variant="hotel" className="z-0" />
 
         {/* Base title: ink on paper, sits beneath the photographs */}
         <Title lines={d.title} className="z-[1] text-ink" />

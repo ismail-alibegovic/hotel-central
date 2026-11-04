@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/content/dictionary";
 import { href, type Locale } from "@/lib/i18n";
+import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
 import { MetaRow, PillLink } from "../ui";
@@ -39,6 +40,7 @@ export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; d
       </h2>
 
       <div className="comp hidden aspect-[1025/660] md:block">
+        <DecorativeLine variant="restaurant" className="z-0" />
         <div className="absolute inset-x-0 top-[4.7%] z-[4]">
           <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} />
         </div>

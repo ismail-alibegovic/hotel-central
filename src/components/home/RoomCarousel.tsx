@@ -9,6 +9,7 @@ import type { Dictionary } from "@/content/dictionary";
 import { booking } from "@/content/hotel";
 import type { Room } from "@/content/rooms";
 import { href, type Locale } from "@/lib/i18n";
+import { DecorativeLine } from "../DecorativeLine";
 import { Arrow, ArrowLeft } from "../ui";
 
 const ease = [0.76, 0, 0.24, 1] as const;
@@ -139,7 +140,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
     <section
       aria-roledescription="carousel"
       aria-label={dict.nav.rooms}
-      className="relative overflow-hidden bg-deep pb-12 pt-[30px] text-white [--gutter-pct:4.1%] md:pb-0 md:pt-0 md:[--gutter-pct:2.54%]"
+      className="relative overflow-hidden bg-olive pb-12 pt-[30px] text-white [--gutter-pct:4.1%] md:pb-0 md:pt-0 md:[--gutter-pct:2.54%]"
     >
       {/* Mobile header */}
       <div className="label mb-8 grid grid-cols-2 gap-4 px-[var(--gutter)] md:hidden">
@@ -148,6 +149,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
       </div>
 
       <div className="comp aspect-[390/650] md:aspect-[1025/640]">
+        <DecorativeLine variant="rooms" tone="light" className="z-0 hidden md:block" />
 
         {/* Desktop editorial metadata */}
         <div className="label absolute left-[2.54%] top-[4.85%] z-[4] hidden md:block">{d.metaLeft}</div>
