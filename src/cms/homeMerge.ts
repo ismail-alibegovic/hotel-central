@@ -68,14 +68,13 @@ export function mergeHome(dict: Dictionary, doc: Homepage | null): HomeContent {
     },
     // CH-004: the Fitness / Spa section. Its two photographs follow the existing "Club & Spa" photo fields.
     club: {
-      ...h.club,
       metaLeft: text(g.club.metaLeft) ?? h.club.metaLeft,
       metaCenter: text(g.club.metaCenter) ?? h.club.metaCenter,
       metaRight: text(g.club.metaRight) ?? h.club.metaRight,
       title: lines(g.club.title) ?? h.club.title,
       intro: text(g.club.intro) ?? h.club.intro,
-      fitness: { ...h.club.fitness, body: text(g.club.fitnessBody) ?? h.club.fitness.body, cta: text(g.club.fitnessCta) ?? h.club.fitness.cta },
-      spa: { ...h.club.spa, body: text(g.club.spaBody) ?? h.club.spa.body, cta: text(g.club.spaCta) ?? h.club.spa.cta },
+      fitness: { tagline: text(g.club.fitnessTagline) ?? h.club.fitness.tagline, body: text(g.club.fitnessBody) ?? h.club.fitness.body, facts: rows(g.club.fitnessFacts) ?? h.club.fitness.facts, cta: text(g.club.fitnessCta) ?? h.club.fitness.cta },
+      spa: { tagline: text(g.club.spaTagline) ?? h.club.spa.tagline, body: text(g.club.spaBody) ?? h.club.spa.body, facts: rows(g.club.spaFacts) ?? h.club.spa.facts, cta: text(g.club.spaCta) ?? h.club.spa.cta },
     },
     spa: {
       metaLeft: text(g.spa.metaLeft) ?? h.spa.metaLeft,

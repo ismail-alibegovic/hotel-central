@@ -111,20 +111,16 @@ const en = {
       title: ["Train", "& unwind"],
       intro: "Two places with a character of their own, inside Hotel Central: a fitness club with a heated 25-metre pool, and a quiet day spa.",
       fitness: {
-        name: "Central Fitness Club",
         tagline: "Gym · Pool · Classes",
         body: "Cardio and strength equipment over three floors, group classes and a heated 25-metre pool with sauna, steam bath and caldarium. Membership is open to the public; hotel guests have access throughout their stay.",
         facts: ["Gym over three floors", "25 m heated pool", "Group classes", "Sauna · steam · caldarium"],
         cta: "Discover the club",
-        alt: "The 25-metre pool of Central Fitness Club with its wave mosaic",
       },
       spa: {
-        name: "Central Day Spa",
         tagline: "Massage · Facials · Rituals",
         body: "Massage, facial, beauty and body treatments in six treatment rooms. Every treatment booked includes up to two hours in the pool and thermal area.",
         facts: ["Six treatment rooms", "Massage & facials", "Manicure & pedicure", "2 h pool access with treatments"],
         cta: "Discover the spa",
-        alt: "A candle-lit treatment room at Central Day Spa",
       },
     },
     restaurant: {
@@ -296,20 +292,16 @@ const bs: Dictionary = {
       title: ["Trening", "i predah"],
       intro: "Dva mjesta sa vlastitim karakterom, u Hotelu Central: fitness klub sa grijanim bazenom od 25 metara i mirni day spa.",
       fitness: {
-        name: "Central Fitness Club",
         tagline: "Teretana · Bazen · Treninzi",
         body: "Kardio i oprema za snagu na tri sprata, grupni treninzi i grijani bazen od 25 metara sa saunom, parnom kupelji i caldariumom. Članstvo je otvoreno za sve, a gosti hotela sadržaje koriste tokom cijelog boravka.",
         facts: ["Teretana na tri sprata", "Grijani bazen 25 m", "Grupni treninzi", "Sauna · para · caldarium"],
         cta: "Otkrijte klub",
-        alt: "Bazen od 25 metara u Central Fitness Clubu sa mozaikom talasa",
       },
       spa: {
-        name: "Central Day Spa",
         tagline: "Masaže · Tretmani lica · Rituali",
         body: "Masaže, tretmani lica, kozmetički tretmani i tretmani tijela u šest tretman soba. Uz svaki rezervisani tretman na raspolaganju su Vam do dva sata bazena i termalnog dijela.",
         facts: ["Šest tretman soba", "Masaže i tretmani lica", "Manikir i pedikir", "2 h bazena uz tretman"],
         cta: "Otkrijte spa",
-        alt: "Tretman soba u Central Day Spa uz svjetlost svijeća",
       },
     },
     restaurant: {

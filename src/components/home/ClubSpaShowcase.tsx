@@ -13,10 +13,15 @@ import { img, type HomeImages } from "./homeImages";
  * each with its own button to its own section of the site. The two photographs stay editable as the homepage's
  * "Club & Spa" photos in the CMS (main photo → fitness, second photo → spa).
  */
+const alts = {
+  en: { pool: "The 25-metre pool of Central Fitness Club with its wave mosaic", spa: "A candle-lit treatment room at Central Day Spa" },
+  bs: { pool: "Bazen od 25 metara u Central Fitness Clubu sa mozaikom talasa", spa: "Tretman soba u Central Day Spa uz svjetlost svijeća" },
+};
+
 export function ClubSpaShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.club;
-  const pool = img(images?.spaMain, { src: "/images/3069.jpg", alt: d.fitness.alt, position: "50% 60%" });
-  const spa = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: d.spa.alt, position: "50% 50%" });
+  const pool = img(images?.spaMain, { src: "/images/3069.jpg", alt: alts[locale].pool, position: "50% 60%" });
+  const spa = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: alts[locale].spa, position: "50% 50%" });
 
   return (
     <section aria-labelledby="club-title" className="relative overflow-hidden bg-ivory pb-16 pt-[30px] text-ink md:pb-[5vw] md:pt-[3vw]">
@@ -43,7 +48,7 @@ export function ClubSpaShowcase({ locale, dict, images }: { locale: Locale; dict
               <p className="label text-right opacity-75">{d.fitness.tagline}</p>
             </div>
             <h3 id="club-fitness" className="sr-only">
-              {d.fitness.name}
+              Central Fitness Club
             </h3>
             <p className="body-copy max-w-[46ch] opacity-90">{d.fitness.body}</p>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.16em]">
@@ -76,7 +81,7 @@ export function ClubSpaShowcase({ locale, dict, images }: { locale: Locale; dict
               <p className="label text-right opacity-75">{d.spa.tagline}</p>
             </div>
             <h3 id="club-spa" className="sr-only">
-              {d.spa.name}
+              Central Day Spa
             </h3>
             <p className="body-copy max-w-[46ch] opacity-90">{d.spa.body}</p>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[10px] uppercase tracking-[0.16em]">

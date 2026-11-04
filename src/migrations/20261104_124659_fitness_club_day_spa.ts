@@ -10,6 +10,40 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_day_spa_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__day_spa_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__day_spa_v_published_locale" AS ENUM('en', 'bs');
+  CREATE TABLE "homepage_club_fitness_facts" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"text" varchar
+  );
+  
+  CREATE TABLE "homepage_club_spa_facts" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"text" varchar
+  );
+  
+  CREATE TABLE "_homepage_v_version_club_fitness_facts" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"text" varchar,
+  	"_uuid" varchar
+  );
+  
+  CREATE TABLE "_homepage_v_version_club_spa_facts" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"text" varchar,
+  	"_uuid" varchar
+  );
+  
   CREATE TABLE "fitness_club_sessions" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
@@ -277,8 +311,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "homepage_locales" ADD COLUMN "club_meta_right" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_title" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_intro" varchar;
+  ALTER TABLE "homepage_locales" ADD COLUMN "club_fitness_tagline" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_fitness_body" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_fitness_cta" varchar;
+  ALTER TABLE "homepage_locales" ADD COLUMN "club_spa_tagline" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_spa_body" varchar;
   ALTER TABLE "homepage_locales" ADD COLUMN "club_spa_cta" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_meta_left" varchar;
@@ -286,10 +322,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_meta_right" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_title" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_intro" varchar;
+  ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_fitness_tagline" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_fitness_body" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_fitness_cta" varchar;
+  ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_spa_tagline" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_spa_body" varchar;
   ALTER TABLE "_homepage_v_locales" ADD COLUMN "version_club_spa_cta" varchar;
+  ALTER TABLE "homepage_club_fitness_facts" ADD CONSTRAINT "homepage_club_fitness_facts_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."homepage"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "homepage_club_spa_facts" ADD CONSTRAINT "homepage_club_spa_facts_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."homepage"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_homepage_v_version_club_fitness_facts" ADD CONSTRAINT "_homepage_v_version_club_fitness_facts_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_homepage_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_homepage_v_version_club_spa_facts" ADD CONSTRAINT "_homepage_v_version_club_spa_facts_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_homepage_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "fitness_club_sessions" ADD CONSTRAINT "fitness_club_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."fitness_club"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "fitness_club_sessions_locales" ADD CONSTRAINT "fitness_club_sessions_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."fitness_club_sessions"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "fitness_club_plans_includes" ADD CONSTRAINT "fitness_club_plans_includes_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."fitness_club_plans"("id") ON DELETE cascade ON UPDATE no action;
@@ -318,6 +360,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_day_spa_v_version_categories" ADD CONSTRAINT "_day_spa_v_version_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_day_spa_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_day_spa_v_version_categories_locales" ADD CONSTRAINT "_day_spa_v_version_categories_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_day_spa_v_version_categories"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_day_spa_v_locales" ADD CONSTRAINT "_day_spa_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_day_spa_v"("id") ON DELETE cascade ON UPDATE no action;
+  CREATE INDEX "homepage_club_fitness_facts_order_idx" ON "homepage_club_fitness_facts" USING btree ("_order");
+  CREATE INDEX "homepage_club_fitness_facts_parent_id_idx" ON "homepage_club_fitness_facts" USING btree ("_parent_id");
+  CREATE INDEX "homepage_club_fitness_facts_locale_idx" ON "homepage_club_fitness_facts" USING btree ("_locale");
+  CREATE INDEX "homepage_club_spa_facts_order_idx" ON "homepage_club_spa_facts" USING btree ("_order");
+  CREATE INDEX "homepage_club_spa_facts_parent_id_idx" ON "homepage_club_spa_facts" USING btree ("_parent_id");
+  CREATE INDEX "homepage_club_spa_facts_locale_idx" ON "homepage_club_spa_facts" USING btree ("_locale");
+  CREATE INDEX "_homepage_v_version_club_fitness_facts_order_idx" ON "_homepage_v_version_club_fitness_facts" USING btree ("_order");
+  CREATE INDEX "_homepage_v_version_club_fitness_facts_parent_id_idx" ON "_homepage_v_version_club_fitness_facts" USING btree ("_parent_id");
+  CREATE INDEX "_homepage_v_version_club_fitness_facts_locale_idx" ON "_homepage_v_version_club_fitness_facts" USING btree ("_locale");
+  CREATE INDEX "_homepage_v_version_club_spa_facts_order_idx" ON "_homepage_v_version_club_spa_facts" USING btree ("_order");
+  CREATE INDEX "_homepage_v_version_club_spa_facts_parent_id_idx" ON "_homepage_v_version_club_spa_facts" USING btree ("_parent_id");
+  CREATE INDEX "_homepage_v_version_club_spa_facts_locale_idx" ON "_homepage_v_version_club_spa_facts" USING btree ("_locale");
   CREATE INDEX "fitness_club_sessions_order_idx" ON "fitness_club_sessions" USING btree ("_order");
   CREATE INDEX "fitness_club_sessions_parent_id_idx" ON "fitness_club_sessions" USING btree ("_parent_id");
   CREATE UNIQUE INDEX "fitness_club_sessions_locales_locale_parent_id_unique" ON "fitness_club_sessions_locales" USING btree ("_locale","_parent_id");
@@ -394,7 +448,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
-   DROP TABLE "fitness_club_sessions" CASCADE;
+   DROP TABLE "homepage_club_fitness_facts" CASCADE;
+  DROP TABLE "homepage_club_spa_facts" CASCADE;
+  DROP TABLE "_homepage_v_version_club_fitness_facts" CASCADE;
+  DROP TABLE "_homepage_v_version_club_spa_facts" CASCADE;
+  DROP TABLE "fitness_club_sessions" CASCADE;
   DROP TABLE "fitness_club_sessions_locales" CASCADE;
   DROP TABLE "fitness_club_plans_includes" CASCADE;
   DROP TABLE "fitness_club_plans_includes_locales" CASCADE;
@@ -431,8 +489,10 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "homepage_locales" DROP COLUMN "club_meta_right";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_title";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_intro";
+  ALTER TABLE "homepage_locales" DROP COLUMN "club_fitness_tagline";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_fitness_body";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_fitness_cta";
+  ALTER TABLE "homepage_locales" DROP COLUMN "club_spa_tagline";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_spa_body";
   ALTER TABLE "homepage_locales" DROP COLUMN "club_spa_cta";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_meta_left";
@@ -440,8 +500,10 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_meta_right";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_title";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_intro";
+  ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_fitness_tagline";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_fitness_body";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_fitness_cta";
+  ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_spa_tagline";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_spa_body";
   ALTER TABLE "_homepage_v_locales" DROP COLUMN "version_club_spa_cta";
   DROP TYPE "public"."enum_fitness_club_sessions_day";

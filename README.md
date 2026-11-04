@@ -23,14 +23,18 @@ All routes exist in English (`/en/...`) and Bosnian (`/bs/...`); the language sw
 
 | Route | Content |
 | --- | --- |
-| `/` | Hero + booking bar · The hotel · Rooms carousel · Club & Spa · Restaurant · Location · Meetings & Events · Final booking |
-| `/about` | Story, facts, rooms, wellness, gallery |
+| `/` | Hero + booking search · The hotel · Rooms carousel · Central Fitness Club / Central Day Spa · Restaurant · Meetings & Events · Location · Final booking |
+| `/about` | Story, facts, rooms, wellness (links to the Fitness Club and the Day Spa), gallery |
+| `/about/cafe` | **Draft** Central Café page (CH-007 is "Discuss"): noindex, not linked, not in the sitemap |
 | `/rooms`, `/rooms/[slug]` | Six room categories; detail pages with specs, full amenities, gallery, room-specific booking link, other rooms |
-| `/spa` | Pool, facilities, gym, Wellness Day Spa (links to the hotel's live price list) |
+| `/centralfitnessclub` (+ `/membership`, `/timetable`) | Central Fitness Club — its own logo, colours, typefaces and navigation; membership options and the monthly timetable come from the CMS global "Central Fitness Club" |
+| `/dayspa` | Central Day Spa — its own identity; verified price list (CMS global "Central Day Spa" or the built-in October 2026 list); booking via the spa's existing Lime Booking form, phone, WhatsApp/Viber, e-mail |
 | `/restaurant` | Breakfast, gallery, corporate catering |
-| `/meetings-events` | Conference room, verified facts, enquiry |
-| `/location` | Tinted Google map, directions link, arrival options, nearby landmarks |
-| `/contact` | Click-to-call, mailto, directions, validated contact form |
+| `/conference` | Meetings & Events: conference room, verified facts, packages (by individual request), prominent enquiry. `/meetings-events` redirects here (308) |
+| `/location` | Tinted Google map, directions link, arrival options (approximate fares clearly marked), nearby landmarks |
+| `/contact` | Direct phone and e-mail only (no contact form, CH-017), directions, social links |
+
+`/spa` (the former combined Club & Spa page) redirects to `/dayspa` (308).
 
 ## Structure
 
@@ -62,9 +66,17 @@ The hotel uses eZee / ipms247 (hotel id `hotelcentralsarajevo`).
 - **The hero booking bar** posts (new tab) to that URL with exactly the fields of the hotel's official widget (`resui_resbookingbox.js` on /book-now/): `eZ_chkin`, `eZ_chkout` (dd-mm-yyyy), `eZ_Nights`, `eZ_adult`, `eZ_child`, `eZ_room`, `calformat=dd-mm-yy`, `hidBodyLanguage`. Without dates it opens the calendar instead of submitting. Note: the hotel's live widget has the adults/children/rooms selectors switched off, so whether eZee applies those three values should be confirmed with one test search on the live engine.
 - **Room pages / carousel** use the room-specific `roomwisedata.php?hid=…&roomtypeunkid=…` links copied from each room page.
 
-## Contact form
+## Contact
 
-`POST /api/contact` validates (shared rules in `src/lib/contact.ts`), has a honeypot and a simple rate limit, and delivers via Resend when `RESEND_API_KEY` + `CONTACT_FROM` are set (see `.env.example`). Unconfigured, it returns 503 and the form shows an honest "email or call us" message.
+There is no contact form (removed at the client's request, CH-017): guests call or e-mail the hotel directly. The former
+`/api/contact` route, its validation and the `RESEND_API_KEY` / `CONTACT_FROM` / `CONTACT_TO` variables are gone.
+
+## Brand assets
+
+`public/brand/` holds the logos supplied by the hotel (Hotel Central, Central Fitness Club, Central Day Spa), cut out of
+their artwork in two inks (dark for light backgrounds, white for photographs). The hotel pages keep the existing palette;
+the club's green (#093128) and the spa's burgundy (#3f171f) are used only on their own pages and cards. See
+`docs/CLIENT_FEEDBACK_ROUND1.md` for the status of every requested change.
 
 ## Content provenance & open items
 

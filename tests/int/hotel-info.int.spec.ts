@@ -119,10 +119,8 @@ describe("what Hotel Information can never change", () => {
     for (const n of all) expect(n, n).not.toMatch(/book|reserv|ipms|ezee|room|recipient|contactTo|formTo|url|href|link/i);
   });
 
-  it("the contact form still delivers to the address in code / CONTACT_TO, never to a CMS value", () => {
-    const route = fs.readFileSync("src/app/api/contact/route.ts", "utf8");
-    expect(route).not.toMatch(/@\/cms|hotel-info|getHotelContact/);
-    expect(route).toContain("process.env.CONTACT_TO ?? hotel.email");
+  it("there is no contact form any more (CH-017), and the booking engine stays in code", () => {
+    expect(fs.existsSync("src/app/api/contact/route.ts")).toBe(false);
     expect(booking.bookingUrl).toBe("https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo");
   });
 });

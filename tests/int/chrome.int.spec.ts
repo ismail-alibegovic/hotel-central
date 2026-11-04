@@ -65,11 +65,11 @@ describe("merge rules", () => {
     expect(mergeChrome("en", base, bad, null).dict.nav.items).toEqual(base.nav.items);
   });
 
-  it("social links must be approved https hosts; otherwise Facebook as built in", () => {
+  it("social links must be approved https hosts; otherwise Facebook and Instagram as built in", () => {
     const ok = { social: [{ label: "Instagram", link: { kind: "external", value: "https://www.instagram.com/hotelcentral" } }] } as unknown as Footer;
     expect(mergeChrome("en", base, null, ok).social).toEqual([{ label: "Instagram", href: "https://www.instagram.com/hotelcentral" }]);
     const bad = { social: [{ label: "Evil", link: { kind: "external", value: "https://evil.example/x" } }, { label: "Tel", link: { kind: "phone", value: "+387 33 561 800" } }] } as unknown as Footer;
-    expect(mergeChrome("en", base, null, bad).social).toEqual([{ label: "Facebook", href: hotel.facebook }]);
+    expect(mergeChrome("en", base, null, bad).social).toEqual([{ label: "Facebook", href: hotel.facebook }, { label: "Instagram", href: hotel.instagram }]);
   });
 
   it("the footer statement is split into lines", () => {
@@ -121,10 +121,10 @@ describe("roles and drafts", () => {
     const rows = current.items ?? [];
     await expect(payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 1 ? { ...r, path: "/en/about" } : r)), _status: "published" } as never })).rejects.toThrow();
     await expect(payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 1 ? { ...r, path: "https://evil.example" } : r)), _status: "published" } as never })).rejects.toThrow();
-    await payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 7 ? { ...r, visible: false } : r)), _status: "published" } as never });
+    await payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 8 ? { ...r, visible: false } : r)), _status: "published" } as never });
     const m = mergeChrome("en", getDictionary("en"), await publicNav("en"), null);
     expect(m.dict.nav.items.map((i) => i.href)).not.toContain("/contact");
-    expect(m.dict.nav.items).toHaveLength(7);
+    expect(m.dict.nav.items).toHaveLength(8);
   });
 
   it("footer: social links are administrator-only; wording is draft-only for editors; host allow-list enforced", async () => {

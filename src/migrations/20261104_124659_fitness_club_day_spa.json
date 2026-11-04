@@ -21683,6 +21683,214 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.homepage_club_fitness_facts": {
+      "name": "homepage_club_fitness_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "_locales",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "homepage_club_fitness_facts_order_idx": {
+          "name": "homepage_club_fitness_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "homepage_club_fitness_facts_parent_id_idx": {
+          "name": "homepage_club_fitness_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "homepage_club_fitness_facts_locale_idx": {
+          "name": "homepage_club_fitness_facts_locale_idx",
+          "columns": [
+            {
+              "expression": "_locale",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "homepage_club_fitness_facts_parent_id_fk": {
+          "name": "homepage_club_fitness_facts_parent_id_fk",
+          "tableFrom": "homepage_club_fitness_facts",
+          "tableTo": "homepage",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.homepage_club_spa_facts": {
+      "name": "homepage_club_spa_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "_locales",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "homepage_club_spa_facts_order_idx": {
+          "name": "homepage_club_spa_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "homepage_club_spa_facts_parent_id_idx": {
+          "name": "homepage_club_spa_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "homepage_club_spa_facts_locale_idx": {
+          "name": "homepage_club_spa_facts_locale_idx",
+          "columns": [
+            {
+              "expression": "_locale",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "homepage_club_spa_facts_parent_id_fk": {
+          "name": "homepage_club_spa_facts_parent_id_fk",
+          "tableFrom": "homepage_club_spa_facts",
+          "tableTo": "homepage",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.homepage_spa_facts": {
       "name": "homepage_spa_facts",
       "schema": "",
@@ -22790,6 +22998,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "club_fitness_tagline": {
+          "name": "club_fitness_tagline",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "club_fitness_body": {
           "name": "club_fitness_body",
           "type": "varchar",
@@ -22798,6 +23012,12 @@
         },
         "club_fitness_cta": {
           "name": "club_fitness_cta",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "club_spa_tagline": {
+          "name": "club_spa_tagline",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -23105,6 +23325,228 @@
           "name": "homepage_locales_parent_id_fk",
           "tableFrom": "homepage_locales",
           "tableTo": "homepage",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._homepage_v_version_club_fitness_facts": {
+      "name": "_homepage_v_version_club_fitness_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "_locales",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_homepage_v_version_club_fitness_facts_order_idx": {
+          "name": "_homepage_v_version_club_fitness_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_homepage_v_version_club_fitness_facts_parent_id_idx": {
+          "name": "_homepage_v_version_club_fitness_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_homepage_v_version_club_fitness_facts_locale_idx": {
+          "name": "_homepage_v_version_club_fitness_facts_locale_idx",
+          "columns": [
+            {
+              "expression": "_locale",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_homepage_v_version_club_fitness_facts_parent_id_fk": {
+          "name": "_homepage_v_version_club_fitness_facts_parent_id_fk",
+          "tableFrom": "_homepage_v_version_club_fitness_facts",
+          "tableTo": "_homepage_v",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._homepage_v_version_club_spa_facts": {
+      "name": "_homepage_v_version_club_spa_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "_locales",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_homepage_v_version_club_spa_facts_order_idx": {
+          "name": "_homepage_v_version_club_spa_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_homepage_v_version_club_spa_facts_parent_id_idx": {
+          "name": "_homepage_v_version_club_spa_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_homepage_v_version_club_spa_facts_locale_idx": {
+          "name": "_homepage_v_version_club_spa_facts_locale_idx",
+          "columns": [
+            {
+              "expression": "_locale",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_homepage_v_version_club_spa_facts_parent_id_fk": {
+          "name": "_homepage_v_version_club_spa_facts_parent_id_fk",
+          "tableFrom": "_homepage_v_version_club_spa_facts",
+          "tableTo": "_homepage_v",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -24371,6 +24813,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_club_fitness_tagline": {
+          "name": "version_club_fitness_tagline",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_club_fitness_body": {
           "name": "version_club_fitness_body",
           "type": "varchar",
@@ -24379,6 +24827,12 @@
         },
         "version_club_fitness_cta": {
           "name": "version_club_fitness_cta",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_club_spa_tagline": {
+          "name": "version_club_spa_tagline",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -37462,6 +37916,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "def79840-a60c-4630-82c8-dca097298295",
+  "id": "4637368b-cd7f-469d-9656-bb17764fe39e",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

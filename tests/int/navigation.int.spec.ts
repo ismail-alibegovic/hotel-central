@@ -8,7 +8,7 @@ const labels = (m: ReturnType<typeof navItems>) => [...m.top.map((l) => l.label)
 
 describe("sidebar", () => {
   it("lists the working destinations for an administrator, in task order, with one Pages entry", () => {
-    expect(labels(navItems(all, "admin"))).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Photos & Media", "Website Settings", "Hotel Information", "Navigation", "Footer", "Team members"]);
+    expect(labels(navItems(all, "admin"))).toEqual(["Dashboard", "Homepage", "Rooms", "Pages", "Central Fitness Club", "Central Day Spa", "Photos & Media", "Website Settings", "Hotel Information", "Navigation", "Footer", "Team members"]);
   });
 
   it("does not offer Team members to an editor, and never lists Offers (no screen of its own yet)", () => {
@@ -26,6 +26,6 @@ describe("sidebar", () => {
   it("points only at screens that exist", () => {
     const m = navItems(all, "admin");
     const hrefs = [...m.top, ...m.sections.flatMap((s) => s.links)].map((l) => l.href);
-    expect(hrefs).toEqual(["/admin", "/admin/globals/homepage", "/admin/collections/rooms", "/admin/collections/pages", "/admin/collections/media", "/admin/globals/hotel-info", "/admin/globals/navigation", "/admin/globals/footer", "/admin/collections/users"]);
+    expect(hrefs).toEqual(["/admin", "/admin/globals/homepage", "/admin/collections/rooms", "/admin/collections/pages", "/admin/globals/fitness-club", "/admin/globals/day-spa", "/admin/collections/media", "/admin/globals/hotel-info", "/admin/globals/navigation", "/admin/globals/footer", "/admin/collections/users"]);
   });
 });

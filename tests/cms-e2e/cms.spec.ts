@@ -124,9 +124,7 @@ test("booking mapping stays in code: editors cannot read or change it and the pa
   expect(html).not.toContain("EVIL");
 });
 
-test("existing contact API and booking links still work with the CMS on", async ({ request }) => {
-  const res = await request.post("/api/contact", { data: { name: "x", email: "bad", message: "short", consent: false } });
-  expect(res.status()).toBe(422);
+test("booking links still work with the CMS on (the contact form was removed, CH-017)", async ({ request }) => {
   const html = await (await request.get("/en")).text();
   expect(html).toContain("live.ipms247.com");
 });

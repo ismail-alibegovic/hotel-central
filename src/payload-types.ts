@@ -4524,9 +4524,29 @@ export interface Homepage {
      */
     title?: string | null;
     intro?: string | null;
+    fitnessTagline?: string | null;
     fitnessBody?: string | null;
+    /**
+     * Short list under the text.
+     */
+    fitnessFacts?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
     fitnessCta?: string | null;
+    spaTagline?: string | null;
     spaBody?: string | null;
+    /**
+     * Short list under the text.
+     */
+    spaFacts?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
     spaCta?: string | null;
   };
   spa?: {
@@ -6245,9 +6265,23 @@ export interface HomepageSelect<T extends boolean = true> {
         metaRight?: T;
         title?: T;
         intro?: T;
+        fitnessTagline?: T;
         fitnessBody?: T;
+        fitnessFacts?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         fitnessCta?: T;
+        spaTagline?: T;
         spaBody?: T;
+        spaFacts?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         spaCta?: T;
       };
   spa?:
