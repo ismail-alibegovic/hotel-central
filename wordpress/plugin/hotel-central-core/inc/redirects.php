@@ -11,6 +11,9 @@ add_action('template_redirect', function () {
     if ($home && strpos($path, $home) === 0) $path = substr($path, strlen($home)) ?: '/';
     $map = hc_data('redirects');
     if (isset($map[$path])) { wp_safe_redirect(home_url($map[$path]), 301); exit; }
+    // Round 1 sitemap (Nov 2026): /spa → /dayspa, /restaurant → /about/cafe, /meetings-events → /conference, in both languages.
+    foreach ((hc_data('sitemap')['legacyRedirects'] ?? []) as [$from, $to])
+        if (preg_match('#^/(en|bs)' . preg_quote($from, '#') . '(/.*)?$#', $path, $m)) { wp_safe_redirect(home_url('/' . $m[1] . $to . '/'), 301); exit; }
     $first = explode('/', trim($path, '/'))[0] ?? '';
     $langs = function_exists('pll_languages_list') ? pll_languages_list() : ['en', 'bs'];
     if ($first && !in_array($first, $langs, true) && !preg_match('#^(wp-|feed|robots|favicon)#', $first)) {

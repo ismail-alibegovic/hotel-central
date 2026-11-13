@@ -31,6 +31,8 @@
     var t = textTarget(el), lines = t.innerHTML.split(/<br\s*\/?>/i).map(function (s) { return s.replace(/<[^>]+>/g, '').trim(); });
     var longest = Math.max.apply(null, lines.map(function (l) { return l.length; }).concat(1));
     el.style.setProperty('--fs-m', Math.min(max, measure / (longest * 0.68)).toFixed(2) + 'vw');
+    // Split-section titles on desktop: 5vw, but never wider than the text column (≈34vw; dark grounds may bleed 12vw into the photo).
+    if (el.closest('.hc-split__text')) el.style.setProperty('--fs-d', Math.min(5, (el.closest('.hc-deep, .hc-olive, .hc-ink') ? 46 : 34) / (longest * 0.68)).toFixed(2) + 'vw');
   }
   function splitLines(el) {
     var t = textTarget(el), link = t.querySelector('a'), host = link || t;

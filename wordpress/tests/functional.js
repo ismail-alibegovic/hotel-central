@@ -3,13 +3,14 @@ const { chromium } = require('playwright');
 const base = process.argv[2] || 'http://localhost:8080';
 const results = []; const ok = (n, c, d = '') => { results.push([c ? 'PASS' : 'FAIL', n, d]); console.log((c ? 'PASS ' : 'FAIL ') + n + (d ? ' — ' + d : '')); };
 (async () => {
-  const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 1440, height: 1100 } }); const p = await ctx.newPage();
+  const b = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {}); const ctx = await b.newContext({ viewport: { width: 1440, height: 1100 } }); const p = await ctx.newPage();
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
   // menu
   await p.goto(base + '/en/'); await p.waitForTimeout(1200);
   await p.click('[data-menu-btn]'); await p.waitForTimeout(1200);
   ok('menu opens', await p.getAttribute('[data-menu-btn]', 'aria-expanded') === 'true');
-  ok('menu lists 8 items', (await p.$$('#site-menu nav a')).length === 8);
+  ok('menu lists the 8 pages of the approved sitemap', (await p.$$('#site-menu nav ol > li > a')).length === 8);
+  ok('menu shows the 3 sub-pages (Central Café; Membership, Class timetable)', (await p.$$('#site-menu nav .hc-sub a')).length === 3);
   await p.keyboard.press('Escape'); await p.waitForTimeout(300);
   ok('menu closes on Escape', await p.getAttribute('[data-menu-btn]', 'aria-expanded') === 'false');
   await ctx.route('**/live.ipms247.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
@@ -29,12 +30,10 @@ const results = []; const ok = (n, c, d = '') => { results.push([c ? 'PASS' : 'F
   await p.evaluate(() => document.querySelector('.hc-rc').scrollIntoView()); await p.waitForTimeout(600);
   const t0 = await p.textContent('[data-live]'); await p.click('.hc-rc__next'); await p.waitForTimeout(1700);
   const t1 = await p.textContent('[data-live]'); ok('carousel advances', t0 !== t1, `${t0} → ${t1}`);
-  // contact form
+  // contact page (Round 1, CH-016/017): no form; phone and e-mail lead as large tap targets
   await p.goto(base + '/en/contact/'); await p.waitForTimeout(500);
-  await p.click('.hc-form button[type=submit]'); ok('contact validation errors', (await p.$$('.hc-form .err:not([hidden])')).length >= 3);
-  await p.fill('[name=name]', 'Test Guest'); await p.fill('[name=email]', 'guest@example.com'); await p.fill('[name=message]', 'Hello, a test message for the hotel.'); await p.check('[name=consent]');
-  await p.click('.hc-form button[type=submit]'); await p.waitForTimeout(1500);
-  ok('contact form delivers', /Thank you/.test(await p.textContent('[data-status]')), await p.textContent('[data-status]'));
+  ok('contact page has no form (client request CH-017)', (await p.$$('.hc-form')).length === 0);
+  ok('contact page leads with phone and e-mail tap targets', (await p.$$('.hc-contact__lead a[href^="tel:"]')).length === 1 && (await p.$$('.hc-contact__lead a[href^="mailto:"]')).length === 1);
   // language switch + BS content
   await p.goto(base + '/en/rooms/'); await p.click('.hc-footer .hc-lang a[hreflang=bs]'); await p.waitForLoadState();
   ok('language switch keeps page (EN rooms → BS rooms)', /\/bs\/rooms\/$/.test(p.url()), p.url());
@@ -42,7 +41,10 @@ const results = []; const ok = (n, c, d = '') => { results.push([c ? 'PASS' : 'F
   // room detail, redirects, 404
   const r1 = await p.goto(base + '/en/rooms/presidential-suite/'); ok('room detail 200', r1.status() === 200);
   ok('room detail has book link', (await p.$$('a[href*="roomwisedata.php"]')).length >= 1);
-  const r2 = await p.request.get(base + '/club-spa/', { maxRedirects: 0 }); ok('legacy redirect /club-spa/ → /en/spa/', r2.status() === 301 && /\/en\/spa\/$/.test(r2.headers().location || ''), r2.headers().location);
+  const r2 = await p.request.get(base + '/club-spa/', { maxRedirects: 0 }); ok('legacy redirect /club-spa/ → /en/dayspa/', r2.status() === 301 && /\/en\/dayspa\/$/.test(r2.headers().location || ''), r2.headers().location);
+  for (const [from, to] of [['/en/spa/', '/en/dayspa/'], ['/bs/restaurant/', '/bs/about/cafe/'], ['/en/meetings-events/', '/en/conference/']]) {
+    const r = await p.request.get(base + from, { maxRedirects: 0 }); ok(`Round 1 redirect ${from} → ${to}`, r.status() === 301 && (r.headers().location || '').endsWith(to), r.headers().location);
+  }
   const r3 = await p.request.get(base + '/rooms/presidental-suite/', { maxRedirects: 0 }); ok('legacy typo slug redirect', r3.status() === 301 && /presidential-suite/.test(r3.headers().location || ''), r3.headers().location);
   const r4 = await p.request.get(base + '/about/', { maxRedirects: 0 }); ok('unprefixed /about/ → /en|bs/about/ (language cookie / Accept-Language)', r4.status() === 301 && /\/(en|bs)\/about\/$/.test(r4.headers().location || ''), r4.headers().location);
   const r5 = await p.goto(base + '/en/nope/'); ok('404 page', r5.status() === 404);

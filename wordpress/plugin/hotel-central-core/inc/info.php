@@ -9,7 +9,7 @@ function hc_info_groups() {
         'contact' => ['name' => 'Hotel name', 'phone_display' => 'Main phone (as shown)', 'phone_href' => 'Phone link (tel:+387…)', 'email' => 'E-mail (also receives the contact form)',
             'street' => 'Street', 'postal_code' => 'Postal code', 'city' => 'City', 'country' => 'Country', 'facebook' => 'Facebook page URL', 'instagram' => 'Instagram page URL (optional)',
             'directions' => 'Directions link (Google Maps)', 'map_embed' => 'Map embed URL'],
-        'hours' => ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_restaurant' => 'Restaurant', 'hours_spa' => 'Club & Spa', 'hours_checkin' => 'Check-in / check-out'],
+        'hours' => ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_cafe' => 'Central Café', 'hours_gym' => 'Central Fitness Club (gym & classes)', 'hours_pool' => 'Pool, sauna & wellness', 'hours_dayspa' => 'Central Day Spa (treatments)', 'hours_checkin' => 'Check-in / check-out', 'hours_restaurant' => 'Restaurant (old — used for the Café until “Central Café” is filled in)', 'hours_spa' => 'Club & Spa (old — used for the gym, pool and spa until those are filled in)'],
         'booking' => ['booking_url' => 'Booking engine page ("Book now" links)', 'booking_action' => 'Booking engine search form address', 'hotel_id' => 'eZee hotel id', 'cal_format' => 'Booking engine date format',
             'max_adults' => 'Max. adults', 'max_children' => 'Max. children', 'max_rooms' => 'Max. rooms'],
     ];

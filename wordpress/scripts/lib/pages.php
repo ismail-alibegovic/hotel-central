@@ -10,6 +10,7 @@ class HC_Ctx {
     function link($l) { return !empty($l['external']) || ($l['kind'] ?? '') === 'external' ? $l['href'] : (preg_match('#^/(en|bs)(/.*)?$#', $l['href'], $m) ? home_url(rtrim($l['href'], '/') . '/') : $l['href']); }
 }
 function hc_p($s) { return '<p>' . esc_html($s) . '</p>'; }
+function hc_alt($c, $en, $bs) { return $c->lang === 'bs' ? $bs : $en; }
 
 function hc_kv($items, $tone, $extra = '') {
     $rows = [];
@@ -111,23 +112,52 @@ function hc_b_arrival($b, $c) {
     ]);
 }
 function hc_b_contact($b, $c) {
-    $E = 'HC_El'; $p = $c->dict['home']['final']; $d = $c->dict;
+    // Round 1 (CH-016/017): no contact form; phone and e-mail lead as two large tap targets, then the details.
+    $E = 'HC_El'; $d = $c->dict;
     $item = function ($label, $body, $link) use ($E) { return $E::con('li', [$E::text(hc_p($label), 'hc-label op-60'), $E::text(hc_p($body), 'hc-body'), $link]); };
-    return $E::con('hc-contact hc-ivory', [
+    return $E::con('hc-contact hc-ivory is-noform', [
         hc_deco_w('hotel'),
+        $E::con('hc-contact__lead', [
+            $E::con('hc-contact__big', [$E::text(hc_p($d['common']['call'] ?? 'Call'), 'hc-label op-60'), $E::shortcode('[hc_info field="phone_display" link="tel"]', 'hc-contact__bigv')]),
+            $E::con('hc-contact__big', [$E::text(hc_p($b['write']['label']), 'hc-label op-60'), $E::shortcode('[hc_info field="email" link="mail"]', 'hc-contact__bigv')]),
+        ]),
         $E::con('hc-contact__g', [
-            $E::con('', [
-                $E::con('hc-contact__list', [
-                    $item($b['office']['label'], $b['office']['body'], $E::shortcode('[hc_info field="phone_display" link="tel" arrow="1"]', 'hc-label')),
-                    $item($b['reservations']['label'], $b['reservations']['body'], $E::button($d['nav']['book'], hc_info('booking_url'), 'hc-text-link hc-arrowed hc-label', true)),
-                    $item($b['write']['label'], hc_info('email'), $E::shortcode('[hc_info field="email" link="mail" arrow="1" label="' . esc_attr($d['common']['email']) . '"]', 'hc-label')),
-                    $item($b['social']['label'], $b['social']['body'], $E::button('Facebook', hc_info('facebook'), 'hc-text-link hc-arrowed hc-label', true)),
-                ]),
-                $E::shortcode('[hc_address]'),
+            $E::con('hc-contact__list', [
+                $item($b['office']['label'], $b['office']['body'], $E::shortcode('[hc_info field="phone_display" link="tel" arrow="1"]', 'hc-label')),
+                $item($b['reservations']['label'], $b['reservations']['body'], $E::button($d['nav']['book'], hc_info('booking_url'), 'hc-text-link hc-arrowed hc-label', true)),
+                $item($b['social']['label'], $b['social']['body'], $E::button('Facebook', hc_info('facebook'), 'hc-text-link hc-arrowed hc-label', true)),
             ]),
-            $E::con('', [$E::heading($d['contact']['formTitle'], 'h2', 'hc-form-title'), $E::shortcode('[hc_contact_form]')]),
+            $E::shortcode('[hc_address]'),
         ]),
     ]);
+}
+
+/* Conference "request a proposal" band and similar call-to-action sections (Round 1, CH-014). */
+function hc_b_cta($b, $c) {
+    $E = 'HC_El'; $tone = $b['tone'] ?? 'deep'; $dark = in_array($tone, ['deep', 'olive', 'ink']);
+    $acts = [];
+    if (!empty($b['primary'])) $acts[] = $E::button($b['primary']['label'], $b['primary']['link']['href'], 'hc-pill-w hc-tone-' . ($dark ? 'light' : 'dark'), !empty($b['primary']['link']['external']));
+    if (!empty($b['secondary'])) $acts[] = $E::button($b['secondary']['label'], $b['secondary']['link']['href'], 'hc-text-link hc-arrowed hc-label', !empty($b['secondary']['link']['external']));
+    return $E::con("hc-cta hc-$tone", [$E::con('hc-cta__in', [
+        $E::con('hc-cta__head', [$E::text(hc_p($b['label']), 'hc-label op-60'), $E::heading($b['title'], 'h2', 'hc-title hc-lines')]),
+        $E::con('hc-cta__side', [$E::text(hc_p($b['body']), 'hc-body hc-fade'), $E::con('hc-cta__acts', $acts, ['flex_direction' => 'row'])]),
+    ])]);
+}
+
+/* Opening hours section, read live from Hotel Information → Opening hours ([hc_hours places=…]); says so honestly until entered. */
+function hc_b_hours($o, $places, $c, $photos = [], $tone = 'ivory', $id = 'hours', $note = '') {
+    $E = 'HC_El'; $ims = [];
+    foreach ($photos as $i => $ph) $ims[] = $E::image($c->img($ph[0], $ph[1]), 'hc-photo hc-grade hc-reveal' . ($i ? ' hc-rv-down' : ''), $ph[2] ?? '50% 50%');
+    $fb = esc_attr($o['fallback']);
+    return $E::con("hc-hours hc-$tone", [$E::con('hc-hours__g', [
+        $E::con('hc-hours__t', [
+            $E::text(hc_p($o['label']), 'hc-label op-60'),
+            $E::heading($o['title'], 'h2', 'hc-title hc-lines'),
+            $E::shortcode('[hc_hours places="' . esc_attr($places) . '" fallback="' . $fb . '"]', 'hc-hours__list'),
+            $note ? $E::text(hc_p($note), 'hc-body op-75') : null,
+        ]),
+        $ims ? $E::con('hc-hours__media', $ims, ['flex_direction' => 'row']) : null,
+    ])], ['_element_id' => $id]);
 }
 
 function hc_build_blocks($blocks, $c) {
@@ -142,6 +172,7 @@ function hc_build_blocks($blocks, $c) {
             case 'finalBooking': $out[] = hc_b_final($b, $c); break;
             case 'arrival': $out[] = hc_b_arrival($b, $c); break;
             case 'contact': $out[] = hc_b_contact($b, $c); break;
+            case 'cta': $out[] = hc_b_cta($b, $c); break;
             case 'roomList': $out[] = HC_El::con('hc-roomlist-w', [HC_El::shortcode('[hc_room_list]')]); break;
         }
     }
@@ -163,7 +194,8 @@ function hc_build_home($c) {
 
     // 1 Hero
     $s[] = $E::con('hc-home-hero hc-ink', [
-        $E::image($c->img('3075.jpg', "Hotel Central's corner tower and façade on Ćumurija street, lit at night"), 'hc-hero__img', '50% 42%'),
+        // CH-001 "brighter homepage": the approved daylight façade photograph, in the original composition and veil
+        $E::image($c->img('3064.jpg', hc_alt($c, "Hotel Central's white façade and corner tower on Ćumurija street in daylight", 'Bijela fasada i ugaoni toranj Hotela Central u Ćumuriji, po danu')), 'hc-hero__img', '50% 38%'),
         $E::con('hc-home-hero__in', [
             $E::con('hc-home-hero__main', [
                 $E::heading($h['heroLabel'], 'p', 'hc-eyebrow hc-label hc-fade hc-immediate hc-d-9'),
@@ -193,18 +225,32 @@ function hc_build_home($c) {
     // 3 Rooms carousel
     $s[] = $E::con('hc-rc-w', [$E::shortcode('[hc_room_carousel]')]);
 
-    // 4 Spa
+    // 4 Club & Spa — the original composition, now with the two brands and their own buttons (CH-004)
     $o = $h['spa'];
+    $brandLink = function ($b, $logo, $alt, $path) use ($c, $E) {
+        return $E::con('hc-brandlink', [
+            $E::image($c->img($logo, $alt), 'hc-brandlink__logo'),
+            $E::text(hc_p($b['body']), 'hc-body op-80'),
+            $E::button($b['cta'], $c->url($path), 'hc-pill-w hc-tone-light'),
+        ]);
+    };
     $s[] = $E::con('hc-sec hc-olive hc-s-spa', [
         $E::heading(implode(' ', $o['title']), 'h2', 'sr-only'),
         $E::con('hc-meta-wrap', [$meta($o['metaLeft'], $o['metaCenter'], '', $o['metaRight'])]),
         $E::con('hc-art', [
             hc_deco_w('spa', 'light'),
             $titleW($o['title'], 'hc-op-big'),
-            $photo('3069.jpg', 'The heated 25-metre indoor pool with a wave mosaic', '50% 60%', 'big hc-par-5', 'hc-grade hc-grade-dark'),
-            $photo('final-6202.jpg', 'Candle-lit treatment room of the day spa', '50% 50%', 'sm hc-par-6'),
+            $photo('pool-lanes.jpg', hc_alt($c, 'Steps into the 25-metre pool between mosaic columns', 'Stepenice u bazen od 25 metara između stubova s mozaikom'), '50% 60%', 'big hc-par-5', 'hc-grade hc-grade-dark'),
+            $photo('relax-curtain.jpg', hc_alt($c, 'Relaxation lounge of Central Day Spa', 'Prostor za opuštanje Central Day Spa'), '50% 50%', 'sm hc-par-6'),
         ]),
-        $E::con('hc-copy', [$E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::list_($o['facts'], 'hc-facts'), $E::button($o['cta'], $c->url('/spa'), 'hc-pill-w hc-tone-light')]),
+        $E::con('hc-copy', [$E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::list_($o['facts'], 'hc-facts')]),
+    ]);
+    // the two brands get their own band directly below, in the same colour, so the original composition above is untouched
+    $s[] = $E::con('hc-sec hc-olive hc-s-brands', [
+        $E::con('hc-brandlinks', [
+            $brandLink($o['club'], 'central-fitness-club-white.svg', 'Central Fitness Club', '/centralfitnessclub'),
+            $brandLink($o['dayspa'], 'day-spa-transparent.png', 'Central Day Spa — Hotel Central Sarajevo', '/dayspa'),
+        ], ['flex_direction' => 'row']),
     ]);
 
     // 5 Restaurant
@@ -219,10 +265,23 @@ function hc_build_home($c) {
             $photo('dorucak6.jpg', 'Bosnian coffee served in a copper džezva', '40% 50%', 'coffee hc-par-6'),
             $photo('dorucak4.jpg', 'The breakfast buffet at Restaurant Central', '50% 50%', 'buffet', 'hc-grade hc-rv-left'),
         ]),
-        $E::con('hc-copy', [$E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::text(hc_p($o['body2']), 'hc-body hc-fade op-75'), $E::button($o['cta'], $c->url('/restaurant'), 'hc-pill-w hc-tone-dark')]),
+        $E::con('hc-copy', [$E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::text(hc_p($o['body2']), 'hc-body hc-fade op-75'), $E::button($o['cta'], $c->url('/about/cafe'), 'hc-pill-w hc-tone-dark')]),
     ]);
 
-    // 6 Location
+    // 6 Meetings & Events (before Location, CH-005)
+    $o = $h['events'];
+    $s[] = $E::con('hc-sec hc-ivory hc-s-ev', [
+        $E::heading(implode(' ', $o['title']), 'h2', 'sr-only'),
+        $E::con('hc-art', [
+            $E::image($c->img('3073.jpg', 'The conference room on the third floor set up for a meeting'), 'hc-photo hc-rect hc-reveal hc-grade hc-grade-dark hc-veil photo-main hc-par-4 hc-rv-right'),
+            $titleW($o['title'], 'base hc-op-photo-main'),
+            $E::image($c->img('img_9216.jpg', 'Chairs and microphones in the conference room'), 'hc-photo hc-rect hc-reveal hc-grade photo-2 hc-rv-down', '50% 50%'),
+            $E::con('metas hc-label', [$E::text(hc_p($o['metaLeft'])), $E::text(hc_p($o['metaCenter'])), $E::text(hc_p($o['metaRight']))], ['flex_direction' => 'row']),
+        ]),
+        $E::con('hc-copy', [$E::text(hc_p($o['metaLeft'] . ' · ' . $o['metaRight']), 'hc-label mobile-meta'), $E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::button($o['cta'], $c->url('/conference'), 'hc-pill-w hc-tone-dark')]),
+    ]);
+
+    // 7 Location
     $o = $h['location'];
     $s[] = $E::con('hc-sec hc-deep hc-s-loc', [
         hc_deco_w('location', 'light'),
@@ -241,19 +300,6 @@ function hc_build_home($c) {
                 $E::image($c->img('3064.jpg', "Hotel Central's corner tower on Ćumurija street"), 'hc-photo hc-grade hc-reveal hc-loc__photo', '62% 30%'),
             ]),
         ]),
-    ]);
-
-    // 7 Events
-    $o = $h['events'];
-    $s[] = $E::con('hc-sec hc-ivory hc-s-ev', [
-        $E::heading(implode(' ', $o['title']), 'h2', 'sr-only'),
-        $E::con('hc-art', [
-            $E::image($c->img('3073.jpg', 'The conference room on the third floor set up for a meeting'), 'hc-photo hc-rect hc-reveal hc-grade hc-grade-dark hc-veil photo-main hc-par-4 hc-rv-right'),
-            $titleW($o['title'], 'base hc-op-photo-main'),
-            $E::image($c->img('img_9216.jpg', 'Chairs and microphones in the conference room'), 'hc-photo hc-rect hc-reveal hc-grade photo-2 hc-rv-down', '50% 50%'),
-            $E::con('metas hc-label', [$E::text(hc_p($o['metaLeft'])), $E::text(hc_p($o['metaCenter'])), $E::text(hc_p($o['metaRight']))], ['flex_direction' => 'row']),
-        ]),
-        $E::con('hc-copy', [$E::text(hc_p($o['metaLeft'] . ' · ' . $o['metaRight']), 'hc-label mobile-meta'), $E::text(hc_p($o['body']), 'hc-body hc-fade'), $E::button($o['cta'], $c->url('/meetings-events'), 'hc-pill-w hc-tone-dark')]),
     ]);
 
     // 8 Final booking

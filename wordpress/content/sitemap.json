@@ -1,0 +1,24 @@
+{
+ "sectionPaths": {
+  "cafe": "/about/cafe",
+  "club": "/centralfitnessclub",
+  "clubMembership": "/centralfitnessclub/membership",
+  "clubTimetable": "/centralfitnessclub/timetable",
+  "dayspa": "/dayspa",
+  "conference": "/conference"
+ },
+ "legacyRedirects": [
+  [
+   "/spa",
+   "/dayspa"
+  ],
+  [
+   "/restaurant",
+   "/about/cafe"
+  ],
+  [
+   "/meetings-events",
+   "/conference"
+  ]
+ ]
+}

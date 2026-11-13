@@ -16,8 +16,17 @@ async function openEditor(page, base, postId) {
   const f = page.frameLocator('#elementor-preview-iframe');
   await f.locator('.elementor-element, .elementor-add-new-section').first().waitFor({ timeout: 120000 });
   await page.waitForTimeout(3500);
+  await closePromos(page);
   await closeNavigator(page);
   return f;
+}
+/** Elementor sometimes opens a promotional pop-up over the editor (e.g. an AI add-on offer): close it with its ✕, as a person would. */
+async function closePromos(page) {
+  for (const sel of ['.MuiDialog-root button[aria-label="close" i]', '.MuiDialog-root button[aria-label="Close" i]', '.dialog-lightbox-widget:visible .dialog-close-button', '.e-onboarding__modal button[aria-label="close" i]']) {
+    const b = page.locator(sel).first(); if (await b.isVisible().catch(() => false)) { await b.click().catch(() => {}); await page.waitForTimeout(600); }
+  }
+  const x = page.locator('[role="dialog"]:visible button:has(svg)').first();
+  if (await page.locator('[role="dialog"]:visible', { hasText: /Install and activate|Upgrade|Angie/i }).count()) await x.click().catch(() => {});
 }
 async function closeNavigator(page) { const c = page.locator('#elementor-navigator__close'); if (await c.isVisible().catch(() => false)) { await c.click(); await page.waitForTimeout(500); } }
 async function openNavigator(page) { if (!(await page.locator('#elementor-navigator').isVisible().catch(() => false))) { await page.locator('#elementor-editor-wrapper-v2 [aria-label="Structure"], button[aria-label="Structure"]').first().click(); await page.waitForTimeout(700); } }
@@ -26,7 +35,7 @@ async function publish(page) {
   await publishBtn(page).click();
   await page.waitForTimeout(2500);
 }
-module.exports = { chromium, creds, login, openEditor, publish, publishBtn, closeNavigator, openNavigator };
+module.exports = { chromium, creds, login, openEditor, publish, publishBtn, closeNavigator, openNavigator, closePromos };
 
 /* ───────── Elementor panel helpers ───────── */
 async function reveal(page, loc) { await loc.first().evaluate((e) => e.scrollIntoView({ block: 'center', inline: 'nearest' })); await page.waitForTimeout(500); }

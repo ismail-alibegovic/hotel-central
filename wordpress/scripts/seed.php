@@ -8,11 +8,17 @@ if (!defined('ABSPATH')) exit;
 require_once __DIR__ . '/lib/pages.php';
 require_once __DIR__ . '/lib/kit.php';
 require_once __DIR__ . '/lib/templates.php';
+require_once __DIR__ . '/lib/brands.php';
 @set_time_limit(0); ini_set('memory_limit', '1024M');
 global $wpdb, $RESET, $FIRST;
 wp_set_current_user(1);
 $ROOT = dirname(__DIR__);
 $IMG_DIR = realpath($ROOT . '/../public/images');
+// Photographs live in public/images and its sub-folders (club/, dayspa/, hotel/ since Round 1); logos in the theme's assets/brand.
+$IMG_INDEX = [];
+foreach ([$IMG_DIR, $ROOT . '/theme/hotel-central/assets/brand'] as $dir) if ($dir && is_dir($dir))
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS)) as $f)
+        if (preg_match('/\.(jpe?g|png|webp|svg)$/i', $f->getFilename()) && !isset($IMG_INDEX[$f->getFilename()])) $IMG_INDEX[$f->getFilename()] = $f->getPathname();
 $say = function ($m) { fwrite(STDERR, "[seed] $m\n"); };
 
 /* ── Safety: the seeder never silently overwrites content.
@@ -67,16 +73,18 @@ $D = json_decode(file_get_contents($ROOT . '/content/dictionary.json'), true);
 $LAY = json_decode(file_get_contents($ROOT . '/content/layouts.json'), true);
 $PG = json_decode(file_get_contents($ROOT . '/content/pages.json'), true);
 $ROOMS = json_decode(file_get_contents($ROOT . '/content/rooms.json'), true);
+$CLUB = json_decode(file_get_contents($ROOT . '/content/club.json'), true);
+$SPA = json_decode(file_get_contents($ROOT . '/content/dayspa.json'), true);
 require_once ABSPATH . 'wp-admin/includes/image.php'; require_once ABSPATH . 'wp-admin/includes/file.php'; require_once ABSPATH . 'wp-admin/includes/media.php';
 
-$importImage = function ($file, $alt = '') use ($IMG_DIR, $say) {
+$importImage = function ($file, $alt = '') use ($IMG_INDEX, $say) {
     static $cache = [];
     $key = $file . '|' . $alt;
     if (isset($cache[$key])) return $cache[$key];
     global $wpdb;
     $base = (int) $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_hc_src' AND meta_value=%s LIMIT 1", $file));
     if (!$base) {
-        $src = "$IMG_DIR/$file";
+        $src = $IMG_INDEX[$file] ?? '';
         if (!is_file($src)) { $say("missing image $file"); return 0; }
         $up = wp_upload_dir(); $name = wp_unique_filename($up['path'], $file); copy($src, "$up[path]/$name");
         $base = wp_insert_attachment(['post_mime_type' => wp_check_filetype($name)['type'], 'post_title' => preg_replace('/\.[^.]+$/', '', $file), 'post_status' => 'inherit'], "$up[path]/$name");
@@ -103,6 +111,8 @@ foreach ($bad as $aid) { $wpdb->delete($wpdb->postmeta, ['post_id' => $aid]); $w
 $wpdb->query("DELETE FROM $wpdb->postmeta WHERE meta_key='_wp_attachment_image_alt' AND meta_value='Replace this photograph'");
 if ($bad) $say('removed ' . count($bad) . ' placeholder alias attachments');
 
+add_filter('upload_mimes', function ($m) { $m['svg'] = 'image/svg+xml'; return $m; });
+add_filter('wp_check_filetype_and_ext', function ($d, $file, $name) { return substr($name, -4) === '.svg' ? ['ext' => 'svg', 'type' => 'image/svg+xml', 'proper_filename' => $name] : $d; }, 10, 3);
 $GLOBALS['hc_slugs'] = [];
 function hc_is_new() { return $GLOBALS['hc_last_new']; }
 function hc_upsert_post($type, $slug, $lang, $args, $key) {
@@ -140,46 +150,90 @@ foreach ($ROOMS as $i => $r) {
 }
 $say('rooms: ' . count($ROOMS) . ' × 2 languages');
 
-/* ───────── 5. Elementor pages ───────── */
-$pageDefs = [ // key => [slug, titles, layout key]
-    'home' => ['home', ['en' => 'Home', 'bs' => 'Početna']],
-    'about' => ['about', ['en' => 'About', 'bs' => 'O nama']],
-    'rooms' => ['rooms', ['en' => 'Rooms & Suites', 'bs' => 'Sobe i apartmani']],
-    'spa' => ['spa', ['en' => 'Club & Spa', 'bs' => 'Club & Spa']],
-    'restaurant' => ['restaurant', ['en' => 'Restaurant', 'bs' => 'Restoran']],
-    'meetings-events' => ['meetings-events', ['en' => 'Meetings & Events', 'bs' => 'Sastanci i događaji']],
-    'location' => ['location', ['en' => 'Location', 'bs' => 'Lokacija']],
-    'contact' => ['contact', ['en' => 'Contact', 'bs' => 'Kontakt']],
+/* ───────── 5. Elementor pages — Round 1 sitemap (Nov 2026) ─────────
+   Pages are identified by a stable key (post meta _hc_key), never by position. Address = slug under the parent's address. */
+$navTitle = function ($lang, $href) use ($D) {
+    $n = $D[$lang]['nav'];
+    foreach ($n['items'] as $it) if ($it['href'] === $href) return $it['label'];
+    foreach ($n['children'] as $kids) foreach ($kids as $it) if ($it['href'] === $href) return $it['label'];
+    return null;
+};
+$T = function ($href, $fallbackEn) use ($navTitle) { return ['en' => $navTitle('en', $href) ?: $fallbackEn, 'bs' => $navTitle('bs', $href) ?: $fallbackEn]; };
+$pageDefs = [ // key => [slug, titles, parent key, brand, href]
+    'home' => ['home', ['en' => 'Home', 'bs' => 'Početna'], null, '', '/'],
+    'about' => ['about', $T('/about', 'About'), null, '', '/about'],
+    'cafe' => ['cafe', $T('/about/cafe', 'Central Café'), 'about', '', '/about/cafe'],
+    'rooms' => ['rooms', $T('/rooms', 'Rooms & Suites'), null, '', '/rooms'],
+    'club' => ['centralfitnessclub', $T('/centralfitnessclub', 'Central Fitness Club'), null, 'club', '/centralfitnessclub'],
+    'club-membership' => ['membership', $T('/centralfitnessclub/membership', 'Membership'), 'club', 'club', '/centralfitnessclub/membership'],
+    'club-timetable' => ['timetable', $T('/centralfitnessclub/timetable', 'Class timetable'), 'club', 'club', '/centralfitnessclub/timetable'],
+    'dayspa' => ['dayspa', $T('/dayspa', 'Central Day Spa'), null, 'spa', '/dayspa'],
+    'conference' => ['conference', $T('/conference', 'Meetings & Events'), null, '', '/conference'],
+    'location' => ['location', $T('/location', 'Location'), null, '', '/location'],
+    'contact' => ['contact', $T('/contact', 'Contact'), null, '', '/contact'],
 ];
+$layoutKey = ['cafe' => 'restaurant', 'conference' => 'meetings-events'];
+$findKey = function ($k) use ($wpdb) { return (int) $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_hc_key' AND meta_value=%s LIMIT 1", $k)); };
+
+// Existing installs (seeded before Round 1): keep the old pages and every edit on them, only give them their new key and address.
+foreach (['restaurant' => 'cafe', 'meetings-events' => 'conference'] as $old => $new) foreach (['en', 'bs'] as $lang) {
+    $id = $findKey("page:$old:$lang");
+    if (!$id || $findKey("page:$new:$lang")) continue;
+    update_post_meta($id, '_hc_key', "page:$new:$lang"); update_post_meta($id, '_hc_old_key', $old);
+    $say("page $old/$lang (#$id) → now '$new' (content kept; the old address redirects)");
+}
+// The combined "Club & Spa" page is replaced by Central Fitness Club and Central Day Spa (CH-009): set to Draft, never deleted.
+foreach (['en', 'bs'] as $lang) {
+    $id = $findKey("page:spa:$lang");
+    if ($id && get_post_status($id) === 'publish') { wp_update_post(['ID' => $id, 'post_status' => 'draft']); update_post_meta($id, '_hc_retired', 'round1'); $say("page spa/$lang (#$id) → Draft (replaced by Fitness Club + Day Spa; restore from Pages → Drafts if ever needed)"); }
+}
+
 $pageIds = [];
-foreach ($pageDefs as $key => [$slug, $titles]) {
+foreach ($pageDefs as $key => [$slug, $titles, $parentKey, $brand]) {
     $trans = [];
     foreach (['en', 'bs'] as $lang) {
         $ctx = new HC_Ctx($lang, $D[$lang], $ROOMS, $importImage);
-        $ctx->rooms = $ROOMS;
-        if ($key === 'home') {
-            $elements = hc_build_home($ctx); $meta = $D[$lang]['meta']; $title = $titles[$lang]; $ogFile = '3075.jpg';
-        } else {
-            $lay = $LAY[$lang][$key]; $elements = hc_build_blocks($lay['blocks'], $ctx); $meta = $lay['meta']; $title = $titles[$lang]; $ogFile = basename($lay['ogImage'] ?? '3075.jpg');
+        $ctx->rooms = $ROOMS; $ogFile = '3075.jpg';
+        switch ($key) {
+            case 'home': $elements = hc_build_home($ctx); $meta = $D[$lang]['meta']; break;
+            case 'club': $elements = hc_build_club($ctx, $CLUB); $meta = $CLUB[$lang]['meta']; $ogFile = 'cardio-treadmill.jpg'; break;
+            case 'club-membership': $elements = hc_build_club_membership($ctx, $CLUB); $meta = $CLUB[$lang]['membership']['meta']; $ogFile = 'kettlebells-window.jpg'; break;
+            case 'club-timetable': $elements = hc_build_club_timetable($ctx, $CLUB); $meta = $CLUB[$lang]['timetableCopy']['meta']; $ogFile = 'studio-window.jpg'; break;
+            case 'dayspa': $elements = hc_build_dayspa($ctx, $SPA); $meta = $SPA[$lang]['meta']; $ogFile = 'treatment-room.jpg'; break;
+            default:
+                $lay = $LAY[$lang][$layoutKey[$key] ?? $key]; $elements = hc_build_blocks($lay['blocks'], $ctx); $meta = $lay['meta']; $ogFile = basename($lay['ogImage'] ?? '3075.jpg');
+                if ($key === 'cafe') { // opening hours straight after the hero (CH-007)
+                    $h = $PG[$lang]['restaurant']['hours'];
+                    array_splice($elements, 1, 0, [hc_b_hours($h, 'cafe,breakfast', $ctx, [
+                        ['restaurant-arches.jpg', hc_alt($ctx, "The café's dining room with tall arched windows onto the street", 'Sala sa lučnim prozorima prema ulici'), '50% 60%'],
+                        ['cafe-corner.jpg', hc_alt($ctx, 'A corner table by the window looking onto Ćumurija street', 'Sto uz prozor sa pogledom na Ćumuriju'), '50% 70%'],
+                    ], 'ivory', 'hours', $h['note'] ?? '')]);
+                }
         }
-        $id = hc_upsert_post('page', $slug === 'home' ? 'home' : $slug, $lang, ['post_title' => $title, 'post_excerpt' => $meta['description'], 'post_content' => ''], "page:$key:$lang");
+        $title = $titles[$lang];
+        $parentId = $parentKey ? ($pageIds[$parentKey][$lang] ?? 0) : 0;
+        $id = hc_upsert_post('page', $slug, $lang, ['post_title' => $title, 'post_excerpt' => $meta['description'], 'post_content' => '', 'post_parent' => $parentId], "page:$key:$lang");
         $new = hc_is_new();
+        // structure (address, parent, brand, published) follows the approved sitemap; content is only touched when unedited
+        if (!$new && (int) get_post_field('post_parent', $id) !== $parentId) wp_update_post(['ID' => $id, 'post_parent' => $parentId]);
+        if (!$new && get_post_status($id) !== 'publish' && !get_post_meta($id, '_hc_retired', true)) { /* an editor unpublished it: respect that */ }
+        if ($brand) update_post_meta($id, '_hc_brand', $brand); else delete_post_meta($id, '_hc_brand');
         $stored = (string) get_post_meta($id, '_elementor_data', true);
         $pristine = $new || ($stored !== '' && md5($stored) === get_post_meta($id, '_hc_seed_hash', true));
         if ($RESET || $pristine) {
-            if ($new || $RESET) {
+            if ($new || $RESET || get_post_meta($id, '_hc_old_key', true)) {
                 update_post_meta($id, '_hc_seo_title', $key === 'home' ? $meta['title'] : $meta['title'] . ' — Hotel Central Sarajevo');
                 update_post_meta($id, '_hc_seo_desc', $meta['description']);
                 update_post_meta($id, '_hc_seo_image', $importImage($ogFile, ''));
+                if (!$new) wp_update_post(['ID' => $id, 'post_title' => $title, 'post_excerpt' => $meta['description']]);
             }
             update_post_meta($id, '_elementor_edit_mode', 'builder'); update_post_meta($id, '_elementor_template_type', 'wp-page'); update_post_meta($id, '_wp_page_template', 'default');
             $doc = \Elementor\Plugin::$instance->documents->get($id, false);
             $doc->save(['elements' => $elements, 'settings' => ['post_status' => 'publish', 'template' => 'default']]);
             update_post_meta($id, '_hc_seed_hash', md5((string) get_post_meta($id, '_elementor_data', true)));
-            $say("page $key/$lang → $id " . ($new ? 'created' : ($RESET ? 'RESET' : 'refreshed (unedited)')));
-        } else { $GLOBALS['hc_skipped'][] = "page $key/$lang (#$id) was edited in Elementor"; $say("page $key/$lang → $id SKIPPED (edited in Elementor; HC_SEED_RESET=1 overwrites)"); }
+            $say("page $key/$lang → $id " . ($new ? 'created' : ($RESET ? 'RESET' : 'refreshed (unedited)')) . ' (' . count($elements) . ' sections)');
+        } else { $GLOBALS['hc_skipped'][] = "page $key/$lang (#$id) was edited in Elementor"; $say("page $key/$lang → $id SKIPPED (edited in Elementor; address/parent updated, content kept; HC_SEED_RESET=1 overwrites)"); }
         $trans[$lang] = $id; $pageIds[$key][$lang] = $id;
-        $say("page $key/$lang → $id (" . count($elements) . ' sections)');
     }
     pll_save_post_translations($trans);
 }
@@ -189,19 +243,63 @@ update_option('hc_positions', array_merge((array) get_option('hc_positions', [])
 /* ───────── 5b. Template library (Elementor → Saved Templates) ───────── */
 hc_seed_templates(new HC_Ctx('en', $D['en'], $ROOMS, $importImage), $RESET, $say);
 
-/* ───────── 6. Menus (one per language, assigned to the theme location) ───────── */
+/* ───────── 6. Menus — built by page key (never by position), with sub-pages; one per language ─────────
+   Main menu: the approved sitemap. Fitness Club / Day Spa menus: the sub-navigation shown in those sections.
+   A menu an editor has changed is left alone (reported); a menu still exactly as seeded is updated. */
 $theme = get_option('stylesheet'); $nav = (array) PLL()->options->get('nav_menus');
-foreach (['en', 'bs'] as $lang) {
-    $name = 'Main menu ' . strtoupper($lang);
+$hrefKey = []; foreach ($pageDefs as $k => $def) $hrefKey[$def[4]] = $k;
+$menuSig = function ($mid) { $o = []; foreach ((array) wp_get_nav_menu_items($mid) as $it) $o[] = $it->object_id . '|' . $it->menu_item_parent . '|' . $it->title . '|' . $it->url; return md5(implode("\n", $o)); };
+$oldOrder = ['home', 'about', 'rooms', 'spa', 'cafe', 'conference', 'location', 'contact']; // what the pre-Round-1 seeder created
+$isOldSeeded = function ($mid, $lang) use ($pageIds, $oldOrder, $findKey) {
+    $ids = array_map(function ($it) { return (int) $it->object_id; }, (array) wp_get_nav_menu_items($mid));
+    $want = array_map(function ($k) use ($pageIds, $lang, $findKey) { return $k === 'spa' ? $findKey("page:spa:$lang") : (int) ($pageIds[$k][$lang] ?? 0); }, $oldOrder);
+    return $ids === $want;
+};
+$build = function ($name, $loc, $lang, $items) use (&$nav, $theme, $menuSig, $isOldSeeded, $RESET, $say) {
     $menu = wp_get_nav_menu_object($name);
-    if ($menu && !$RESET) { $nav[$theme]['primary'][$lang] = $nav[$theme]['primary'][$lang] ?? $menu->term_id; continue; }
+    if ($menu && !$RESET) {
+        $seeded = get_term_meta($menu->term_id, '_hc_seed_sig', true);
+        $untouched = $seeded ? $seeded === $menuSig($menu->term_id) : ($loc === 'primary' && $isOldSeeded($menu->term_id, $lang));
+        if (!$untouched) { $nav[$theme][$loc][$lang] = $nav[$theme][$loc][$lang] ?? $menu->term_id; $GLOBALS['hc_skipped'][] = "menu '$name' (edited — add the new pages under Appearance → Menus)"; $say("menu $name SKIPPED (edited by an editor)"); return; }
+    }
     $mid = $menu ? $menu->term_id : wp_create_nav_menu($name);
     foreach ((array) wp_get_nav_menu_items($mid) as $it) wp_delete_post($it->ID, true);
-    $order = ['home', 'about', 'rooms', 'spa', 'restaurant', 'meetings-events', 'location', 'contact'];
-    foreach ($order as $n => $key) wp_update_nav_menu_item($mid, 0, ['menu-item-title' => $D[$lang]['nav']['items'][$n]['label'], 'menu-item-object' => 'page', 'menu-item-object-id' => $pageIds[$key][$lang], 'menu-item-type' => 'post_type', 'menu-item-status' => 'publish', 'menu-item-position' => $n + 1]);
-    $nav[$theme]['primary'][$lang] = $mid;
+    $pos = 0;
+    $add = function ($it, $parent) use ($mid, &$pos) {
+        $args = ['menu-item-title' => $it['label'], 'menu-item-status' => 'publish', 'menu-item-position' => ++$pos, 'menu-item-parent-id' => $parent];
+        if (!empty($it['page'])) $args += ['menu-item-object' => 'page', 'menu-item-object-id' => $it['page'], 'menu-item-type' => 'post_type'];
+        else $args += ['menu-item-type' => 'custom', 'menu-item-url' => $it['url']];
+        return wp_update_nav_menu_item($mid, 0, $args);
+    };
+    foreach ($items as $it) { $pid = $add($it, 0); foreach ($it['children'] ?? [] as $ch) $add($ch, $pid); }
+    update_term_meta($mid, '_hc_seed_sig', $menuSig($mid));
+    $nav[$theme][$loc][$lang] = $mid; $say("menu $name → " . count($items) . ' items');
+};
+foreach (['en', 'bs'] as $lang) {
+    $n = $D[$lang]['nav']; $main = [];
+    foreach ($n['items'] as $it) {
+        $k = $hrefKey[$it['href']] ?? null; if (!$k) continue;
+        $kids = [];
+        foreach ($n['children'][$it['href']] ?? [] as $ch) if (isset($hrefKey[$ch['href']])) $kids[] = ['label' => $ch['label'], 'page' => $pageIds[$hrefKey[$ch['href']]][$lang]];
+        $main[] = ['label' => $it['label'], 'page' => $pageIds[$k][$lang], 'children' => $kids];
+    }
+    $build('Main menu ' . strtoupper($lang), 'primary', $lang, $main);
+    $cn = $CLUB[$lang]['nav']; $club = get_permalink($pageIds['club'][$lang]);
+    $build('Fitness Club menu ' . strtoupper($lang), 'club', $lang, [
+        ['label' => $cn['club'], 'page' => $pageIds['club'][$lang]], ['label' => $cn['membership'], 'page' => $pageIds['club-membership'][$lang]],
+        ['label' => $cn['timetable'], 'page' => $pageIds['club-timetable'][$lang]], ['label' => $cn['contact'], 'url' => $club . '#join'],
+    ]);
+    $sn = $SPA[$lang]['nav']; $spa = get_permalink($pageIds['dayspa'][$lang]);
+    $build('Day Spa menu ' . strtoupper($lang), 'spa', $lang, [
+        ['label' => $sn['spa'], 'url' => $spa . '#spa'], ['label' => $sn['treatments'], 'url' => $spa . '#treatments'],
+        ['label' => $sn['hours'], 'url' => $spa . '#hours'], ['label' => $sn['contact'], 'url' => $spa . '#book'],
+    ]);
 }
 PLL()->options->set('nav_menus', $nav); PLL()->options->save();
+// Polylang only translates locations that also exist in the theme's own location setting: register every location there too.
+$tm = (array) get_theme_mod('nav_menu_locations', []);
+foreach (['primary', 'club', 'spa'] as $loc) if (empty($tm[$loc]) && !empty($nav[$theme][$loc]['en'])) $tm[$loc] = $nav[$theme][$loc]['en'];
+set_theme_mod('nav_menu_locations', $tm);
 
 /* ───────── 7. Polylang string translations (UI strings: Bosnian from the dictionary) ───────── */
 $seen = []; $n = 0;

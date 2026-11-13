@@ -1,7 +1,20 @@
 # Progress (resume here)
 Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under `wordpress/`. Nothing deployed; production/DNS/hosting untouched.
 
-**2026-11-13:** combined with the Round 1 client changes on `claude/adoring-pasteur-dhsf07`. WordPress is the final CMS; next step is porting Round 1 into this folder. Plan, risks and order of work: `docs/ARCHITECTURE_RECOVERY.md` (repo root). Do not commit a fresh `dump-content.ts` export before the seeder's menu/page definitions are updated (risk R1 there).
+**2026-11-13:** combined with the Round 1 client changes on `claude/adoring-pasteur-dhsf07`. WordPress is the final CMS. Plan and risks: `docs/ARCHITECTURE_RECOVERY.md` (repo root).
+
+**2026-11-13 (later) — Round 1 ported in the original design language** (details: `docs/ROUND1_DESIGN_QA.md`):
+- [x] Seeder maps pages and menus **by key** with parents (risk R1 fixed); upgrade of a pre-Round-1 site tested with a staff edit (kept); Club & Spa page → Draft; redirects for old addresses (EN + BS)
+- [x] New sitemap: Central Café (`/about/cafe`), Central Fitness Club (+ Membership, Class timetable), Central Day Spa (editable price list, Lime Booking), Conference (`/conference`, proposal band), Contact without form, Meetings before Location, daylight hero photo
+- [x] Official Hotel Central logo (from hotelcentral.ba) in header and footer; Club & Spa logo removed; footer hierarchy hotel → Fitness Club / Day Spa; Day Spa without its rectangle (derived file, needs approval) — `theme/hotel-central/assets/brand/README.md`
+- [x] No gold: original outlined pills; header "Book now" as an outlined pill (CH-003)
+- [x] Rooms carousel: feature as eyebrow above the name, no overprint, sized to the column; split titles fit their column (13 Nov fix ported)
+- [x] Full-screen menu: restrained type, sub-pages as a second level, smaller photo
+- [x] Fitness Club / Day Spa: own logo, colours, display face (OFL fonts, local), section menus (Appearance → Menus), brand footer; pages under them inherit the brand
+- [x] Opening hours per place (Café, gym, pool, Day Spa) in Hotel Information → `[hc_hours places=… fallback=…]`
+- [x] Visual QA of `main` vs 13 Nov vs WordPress at 1440/768/390 (`tests/qa-capture.js`, sheets in `tests/evidence/round1-qa/`)
+- [x] Editor-role browser test of the Round 1 workflows: `tests/round1-editor.js` (17/17); `tests/functional.js` updated for the new sitemap
+- Note: run the local server with `PHP_CLI_SERVER_WORKERS=6` — the single-process server makes the Elementor editor ~3× slower.
 
 ## Done
 - [x] Foundation, theme, core plugin, 16 Elementor pages (EN+BS), rooms CPT, booking, forms, SEO, redirects (see README / docs/ARCHITECTURE)

@@ -614,7 +614,7 @@ html.menu-lock{overflow:hidden}
 .hc-split__text{position:relative;display:flex;flex-direction:column;justify-content:center}
 @media(min-width:1024px){.hc-split__text{grid-column:8/span 5}.hc-split.is-rev .hc-split__text{grid-column:1/span 5;grid-row:1}}
 .hc-split__text .hc-title{position:relative;z-index:3;font-size:var(--fs-m,11vw);line-height:.9}
-@media(min-width:1024px){.hc-split__text .hc-title{font-size:5vw}}
+@media(min-width:1024px){.hc-split__text .hc-title{font-size:var(--fs-d,5vw)}}
 .hc-split .hc-title .hc-line:nth-child(2){padding-left:6vw}
 @media(min-width:1024px){.hc-split .hc-title .hc-line:nth-child(2){padding-left:4vw}}
 @media(min-width:1024px){
@@ -949,3 +949,173 @@ html.menu-lock{overflow:hidden}
 
 .hc-solid-start .hc-page .elementor>.e-con:where(:not(.e-con~.e-con)){margin-top:var(--header-h)}
 
+
+/* ═════════ Round 1 (Nov 2026) — client changes in the original design language ═════════
+   Overrides only; the original rules above are untouched. See wordpress/docs/ROUND1_DESIGN_QA.md. */
+
+/* Header: the official Hotel Central logo hangs from the bar at the top of the page; once the bar turns solid (scroll,
+   or pages without a photographic hero) the original typeset wordmark takes over — the full logo would be illegible at bar height. */
+.hc-wordmark{position:relative}
+.hc-wordmark span{transition:opacity .5s var(--ease-out)}
+.hc-logo{position:absolute;top:10px;left:50%;translate:-50% 0;width:auto;height:76px;max-width:none;transition:opacity .5s var(--ease-out),translate .7s var(--ease-out)}
+@media(min-width:768px){.hc-logo{height:96px;top:12px}}
+@media(min-width:1024px){.hc-logo{height:118px;top:14px}}
+.hc-header:not(.is-solid):not(.menu-open) .hc-wordmark span{opacity:0}
+.hc-header.is-solid .hc-logo,.hc-header.menu-open .hc-logo{opacity:0;translate:-50% -12px;pointer-events:none}
+.hc-solid-start .hc-logo{display:none}
+.hc-solid-start .hc-header .hc-wordmark span{opacity:1}
+/* the bar's hairline opens behind the hanging logo */
+.hc-header:not(.is-solid):not(.menu-open) .hc-header__bar{border-bottom-color:transparent;background:linear-gradient(var(--hairline-light),var(--hairline-light)) left bottom/calc(50% - 46px) 1px no-repeat,linear-gradient(var(--hairline-light),var(--hairline-light)) right bottom/calc(50% - 46px) 1px no-repeat}
+@media(min-width:768px){.hc-header:not(.is-solid):not(.menu-open) .hc-header__bar{background-size:calc(50% - 56px) 1px,calc(50% - 56px) 1px}}
+@media(min-width:1024px){.hc-header:not(.is-solid):not(.menu-open) .hc-header__bar{background-size:calc(50% - 70px) 1px,calc(50% - 70px) 1px}}
+.hc-solid-start .hc-header .hc-header__bar{background:none}
+
+/* Footer: official logo (primary) → Central Fitness Club and Central Day Spa (secondary). Replaces the oversized type (CH-018). */
+.hc-foot-brand{display:grid;justify-items:center;gap:40px;padding:56px var(--gutter) 48px;text-align:center}
+.hc-foot-logo{display:block;position:relative;z-index:2;background:var(--deep);padding:12px 24px;margin:-12px -24px}
+.hc-foot-logo img{height:190px;width:auto}
+.hc-foot-subs{display:grid;justify-items:center;gap:16px}
+.hc-foot-subs p{opacity:.55}
+.hc-foot-subs__row{display:flex;align-items:center;gap:28px}
+.hc-foot-subs__row a{display:block;opacity:.82;transition:opacity .4s var(--ease-out)}
+.hc-foot-subs__row a:hover,.hc-foot-subs__row a:focus-visible{opacity:1}
+.hc-foot-subs__row a+a{border-left:1px solid rgb(255 255 255/.15);padding-left:28px}
+.hc-foot-subs__row img{height:68px;width:auto}
+@media(min-width:1024px){
+  .hc-foot-brand{grid-template-columns:1fr auto;justify-items:start;align-items:end;padding:64px var(--gutter) 48px;text-align:left}
+  .hc-foot-logo img{height:260px}
+  .hc-foot-subs{justify-items:end}
+  .hc-foot-subs__row img{height:84px}
+  .hc-foot-subs__row{gap:40px}.hc-foot-subs__row a+a{padding-left:40px}
+}
+
+/* Full-screen menu: restrained type, sub-pages as a clear second level, smaller preview photo */
+.hc-menu nav .t{font-size:min(7.4vw,4.6vh);line-height:1.05}
+@media(min-width:1024px){.hc-menu nav .t{font-size:clamp(28px,4.7vh,52px);line-height:1}}
+.hc-menu nav ol>li+li{margin-top:.3vh}
+.hc-menu nav .hc-sub{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:4px 0 10px 0;margin:0}
+@media(min-width:640px){.hc-menu nav .hc-sub{padding-left:48px}}
+@media(min-width:1024px){.hc-menu nav .hc-sub{padding-left:60px;padding-bottom:12px}}
+.hc-menu nav .hc-sub a{position:relative;display:inline-flex;align-items:center;gap:14px;padding:5px 0;font-size:11px;letter-spacing:.2em;opacity:.62;transition:opacity .5s var(--ease-out)}
+.hc-menu nav .hc-sub a::before{content:"";width:18px;height:1px;background:currentColor;opacity:.5}
+.hc-menu nav .hc-sub a:hover,.hc-menu nav .hc-sub a:focus-visible,.hc-menu nav .hc-sub a[aria-current="page"]{opacity:1}
+.hc-menu nav a:focus-visible{outline:1px solid rgb(255 255 255/.6);outline-offset:4px}
+@media(min-width:1024px){.hc-menu__preview{aspect-ratio:4/3;max-height:38vh}.hc-menu aside{justify-content:flex-end}}
+
+/* Rooms carousel: the feature line is a small eyebrow above the serif name (as on the room pages), never over the photograph */
+.hc-rc__feat{top:61.6%;font-size:11px;font-weight:400;letter-spacing:.2em;line-height:1.4;opacity:.75}
+.hc-rc__name{top:65.4%}
+@media(min-width:1024px){
+  .hc-rc__feat{left:53.76%;right:auto;top:37.4%;font-size:.8cqw;letter-spacing:.24em}
+  .hc-rc__feat>span{display:flex;align-items:center;gap:1.2em}
+  .hc-rc__feat>span::before{content:"";width:2.4cqw;height:1px;background:currentColor;opacity:.6}
+  .hc-rc__name{top:42.4%;line-height:.96}
+}
+.hc-rc__over{display:none}
+
+/* Homepage Club & Spa: the two brands, each with its logo and its own button (CH-004) */
+.hc-s-brands{padding:0 var(--gutter)}
+.hc-brandlinks{display:grid;gap:40px;padding:48px 0 64px;border-top:1px solid rgb(255 255 255/.15)}
+@media(min-width:1024px){.hc-s-brands{padding:0 6%}.hc-brandlinks{grid-template-columns:1fr 1fr;gap:4vw;padding:4vw 0 5vw}}
+.hc-brandlink{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:28px;row-gap:20px;align-items:center}
+.hc-brandlink>:first-child{grid-row:span 2}
+.hc .hc-brandlink__logo img,.hc-brandlink__logo img{height:96px;width:auto;object-fit:contain}
+.hc-brandlink .hc-body{max-width:36ch}
+@media(min-width:1024px){.hc .hc-brandlink__logo img,.hc-brandlink__logo img{height:120px}}
+
+/* Call-to-action band (conference "Request a proposal", CH-014; membership enquiries) */
+.hc-cta{padding:64px var(--gutter)}
+@media(min-width:1024px){.hc-cta{padding:5.5vw var(--gutter)}}
+.hc-cta__in{display:grid;gap:32px}
+@media(min-width:1024px){.hc-cta__in{grid-template-columns:repeat(12,1fr);column-gap:2vw;align-items:end}.hc-cta__head{grid-column:span 6}.hc-cta__side{grid-column:8/span 5}}
+.hc .hc-cta .hc-title{font-size:11vw;margin-top:16px}
+@media(min-width:1024px){.hc .hc-cta .hc-title{font-size:4.6vw}}
+.hc-cta__side .hc-body{max-width:46ch}
+.hc .hc-cta__acts{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px 32px;margin-top:28px}
+
+/* Opening hours (Hotel Information → Opening hours) */
+.hc-hours{padding:64px var(--gutter)}
+@media(min-width:1024px){.hc-hours{padding:6vw var(--gutter)}}
+.hc-hours__g{display:grid;gap:40px}
+@media(min-width:1024px){.hc-hours__g{grid-template-columns:repeat(12,1fr);column-gap:2vw;align-items:start}.hc-hours__t{grid-column:span 5}.hc-hours__media{grid-column:7/span 6}}
+.hc .hc-hours .hc-title{font-size:11vw;margin:16px 0 32px}
+@media(min-width:1024px){.hc .hc-hours .hc-title{font-size:4.4vw}}
+.hc-hours__pending{max-width:42ch;opacity:.85}
+.hc .hc-hours__media{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:end}
+.hc-hours__media .hc-photo img{aspect-ratio:4/5;width:100%;height:auto;object-fit:cover;object-position:var(--op,50% 50%)}
+.hc-hours__media .elementor-element:last-child img{aspect-ratio:3/4}
+
+/* Price lists and timetables: one row = three editable text widgets */
+.hc-pricesec{padding:64px var(--gutter)}
+@media(min-width:1024px){.hc-pricesec{padding:6vw var(--gutter)}}
+.hc .hc-pricesec__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 40px;margin-bottom:48px}
+.hc .hc-pricesec .hc-title{font-size:11vw;margin-top:16px}
+@media(min-width:1024px){.hc .hc-pricesec .hc-title{font-size:4.4vw}}
+.hc .hc-pricesec__g{display:grid;gap:56px}
+@media(min-width:1024px){.hc .hc-pricesec__g{grid-template-columns:1fr 1fr;column-gap:5vw;row-gap:64px;align-items:start}}
+.hc .hc-pricegroup__t,.hc .hc-pricegroup__t .elementor-heading-title{font-family:var(--font-display);font-weight:400;font-size:26px;line-height:1.1;margin:0 0 12px}
+.hc .hc-price{display:grid;grid-template-columns:1fr auto 5.5em;column-gap:16px;align-items:baseline;padding:11px 0;border-top:1px solid rgb(2 13 16/.14)}
+.hc .hc-price:last-child{border-bottom:1px solid rgb(2 13 16/.14)}
+.hc .hc-price>.elementor-widget{width:auto}
+.hc .hc-price .d{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+.hc .hc-price .p{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hc .hc-price .i{grid-column:1/-1;font-size:12px;opacity:.65;margin-top:4px}
+.hc .hc-included{columns:2;column-gap:32px}
+.hc .hc-included li{padding:6px 0;break-inside:avoid}
+.hc-mt-4{margin-top:16px}.hc-mt-8{margin-top:32px}
+
+/* Contact without a form (CH-016/017): phone and e-mail lead */
+.hc .hc-contact__lead{position:relative;z-index:1;display:grid;gap:32px;margin-bottom:56px}
+@media(min-width:1024px){.hc .hc-contact__lead{grid-template-columns:1fr 1fr;gap:2vw;margin-bottom:5vw}}
+.hc-contact__big{padding-top:20px;border-top:1px solid rgb(2 13 16/.2)}
+.hc-contact__bigv a{display:inline-block;margin-top:12px;font-family:var(--font-display);text-transform:none;letter-spacing:0;font-size:clamp(28px,4.2vw,64px);line-height:1.05;word-break:break-word}
+@media(min-width:1024px){.hc-contact.is-noform .hc-contact__g>.elementor-element:where(:not(.elementor-element~.elementor-element)){grid-column:span 7}.hc-contact.is-noform .hc-contact__g>.elementor-element:where(:not(:has(~.elementor-element))){grid-column:9/span 4}}
+
+/* ═════════ Sub-brands: Central Fitness Club and Central Day Spa ═════════
+   Same structure, usability and motion as the hotel; their own logo, colours (sampled from the official logos), display face and
+   section menu. Only the tokens change, so every hotel section and every saved template adapts automatically. */
+@font-face{font-family:"Oswald";font-weight:200 700;font-display:swap;src:url(../fonts/oswald-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Oswald";font-weight:200 700;font-display:swap;src:url(../fonts/oswald-latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Cormorant Garamond";font-weight:400;font-display:swap;src:url(../fonts/cormorant-garamond-latin-400-normal.woff2) format("woff2"),url(../fonts/cormorant-garamond-latin-ext-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:400;font-style:italic;font-display:swap;src:url(../fonts/cormorant-garamond-latin-400-italic.woff2) format("woff2"),url(../fonts/cormorant-garamond-latin-ext-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:500;font-display:swap;src:url(../fonts/cormorant-garamond-latin-500-normal.woff2) format("woff2"),url(../fonts/cormorant-garamond-latin-ext-500-normal.woff2) format("woff2")}
+.hc-brand-club{--deep:#214832;--olive:#2c513c;--ivory:#f5f6f3;--font-display:"Oswald","Arial Narrow",sans-serif;--brand-ink:#183626}
+.hc-brand-spa{--deep:#411216;--olive:#5a2228;--ivory:#f9f7f3;--font-display:"Cormorant Garamond",Georgia,serif;--brand-ink:#411216}
+.hc-brand-club .hc-header.is-solid{background:rgb(33 72 50/.96)}
+.hc-brand-spa .hc-header.is-solid{background:rgb(65 18 22/.96)}
+.hc-brand-club .hc-menu,.hc-brand-spa .hc-menu{background:#363a2a} /* the full-screen menu is the hotel's: it leads back to the whole site */
+.hc-brand-club .hc-menu,.hc-brand-spa .hc-menu{--font-display:"Gilda Display","Didot",serif}
+/* Fitness Club display: condensed, bold, tight */
+.hc-brand-club .hc-title,.hc-brand-club .hc-display,.hc-brand-club .hc .hc-display .elementor-heading-title,.hc-brand-club .hc-pricegroup__t{font-weight:600;letter-spacing:.005em;line-height:.9}
+/* Day Spa display: airy serif in sentence case, second line in italic */
+.hc-brand-spa .hc-title,.hc-brand-spa .hc-display,.hc-brand-spa.hc .hc-display .elementor-heading-title,.hc-brand-spa .hc-title .elementor-heading-title,.hc-brand-spa .hc-pricegroup__t{text-transform:none;font-weight:400;letter-spacing:0;line-height:1}
+.hc-brand-spa .hc-title .hc-line:nth-child(2),.hc-brand-spa .hc-display .hc-line:nth-child(2){font-style:italic;padding-left:.6em}
+.hc-brand-spa .hc-hero .hc-display{font-size:min(13vw,7.4vw + 12px)}
+/* Brand mark in the header (logo, not the hotel wordmark) */
+.hc-brandmark{position:relative}
+.hc-brandmark img{position:absolute;top:8px;left:50%;translate:-50% 0;height:66px;width:auto;max-width:none;transition:height .6s var(--ease-out),top .6s var(--ease-out)}
+@media(min-width:1024px){.hc-brandmark img{height:84px;top:10px}}
+.hc-header.is-solid .hc-brandmark img{height:44px;top:6px}
+@media(min-width:1024px){.hc-header.is-solid .hc-brandmark img{height:52px;top:6px}}
+.hc-header.menu-open .hc-brandmark img{opacity:0}
+.hc-brand .hc-header:not(.is-solid):not(.menu-open) .hc-header__bar{background-size:calc(50% - 50px) 1px,calc(50% - 50px) 1px}
+/* Section menu under the bar */
+.hc-subnav{border-bottom:1px solid var(--hairline-light);overflow-x:auto;scrollbar-width:none;transition:background-color .6s}
+.hc-subnav::-webkit-scrollbar{display:none}
+.hc-subnav ul{display:flex;justify-content:center;gap:28px;min-width:max-content;margin:0 auto;padding:14px var(--gutter);list-style:none}
+@media(min-width:1024px){.hc-subnav ul{gap:44px;padding-block:16px}}
+.hc-subnav a{opacity:.78;transition:opacity .4s}
+.hc-subnav a:hover,.hc-subnav a:focus-visible,.hc-subnav a[aria-current="page"]{opacity:1}
+.hc-header.menu-open .hc-subnav{visibility:hidden}
+.hc-brand .hc-hero__body{padding-top:48px}
+/* Brand footer: the brand leads, Hotel Central endorses */
+.hc-foot-brand.is-sub .hc-foot-sublead img{height:150px;width:auto}
+@media(min-width:1024px){.hc-foot-brand.is-sub .hc-foot-sublead img{height:190px}}
+.hc-foot-endorse img{height:120px;width:auto;opacity:.9}
+.hc-brand .hc-bookbar{display:none}
+
+/* CH-003 "Book now far more visible": the header link becomes the house's outlined pill on every page (no new colour) */
+.hc-hdr-book .hc-link-line{display:inline-flex;align-items:center;height:34px;padding:0 16px;border:1px solid rgb(255 255 255/.75);border-radius:999px;transition:background-color .5s var(--ease-out),color .5s var(--ease-out),border-color .5s var(--ease-out)}
+.hc-hdr-book .hc-link-line::after,.hc-hdr-book .hc-link-line::before{display:none}
+.hc-hdr-book:hover .hc-link-line,.hc-hdr-book:focus-visible .hc-link-line{background:#fff;border-color:#fff;color:var(--deep)}
+@media(min-width:1024px){.hc-hdr-book .hc-link-line{height:40px;padding:0 22px}}

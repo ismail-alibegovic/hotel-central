@@ -3,6 +3,8 @@ $items = hc_menu_items();
 $cur = hc_current_key();
 $previews = ['/' => '3075.jpg', '/about' => '3064.jpg', '/rooms' => 'p05.jpg', '/spa' => '3069.jpg', '/restaurant' => 'dorucak5.jpg', '/meetings-events' => '3073.jpg', '/location' => '3064.jpg', '/contact' => '3075.jpg'];
 $langs = hc_lang_urls();
+$brand = hc_brand(); $B = $brand ? hc_brand_info($brand) : null;
+$previews += ['/centralfitnessclub' => 'cardio-treadmill.jpg', '/dayspa' => 'treatment-room.jpg', '/conference' => '3073.jpg', '/about/cafe' => 'restaurant-arches.jpg', '/centralfitnessclub/membership' => 'kettlebells-window.jpg', '/centralfitnessclub/timetable' => 'studio-window.jpg'];
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -22,19 +24,31 @@ $langs = hc_lang_urls();
         <span data-menu-label data-open="<?php echo esc_attr(hc_t('nav.close')); ?>" data-closed="<?php echo esc_attr(hc_t('nav.menu')); ?>"><?php echo esc_html(hc_t('nav.menu')); ?></span>
       </button>
     </div>
-    <a class="hc-wordmark" href="<?php echo esc_url(hc_url('/')); ?>" aria-label="<?php echo esc_attr(hc_info('name')); ?> — home"><span>Hotel Central</span></a>
+    <?php if ($B): ?>
+    <a class="hc-wordmark hc-brandmark" href="<?php echo esc_url($B['home']); ?>"><img src="<?php echo esc_url($B['logo']); ?>" width="<?php echo (int) $B['w']; ?>" height="<?php echo (int) $B['h']; ?>" alt="<?php echo esc_attr($B['name']); ?>"></a>
+    <?php else: ?>
+    <a class="hc-wordmark" href="<?php echo esc_url(hc_url('/')); ?>" aria-label="<?php echo esc_attr(hc_info('name')); ?> — home"><img class="hc-logo" src="<?php echo esc_url(get_theme_file_uri('assets/brand/hotel-central-logo-reversed.png')); ?>" width="260" height="360" alt="" decoding="async"><span>Hotel Central</span></a>
+    <?php endif; ?>
     <div class="hc-header__right">
+      <?php if ($B): ?>
+      <a class="hc-hdr-rooms hc-label" href="<?php echo esc_url(hc_url('/')); ?>"><span class="hc-link-line">Hotel Central</span></a>
+      <a class="hc-hdr-book hc-label" href="<?php echo esc_url($B['cta']['url']); ?>"<?php echo $B['cta']['ext'] ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><span class="hc-link-line"><?php echo esc_html($B['cta']['label']); ?></span></a>
+      <?php else: ?>
       <a class="hc-hdr-rooms hc-label" href="<?php echo esc_url(hc_url('/rooms')); ?>"><span class="hc-link-line"><?php echo esc_html(hc_t('nav.rooms')); ?></span></a>
       <a class="hc-hdr-book hc-label" href="<?php echo esc_url(hc_info('booking_url')); ?>" target="_blank" rel="noopener noreferrer"><span class="hc-link-line"><?php echo esc_html(hc_t('nav.book')); ?></span></a>
+      <?php endif; ?>
     </div>
   </div>
+  <?php if ($B && ($sub = hc_location_items($B['loc']))): ?>
+  <nav class="hc-subnav hc-label" aria-label="<?php echo esc_attr($B['name']); ?>"><ul><?php foreach ($sub as $it) { $here = untrailingslashit(strtok($it['href'], '#')) === untrailingslashit(get_permalink()) && strpos($it['href'], '#') === false; echo '<li><a class="hc-link-line" href="' . esc_url($it['href']) . '"' . ($here ? ' aria-current="page"' : '') . '>' . esc_html($it['label']) . '</a></li>'; } ?></ul></nav>
+  <?php endif; ?>
 </header>
 <div class="hc-menu" id="site-menu" role="dialog" aria-modal="true" aria-label="<?php echo esc_attr(hc_t('nav.menu')); ?>" data-menu>
   <div class="hc-menu__grid">
     <nav aria-label="<?php echo esc_attr(hc_t('nav.menu')); ?>">
       <ol>
         <?php foreach ($items as $i => $it): $k = hc_menu_key($it['href']); ?>
-        <li><a href="<?php echo esc_url($it['href']); ?>" data-preview="<?php echo esc_attr($previews[$k] ?? '3075.jpg'); ?>" style="--i:<?php echo (int) $i; ?>"<?php echo $k === $cur ? ' aria-current="page"' : ''; ?>><span class="n hc-label-sm"><?php echo esc_html(hc_pad($i + 1)); ?></span><span class="t"><?php echo esc_html($it['label']); ?></span></a><?php if (!empty($it['children'])) { echo '<span class="hc-sub">'; foreach ($it['children'] as $ch) echo '<a class="hc-label hc-link-line" href="' . esc_url($ch['href']) . '">' . esc_html($ch['label']) . '</a>'; echo '</span>'; } ?></li>
+        <li><a href="<?php echo esc_url($it['href']); ?>" data-preview="<?php echo esc_attr($previews[$k] ?? '3075.jpg'); ?>" style="--i:<?php echo (int) $i; ?>"<?php echo $k === $cur ? ' aria-current="page"' : ''; ?>><span class="n hc-label-sm"><?php echo esc_html(hc_pad($i + 1)); ?></span><span class="t"><?php echo esc_html($it['label']); ?></span></a><?php if (!empty($it['children'])) { echo '<span class="hc-sub">'; foreach ($it['children'] as $ch) echo '<a class="hc-label" href="' . esc_url($ch['href']) . '" data-preview="' . esc_attr($previews[hc_menu_key($ch['href'])] ?? '3075.jpg') . '"' . (hc_menu_key($ch['href']) === $cur ? ' aria-current="page"' : '') . '>' . esc_html($ch['label']) . '</a>'; echo '</span>'; } ?></li>
         <?php endforeach; ?>
       </ol>
     </nav>

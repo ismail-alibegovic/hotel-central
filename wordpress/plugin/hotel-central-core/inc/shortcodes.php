@@ -51,7 +51,7 @@ function hc_rc_payload($rooms) {
             'name' => $r['name'], 'size' => $r['size_label'], 'feature' => $r['feature'], 'lines' => $r['title_lines'], 'list' => array_slice($r['highlights'], 0, 8),
             'url' => $r['url'], 'book' => hc_room_booking_url($r['type_id']),
             'img' => $im ? wp_get_attachment_image_url($im['id'], 'full') : '', 'alt' => $im['alt'] ?? $r['name'], 'pos' => $im['pos'] ?? '50% 50%',
-            'fsD' => hc_serif_size($r['title_lines'], 42, 7.15) . 'cqw', 'fsM' => hc_serif_size($r['title_lines'], 90, 15) . 'cqw',
+            'fsD' => hc_serif_size($r['title_lines'], 31, 5.4) . 'cqw', 'fsM' => hc_serif_size($r['title_lines'], 88, 13) . 'cqw',
         ];
     }
     return $out;
@@ -196,12 +196,33 @@ add_shortcode('hc_offers', function ($a) {
 /* ───────── [hc_deco variant="hotel" tone="light"] ───────── */
 add_shortcode('hc_deco', function ($a) { $a = shortcode_atts(['variant' => 'hotel', 'tone' => 'dark'], $a); return hc_deco($a['variant'], $a['tone']); });
 
-/* ───────── [hc_hours] — opening hours from Hotel Information → Opening hours ───────── */
-add_shortcode('hc_hours', function () {
+/* ───────── [hc_hours] — opening hours from Hotel Information → Opening hours ─────────
+   [hc_hours] lists every place that has hours. [hc_hours places="cafe,breakfast" fallback="… {phone}"] lists only those places, and
+   until the hotel has entered any of them shows the fallback sentence ({phone} becomes the reception phone link) instead of inventing hours. */
+function hc_hour_places() {
     $bs = hc_lang() === 'bs';
-    $rows = $bs ? ['hours_reception' => 'Recepcija', 'hours_breakfast' => 'Doručak', 'hours_restaurant' => 'Restoran', 'hours_spa' => 'Klub i spa', 'hours_checkin' => 'Prijava / odjava']
-        : ['hours_reception' => 'Reception', 'hours_breakfast' => 'Breakfast', 'hours_restaurant' => 'Restaurant', 'hours_spa' => 'Club & Spa', 'hours_checkin' => 'Check-in / check-out'];
+    return [ // place => [label EN, label BS, fields in order of preference]
+        'reception' => ['Reception', 'Recepcija', ['hours_reception']],
+        'breakfast' => ['Breakfast', 'Doručak', ['hours_breakfast']],
+        'cafe' => ['Central Café', 'Central Café', ['hours_cafe', 'hours_restaurant']],
+        'gym' => ['Gym & classes', 'Teretana i časovi', ['hours_gym', 'hours_spa']],
+        'pool' => ['Pool & wellness', 'Bazen i wellness', ['hours_pool', 'hours_spa']],
+        'spa' => ['Day Spa treatments', 'Day Spa tretmani', ['hours_dayspa', 'hours_spa']],
+        'checkin' => ['Check-in / check-out', 'Prijava / odjava', ['hours_checkin']],
+    ];
+}
+add_shortcode('hc_hours', function ($a) {
+    $a = shortcode_atts(['places' => '', 'fallback' => ''], $a);
+    $bs = hc_lang() === 'bs'; $all = hc_hour_places();
+    $want = $a['places'] ? array_map('trim', explode(',', $a['places'])) : array_keys($all);
     $o = '';
-    foreach ($rows as $k => $label) if (hc_info($k)) $o .= '<div class="row"><span class="k hc-label">' . esc_html($label) . '</span><span class="v hc-label">' . esc_html(hc_info($k)) . '</span></div>';
-    return $o ? '<div class="hc-kv hc-label is-dark">' . $o . '</div>' : '';
+    foreach ($want as $p) {
+        if (!isset($all[$p])) continue; $v = '';
+        foreach ($all[$p][2] as $f) if (hc_info($f)) { $v = hc_info($f); break; }
+        if ($v) $o .= '<div class="row"><span class="k hc-label">' . esc_html($bs ? $all[$p][1] : $all[$p][0]) . '</span><span class="v hc-label">' . esc_html($v) . '</span></div>';
+    }
+    if ($o) return '<div class="hc-kv hc-label is-dark">' . $o . '</div>';
+    if (!$a['fallback']) return '';
+    $tel = '<a class="hc-link-line" href="' . esc_url(hc_info('phone_href')) . '">' . esc_html(hc_info('phone_display')) . '</a>';
+    return '<p class="hc-body hc-hours__pending">' . str_replace('{phone}', $tel, esc_html($a['fallback'])) . '</p>';
 });

@@ -37,6 +37,15 @@ Log in at `/wp-admin/`. The language switch in the top admin bar ("All languages
 * **Booking engine** settings (eZee hotel id, form address) are visible to administrators only.
 * **Button / menu words** ("Book now", footer labels): administrators — Languages → Translations.
 
+## 4b. Central Café, Central Fitness Club, Central Day Spa, Conference (Round 1, Nov 2026)
+* **Where they are:** *Pages* → *Central Café* (under About), *Central Fitness Club* with *Membership* and *Class timetable* under it, *Central Day Spa*, *Meetings & Events* (address `/conference`). Each in English and Bosnian; edit them in Elementor like any other page.
+* **Day Spa prices:** every row of the price list is three small text boxes — treatment, duration, price. Click the price in Elementor, type the new one, *Publish*. To add a treatment, right-click a row → *Duplicate*, then change its texts. A whole group (e.g. "Packages") is one box: duplicate it to start a new group.
+* **Membership prices / timetable:** until the hotel supplies them, the pages say they are being prepared and offer phone and e-mail. Add rows in Elementor (duplicate the template *HC · Price list* row) — or send the list to the developer, who fills `src/content/club.ts` and re-runs the import for unedited pages.
+* **Opening hours (Café, gym & classes, pool, Day Spa):** *Hotel Information → Opening hours*. The Café, Fitness Club and Day Spa pages show them by themselves; until a place has hours, the page says they are being confirmed and gives the reception number.
+* **Fitness Club / Day Spa look:** colours, typeface and logo come from the section, not from the page: any page whose *Parent* is *Central Fitness Club* automatically looks like the club, and any page whose *Parent* is *Central Day Spa* looks like the spa (tested: a new page "Personal training" under the club got the club's look and address `/centralfitnessclub/personal-training/`). You never set colours by hand.
+* **Their menus (the row under the logo):** *Appearance → Menus* → *Fitness Club menu EN/BS* and *Day Spa menu EN/BS*. Add, rename or reorder items there. The main full-screen menu is *Main menu EN/BS*; a page nested under another item (drag it right) appears as a sub-page.
+* **Elementor pop-ups:** Elementor sometimes shows an advertisement (e.g. for an AI add-on) when the editor opens. Close it with the ✕ — never "Install".
+
 ## 5. What not to do
 * Do not delete the booking bar on the homepage hero (it is the connection to the booking engine) — copy another hero instead.
 * Do not use Elementor's *Theme Builder*, *Pro* widgets or *Custom CSS* (not part of the free version). The header, menu and footer are part of the theme and are changed with Hotel Information and Appearance → Menus.

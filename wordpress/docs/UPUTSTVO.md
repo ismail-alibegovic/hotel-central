@@ -49,6 +49,15 @@ Za osoblje hotela. Sve se radi u pregledniku, bez programiranja. Nazivi u zagrad
 * **Sobe:** *Rooms & Suites → Add new room*: naziv, kratki opis (*Excerpt*), veličina, glavne karakteristike, sadržaji, fotografije, **Price (optional)** (npr. „od 95 € po noći“; prazno = ne prikazuje se). Zatim **Create BS copy**. Soba se automatski pojavljuje na stranici Sobe i na početnoj. Polje „Booking-engine room type ID“ mijenja samo administrator.
 * **Ponude:** *Offers → Add new offer*: naziv, kratki opis (*Excerpt*), fotografija (*Featured image*), **Price**, **Valid**, **Button text/link**. Ponude se prikazuju u predlošku **HC · Offers grid**. Za bosansku verziju: **Create BS copy**.
 
+## 7b. Central Café, Central Fitness Club, Central Day Spa, Konferencije (novo, novembar 2026)
+* **Gdje su:** *Pages* → *Central Café* (ispod „O nama“), *Central Fitness Club* sa podstranicama *Članarine* i *Raspored*, *Central Day Spa*, *Sastanci i događaji* (adresa `/conference`). Svaka postoji na bosanskom i engleskom; uređujete ih u Elementoru kao i ostale stranice.
+* **Cjenovnik Day Spa:** svaki red cjenovnika su tri mala polja — tretman, trajanje, cijena. Kliknite cijenu u Elementoru, upišite novu, **Publish**. Novi tretman: desni klik na red → *Duplicate*, pa promijenite tekst.
+* **Članarine i raspored:** dok hotel ne pošalje podatke, stranice to jasno kažu i nude telefon i e-mail. Redove dodajete u Elementoru (kopirajte red iz predloška *HC · Price list*) ili listu pošaljete web developeru.
+* **Radno vrijeme (Café, teretana i časovi, bazen, Day Spa):** *Hotel Information → Opening hours*. Stranice ga prikazuju same; dok nije upisano, piše da se potvrđuje i daje broj recepcije.
+* **Izgled Fitness Cluba i Day Spa:** boje, slova i logo dolaze od sekcije: svaka stranica kojoj je *Parent* „Central Fitness Club“ automatski izgleda kao klub. Boje nikada ne podešavate ručno.
+* **Njihovi meniji (red ispod logotipa):** *Appearance → Menus* → *Fitness Club menu EN/BS* i *Day Spa menu EN/BS*.
+* **Reklamni prozori u Elementoru:** ponekad se pri otvaranju pojavi reklama (npr. za AI dodatak). Zatvorite je sa ✕ — nikada „Install“.
+
 ## 8. SEO i adrese
 * Na ekranu stranice, okvir **Search engines & sharing**: naslov (kartica u pregledniku / Google), opis, slika za dijeljenje. Za bosansku verziju popunite posebno.
 * **Alt tekst slike:** *Media → Library* → kliknite sliku → *Alternative Text* (opišite šta je na slici). Koristi se svugdje gdje stavite tu sliku.

@@ -3,7 +3,7 @@ const { chromium, devices } = require('playwright');
 const base = process.argv[2] || 'http://localhost:8080', out = process.argv[3] || 'tests/evidence';
 let fails = 0; const ok = (n, c, d = '') => { if (!c) fails++; console.log((c ? 'PASS ' : 'FAIL ') + n + (d ? ' — ' + d : '')); };
 (async () => {
-  const b = await chromium.launch(); const ctx = await b.newContext({ ...devices['iPhone 13'], viewport: { width: 390, height: 844 }, locale: 'en-GB' }); const p = await ctx.newPage();
+  const b = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {}); const ctx = await b.newContext({ ...devices['iPhone 13'], viewport: { width: 390, height: 844 }, locale: 'en-GB' }); const p = await ctx.newPage();
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
   await ctx.route('**/live.ipms247.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
   await p.goto(base + '/en/'); await p.waitForTimeout(2500);
