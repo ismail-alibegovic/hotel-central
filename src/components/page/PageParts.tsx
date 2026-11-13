@@ -1,9 +1,9 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { DecorativeLine, type linePaths } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
-import { fitStyle } from "@/lib/fit";
+import { fitStyle, fitVw } from "@/lib/fit";
 
 export type Img = { src: string; alt: string; position?: string };
 type Tone = "ivory" | "deep" | "olive" | "sage" | "ink";
@@ -118,8 +118,9 @@ export function EditorialSplit({
         </div>
         <div className={`relative flex flex-col justify-center md:col-span-5 ${reverse ? "md:col-start-1 md:row-start-1" : "md:col-start-8"}`}>
           <h2
-            style={fitStyle(title, 84, 12)}
-            className={`font-display relative z-[3] text-[length:var(--fs-m)] leading-[0.9] md:text-[5vw] ${
+            // Desktop: 5vw, but never wider than the text column (≈40vw; dark grounds may bleed 12vw into the photo).
+            style={{ ...fitStyle(title, 84, 12), "--fs-d": fitVw(title, dark ? 46 : 34, 5) } as CSSProperties}
+            className={`font-display relative z-[3] text-[length:var(--fs-m)] leading-[0.9] md:text-[length:var(--fs-d)] ${
               dark ? (reverse ? "md:-mr-[12vw] md:text-right" : "md:-ml-[12vw]") : ""
             }`}
           >
