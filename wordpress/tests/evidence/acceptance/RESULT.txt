@@ -1,0 +1,79 @@
+── A: Users: Administrator and Editor accounts
+PASS 9a account "staff_editor" (editor) created in Users → Add New — /wp-admin/users.php
+PASS 9a account "second_admin" (administrator) created in Users → Add New — /wp-admin/users.php
+PASS 9b both accounts listed with their roles
+PASS 8 a second Administrator has full access (Plugins, Users, Settings, Hotel Information → Booking engine)
+PASS 8b administrator can open the booking-engine settings
+── B: Editor role limits
+PASS 9c Editor menu has Pages, Media, Rooms, Offers, Hotel Information, Appearance → Menus
+PASS 9d Editor menu has no Plugins, Users, Settings, Themes, Tools —  Dashboard Elementor Editor Posts All Posts Add Post Categories Tags Media Library Add Media File Pages All Pages Add Page Hotel Information Contact & address Opening hours Footer texts Rooms & Suites Rooms & Suites Add 
+   menu:  | Dashboard | Elementor | Editor | Posts | All Posts | Add Post | Categories | Tags | Media | Library | Add Media File | Pages | All Pages | Add Page | Hotel Information | Contact & address | Opening hours | Footer texts | Rooms & Suites | Rooms & Suites | Add new room | Offers | Offers | Add new offer | Enquiries | Appearance | Menus | Profile | Collapse Menu
+PASS 9e Editor refused: Plugins — /wp-admin/plugins.php
+PASS 9e Editor refused: Settings — /wp-admin/options-general.php
+PASS 9e Editor refused: Users — /wp-admin/users.php
+PASS 9e Editor refused: Theme editor — /wp-admin/theme-editor.php
+PASS 9e Editor refused: Plugin editor — /wp-admin/plugin-editor.php
+PASS 9e Editor refused: Booking engine — /wp-admin/admin.php?page=hc-hotel-booking
+PASS 9e Editor refused: Customizer (Additional CSS) — /wp-admin/nav-menus.php
+── C: Password reset with a local mail catcher
+PASS 10a "Lost your password?" accepts the e-mail address and confirms — /wp-login.php?checkemail=confirm
+PASS 10b the reset message was captured (LOCAL capture — not an external SMTP delivery) — [Hotel Central Sarajevo] Password Reset
+PASS 10c the message contains a reset link to this site — http://localhost:8090/wp-login.php?login=staff_editor&key=…&action=rp&wp_lang=en_US
+PASS 10d a new password can be set from the link
+PASS 10e the Editor logs in with the new password
+PASS 10f a wrong password is refused
+PASS 10g the reset link cannot be used a second time
+── D: Offers: create, price, translate, show on a page
+PASS 4a offer with description, price, validity, button and photograph published by an Editor — offer 2432
+PASS 4b offers grid on a new page shows title, price, validity, description and button — http://localhost:8090/en/special-offers/
+PASS 4c the offer photograph is used
+PASS 7a the Bosnian offers page shows the Bosnian offer, not the English one
+── E: Room price
+PASS 4d room price entered by an Editor shows in the rooms list and on the room page
+PASS 4e an empty price is hidden again (no layout change by default)
+── F: Price list, opening hours, gallery
+PASS 4f the price-list template has editable rows — 5 rows
+PASS 4g price row edited in Elementor is live
+PASS 4h opening hours from Hotel Information appear on the page
+PASS 4i the Basic Gallery shows the chosen photographs — 3 items
+PASS 4j changing the hours once updates the page without editing it
+── G: Menus, footer and buttons
+PASS 5a an Editor builds a "Footer links" menu (page + external link) in Appearance → Menus —  Explore Contact Spa brochure 
+PASS 5b the Bosnian footer keeps its own links (separate per language)
+PASS 5c footer statement and credits edited separately for English and Bosnian
+PASS 5d a social link added in Hotel Information appears in the footer
+PASS 5e button text and link edited in Elementor are live
+── H: SEO, alt text and slugs
+PASS 11a image alt text edited in Media → Library by an Editor
+PASS 11b the library alt text is used for the picture on the page (not the template placeholder) — no img
+PASS 11c SEO title, meta description and Open Graph tags edited in the page screen are live
+PASS 11d the English address (slug) changed to /en/spa-prices/
+PASS 11e the old address redirects to the new one — /en/spa-prices/
+PASS 11f the Bosnian page has its own slug and its own SEO title/description
+PASS 11g hreflang alternates follow the different slugs; the English slug did not change — <link rel="alternate" href="http://localhost:8090/bs/cjenik-spa/" hreflang="bs"
+PASS 11h the sitemap lists the renamed pages (no old slug) — sitemap checked
+── I: Hierarchy and menu order
+PASS 12a a child page of "Club & Spa" gets a hierarchical address (/en/spa/wellness-packages/) — /en/spa/wellness-packages/
+PASS 12b the Bosnian copy sits under the Bosnian parent (/bs/spa/wellness-packages/) — /bs/spa/wellness-packages/
+PASS 12c the Pages list shows the hierarchy (— Wellness Packages under Club & Spa)
+PASS 12d a sub-page nested in the menu shows beneath its parent in the full-screen menu — Wellness Packages
+PASS 12e menu order changed in Appearance → Menus is reflected on the site — /en/contact/
+── J: Global design protected
+PASS Elementor Site Settings do not open for an Editor (page editing itself works) — Elements | Widgets | Globals | Search Widget: | Layout | Container | Grid | Basi
+PASS opening the Kit directly by address is refused for an Editor — kit 4
+PASS the same Site Settings open for an Administrator — Site Settings | DESIGN SYSTEM | Global Colors | Global Fonts | THEME STYLE | Typ
+── K: Edit the core pages as Editor
+PASS 3 EN "Hotel" page edited by an Editor in Elementor and live — /en/about/
+PASS 3 EN "Fitness Club & Day Spa" page edited by an Editor in Elementor and live — /en/spa/
+PASS 3 EN "Café / Restaurant Central" page edited by an Editor in Elementor and live — /en/restaurant/
+PASS 3 EN "Meetings & Events" page edited by an Editor in Elementor and live — /en/meetings-events/
+PASS 3 BS "Hotel" page edited by an Editor in Elementor and live — /bs/about/
+PASS 3 BS "Fitness Club & Day Spa" page edited by an Editor in Elementor and live — /bs/spa/
+PASS 3 BS "Café / Restaurant Central" page edited by an Editor in Elementor and live — /bs/restaurant/
+PASS 3 BS "Meetings & Events" page edited by an Editor in Elementor and live — /bs/meetings-events/
+── L: Preview before publishing
+PASS 2a "Save Draft" keeps the published page unchanged
+PASS 2b "Preview Changes" opens the page with the unpublished edit in a new tab — /en/special-offers/?preview_id=2437&preview_nonce=9cb6afc448
+PASS 2c "Publish" makes the edit live
+PASS no JavaScript errors in the admin pages used — Transition was aborted because of invalid state. ViewTransition opt-in disabled | Commands: `panel/global/open` not found.
+65/65 checks passed

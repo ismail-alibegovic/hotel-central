@@ -1,0 +1,1577 @@
+{
+ "pagePaths": {
+  "about": "/about",
+  "rooms": "/rooms",
+  "spa": "/spa",
+  "restaurant": "/restaurant",
+  "meetings-events": "/meetings-events",
+  "location": "/location",
+  "contact": "/contact"
+ },
+ "en": {
+  "about": {
+   "meta": {
+    "title": "About",
+    "description": "A four-star, Irish-owned hotel in the heart of Old Town Sarajevo, blending traditional Irish hospitality with Bosnian charm."
+   },
+   "ogImage": "/images/3064.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3064.jpg",
+      "alt": "Hotel Central's façade and corner tower on Ćumurija street",
+      "position": "55% 35%"
+     },
+     "eyebrow": "About the hotel",
+     "title": [
+      "Irish hospitality",
+      "Bosnian charm"
+     ],
+     "intro": "Experience the charm of Old Town Sarajevo at our four-star, Irish-owned hotel.",
+     "meta": [
+      "Hotel Central",
+      "(01–03)",
+      "Ćumurija 8"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(01) The hotel",
+     "index": "Hotel Central, Sarajevo",
+     "title": [
+      "Old Town",
+      "Sarajevo"
+     ],
+     "body": [
+      "Nestled in the heart of Old Town Sarajevo, Hotel Central blends traditional Irish hospitality with Bosnian charm to offer you a truly unique stay. Located just steps away from historic landmarks such as the Old Bazaar and Baščaršija Square, Hotel Central provides the perfect base for exploring the rich culture and history of Sarajevo.",
+      "Whether you're visiting Sarajevo for business or pleasure, Hotel Central offers the perfect blend of comfort, convenience, and hospitality."
+     ],
+     "line": "hotel",
+     "images": [
+      {
+       "src": "/images/3075.jpg",
+       "alt": "The hotel's façade lit at night",
+       "position": "45% 40%"
+      },
+      {
+       "src": "/images/p11.jpg",
+       "alt": "Terrace of the presidential suite above the rooftops"
+      }
+     ],
+     "facts": [
+      {
+       "k": "Category",
+       "v": "Four stars"
+      },
+      {
+       "k": "Rooms",
+       "v": "32 rooms and suites"
+      },
+      {
+       "k": "Capacity",
+       "v": "65–70 guests"
+      },
+      {
+       "k": "Address",
+       "v": "Ćumurija 8, 71000 Sarajevo"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": true,
+     "label": "(02) Rooms",
+     "title": [
+      "Completely",
+      "refurbished"
+     ],
+     "body": [
+      "Each of our completely refurbished, well-appointed rooms is designed with your comfort in mind, featuring modern amenities and stylish decor.",
+      "Start your day with a delicious breakfast buffet and Bosnian coffee at our on-site restaurant."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/3067.jpg",
+       "alt": "A suite with patterned wallpaper and seating area"
+      },
+      {
+       "src": "/images/dorucak6.jpg",
+       "alt": "Bosnian coffee served at breakfast"
+      }
+     ],
+     "primary": {
+      "label": "View rooms & suites",
+      "link": {
+       "kind": "internal",
+       "href": "/en/rooms",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "statement",
+     "text": "A perfect blend of comfort, convenience and hospitality.",
+     "label": "(—)",
+     "tone": "ivory"
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": false,
+     "label": "(03) Unwind",
+     "title": [
+      "After a day",
+      "of sightseeing"
+     ],
+     "body": [
+      "Unwind and relax in our sauna, steam room and 25 m pool as well as our state of the art fitness center spread over three floors.",
+      "Our friendly and attentive staff are always on hand to ensure you have a memorable stay."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/3069.jpg",
+       "alt": "The heated 25-metre pool"
+      },
+      {
+       "src": "/images/final-6230.jpg",
+       "alt": "Relaxation lounge of the spa"
+      }
+     ],
+     "primary": {
+      "label": "Explore Club & Spa",
+      "link": {
+       "kind": "internal",
+       "href": "/en/spa",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "gallery",
+     "tone": "ivory",
+     "images": [
+      {
+       "src": "/images/p05.jpg",
+       "alt": "Living room of the presidential suite"
+      },
+      {
+       "src": "/images/final-6202.jpg",
+       "alt": "Treatment room of the day spa"
+      },
+      {
+       "src": "/images/3073.jpg",
+       "alt": "The conference room"
+      },
+      {
+       "src": "/images/dorucak5.jpg",
+       "alt": "Breakfast at Restaurant Central"
+      },
+      {
+       "src": "/images/junior02.jpg",
+       "alt": "Junior suite bedroom"
+      }
+     ]
+    },
+    {
+     "type": "finalBooking",
+     "image": "/images/3075.jpg",
+     "alt": "Hotel Central at night"
+    }
+   ]
+  },
+  "rooms": {
+   "meta": {
+    "title": "Rooms & Suites",
+    "description": "Six categories of refurbished rooms and suites at Hotel Central Sarajevo, from the single room to the presidential suite with terrace."
+   },
+   "ogImage": "/images/p05.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3067.jpg",
+      "alt": "A suite at Hotel Central"
+     },
+     "eyebrow": "Rooms & suites",
+     "title": [
+      "Rooms",
+      "& suites"
+     ],
+     "intro": "Six categories, each completely refurbished and designed with your comfort in mind.",
+     "meta": [
+      "Hotel Central",
+      "({roomCount})",
+      "(Rooms & suites)"
+     ]
+    },
+    {
+     "type": "roomList"
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "spa": {
+   "meta": {
+    "title": "Club & Spa",
+    "description": "A heated 25-metre pool, Finnish sauna, steam bath, caldarium, plunge pool, a gym over three floors and the Wellness Day Spa at Hotel Central Sarajevo."
+   },
+   "ogImage": "/images/3069.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3069.jpg",
+      "alt": "The heated 25-metre indoor pool with a wave mosaic",
+      "position": "50% 60%"
+     },
+     "eyebrow": "Club & Spa",
+     "title": [
+      "Relaxation",
+      "& wellness"
+     ],
+     "intro": "A relaxation and wellness oasis in Sarajevo.",
+     "meta": [
+      "25 m",
+      "(Club & Spa)",
+      "Sauna · Steam · Caldarium"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": false,
+     "label": "(01) Pool",
+     "title": [
+      "A tranquil",
+      "poolside escape"
+     ],
+     "body": [
+      "Immerse yourself in serenity at our 25-meter pool. Whether you're looking to swim laps or simply relax by the water, our pool provides a peaceful sanctuary for guests of all ages.",
+      "Relax in our Finnish sauna, unwind in our steam bath, rejuvenate in our caldarium — a low-temperature sauna at 40–50 °C with heated benches — and cool off in the plunge pool."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/pool-03.jpg",
+       "alt": "Curved pool edge with tiled benches"
+      },
+      {
+       "src": "/images/bazen.jpg",
+       "alt": "Pool hall with mosaic wall"
+      }
+     ]
+    },
+    {
+     "type": "facts",
+     "label": "Facilities",
+     "items": [
+      {
+       "k": "Pool",
+       "v": "Heated, 25 metres"
+      },
+      {
+       "k": "Heat",
+       "v": "Finnish sauna · steam bath · caldarium"
+      },
+      {
+       "k": "Cool",
+       "v": "Plunge pool · hydrotherapy pools"
+      },
+      {
+       "k": "Gym",
+       "v": "Cardio and strength over three floors"
+      },
+      {
+       "k": "Day spa",
+       "v": "Six deluxe therapy rooms"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": true,
+     "label": "(02) Fitness",
+     "title": [
+      "Three floors",
+      "of fitness"
+     ],
+     "body": [
+      "Maintain your fitness regime at our state-of-the-art gym, featuring three floors of cardio and strength training equipment. Whether you're a fitness enthusiast or just starting out, our gym offers everything you need to stay active during your stay.",
+      "Group classes include yoga, pilates, HIIT, kettlebell, aqua aerobic, indoor spinning and more."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/pool-04.jpg",
+       "alt": "The pool hall of the Club & Spa"
+      },
+      {
+       "src": "/images/pool-08.jpg",
+       "alt": "Guests in the hydrotherapy pool"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(03) Wellness Day Spa",
+     "title": [
+      "Treatments",
+      "& rituals"
+     ],
+     "body": [
+      "Treat yourself to a host of treatments at any of our six deluxe therapy rooms — including massage, facials, pedicures and manicures.",
+      "Two hours of free pool area access with all treatments booked."
+     ],
+     "line": "restaurant",
+     "images": [
+      {
+       "src": "/images/final-6230.jpg",
+       "alt": "Relaxation lounge with a forest mural"
+      },
+      {
+       "src": "/images/final-6202.jpg",
+       "alt": "Treatment room of the day spa"
+      }
+     ],
+     "primary": {
+      "label": "Treatments & price list",
+      "link": {
+       "kind": "external",
+       "href": "https://www.hotelcentral.ba/facilities/wellness-day-spa/",
+       "external": true
+      }
+     },
+     "secondary": {
+      "label": "+387 33 561 800",
+      "link": {
+       "kind": "phone",
+       "href": "tel:+38733561800",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "gallery",
+     "tone": "olive",
+     "images": [
+      {
+       "src": "/images/central-spa_relax-room.jpg",
+       "alt": "Spa relaxation room"
+      },
+      {
+       "src": "/images/final-6211.jpg",
+       "alt": "Spa bath detail"
+      },
+      {
+       "src": "/images/central-spa_bath.jpg",
+       "alt": "Spa bathing room with curtains"
+      },
+      {
+       "src": "/images/final-6167.jpg",
+       "alt": "Spa reception"
+      },
+      {
+       "src": "/images/pool-05.jpg",
+       "alt": "The pool and its mosaic wall"
+      }
+     ]
+    },
+    {
+     "type": "finalBooking",
+     "image": "/images/3069.jpg",
+     "alt": "The indoor pool"
+    }
+   ]
+  },
+  "restaurant": {
+   "meta": {
+    "title": "Restaurant Central",
+    "description": "Breakfast with local delicacies and international favourites, Bosnian coffee, and catered lunches for corporate events on request."
+   },
+   "ogImage": "/images/dorucak5.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/dorucak5.jpg",
+      "alt": "The breakfast buffet at Restaurant Central"
+     },
+     "eyebrow": "Restaurant Central",
+     "title": [
+      "Restaurant",
+      "Central"
+     ],
+     "intro": "A tranquil escape where every morning begins with a delightful breakfast.",
+     "meta": [
+      "Hotel Central",
+      "(Restaurant)",
+      "Breakfast · Catering"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(01) Breakfast",
+     "title": [
+      "Every morning",
+      "a ritual"
+     ],
+     "body": [
+      "Nestled in the heart of Sarajevo, Hotel Central is a tranquil escape where every morning begins with a delightful breakfast experience. Start your day with a sumptuous breakfast spread at our charming restaurant, featuring a tempting selection of local delicacies and international favorites.",
+      "And, of course, Bosnian coffee."
+     ],
+     "line": "restaurant",
+     "images": [
+      {
+       "src": "/images/hc-comfort-2.jpg",
+       "alt": "Breakfast tray with tea and croissants"
+      },
+      {
+       "src": "/images/dorucak6.jpg",
+       "alt": "Bosnian coffee in a copper džezva"
+      }
+     ]
+    },
+    {
+     "type": "gallery",
+     "tone": "deep",
+     "images": [
+      {
+       "src": "/images/dorucak4.jpg",
+       "alt": "Breakfast buffet"
+      },
+      {
+       "src": "/images/dorucak1.jpg",
+       "alt": "Fresh fruit platter at breakfast"
+      },
+      {
+       "src": "/images/breakfast2.jpg",
+       "alt": "Fried eggs served at breakfast"
+      },
+      {
+       "src": "/images/dorucak2.jpg",
+       "alt": "Cheese selection at the buffet"
+      },
+      {
+       "src": "/images/breakfast3.jpg",
+       "alt": "Eggs with asparagus"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": true,
+     "label": "(02) Corporate dining",
+     "title": [
+      "Catered",
+      "lunches"
+     ],
+     "body": [
+      "In addition to our breakfast offerings, we also provide catered lunches for corporate events upon request.",
+      "Whether you're hosting a business meeting, conference, or seminar, our culinary team will craft a bespoke menu to suit your event's needs."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/breakfast1.jpg",
+       "alt": "Omelette served at breakfast"
+      },
+      {
+       "src": "/images/dorucak3.jpg",
+       "alt": "Cheese and cold cuts at the buffet"
+      }
+     ],
+     "primary": {
+      "label": "Enquire about catering",
+      "link": {
+       "kind": "internal",
+       "href": "/en/contact",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "meetings-events": {
+   "meta": {
+    "title": "Meetings & Events",
+    "description": "A fully equipped conference room on the third floor of Hotel Central Sarajevo for seminars, conferences, workshops, presentations, weddings and business lunches."
+   },
+   "ogImage": "/images/3073.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3073.jpg",
+      "alt": "The conference room on the third floor"
+     },
+     "eyebrow": "Meetings & events",
+     "title": [
+      "The space",
+      "to connect"
+     ],
+     "intro": "Seminars, conferences, workshops, presentations, weddings and business lunches in the heart of old town Sarajevo.",
+     "meta": [
+      "60–70",
+      "(Meetings & events)",
+      "Third floor · Private wing"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": false,
+     "label": "(01) Conference room",
+     "title": [
+      "Peace",
+      "& privacy"
+     ],
+     "body": [
+      "The conference room is located on the third floor, in a new and separate part of our premises, which guarantees peace and privacy. It is fully equipped with all necessary IT equipment and meets the needs for organizing all types of meetings, events and celebrations.",
+      "Modern and nicely decorated with all accompanying amenities, the conference room can change its setup and seating arrangement depending on the number of participants and the type of event."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/img_9202.jpg",
+       "alt": "Theatre-style seating in the conference room"
+      },
+      {
+       "src": "/images/img_9289.jpg",
+       "alt": "Conference room door sign"
+      }
+     ],
+     "facts": [
+      {
+       "k": "Location",
+       "v": "Third floor, separate wing"
+      },
+      {
+       "k": "Equipment",
+       "v": "Full IT equipment"
+      },
+      {
+       "k": "Seating",
+       "v": "Maximum 60–70 seats"
+      },
+      {
+       "k": "Hotel",
+       "v": "32 rooms · 65–70 guests"
+      },
+      {
+       "k": "Pricing",
+       "v": "On individual request"
+      }
+     ]
+    },
+    {
+     "type": "gallery",
+     "tone": "ivory",
+     "images": [
+      {
+       "src": "/images/img_9226.jpg",
+       "alt": "Conference chairs in soft focus"
+      },
+      {
+       "src": "/images/img_9235.jpg",
+       "alt": "Projector detail"
+      },
+      {
+       "src": "/images/img_9216.jpg",
+       "alt": "Seating with delegate microphones"
+      },
+      {
+       "src": "/images/img_9180.jpg",
+       "alt": "Reception counter in the conference area"
+      },
+      {
+       "src": "/images/img_9271.jpg",
+       "alt": "Rows of conference chairs"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": true,
+     "label": "(02) Your event",
+     "title": [
+      "Entrust us",
+      "with it"
+     ],
+     "body": [
+      "Entrust us to handle the organization of your business event and your wishes will be realized, your business partners impressed.",
+      "All conference, meeting and event fees are negotiable and defined by individual request — hotel rooms, food and drinks, coffee breaks."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/img_9223.jpg",
+       "alt": "Microphone on the conference desk"
+      },
+      {
+       "src": "/images/img_9236.jpg",
+       "alt": "Projection screen"
+      }
+     ],
+     "primary": {
+      "label": "Request a proposal",
+      "link": {
+       "kind": "internal",
+       "href": "/en/contact",
+       "external": false
+      }
+     },
+     "secondary": {
+      "label": "info@hotelcentral.ba",
+      "link": {
+       "kind": "email",
+       "href": "mailto:info@hotelcentral.ba",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "location": {
+   "meta": {
+    "title": "Location",
+    "description": "Hotel Central is at Ćumurija 8 in the centre of Sarajevo, near the Sacred Heart Cathedral, the Latin Bridge and Baščaršija."
+   },
+   "ogImage": "/images/3064.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3064.jpg",
+      "alt": "Hotel Central on Ćumurija street",
+      "position": "55% 40%"
+     },
+     "eyebrow": "Ćumurija 8, Sarajevo",
+     "title": [
+      "In the heart",
+      "of Sarajevo"
+     ],
+     "intro": "Sarajevo suits the walker. We're in the city centre and almost all sights are within walking distance.",
+     "meta": [
+      "Ćumurija 8",
+      "(Location)",
+      "71000 Sarajevo"
+     ]
+    },
+    {
+     "type": "arrival",
+     "label": "Getting here",
+     "transport": [
+      {
+       "title": "Taxi",
+       "body": "A taxi from the airport costs approximately 15 € / 30 KM and can be booked through our reception desk."
+      },
+      {
+       "title": "Airport coach",
+       "body": "From Sarajevo Airport, ask for the Hotel Central stop at the Latin Bridge or at the Sacred Heart Cathedral. The ticket is normally 2.50 € / 5.00 KM single and 4 € / 8.00 KM return. The hotel is approximately 25 minutes from the airport. Timetables are on centrotrans.com."
+      },
+      {
+       "title": "Bus & tram",
+       "body": "Bus stops beside the hotel serve the centre and surroundings, usually every 5–6 minutes. Tram no. 3 runs between Ilidža and Baščaršija (Old Town). Tickets are around 0.90 € / 1.80 KM."
+      },
+      {
+       "title": "Sightseeing bus",
+       "body": "The Centrotrans sightseeing bus stops 50 m outside the hotel. Tours run daily from May to September, starting at 12:00 and 14:00."
+      },
+      {
+       "title": "By car",
+       "body": "Enter “Hotel Central, Ćumurija, Sarajevo” as your destination. Leave the car in our secure, gated car park and explore on foot."
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": false,
+     "label": "(02) On foot",
+     "title": [
+      "Leave the car",
+      "and walk"
+     ],
+     "body": [
+      "Sarajevo suits the walkers. Why not leave the car in our secure, gated car park and just walk. We're in the city center and almost all sights are situated in walking distance.",
+      "It's the best way to stumble upon something interesting along the way."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/3075.jpg",
+       "alt": "Hotel Central's corner on Ćumurija street at night",
+       "position": "40% 50%"
+      },
+      {
+       "src": "/images/p11.jpg",
+       "alt": "View over Sarajevo's rooftops from the terrace"
+      }
+     ],
+     "bullets": {
+      "title": "Nearby",
+      "items": [
+       "Sacred Heart Cathedral",
+       "Latin Bridge",
+       "Baščaršija & the Old Bazaar",
+       "Sarajevo International Airport · approx. 25 min"
+      ]
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "contact": {
+   "meta": {
+    "title": "Contact",
+    "description": "Contact Hotel Central Sarajevo: Ćumurija 8, 71000 Sarajevo · +387 33 561 800 · info@hotelcentral.ba"
+   },
+   "ogImage": "/images/3075.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3075.jpg",
+      "alt": "Hotel Central at night",
+      "position": "50% 40%"
+     },
+     "eyebrow": "Contact",
+     "title": [
+      "We're",
+      "standing by"
+     ],
+     "intro": "Our hotel office and reservation agents are happy to help.",
+     "meta": [
+      "+387 33 561 800",
+      "(Contact)",
+      "info@hotelcentral.ba"
+     ]
+    },
+    {
+     "type": "contact",
+     "office": {
+      "label": "Hotel office",
+      "body": "Please contact our hotel office for all general questions."
+     },
+     "reservations": {
+      "label": "Reservation office",
+      "body": "We have agents waiting to talk to you about your hotel booking."
+     },
+     "write": {
+      "label": "Send us an email"
+     },
+     "social": {
+      "label": "Social media",
+      "body": "Visit us on Facebook for the latest updates and news."
+     }
+    }
+   ]
+  }
+ },
+ "bs": {
+  "about": {
+   "meta": {
+    "title": "O nama",
+    "description": "Hotel sa četiri zvjezdice u vlasništvu irske kompanije, u srcu Starog grada Sarajeva — irsko gostoprimstvo i bosanski šarm."
+   },
+   "ogImage": "/images/3064.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3064.jpg",
+      "alt": "Hotel Central's façade and corner tower on Ćumurija street",
+      "position": "55% 35%"
+     },
+     "eyebrow": "O hotelu",
+     "title": [
+      "Irsko gostoprimstvo",
+      "bosanski šarm"
+     ],
+     "intro": "Doživite potpuni šarm Starog grada Sarajeva u našem hotelu sa četiri zvjezdice, koji je u vlasništvu irske kompanije.",
+     "meta": [
+      "Hotel Central",
+      "(01–03)",
+      "Ćumurija 8"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(01) Hotel",
+     "index": "Hotel Central, Sarajevo",
+     "title": [
+      "Stari grad",
+      "Sarajevo"
+     ],
+     "body": [
+      "Smješten u srcu Starog grada Sarajeva, Hotel Central spaja tradicionalno irsko gostoprimstvo sa bosanskim šarmom, nudeći vam zaista jedinstven boravak. Nalazi se na samo nekoliko koraka od historijskih znamenitosti kao što su Stari dio grada, Baščaršijski trg i sarajevska Katedrala, čineći ga savršenom polaznom tačkom za istraživanje bogate kulture i historije Sarajeva.",
+      "Bilo da posjećujete Sarajevo zbog posla ili zadovoljstva, Hotel Central nudi savršen spoj udobnosti i gostoprimstva."
+     ],
+     "line": "hotel",
+     "images": [
+      {
+       "src": "/images/3075.jpg",
+       "alt": "The hotel's façade lit at night",
+       "position": "45% 40%"
+      },
+      {
+       "src": "/images/p11.jpg",
+       "alt": "Terrace of the presidential suite above the rooftops"
+      }
+     ],
+     "facts": [
+      {
+       "k": "Kategorija",
+       "v": "Četiri zvjezdice"
+      },
+      {
+       "k": "Sobe",
+       "v": "32 sobe i apartmana"
+      },
+      {
+       "k": "Kapacitet",
+       "v": "65–70 osoba"
+      },
+      {
+       "k": "Adresa",
+       "v": "Ćumurija 8, 71000 Sarajevo"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": true,
+     "label": "(02) Sobe",
+     "title": [
+      "Potpuno",
+      "renovirane"
+     ],
+     "body": [
+      "Svaka od naših renoviranih, dobro opremljenih soba uređena je modernim sadržajima i elegantnim enterijerom, pružajući maksimalnu udobnost.",
+      "Započnite dan ukusnim doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/3067.jpg",
+       "alt": "A suite with patterned wallpaper and seating area"
+      },
+      {
+       "src": "/images/dorucak6.jpg",
+       "alt": "Bosnian coffee served at breakfast"
+      }
+     ],
+     "primary": {
+      "label": "Pogledajte sobe i apartmane",
+      "link": {
+       "kind": "internal",
+       "href": "/bs/rooms",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "statement",
+     "text": "Savršen spoj udobnosti i gostoprimstva.",
+     "label": "(—)",
+     "tone": "ivory"
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": false,
+     "label": "(03) Opuštanje",
+     "title": [
+      "Nakon dana",
+      "razgledanja"
+     ],
+     "body": [
+      "Opustite se u našoj finskoj sauni, parnoj kupelji i bazenu od 25 metara, kao i u vrhunskom fitnes centru koji se prostire na tri etaže.",
+      "Ljubazno i pažljivo osoblje našeg hotela uvijek je pri ruci kako bi vam osiguralo nezaboravan boravak."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/3069.jpg",
+       "alt": "The heated 25-metre pool"
+      },
+      {
+       "src": "/images/final-6230.jpg",
+       "alt": "Relaxation lounge of the spa"
+      }
+     ],
+     "primary": {
+      "label": "Istražite Club & Spa",
+      "link": {
+       "kind": "internal",
+       "href": "/bs/spa",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "gallery",
+     "tone": "ivory",
+     "images": [
+      {
+       "src": "/images/p05.jpg",
+       "alt": "Living room of the presidential suite"
+      },
+      {
+       "src": "/images/final-6202.jpg",
+       "alt": "Treatment room of the day spa"
+      },
+      {
+       "src": "/images/3073.jpg",
+       "alt": "The conference room"
+      },
+      {
+       "src": "/images/dorucak5.jpg",
+       "alt": "Breakfast at Restaurant Central"
+      },
+      {
+       "src": "/images/junior02.jpg",
+       "alt": "Junior suite bedroom"
+      }
+     ]
+    },
+    {
+     "type": "finalBooking",
+     "image": "/images/3075.jpg",
+     "alt": "Hotel Central at night"
+    }
+   ]
+  },
+  "rooms": {
+   "meta": {
+    "title": "Sobe i apartmani",
+    "description": "Šest kategorija renoviranih soba i apartmana u Hotelu Central Sarajevo, od jednokrevetne sobe do predsjedničkog apartmana sa terasom."
+   },
+   "ogImage": "/images/p05.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3067.jpg",
+      "alt": "A suite at Hotel Central"
+     },
+     "eyebrow": "Sobe i apartmani",
+     "title": [
+      "Sobe",
+      "i apartmani"
+     ],
+     "intro": "Šest kategorija, svaka potpuno renovirana i uređena za maksimalnu udobnost.",
+     "meta": [
+      "Hotel Central",
+      "({roomCount})",
+      "(Sobe i apartmani)"
+     ]
+    },
+    {
+     "type": "roomList"
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "spa": {
+   "meta": {
+    "title": "Club & Spa",
+    "description": "Grijani bazen od 25 metara, finska sauna, parna kupelj, caldarium, bazen za hlađenje, teretana na tri sprata i Wellness Day Spa u Hotelu Central Sarajevo."
+   },
+   "ogImage": "/images/3069.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3069.jpg",
+      "alt": "The heated 25-metre indoor pool with a wave mosaic",
+      "position": "50% 60%"
+     },
+     "eyebrow": "Club & Spa",
+     "title": [
+      "Opuštanje",
+      "i wellness"
+     ],
+     "intro": "Oaza za opuštanje i wellness u Sarajevu.",
+     "meta": [
+      "25 m",
+      "(Club & Spa)",
+      "Sauna · Steam · Caldarium"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": false,
+     "label": "(01) Bazen",
+     "title": [
+      "Mirni bijeg",
+      "uz bazen"
+     ],
+     "body": [
+      "Uronite u spokoj na našem bazenu od 25 metara. Bilo da želite plivati krugove ili se jednostavno opustiti uz vodu, naš bazen pruža mirno utočište za goste svih uzrasta.",
+      "Opustite se u finskoj sauni i parnoj kupelji, obnovite se u caldariumu — sauni niske temperature od 40–50 °C sa grijanim klupama — i rashladite se u bazenu za hlađenje."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/pool-03.jpg",
+       "alt": "Curved pool edge with tiled benches"
+      },
+      {
+       "src": "/images/bazen.jpg",
+       "alt": "Pool hall with mosaic wall"
+      }
+     ]
+    },
+    {
+     "type": "facts",
+     "label": "Sadržaji",
+     "items": [
+      {
+       "k": "Bazen",
+       "v": "Grijani, 25 metara"
+      },
+      {
+       "k": "Toplina",
+       "v": "Finska sauna · parna kupelj · caldarium"
+      },
+      {
+       "k": "Hlađenje",
+       "v": "Bazen za hlađenje · hidroterapija"
+      },
+      {
+       "k": "Teretana",
+       "v": "Kardio i snaga na tri sprata"
+      },
+      {
+       "k": "Day spa",
+       "v": "Šest luksuznih tretman soba"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": true,
+     "label": "(02) Fitness",
+     "title": [
+      "Tri sprata",
+      "fitnessa"
+     ],
+     "body": [
+      "Održavajte svoju fitness rutinu u našoj vrhunskoj teretani koja se prostire na tri sprata i sadrži kardio i opremu za jačanje mišića. Bilo da ste zaljubljenik u fitness ili tek počinjete, naša teretana nudi sve što vam je potrebno tokom vašeg boravka.",
+      "Grupni treninzi uključuju jogu, pilates, HIIT, kettlebell, aqua aerobik, indoor spinning i još mnogo toga."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/pool-04.jpg",
+       "alt": "The pool hall of the Club & Spa"
+      },
+      {
+       "src": "/images/pool-08.jpg",
+       "alt": "Guests in the hydrotherapy pool"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(03) Wellness Day Spa",
+     "title": [
+      "Tretmani",
+      "i rituali"
+     ],
+     "body": [
+      "Priuštite sebi niz tretmana u nekoj od naših šest luksuznih tretman soba — uključujući masaže, tretmane lica, pedikir i manikir.",
+      "Dva sata besplatnog korištenja bazena uz sve rezervisane tretmane."
+     ],
+     "line": "restaurant",
+     "images": [
+      {
+       "src": "/images/final-6230.jpg",
+       "alt": "Relaxation lounge with a forest mural"
+      },
+      {
+       "src": "/images/final-6202.jpg",
+       "alt": "Treatment room of the day spa"
+      }
+     ],
+     "primary": {
+      "label": "Tretmani i cjenovnik",
+      "link": {
+       "kind": "external",
+       "href": "https://www.hotelcentral.ba/facilities/wellness-day-spa/",
+       "external": true
+      }
+     },
+     "secondary": {
+      "label": "+387 33 561 800",
+      "link": {
+       "kind": "phone",
+       "href": "tel:+38733561800",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "gallery",
+     "tone": "olive",
+     "images": [
+      {
+       "src": "/images/central-spa_relax-room.jpg",
+       "alt": "Spa relaxation room"
+      },
+      {
+       "src": "/images/final-6211.jpg",
+       "alt": "Spa bath detail"
+      },
+      {
+       "src": "/images/central-spa_bath.jpg",
+       "alt": "Spa bathing room with curtains"
+      },
+      {
+       "src": "/images/final-6167.jpg",
+       "alt": "Spa reception"
+      },
+      {
+       "src": "/images/pool-05.jpg",
+       "alt": "The pool and its mosaic wall"
+      }
+     ]
+    },
+    {
+     "type": "finalBooking",
+     "image": "/images/3069.jpg",
+     "alt": "The indoor pool"
+    }
+   ]
+  },
+  "restaurant": {
+   "meta": {
+    "title": "Restoran Central",
+    "description": "Doručak sa domaćim delicijama i internacionalnim jelima, bosanska kafa i ručak za poslovne događaje na upit."
+   },
+   "ogImage": "/images/dorucak5.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/dorucak5.jpg",
+      "alt": "The breakfast buffet at Restaurant Central"
+     },
+     "eyebrow": "Restoran Central",
+     "title": [
+      "Restoran",
+      "Central"
+     ],
+     "intro": "Mirna oaza u kojoj svako jutro počinje divnim iskustvom svježe pripremljenog doručka.",
+     "meta": [
+      "Hotel Central",
+      "(Restaurant)",
+      "Doručak · Ketering"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "ivory",
+     "reverse": false,
+     "label": "(01) Doručak",
+     "title": [
+      "Svako jutro",
+      "ritual"
+     ],
+     "body": [
+      "Smješten u srcu Sarajeva, Hotel Central je mirna oaza u kojoj svako jutro počinje divnim iskustvom svježe pripremljenog doručka. Započnite dan u našem šarmantnom restoranu, gdje vas očekuje primamljiv izbor domaćih delicija i internacionalnih jela.",
+      "I, naravno, bosanska kafa."
+     ],
+     "line": "restaurant",
+     "images": [
+      {
+       "src": "/images/hc-comfort-2.jpg",
+       "alt": "Breakfast tray with tea and croissants"
+      },
+      {
+       "src": "/images/dorucak6.jpg",
+       "alt": "Bosnian coffee in a copper džezva"
+      }
+     ]
+    },
+    {
+     "type": "gallery",
+     "tone": "deep",
+     "images": [
+      {
+       "src": "/images/dorucak4.jpg",
+       "alt": "Breakfast buffet"
+      },
+      {
+       "src": "/images/dorucak1.jpg",
+       "alt": "Fresh fruit platter at breakfast"
+      },
+      {
+       "src": "/images/breakfast2.jpg",
+       "alt": "Fried eggs served at breakfast"
+      },
+      {
+       "src": "/images/dorucak2.jpg",
+       "alt": "Cheese selection at the buffet"
+      },
+      {
+       "src": "/images/breakfast3.jpg",
+       "alt": "Eggs with asparagus"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": true,
+     "label": "(02) Poslovni ručkovi",
+     "title": [
+      "Ručak",
+      "po mjeri"
+     ],
+     "body": [
+      "Osim izuzetne ponude doručka, na upit nudimo i ručak za poslovne događaje.",
+      "Bilo da organizujete poslovni sastanak, konferenciju ili seminar, naš kulinarski tim će osmisliti jelovnik po mjeri vašeg događaja."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/breakfast1.jpg",
+       "alt": "Omelette served at breakfast"
+      },
+      {
+       "src": "/images/dorucak3.jpg",
+       "alt": "Cheese and cold cuts at the buffet"
+      }
+     ],
+     "primary": {
+      "label": "Upit za ketering",
+      "link": {
+       "kind": "internal",
+       "href": "/bs/contact",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "meetings-events": {
+   "meta": {
+    "title": "Sastanci i događaji",
+    "description": "Potpuno opremljena konferencijska sala na trećem spratu Hotela Central Sarajevo za seminare, konferencije, radionice, prezentacije, vjenčanja i poslovne ručkove."
+   },
+   "ogImage": "/images/3073.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3073.jpg",
+      "alt": "The conference room on the third floor"
+     },
+     "eyebrow": "Sastanci · Događaji · Slavlja",
+     "title": [
+      "Prostor",
+      "za susrete"
+     ],
+     "intro": "Seminari, konferencije, radionice, prezentacije, vjenčanja i poslovni ručkovi u samom centru Sarajeva.",
+     "meta": [
+      "60–70",
+      "(Meetings & events)",
+      "Treći sprat · Odvojeni dio"
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": false,
+     "label": "(01) Konferencijska sala",
+     "title": [
+      "Mir",
+      "i privatnost"
+     ],
+     "body": [
+      "Konferencijska sala smještena je na trećem spratu, u dijelu odvojenom od smještajnih jedinica, što garantira mir i privatnost. U potpunosti je opremljena svom potrebnom informatičkom opremom te udovoljava potrebama za organizacijom svih vrsta skupova.",
+      "Moderno i lijepo uređena sala sa svim pratećim sadržajima ima mogućnost promjene postava ovisno o broju sudionika i vrsti samog događaja."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/img_9202.jpg",
+       "alt": "Theatre-style seating in the conference room"
+      },
+      {
+       "src": "/images/img_9289.jpg",
+       "alt": "Conference room door sign"
+      }
+     ],
+     "facts": [
+      {
+       "k": "Lokacija",
+       "v": "Treći sprat, odvojeni dio"
+      },
+      {
+       "k": "Oprema",
+       "v": "Kompletna informatička oprema"
+      },
+      {
+       "k": "Kapacitet",
+       "v": "Maksimalno 60–70 sjedećih mjesta"
+      },
+      {
+       "k": "Hotel",
+       "v": "32 sobe · 65–70 osoba"
+      },
+      {
+       "k": "Cijene",
+       "v": "Prema individualnom upitu"
+      }
+     ]
+    },
+    {
+     "type": "gallery",
+     "tone": "ivory",
+     "images": [
+      {
+       "src": "/images/img_9226.jpg",
+       "alt": "Conference chairs in soft focus"
+      },
+      {
+       "src": "/images/img_9235.jpg",
+       "alt": "Projector detail"
+      },
+      {
+       "src": "/images/img_9216.jpg",
+       "alt": "Seating with delegate microphones"
+      },
+      {
+       "src": "/images/img_9180.jpg",
+       "alt": "Reception counter in the conference area"
+      },
+      {
+       "src": "/images/img_9271.jpg",
+       "alt": "Rows of conference chairs"
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "olive",
+     "reverse": true,
+     "label": "(02) Vaš događaj",
+     "title": [
+      "Povjerite",
+      "nam ga"
+     ],
+     "body": [
+      "Povjerite nam organizaciju Vašeg poslovnog događaja i Vaše će želje biti ostvarene, a Vaši poslovni partneri impresionirani.",
+      "Sve ponude i naknade formiraju se prema individualnim upitima — hotelski smještaj, sala za sastanke, hrana i piće, kafe pauze."
+     ],
+     "line": "spa",
+     "images": [
+      {
+       "src": "/images/img_9223.jpg",
+       "alt": "Microphone on the conference desk"
+      },
+      {
+       "src": "/images/img_9236.jpg",
+       "alt": "Projection screen"
+      }
+     ],
+     "primary": {
+      "label": "Zatražite ponudu",
+      "link": {
+       "kind": "internal",
+       "href": "/bs/contact",
+       "external": false
+      }
+     },
+     "secondary": {
+      "label": "info@hotelcentral.ba",
+      "link": {
+       "kind": "email",
+       "href": "mailto:info@hotelcentral.ba",
+       "external": false
+      }
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "location": {
+   "meta": {
+    "title": "Lokacija",
+    "description": "Hotel Central se nalazi na adresi Ćumurija 8, u centru Sarajeva, u blizini Katedrale, Latinske ćuprije i Baščaršije."
+   },
+   "ogImage": "/images/3064.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3064.jpg",
+      "alt": "Hotel Central on Ćumurija street",
+      "position": "55% 40%"
+     },
+     "eyebrow": "Ćumurija 8, Sarajevo",
+     "title": [
+      "U srcu",
+      "Sarajeva"
+     ],
+     "intro": "Sarajevo je pogodno za šetanje. Nalazimo se u srcu grada i skoro sve znamenitosti su u blizini.",
+     "meta": [
+      "Ćumurija 8",
+      "(Location)",
+      "71000 Sarajevo"
+     ]
+    },
+    {
+     "type": "arrival",
+     "label": "Kako do nas",
+     "transport": [
+      {
+       "title": "Taxi",
+       "body": "Taxi od aerodroma košta otprilike 18 € / 35 KM, a od hotela do aerodroma 15 € / 30 KM. Taxi se može rezervisati preko recepcije hotela."
+      },
+      {
+       "title": "Autobus sa aerodroma",
+       "body": "Na izlazu sa aerodroma nalazi se autobus Centrotrans; zamolite vozača za stanicu kod Latinske ćuprije ili Katedrale Srca Isusova. Karta košta 2,50 € / 5,00 KM u jednom pravcu i 4,00 € / 8,00 KM povratna. Hotel je udaljen otprilike 25 minuta od aerodroma. Red vožnje: centrotrans.com."
+      },
+      {
+       "title": "Autobus i tramvaj",
+       "body": "Stanice gradskog prijevoza nalaze se u blizini hotela; autobusi obično voze svakih 5–6 minuta. Tramvaj broj 3 saobraća od Ilidže do Baščaršije. Karta košta oko 0,90 € / 1,80 KM."
+      },
+      {
+       "title": "Turistički bus",
+       "body": "Stanica turističkog autobusa Centrotrans nalazi se 50 m od hotela. Ture se realizuju svaki dan od maja do septembra, sa početkom u 12:00 i 14:00."
+      },
+      {
+       "title": "Autom",
+       "body": "Kao destinaciju unesite „Hotel Central, Ćumurija 8, Sarajevo“. Ostavite auto na našem sigurnom, ograđenom parkingu i istražite grad pješice."
+      }
+     ]
+    },
+    {
+     "type": "split",
+     "tone": "deep",
+     "reverse": false,
+     "label": "(02) Pješice",
+     "title": [
+      "Ostavite auto",
+      "i prošetajte"
+     ],
+     "body": [
+      "Sarajevo je pogodno za šetanje, a može biti frustrirajuće za vozače. Zašto ne biste ostavili auto na parkingu i jednostavno šetali? Nalazimo se u srcu grada i skoro sve znamenitosti su u blizini.",
+      "To je i najbolji način da „naletite“ na nešto interesantno."
+     ],
+     "line": "rooms",
+     "images": [
+      {
+       "src": "/images/3075.jpg",
+       "alt": "Hotel Central's corner on Ćumurija street at night",
+       "position": "40% 50%"
+      },
+      {
+       "src": "/images/p11.jpg",
+       "alt": "View over Sarajevo's rooftops from the terrace"
+      }
+     ],
+     "bullets": {
+      "title": "U blizini",
+      "items": [
+       "Katedrala Srca Isusova",
+       "Latinska ćuprija",
+       "Baščaršija i Stari grad",
+       "Međunarodni aerodrom Sarajevo · oko 25 min"
+      ]
+     }
+    },
+    {
+     "type": "finalBooking"
+    }
+   ]
+  },
+  "contact": {
+   "meta": {
+    "title": "Kontakt",
+    "description": "Kontaktirajte Hotel Central Sarajevo: Ćumurija 8, 71000 Sarajevo · +387 33 561 800 · info@hotelcentral.ba"
+   },
+   "ogImage": "/images/3075.jpg",
+   "blocks": [
+    {
+     "type": "hero",
+     "image": {
+      "src": "/images/3075.jpg",
+      "alt": "Hotel Central at night",
+      "position": "50% 40%"
+     },
+     "eyebrow": "Kontakt",
+     "title": [
+      "Tu smo",
+      "za Vas"
+     ],
+     "intro": "Naš hotelski ured i recepcija rado će Vam pomoći.",
+     "meta": [
+      "+387 33 561 800",
+      "(Contact)",
+      "info@hotelcentral.ba"
+     ]
+    },
+    {
+     "type": "contact",
+     "office": {
+      "label": "Hotelski ured",
+      "body": "Za sva opća pitanja obratite se našem hotelskom uredu."
+     },
+     "reservations": {
+      "label": "Rezervacije",
+      "body": "Naši agenti rado će razgovarati s Vama o rezervaciji."
+     },
+     "write": {
+      "label": "Pošaljite email"
+     },
+     "social": {
+      "label": "Društvene mreže",
+      "body": "Posjetite nas na Facebooku za najnovije vijesti."
+     }
+    }
+   ]
+  }
+ }
+}
