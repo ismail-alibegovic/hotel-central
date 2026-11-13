@@ -171,17 +171,17 @@ test("a page can be linked from the menu and footer; the existing entries are un
   expect((await admin.post("/api/globals/navigation?locale=bs", { data: { items: bsRows, _status: "published" } })).status()).toBe(200);
 
   const footer = (html: string) => /<footer[\s\S]*<\/footer>/.exec(html)?.[0] ?? "";
-  const en = footer(await (await request.get("/en/spa")).text());
-  const bs = footer(await (await request.get("/bs/spa")).text());
+  const en = footer(await (await request.get("/en/conference")).text());
+  const bs = footer(await (await request.get("/bs/conference")).text());
   expect(en).toContain(`href="/en/${EN}"`);
   expect(bs).toContain(`href="/bs/${BS}"`);
-  for (const p of ["about", "rooms", "spa", "restaurant", "meetings-events", "location", "contact"]) expect(en).toContain(`href="/en/${p}"`);
+  for (const p of ["about", "about/cafe", "rooms", "centralfitnessclub", "dayspa", "conference", "location", "contact"]) expect(en).toContain(`href="/en/${p}"`);
 
   // restore the menu
   expect((await admin.post("/api/globals/navigation?locale=en", { data: { items: nav.items, _status: "published" } })).status()).toBe(200);
   const restored = await (await admin.get("/api/globals/navigation?locale=bs&draft=true&depth=0")).json();
   expect((await admin.post("/api/globals/navigation?locale=bs", { data: { items: restored.items.slice(0, nav.items.length), _status: "published" } })).status()).toBe(200);
-  expect(footer(await (await request.get("/en/spa")).text())).not.toContain(`href="/en/${EN}"`);
+  expect(footer(await (await request.get("/en/conference")).text())).not.toContain(`href="/en/${EN}"`);
 });
 
 test("renaming an address: the old one stops working at once, the new one works", async ({ request }) => {
@@ -208,7 +208,7 @@ test("unpublishing removes the page in every language and from the sitemap; repu
 });
 
 test("existing pages are unaffected; unknown addresses are plain 404s; deleting is administrator-only and final", async ({ request }) => {
-  for (const p of ["/en/about", "/en/rooms", "/en/spa", "/bs/contact", "/en/rooms/junior-suite"]) expect(await status(request, p), p).toBe(200);
+  for (const p of ["/en/about", "/en/rooms", "/en/conference", "/bs/contact", "/en/rooms/junior-suite"]) expect(await status(request, p), p).toBe(200);
   for (const p of ["/en/does-not-exist", "/bs/does-not-exist", "/en/Bad_Slug", "/en/a%2Fb"]) expect(await status(request, p), p).toBe(404);
   expect((await editor.delete(`/api/custom-pages/${id}`)).status()).toBe(403);
   expect((await admin.delete(`/api/custom-pages/${id}`)).status()).toBe(200);

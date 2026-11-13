@@ -66,6 +66,7 @@ export function mergeHome(dict: Dictionary, doc: Homepage | null): HomeContent {
       metaRight: text(g.rooms.metaRight) ?? h.rooms.metaRight,
     },
     spa: {
+      ...h.spa,
       metaLeft: text(g.spa.metaLeft) ?? h.spa.metaLeft,
       metaCenter: text(g.spa.metaCenter) ?? h.spa.metaCenter,
       metaRight: text(g.spa.metaRight) ?? h.spa.metaRight,

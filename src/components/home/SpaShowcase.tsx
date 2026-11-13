@@ -1,118 +1,78 @@
+import Image from "next/image";
+import Link from "next/link";
 import type { Dictionary } from "@/content/dictionary";
 import { href, type Locale } from "@/lib/i18n";
-import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
-import { MetaRow, PillLink } from "../ui";
+import { Arrow, MetaRow } from "../ui";
 import { img, type HomeImages } from "./homeImages";
 
-const BIG = "[--x:40%] [--y:15.5%] [--w:57.46%] [--h:64%]";
-
-function SpaTitle({ lines, className = "" }: { lines: string[]; className?: string }) {
-  return (
-    <div className={`font-display absolute left-[6%] top-[23%] text-[8.4cqw] leading-[0.9] ${className}`}>
-      <RevealLines lines={lines} lineClassName={["", "pl-[14.5cqw]"]} />
-    </div>
-  );
-}
-
+/**
+ * Home — Club & Spa (CH-004): the two in-house brands side by side, each with its official logo, its own photograph,
+ * its colour and its own button. The section title and introduction stay editable in the CMS (Home page → Club & Spa);
+ * the two photographs default to the hotel's 2026 photography and can be replaced there as well.
+ */
 export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.spa;
-  const main = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool with a wave mosaic", position: "50% 60%" });
-  const mainM = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool", position: "40% 60%" });
-  const second = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "Candle-lit treatment room of the day spa", position: "50% 50%" });
-  const secondM = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "" });
+  const club = img(images?.spaMain, { src: "/images/club/cardio-treadmill.jpg", alt: "Treadmills and stair climbers by the windows of Central Fitness Club", position: "50% 55%" });
+  const spa = img(images?.spaSecondary, { src: "/images/dayspa/relax-curtain.jpg", alt: "Relaxation lounge of Central Day Spa, with loungers behind a string curtain", position: "50% 55%" });
+
+  const cards = [
+    {
+      key: "club",
+      copy: d.club,
+      photo: club,
+      path: "/centralfitnessclub",
+      panel: "bg-cfc text-white",
+      logo: <Image src="/brand/central-fitness-club-white.svg" alt="Central Fitness Club" width={628} height={740} unoptimized className="h-[88px] w-auto md:h-[104px]" />,
+    },
+    {
+      key: "dayspa",
+      copy: d.dayspa,
+      photo: spa,
+      path: "/dayspa",
+      panel: "bg-wine text-white",
+      logo: <Image src="/brand/day-spa.png" alt="Day Spa — Hotel Central Sarajevo" width={652} height={468} sizes="160px" className="h-[96px] w-auto md:h-[112px]" />,
+    },
+  ] as const;
+
   return (
-    <section aria-labelledby="spa-title" className="relative overflow-hidden bg-olive text-white">
-      <h2 id="spa-title" className="sr-only">
-        {d.title.join(" ")}
-      </h2>
+    <section aria-labelledby="spa-title" className="relative overflow-hidden bg-white pb-16 pt-[30px] text-ink md:pb-[6vw] md:pt-[3vw]">
+      <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} />
 
-      {/* Desktop artboard */}
-      <div className="comp hidden aspect-[1025/700] md:block">
-        <DecorativeLine variant="spa" tone="light" className="z-0" />
-        <div className="absolute inset-x-0 top-[4.4%] z-[4]">
-          <MetaRow left={d.metaLeft} center={d.metaCenter} right={d.metaRight} />
-        </div>
-
-        <SpaTitle lines={d.title} className="z-[1]" />
-
-        <div className={`rect z-[2] ${BIG}`}>
-          <Photo
-            src={main.src}
-            alt={main.alt}
-            sizes="58vw"
-            position={main.position}
-            className="h-full w-full"
-            grade="grade-dark"
-            parallax={5}
-          />
-        </div>
-        <div className="rect z-[2] [--x:6%] [--y:51%] [--w:17%] [--h:37%]">
-          <Photo
-            src={second.src}
-            alt={second.alt}
-            sizes="18vw"
-            position={second.position}
-            className="h-full w-full"
-            parallax={6}
-          />
-        </div>
-
-        <div aria-hidden className={`clip-rect pointer-events-none absolute inset-0 z-[3] ${BIG}`}>
-          <SpaTitle lines={d.title} />
-        </div>
-
-        <FadeIn as="p" className="absolute left-[25.4%] top-[62%] z-[4] w-[12.2%] text-[0.98cqw] leading-[1.5] opacity-90">
+      <div className="mt-10 grid gap-8 px-[var(--gutter)] md:mt-[4vw] md:grid-cols-[1.1fr_1fr] md:items-end md:gap-[6vw]">
+        <h2 id="spa-title" className="font-display text-[12vw] leading-[0.9] md:text-[6.2vw]">
+          <RevealLines lines={d.title} lineClassName={["", "pl-[8vw] md:pl-[9vw]"]} />
+        </h2>
+        <FadeIn as="p" className="body-copy max-w-[46ch] opacity-85 md:pb-[0.6vw]">
           {d.body}
         </FadeIn>
-
-        <div className="absolute left-[40%] top-[84.5%] z-[4] flex w-[57.46%] items-start justify-between gap-8">
-          <ul className="grid max-w-[34cqw] grid-cols-2 gap-x-[3cqw] gap-y-[0.5em] text-[0.78cqw] uppercase tracking-[0.14em]">
-            {d.facts.map((f) => (
-              <li key={f} className="flex items-center gap-3 border-t border-white/20 pt-[0.6em]">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <PillLink href={href(locale, "/spa")} tone="light" className="!h-[2.9cqw] !text-[0.8cqw]">
-            {d.cta}
-          </PillLink>
-        </div>
       </div>
 
-      {/* Mobile recomposition */}
-      <div className="relative pb-16 pt-[30px] md:hidden">
-        <MetaRow left={d.metaLeft} center={d.metaCenter} />
-        <div className="comp mt-8 aspect-[390/470]">
-          <div className="font-display absolute left-[4%] top-0 z-[1] text-[12.2cqw] leading-[0.9]">
-            <RevealLines lines={d.title} lineClassName={["", "pl-[6cqw]"]} />
-          </div>
-          <div className="rect z-[2] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
-            <Photo src={mainM.src} alt={mainM.alt} sizes="82vw" grade="grade-dark" className="h-full w-full" position={mainM.position} />
-          </div>
-          <div aria-hidden className="clip-rect pointer-events-none absolute inset-0 z-[3] [--x:18%] [--y:33%] [--w:82%] [--h:67%]">
-            <div className="font-display absolute left-[4%] top-0 text-[12.2cqw] leading-[0.9]">
-              <RevealLines lines={d.title} lineClassName={["", "pl-[6cqw]"]} />
+      <div className="mt-12 grid gap-6 px-[var(--gutter)] md:mt-[4.5vw] md:grid-cols-2 md:gap-[2vw]">
+        {cards.map((c) => (
+          <FadeIn key={c.key} className={`group flex flex-col overflow-hidden ${c.panel}`}>
+            <div className="relative aspect-[4/3] overflow-hidden md:aspect-[16/11]">
+              <Photo src={c.photo.src} alt={c.photo.alt} position={c.photo.position} sizes="(min-width: 1024px) 48vw, 100vw" className="h-full w-full" grade="grade-soft" />
             </div>
-          </div>
-          <div className="rect z-[4] [--x:4%] [--y:72%] [--w:30%] [--h:40%]">
-            <Photo src={secondM.src} alt={secondM.alt} sizes="30vw" className="h-full w-full" position={secondM.position} />
-          </div>
-        </div>
-        <div className="mt-28 space-y-8 px-[var(--gutter)]">
-          <p className="body-copy max-w-[34ch] opacity-90">{d.body}</p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[10px] uppercase tracking-[0.14em]">
-            {d.facts.map((f) => (
-              <li key={f} className="border-t border-white/20 pt-2">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <PillLink href={href(locale, "/spa")} tone="light">
-            {d.cta}
-          </PillLink>
-        </div>
+            <div className="flex flex-1 flex-col gap-6 p-6 sm:flex-row sm:items-center sm:gap-8 md:p-[2.4vw]">
+              <div className="shrink-0">{c.logo}</div>
+              <div className="flex flex-1 flex-col gap-5">
+                <h3 className="sr-only">{c.copy.name}</h3>
+                <p className="body-copy max-w-[44ch] opacity-90">{c.copy.body}</p>
+                <ul className="flex flex-wrap gap-x-5 gap-y-1 text-[10px] uppercase tracking-[0.16em] opacity-75">
+                  {c.copy.facts.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+                <Link href={href(locale, c.path)} className="pill pill-light self-start">
+                  <span>{c.copy.cta}</span>
+                  <Arrow />
+                </Link>
+              </div>
+            </div>
+          </FadeIn>
+        ))}
       </div>
     </section>
   );

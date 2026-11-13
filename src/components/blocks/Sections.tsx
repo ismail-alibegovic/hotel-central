@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { CtaBlock, FaqBlock, OffersBlock, Tone } from "@/cms/blocks/types";
 import { Photo } from "@/components/Photo";
 import { FadeIn, RevealLines } from "@/components/Reveal";
-import { PillLink } from "@/components/ui";
+import { Arrow, PillLink } from "@/components/ui";
 import { fitStyle } from "@/lib/fit";
 
 const grounds: Record<Tone, string> = {
@@ -144,9 +144,15 @@ export function CtaBand({ b }: { b: CtaBlock }) {
         </FadeIn>
       )}
       <FadeIn delay={0.1} className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-        <PillLink href={b.primary.link.href} external={b.primary.link.external} tone={dark ? "light" : "dark"}>
-          {b.primary.label}
-        </PillLink>
+        {/* The band's main action uses the brand's primary (gold) button so it is the obvious next step (CH-014). */}
+        <a
+          href={b.primary.link.href}
+          {...(b.primary.link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className={`pill pill-book${dark ? "" : " on-light"}`}
+        >
+          <span>{b.primary.label}</span>
+          <Arrow />
+        </a>
         {b.secondary && (
           <a
             href={b.secondary.link.href}

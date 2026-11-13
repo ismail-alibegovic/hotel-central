@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionary";
@@ -6,7 +7,6 @@ import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "./DecorativeLine";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { RevealLines } from "./Reveal";
 import { Arrow } from "./ui";
 
 export function Footer({
@@ -43,11 +43,20 @@ export function Footer({
         </div>
       </div>
 
-      {/* Typographic statement */}
-      <div className="relative z-[1] px-[var(--gutter)] pb-6 pt-14 md:pb-[2vw] md:pt-[5vw]">
-        <p aria-hidden className="font-display text-[17vw] leading-[0.84] md:text-[14.5vw]">
-          <RevealLines lines={f.statement} lineClassName={["", "pl-[5vw] md:pl-[22vw]"]} />
-        </p>
+      {/* Logo (CH-018: the large typographic statement is replaced by the hotel's logo, at a modest size) and the two in-house brands */}
+      <div className="relative z-[1] flex flex-col gap-10 px-[var(--gutter)] pb-10 pt-12 md:flex-row md:items-end md:justify-between md:pb-12 md:pt-16">
+        <Link href={href(locale)} aria-label={`${hotel.name} — ${f.home}`} className="block w-[min(300px,70vw)] md:w-[340px]">
+          <Image src="/brand/hotel-central-wordmark-white.png" alt={hotel.name} width={1120} height={235} sizes="340px" className="h-auto w-full" />
+        </Link>
+        <div className="flex items-center gap-6 md:gap-8">
+          <Link href={href(locale, "/centralfitnessclub")} className="block opacity-90 transition-opacity hover:opacity-100" aria-label="Central Fitness Club">
+            <Image src="/brand/central-fitness-club-white.svg" alt="Central Fitness Club" width={628} height={740} className="h-[72px] w-auto md:h-[84px]" unoptimized />
+          </Link>
+          <span aria-hidden className="h-14 w-px bg-white/20" />
+          <Link href={href(locale, "/dayspa")} className="block overflow-hidden opacity-90 transition-opacity hover:opacity-100" aria-label="Central Day Spa">
+            <Image src="/brand/day-spa.png" alt="Day Spa — Hotel Central Sarajevo" width={652} height={468} sizes="120px" className="h-[72px] w-auto md:h-[84px]" />
+          </Link>
+        </div>
       </div>
 
       {/* Information */}
@@ -99,13 +108,16 @@ export function Footer({
         <nav aria-label={f.explore} className="label col-span-2 md:col-span-1">
           <p className="mb-3 opacity-50">{f.explore}</p>
           <ul className="grid grid-cols-2 gap-x-6 gap-y-0 md:gap-y-1">
-            {dict.nav.items.filter((item) => item.href !== "/").map((item) => (
-              <li key={item.href}>
-                <Link href={href(locale, item.href)} className="link-line py-[7px] md:py-0">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {dict.nav.items
+              .filter((item) => item.href !== "/")
+              .flatMap((item) => [item, ...(dict.nav.children?.[item.href] ?? [])])
+              .map((item) => (
+                <li key={item.href}>
+                  <Link href={href(locale, item.href)} className="link-line py-[7px] md:py-0">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </nav>
         <div className="label">

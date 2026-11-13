@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -80,13 +81,17 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             </button>
           </div>
 
-          {/* Centre: wordmark */}
-          <Link
-            href={href(locale)}
-            className="flex items-center justify-center whitespace-nowrap text-[11px] tracking-[0.34em] uppercase min-[400px]:text-[12px] md:text-[13px] md:tracking-[0.42em] xl:text-[15px]"
-            aria-label="Hotel Central Sarajevo — home"
-          >
-            <span className="pl-[0.42em]">Hotel Central</span>
+          {/* Centre: the hotel's logo (CH-001) */}
+          <Link href={href(locale)} className="flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
+            <Image
+              src="/brand/hotel-central-wordmark-white.png"
+              alt="Hotel Central"
+              width={1120}
+              height={235}
+              priority
+              sizes="200px"
+              className={`h-auto w-[132px] transition-[width] duration-700 min-[400px]:w-[150px] md:w-[190px] ${solid ? "md:w-[160px]" : ""}`}
+            />
           </Link>
 
           {/* Right: rooms + book */}
@@ -97,16 +102,16 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             >
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
-            <a
-              href={booking.bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`label -mr-2 flex min-h-[44px] items-center pl-5 pr-2 md:mr-0 md:border-l md:pl-8 md:pr-0 lg:pl-11 ${
-                solid ? "border-white/10" : "border-[var(--hairline-light)]"
-              }`}
-            >
-              <span className="link-line">{dict.nav.book}</span>
-            </a>
+            <span className="flex items-center pl-3 md:pl-6">
+              <a
+                href={booking.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-book !h-[38px] !px-[1.3em] md:!h-[42px] md:!px-[1.9em]"
+              >
+                <span>{dict.nav.book}</span>
+              </a>
+            </span>
           </div>
         </div>
       </motion.header>

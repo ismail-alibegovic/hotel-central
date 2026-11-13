@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 const rooms = ["single-room", "standard-twin-double", "superior-double-room", "family-room", "junior-suite", "presidential-suite"];
-const sections = ["", "/rooms", "/about", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
+// Approved round-1 sitemap.
+const sections = ["", "/about", "/about/cafe", "/rooms", "/centralfitnessclub", "/centralfitnessclub/membership", "/centralfitnessclub/timetable", "/dayspa", "/conference", "/location", "/contact"];
 
 const paths = ["en", "bs"].flatMap((l) => [...sections.map((s) => `/${l}${s}`), ...rooms.map((r) => `/${l}/rooms/${r}`)]);
 
@@ -39,6 +40,23 @@ test("root redirects to a locale", async ({ request }) => {
 test("robots.txt and sitemap.xml respond", async ({ request }) => {
   expect((await request.get("/robots.txt")).ok()).toBe(true);
   expect((await request.get("/sitemap.xml")).ok()).toBe(true);
+});
+
+test("old addresses redirect permanently to the new sitemap, in both languages", async ({ request }) => {
+  for (const l of ["en", "bs"]) {
+    for (const [from, to] of [["/spa", "/dayspa"], ["/restaurant", "/about/cafe"], ["/meetings-events", "/conference"]]) {
+      const res = await request.get(`/${l}${from}`, { maxRedirects: 0 });
+      expect(res.status(), from).toBe(308);
+      expect(res.headers().location, from).toMatch(new RegExp(`/${l}${to}$`));
+    }
+  }
+});
+
+test("contact page has no form; phone and e-mail are the way to reach the hotel (CH-017)", async ({ page }) => {
+  await page.goto("/en/contact", { waitUntil: "networkidle" });
+  await expect(page.locator("main form")).toHaveCount(0);
+  await expect(page.locator('main a[href^="tel:"]').first()).toBeVisible();
+  await expect(page.locator('main a[href^="mailto:"]').first()).toBeVisible();
 });
 
 test("contact API rejects invalid input without sending", async ({ request }) => {

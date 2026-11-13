@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { ContactForm } from "@/components/ContactForm";
 import { DecorativeLine } from "@/components/DecorativeLine";
 import { FinalBooking } from "@/components/home/FinalBooking";
 import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/components/page/PageParts";
@@ -218,47 +217,59 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
               </section>
             );
           case "contact": {
-            const items = [
-              { label: b.office.label, body: b.office.body, link: { href: contact.phone.href, text: contact.phone.display } },
-              { label: b.reservations.label, body: b.reservations.body, link: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
-              { label: b.write.label, body: contact.email, link: { href: `mailto:${contact.email}`, text: dict.common.email } },
-              { label: b.social.label, body: b.social.body, link: { href: hotel.facebook, text: "Facebook", external: true } },
+            // CH-017: no contact form — the hotel wants enquiries by phone or e-mail only. Phone and e-mail lead, large and
+            // one tap away; reservations, address and social media follow. (The /api/contact route is kept but unused.)
+            const primary = [
+              { label: b.office.label, body: b.office.body, href: contact.phone.href, text: contact.phone.display, action: dict.common.call },
+              { label: b.write.label, body: b.reservations.body, href: `mailto:${contact.email}`, text: contact.email, action: dict.common.email },
             ];
             return (
               <section key={i} className="relative overflow-hidden bg-ivory px-[var(--gutter)] py-16 text-ink md:py-[6vw]">
                 <DecorativeLine variant="hotel" className="z-0 hidden md:block" />
-                <div className="relative z-[1] grid gap-14 md:grid-cols-12 md:gap-x-[2vw]">
-                  <div className="md:col-span-4">
-                    <ul className="divide-y divide-ink/20 border-y border-ink/20">
-                      {items.map((c, n) => (
-                        <FadeIn as="li" key={c.label} delay={n * 0.06} className="py-6">
-                          <p className="label mb-2 opacity-60">{c.label}</p>
-                          <p className="body-copy mb-3">{c.body}</p>
-                          <a
-                            href={c.link.href}
-                            {...("external" in c.link && c.link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className="label link-line inline-flex items-center gap-3"
-                          >
-                            {c.link.text} <Arrow />
-                          </a>
-                        </FadeIn>
-                      ))}
-                    </ul>
-                    <address className="label mt-8 not-italic leading-[1.8]">
-                      {hotel.name}
-                      <br />
-                      {contact.street}, {contact.postalCode} {contact.city}
-                      <br />
-                      {contact.country}
-                      <br />
-                      <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
-                        {dict.common.directions}
+                <div className="relative z-[1] grid gap-6 md:grid-cols-2 md:gap-[2vw]">
+                  {primary.map((c, n) => (
+                    <FadeIn key={c.label} delay={n * 0.08}>
+                      <a href={c.href} className="group flex h-full flex-col justify-between gap-10 bg-white p-7 transition-colors duration-500 hover:bg-deep hover:text-white md:p-[3vw]">
+                        <span>
+                          <span className="label block opacity-60">{c.label}</span>
+                          <span className="body-copy mt-3 block max-w-[40ch] opacity-80">{c.body}</span>
+                        </span>
+                        <span>
+                          <span className="font-display block break-words text-[9vw] normal-case leading-[1] md:text-[3.2vw]">{c.text}</span>
+                          <span className="label mt-6 inline-flex items-center gap-3">
+                            {c.action} <Arrow />
+                          </span>
+                        </span>
                       </a>
-                    </address>
+                    </FadeIn>
+                  ))}
+                </div>
+                <div className="relative z-[1] mt-12 grid gap-10 border-t border-ink/20 pt-10 md:grid-cols-3 md:gap-[2vw]">
+                  <div>
+                    <p className="label mb-3 opacity-60">{b.reservations.label}</p>
+                    <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="pill pill-book on-light">
+                      <span>{dict.nav.book}</span>
+                      <Arrow />
+                    </a>
                   </div>
-                  <div className="md:col-span-7 md:col-start-6">
-                    <h2 className="font-display mb-10 text-[11vw] leading-[0.9] md:text-[4.4vw]">{dict.contact.formTitle}</h2>
-                    <ContactForm locale={locale} dict={dict} />
+                  <address className="label not-italic leading-[1.8]">
+                    <span className="mb-3 block opacity-60">{dict.footer.address}</span>
+                    {hotel.name}
+                    <br />
+                    {contact.street}, {contact.postalCode} {contact.city}
+                    <br />
+                    {contact.country}
+                    <br />
+                    <a href={contact.directions} target="_blank" rel="noopener noreferrer" className="link-line mt-2 inline-block">
+                      {dict.common.directions}
+                    </a>
+                  </address>
+                  <div>
+                    <p className="label mb-3 opacity-60">{b.social.label}</p>
+                    <p className="body-copy mb-3">{b.social.body}</p>
+                    <a href={hotel.facebook} target="_blank" rel="noopener noreferrer" className="label link-line inline-flex items-center gap-3">
+                      Facebook <Arrow />
+                    </a>
                   </div>
                 </div>
               </section>

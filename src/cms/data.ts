@@ -1,4 +1,5 @@
 import "server-only";
+import { pathForPageKey } from "@/lib/pagePaths";
 import { draftMode, headers } from "next/headers";
 import type { CustomPage, Footer, Homepage, HotelInfo, Navigation, Page, Room } from "@/payload-types";
 import { locales, type Locale } from "@/lib/i18n";
@@ -108,7 +109,7 @@ export async function getNoindexPaths(): Promise<Set<string> | null> {
         payload.find({ collection: "rooms", where: { noindex: { equals: true } }, limit: 100, depth: 0, overrideAccess: false, select: { slug: true } }),
       ]),
     );
-    return new Set([...pages.docs.map((d) => `/${d.slug}`), ...rooms.docs.map((d) => `/rooms/${d.slug}`)]);
+    return new Set([...pages.docs.map((d) => pathForPageKey(d.slug)), ...rooms.docs.map((d) => `/rooms/${d.slug}`)]);
   } catch {
     return null;
   }

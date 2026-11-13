@@ -8,6 +8,7 @@ import { getHotelContact } from "@/cms/hotelInfo";
 import { contactLinks, followContact } from "@/cms/hotelInfoMerge";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { HotelChrome } from "@/components/HotelChrome";
 import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
 import { isLocale, locales } from "@/lib/i18n";
@@ -73,10 +74,14 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd(locale, contact)) }}
         />
         <MotionRoot>
-          <Header locale={locale} dict={dict} contact={links} />
+          <HotelChrome>
+            <Header locale={locale} dict={dict} contact={links} />
+          </HotelChrome>
           <main id="content">{children}</main>
-          <Footer locale={locale} dict={dict} social={social} contact={contact} />
-          <MobileBookBar dict={dict} contact={links} />
+          <HotelChrome>
+            <Footer locale={locale} dict={dict} social={social} contact={contact} />
+            <MobileBookBar dict={dict} contact={links} />
+          </HotelChrome>
         </MotionRoot>
       </body>
     </html>

@@ -62,7 +62,7 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
             {d.body}
           </FadeIn>
           <FadeIn delay={0.15}>
-            <PillLink href={href(locale, "/meetings-events")} className="!h-[2.9cqw] !text-[0.8cqw]">
+            <PillLink href={href(locale, "/conference")} className="!h-[2.9cqw] !text-[0.8cqw]">
               {d.cta}
             </PillLink>
           </FadeIn>
@@ -82,7 +82,7 @@ export function EventsSection({ locale, dict, images }: { locale: Locale; dict: 
             {d.metaLeft} · {d.metaRight}
           </p>
           <p className="body-copy max-w-[38ch]">{d.body}</p>
-          <PillLink href={href(locale, "/meetings-events")}>{d.cta}</PillLink>
+          <PillLink href={href(locale, "/conference")}>{d.cta}</PillLink>
         </div>
       </div>
     </section>

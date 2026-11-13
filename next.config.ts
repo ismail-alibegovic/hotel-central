@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
 import { indexable } from "./src/lib/site";
+import { legacyRedirects } from "./src/lib/pagePaths";
 
 const nextConfig: NextConfig = {
   // Lets the end-to-end runner build a CMS-off reference site next to the CMS-on one (HTML parity test).
@@ -9,6 +10,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Photographs uploaded through the CMS are served from Vercel Blob (public store).
   images: { remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }] },
+  // Round-1 sitemap: old addresses of moved pages keep working (both languages).
+  async redirects() {
+    return legacyRedirects.map(([from, to]) => ({ source: `/:locale(en|bs)${from}`, destination: `/:locale${to}`, permanent: true }));
+  },
   // Belt and braces for non-official deployments (covers non-HTML assets too).
   async headers() {
     // The admin and the CMS API must never be indexed, even on the official domain.

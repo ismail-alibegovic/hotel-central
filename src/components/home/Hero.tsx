@@ -11,7 +11,7 @@ import { img, type HomeImages } from "./homeImages";
 import { FadeIn, RevealLines } from "../Reveal";
 
 export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
-  const photo = img(images?.hero, { src: "/images/3075.jpg", alt: "Hotel Central's corner tower and façade on Ćumurija street, lit at night" });
+  const photo = img(images?.hero, { src: "/images/3064.jpg", alt: "Hotel Central's white façade and corner tower on Ćumurija street in daylight", position: "50% 38%" });
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -38,13 +38,12 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[50%_42%] [filter:saturate(0.22)_contrast(1.12)_brightness(0.62)_sepia(0.32)_hue-rotate(28deg)]"
+            className="object-cover object-[50%_42%] [filter:saturate(0.85)_contrast(1.04)_brightness(0.96)]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
-        {/* Restrained veil: darker crown for the navigation, darker floor for the caption */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.62)_0%,rgba(2,13,16,0.18)_26%,rgba(2,13,16,0.22)_62%,rgba(2,13,16,0.7)_100%)]" />
-        <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
+        {/* Light veil (CH-001: brighter): only enough shade at the top and bottom to keep white text legible */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.5)_0%,rgba(2,13,16,0.12)_24%,rgba(2,13,16,0.18)_55%,rgba(2,13,16,0.62)_100%)]" />
       </motion.div>
       </div>
 
@@ -65,7 +64,7 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             />
           </h1>
 
-          <FadeIn immediate delay={1.25} className="relative z-[10] mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
+          <FadeIn immediate delay={1.25} className="relative z-[10] mt-10 w-full max-w-[560px] bg-ink/45 px-5 py-5 backdrop-blur-md md:mt-[6.2vh] md:w-auto md:max-w-none md:px-8 md:py-5">
             <BookingBar locale={locale} dict={dict} />
           </FadeIn>
         </div>

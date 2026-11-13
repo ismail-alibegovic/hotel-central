@@ -23,14 +23,18 @@ All routes exist in English (`/en/...`) and Bosnian (`/bs/...`); the language sw
 
 | Route | Content |
 | --- | --- |
-| `/` | Hero + booking bar · The hotel · Rooms carousel · Club & Spa · Restaurant · Location · Meetings & Events · Final booking |
+| `/` | Hero (daylight façade) + booking bar · The hotel · Rooms carousel · Club & Spa (two brand panels) · Central Café · Meetings & Events · Location · Final booking |
 | `/about` | Story, facts, rooms, wellness, gallery |
+| `/about/cafe` | Central Café (formerly Restaurant Central): offer, opening hours (from Hotel Information), catering |
 | `/rooms`, `/rooms/[slug]` | Six room categories; detail pages with specs, full amenities, gallery, room-specific booking link, other rooms |
-| `/spa` | Pool, facilities, gym, Wellness Day Spa (links to the hotel's live price list) |
-| `/restaurant` | Breakfast, gallery, corporate catering |
-| `/meetings-events` | Conference room, verified facts, enquiry |
-| `/location` | Tinted Google map, directions link, arrival options, nearby landmarks |
-| `/contact` | Click-to-call, mailto, directions, validated contact form |
+| `/centralfitnessclub` (+ `/membership`, `/timetable`) | Central Fitness Club, a stand-alone branded section with its own header/footer (see `src/content/club.ts`) |
+| `/dayspa` | Central Day Spa, a stand-alone branded section: current treatments & prices, online booking (see `src/content/dayspa.ts`) |
+| `/conference` | Meetings & Events: enquiry band, conference room, facts, gallery |
+| `/location` | Tinted Google map, directions link, arrival options (no fixed fares), nearby landmarks |
+| `/contact` | Phone and e-mail first (no contact form), reservations, address, social |
+
+Old addresses redirect permanently (`src/lib/pagePaths.ts`): `/spa` → `/dayspa`, `/restaurant` → `/about/cafe`, `/meetings-events` → `/conference`.
+Round-1 client requirements and their status: `docs/ROUND1_REQUIREMENTS_MATRIX.md`.
 
 ## Structure
 

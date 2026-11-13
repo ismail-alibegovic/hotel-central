@@ -17,15 +17,7 @@ const DAY_SPA_URL = "https://www.hotelcentral.ba/facilities/wellness-day-spa/";
 
 const internal = (locale: Locale, path: string): Cta["link"] => ({ kind: "internal", href: href(locale, path), external: false });
 
-export const pagePaths: Record<PageKey, string> = {
-  about: "/about",
-  rooms: "/rooms",
-  spa: "/spa",
-  restaurant: "/restaurant",
-  "meetings-events": "/meetings-events",
-  location: "/location",
-  contact: "/contact",
-};
+export { pagePaths } from "@/lib/pagePaths";
 
 export function staticLayout(page: PageKey, locale: Locale): PageLayout {
   const dict = getDictionary(locale);
@@ -43,7 +35,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
           split({ label: a.story.label, index: "Hotel Central, Sarajevo", title: a.story.title, body: a.story.body, line: "hotel", images: [img("3075.jpg", "The hotel's façade lit at night", "45% 40%"), img("p11.jpg", "Terrace of the presidential suite above the rooftops")], facts: a.facts }),
           split({ tone: "deep", reverse: true, label: a.rooms.label, title: a.rooms.title, body: a.rooms.body, line: "rooms", images: [img("3067.jpg", "A suite with patterned wallpaper and seating area"), img("dorucak6.jpg", "Bosnian coffee served at breakfast")], primary: { label: a.rooms.cta, link: internal(locale, "/rooms") } }),
           { type: "statement", text: a.statement, label: "(—)", tone: "ivory" },
-          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("3069.jpg", "The heated 25-metre pool"), img("final-6230.jpg", "Relaxation lounge of the spa")], primary: { label: a.wellness.cta, link: internal(locale, "/spa") } }),
+          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("3069.jpg", "The heated 25-metre pool"), img("final-6230.jpg", "Relaxation lounge of the spa")], primary: { label: a.wellness.cta, link: internal(locale, "/centralfitnessclub") }, secondary: { label: a.wellness.cta2, link: internal(locale, "/dayspa") } }),
           { type: "gallery", tone: "ivory", images: [img("p05.jpg", "Living room of the presidential suite"), img("final-6202.jpg", "Treatment room of the day spa"), img("3073.jpg", "The conference room"), img("dorucak5.jpg", "Breakfast at Restaurant Central"), img("junior02.jpg", "Junior suite bedroom")] },
           { type: "finalBooking", image: "/images/3075.jpg", alt: "Hotel Central at night" },
         ],
@@ -91,7 +83,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: r.meta,
         ogImage: "/images/dorucak5.jpg",
         blocks: [
-          { type: "hero", image: img("dorucak5.jpg", "The breakfast buffet at Restaurant Central"), eyebrow: r.hero.eyebrow, title: r.hero.title, intro: r.hero.intro, meta: ["Hotel Central", "(Restaurant)", dict.home.restaurant.metaRight] },
+          { type: "hero", image: img("dorucak5.jpg", "The breakfast buffet at Restaurant Central"), eyebrow: r.hero.eyebrow, title: r.hero.title, intro: r.hero.intro, meta: ["Hotel Central", "(Central Café)", dict.home.restaurant.metaRight] },
           split({ label: r.breakfast.label, title: r.breakfast.title, body: r.breakfast.body, line: "restaurant", images: [img("hc-comfort-2.jpg", "Breakfast tray with tea and croissants"), img("dorucak6.jpg", "Bosnian coffee in a copper džezva")] }),
           { type: "gallery", tone: "deep", images: [img("dorucak4.jpg", "Breakfast buffet"), img("dorucak1.jpg", "Fresh fruit platter at breakfast"), img("breakfast2.jpg", "Fried eggs served at breakfast"), img("dorucak2.jpg", "Cheese selection at the buffet"), img("breakfast3.jpg", "Eggs with asparagus")] },
           split({ tone: "olive", reverse: true, label: r.catering.label, title: r.catering.title, body: r.catering.body, line: "spa", images: [img("breakfast1.jpg", "Omelette served at breakfast"), img("dorucak3.jpg", "Cheese and cold cuts at the buffet")], primary: { label: r.catering.cta, link: internal(locale, "/contact") } }),
@@ -106,6 +98,8 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         ogImage: "/images/3073.jpg",
         blocks: [
           { type: "hero", image: img("3073.jpg", "The conference room on the third floor"), eyebrow: e.hero.eyebrow, title: e.hero.title, intro: e.hero.intro, meta: ["60–70", "(Meetings & events)", dict.home.events.metaRight] },
+          // CH-014: the enquiry is the focal point — straight after the hero, gold primary button, phone as the alternative.
+          { type: "cta", label: e.enquire.label, title: e.enquire.title, body: e.enquire.body, tone: "deep", sample: false, primary: { label: e.business.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } }, secondary: { label: hotel.phoneDisplay, link: { kind: "phone", href: hotel.phoneHref, external: false } } },
           split({ tone: "deep", label: e.room.label, title: e.room.title, body: e.room.body, line: "rooms", images: [img("img_9202.jpg", "Theatre-style seating in the conference room"), img("img_9289.jpg", "Conference room door sign")], facts: e.facts }),
           { type: "gallery", tone: "ivory", images: [img("img_9226.jpg", "Conference chairs in soft focus"), img("img_9235.jpg", "Projector detail"), img("img_9216.jpg", "Seating with delegate microphones"), img("img_9180.jpg", "Reception counter in the conference area"), img("img_9271.jpg", "Rows of conference chairs")] },
           split({
@@ -116,8 +110,8 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             body: e.business.body,
             line: "spa",
             images: [img("img_9223.jpg", "Microphone on the conference desk"), img("img_9236.jpg", "Projection screen")],
-            primary: { label: e.business.cta, link: internal(locale, "/contact") },
-            secondary: { label: hotel.email, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
+            primary: { label: e.business.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
+            secondary: { label: hotel.phoneDisplay, link: { kind: "phone", href: hotel.phoneHref, external: false } },
           }),
           { type: "finalBooking" },
         ],

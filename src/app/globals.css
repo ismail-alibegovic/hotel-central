@@ -9,6 +9,17 @@
   --sage: #a1aa82;
   --deep: #363a2a;
   --ivory: #f4f0ec;
+  /* Hotel Central brand gold — the accent of the hotel's own identity (hotelcentral.ba). Used for booking calls to action. */
+  --gold: #cbaa5c;
+  --gold-deep: #b8954a;
+  /* Sub-brands, sampled from the official logos supplied by the hotel (Drive → GYM images / SPA images). */
+  --cfc-green: #214832;
+  --cfc-green-deep: #183626;
+  --spa-wine: #411216;
+  --spa-sage: #93b466;
+  --spa-blush: #f9f7f3;
+  --spa-sand: #ede0d2;
+  --spa-berry: #871830;
 
   --hairline-light: rgb(255 255 255 / 0.28);
   --hairline-dark: rgb(2 13 16 / 0.22);
@@ -34,6 +45,15 @@
   --color-sage: var(--sage);
   --color-deep: var(--deep);
   --color-ivory: var(--ivory);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-cfc: var(--cfc-green);
+  --color-cfc-deep: var(--cfc-green-deep);
+  --color-wine: var(--spa-wine);
+  --color-spa-sage: var(--spa-sage);
+  --color-blush: var(--spa-blush);
+  --color-sand: var(--spa-sand);
+  --color-berry: var(--spa-berry);
   --font-display: var(--font-gilda), "Gilda Display", "Didot", serif;
   --font-sans: "Helvetica Neue", Helvetica, var(--font-inter), Arial, sans-serif;
 }
@@ -69,6 +89,20 @@ img { user-select: none; }
 
 @layer components {
 /* ───────────────────────── Typography ───────────────────────── */
+/* Sub-brand display faces, loaded only inside their sections (next/font variables set on the section wrapper). */
+.font-club {
+  font-family: var(--font-club), "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+}
+.font-spa {
+  font-family: var(--font-spa), "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  line-height: 0.98;
+}
+
 .font-display {
   font-family: var(--font-display);
   font-weight: 400;
@@ -114,10 +148,10 @@ img { user-select: none; }
    The hotel's archive photography is very saturated. A restrained grade pulls it
    toward the reference's muted, architectural palette without falsifying content. */
 .grade {
-  filter: saturate(0.52) contrast(1.06) brightness(0.92) sepia(0.14);
+  filter: saturate(0.8) contrast(1.03) brightness(1.02) sepia(0.06);
 }
 .grade-dark {
-  filter: saturate(0.42) contrast(1.08) brightness(0.72) sepia(0.18);
+  filter: saturate(0.72) contrast(1.04) brightness(0.9) sepia(0.08);
 }
 .grade-soft {
   filter: saturate(0.6) contrast(1.02) sepia(0.1);
@@ -145,6 +179,15 @@ img { user-select: none; }
 @media (min-width: 1024px) {
   .pill { height: 40px; }
 }
+/* Primary booking call to action (CH-003): solid brand gold, dark text (contrast ≥ 8:1). */
+.pill-book {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+  font-weight: 500;
+}
+.pill-book:hover { background: var(--white); border-color: var(--white); color: var(--ink); }
+.pill-book.on-light:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
 .pill .arrow { transition: transform 0.6s var(--ease-out); }
 .pill:hover .arrow { transform: translateX(5px); }
 

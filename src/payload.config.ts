@@ -1,3 +1,4 @@
+import { pathForPageKey } from "./lib/pagePaths";
 import path from "path";
 import { fileURLToPath } from "url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
@@ -49,7 +50,7 @@ export default buildConfig({
         const slug = typeof raw === "object" && raw ? raw[locale?.code ?? "en"] : raw;
         // Globals (the home page) have no slug: preview the language's home page, through the authenticated preview route.
         if (!slug) return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}`)}`;
-        const route = collectionConfig?.slug === "rooms" ? `/rooms/${slug}` : `/${slug}`;
+        const route = collectionConfig?.slug === "rooms" ? `/rooms/${slug}` : collectionConfig?.slug === "pages" ? pathForPageKey(slug) : `/${slug}`;
         // Goes through the authenticated preview route, which enables Draft Mode for staff only.
         return `${serverURL}/api/preview?path=${encodeURIComponent(`/${locale?.code ?? "en"}${route}`)}`;
       },

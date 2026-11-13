@@ -16,9 +16,9 @@ const previews: Record<string, string> = {
   "/": "/images/3075.jpg",
   "/about": "/images/3064.jpg",
   "/rooms": "/images/p05.jpg",
-  "/spa": "/images/3069.jpg",
-  "/restaurant": "/images/dorucak5.jpg",
-  "/meetings-events": "/images/3073.jpg",
+  "/centralfitnessclub": "/images/club/cardio-treadmill.jpg",
+  "/dayspa": "/images/dayspa/relax-curtain.jpg",
+  "/conference": "/images/3073.jpg",
   "/location": "/images/3064.jpg",
   "/contact": "/images/3075.jpg",
 };
@@ -97,7 +97,7 @@ export function FullscreenMenu({
             <nav aria-label={dict.nav.menu} className="flex flex-col justify-center">
               <ol className="space-y-[0.6vh]">
                 {dict.nav.items.map((item, i) => {
-                  const active = current === item.href;
+                  const active = current === item.href || (item.href !== "/" && current.startsWith(`${item.href}/`));
                   return (
                     <li key={item.href} className="overflow-hidden">
                       <motion.div
@@ -116,13 +116,30 @@ export function FullscreenMenu({
                         >
                           <span className="label-sm hidden w-7 shrink-0 opacity-50 sm:inline">{String(i + 1).padStart(2, "0")}</span>
                           <span
-                            className={`font-display text-[min(9vw,6vh)] leading-[1.02] transition md:text-[clamp(34px,6.4vh,76px)] md:leading-[0.92]-[opacity,transform] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
+                            className={`font-display text-[min(9vw,6vh)] leading-[1.02] transition-[opacity,transform] md:text-[clamp(30px,5.4vh,68px)] md:leading-[0.92] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
                               active ? "opacity-100" : "opacity-70 group-hover:opacity-100"
                             }`}
                           >
                             {item.label}
                           </span>
                         </Link>
+                        {dict.nav.children?.[item.href] && (
+                          <ul className="mb-1 flex flex-wrap gap-x-6 gap-y-1 pl-0 sm:pl-12 md:pl-[60px]">
+                            {dict.nav.children[item.href].map((child) => (
+                              <li key={child.href}>
+                                <Link
+                                  href={href(locale, child.href)}
+                                  onClick={onClose}
+                                  onMouseEnter={() => setHovered(item.href)}
+                                  aria-current={current === child.href ? "page" : undefined}
+                                  className="label link-line inline-block py-2 opacity-75 hover:opacity-100 aria-[current=page]:opacity-100"
+                                >
+                                  {child.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </motion.div>
                     </li>
                   );

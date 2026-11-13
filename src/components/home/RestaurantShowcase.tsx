@@ -83,7 +83,7 @@ export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; d
             {d.body2}
           </FadeIn>
           <FadeIn delay={0.2} className="pt-[0.6em]">
-            <PillLink href={href(locale, "/restaurant")} className="!h-[2.9cqw] !text-[0.8cqw]">
+            <PillLink href={href(locale, "/about/cafe")} className="!h-[2.9cqw] !text-[0.8cqw]">
               {d.cta}
             </PillLink>
           </FadeIn>
@@ -103,7 +103,7 @@ export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; d
         <div className="mt-10 space-y-5 px-[var(--gutter)]">
           <p className="body-copy max-w-[36ch]">{d.body}</p>
           <p className="body-copy max-w-[36ch] opacity-75">{d.body2}</p>
-          <PillLink href={href(locale, "/restaurant")}>{d.cta}</PillLink>
+          <PillLink href={href(locale, "/about/cafe")}>{d.cta}</PillLink>
         </div>
       </div>
     </section>
