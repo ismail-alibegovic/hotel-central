@@ -1,6 +1,8 @@
 # Progress (resume here)
 Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under `wordpress/`. Nothing deployed; production/DNS/hosting untouched.
 
+**2026-11-13:** combined with the Round 1 client changes on `claude/adoring-pasteur-dhsf07`. WordPress is the final CMS; next step is porting Round 1 into this folder. Plan, risks and order of work: `docs/ARCHITECTURE_RECOVERY.md` (repo root). Do not commit a fresh `dump-content.ts` export before the seeder's menu/page definitions are updated (risk R1 there).
+
 ## Done
 - [x] Foundation, theme, core plugin, 16 Elementor pages (EN+BS), rooms CPT, booking, forms, SEO, redirects (see README / docs/ARCHITECTURE)
 - [x] **Fidelity pass (this session)**: Next.js rendered next to WordPress at 390/768/1440; every page ≤ 1.2 % height difference; element-level fixes — docs/FIDELITY.md, sheets in tests/evidence/compare/
