@@ -11,15 +11,15 @@ let fails = 0; const ok = (n, c, d = '') => { if (!c) fails++; console.log((c ? 
   await p.tap('[data-menu-btn]'); await p.waitForTimeout(1300);
   ok('menu open (aria-expanded)', await p.getAttribute('[data-menu-btn]', 'aria-expanded') === 'true');
   const links = await p.$$eval('#site-menu nav a', (a) => a.map((x) => { const r = x.getBoundingClientRect(); return [r.height, r.bottom <= innerHeight + 400]; }));
-  ok('8 menu links, all ≥ 40px tall', links.length === 8 && links.every((l) => l[0] >= 40), JSON.stringify(links.map((l) => Math.round(l[0]))));
+  ok('11 menu links (8 pages + 3 sub-pages of the approved sitemap), all ≥ 40px tall', links.length === 11 && links.every((l) => l[0] >= 40), JSON.stringify(links.map((l) => Math.round(l[0]))));
   ok('page scroll locked while menu open', await p.evaluate(() => getComputedStyle(document.documentElement).overflow === 'hidden'));
   await p.screenshot({ path: out + '/mobile-menu-390.png' });
   await p.evaluate(() => document.querySelector('#site-menu').scrollTo(0, 9999)); await p.waitForTimeout(300);
   ok('language switch + Book now reachable in menu', await p.locator('#site-menu .hc-lang a[hreflang=bs]').isVisible() && await p.locator('#site-menu a.hc-pill').isVisible());
-  await p.tap('#site-menu nav a >> nth=3'); await p.waitForURL(/\/en\/spa\/$/); ok('menu link navigates (Club & Spa)', /\/en\/spa\//.test(p.url()));
+  await p.tap('#site-menu nav a:has-text("Central Fitness Club")'); await p.waitForURL(/\/en\/centralfitnessclub\/$/); ok('menu link navigates (Central Fitness Club)', /\/en\/centralfitnessclub\//.test(p.url()));
   // BS from menu
-  await p.tap('[data-menu-btn]'); await p.waitForTimeout(1200); await p.evaluate(() => document.querySelector('#site-menu').scrollTo(0, 9999)); await p.tap('#site-menu .hc-lang a[hreflang=bs]'); await p.waitForURL(/\/bs\/spa\/$/);
-  ok('language switch from menu keeps page', /\/bs\/spa\/$/.test(p.url()));
+  await p.tap('[data-menu-btn]'); await p.waitForTimeout(1200); await p.evaluate(() => document.querySelector('#site-menu').scrollTo(0, 9999)); await p.tap('#site-menu .hc-lang a[hreflang=bs]'); await p.waitForURL(/\/bs\/centralfitnessclub\/$/);
+  ok("language switch from menu keeps page (EN → BS Fitness Club)", /\/bs\/centralfitnessclub\/$/.test(p.url()));
   // booking sheet
   await p.goto(base + '/en/'); await p.waitForTimeout(2500);
   await p.tap('.hc-bb__field[data-panel=dates]'); await p.waitForSelector('.hc-bb__panel');
@@ -34,8 +34,10 @@ let fails = 0; const ok = (n, c, d = '') => { if (!c) fails++; console.log((c ? 
   await p.tap('.hc-bb__panel [data-d="1"] >> nth=0'); await p.tap('.hc-bb__panel [data-d="1"] >> nth=1'); ok('guests panel opens after Done, steppers work', (await p.textContent('[data-v=guests]')) === '3 / 1');
   await p.screenshot({ path: out + '/mobile-booking-guests-390.png' });
   await p.tap('.hc-bb__scrim', { position: { x: 200, y: 200 } }); await p.waitForTimeout(300); ok('scrim tap closes sheet', (await p.$('.hc-bb__panel')) === null);
-  const [pop] = await Promise.all([ctx.waitForEvent('page', { timeout: 6000 }).catch(() => null), p.tap('[data-go]')]);
-  ok('Let\'s go opens eZee in a new tab', !!pop && /ipms247/.test(pop.url()), pop && pop.url());
+  const [pop] = await Promise.all([ctx.waitForEvent('page', { timeout: 20000 }).catch(() => null), p.tap('[data-go]')]);
+  if (pop) await pop.waitForLoadState('domcontentloaded', { timeout: 20000 }).catch(() => {});
+  // live.ipms247.com now redirects to letsbook.me (the eZee engine's own change, Nov 2026) — either host is the hotel's booking engine
+  ok('Let\'s go opens the eZee booking engine in a new tab', !!pop && /ipms247|letsbook\.me/.test(pop.url()), pop && pop.url());
   const f = await p.$eval('.hc-bb form', (f) => Object.fromEntries(new FormData(f))); ok('eZee fields carried', f.eZ_Nights === '3' && f.eZ_adult === '3' && f.eZ_child === '1', JSON.stringify(f));
   // go without dates → opens dates + hint
   await p.goto(base + '/en/'); await p.waitForTimeout(2000); await p.tap('[data-go]'); await p.waitForSelector('.hc-bb__panel[data-panel=dates]'); ok('Let\'s go without dates opens the calendar with a hint', await p.$('.hc-bb__hint') !== null);

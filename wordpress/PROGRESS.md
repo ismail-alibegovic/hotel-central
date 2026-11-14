@@ -13,7 +13,8 @@ Branch `claude/elegant-cerf-vj7kdw`. Next.js app untouched; everything is under 
 - [x] Fitness Club / Day Spa: own logo, colours, display face (OFL fonts, local), section menus (Appearance → Menus), brand footer; pages under them inherit the brand
 - [x] Opening hours per place (Café, gym, pool, Day Spa) in Hotel Information → `[hc_hours places=… fallback=…]`
 - [x] Visual QA of `main` vs 13 Nov vs WordPress at 1440/768/390 (`tests/qa-capture.js`, sheets in `tests/evidence/round1-qa/`)
-- [x] Editor-role browser test of the Round 1 workflows: `tests/round1-editor.js` (17/17); `tests/functional.js` updated for the new sitemap
+- [x] Tests: `round1-editor.js` 17/17 (Editor role), `elementor-all.js` 22/22 pages, `functional.js` 22/22, `mobile.js` 20/21 (one stub-related failure, see docs/ROUND1_DESIGN_QA.md); comparison sheets `tests/qa-sheets.js`
+- Open: hotel approval of the two derived logo files; logo-over-dome design point; eZee redirect drops search details (external)
 - Note: run the local server with `PHP_CLI_SERVER_WORKERS=6` — the single-process server makes the Elementor editor ~3× slower.
 
 ## Done

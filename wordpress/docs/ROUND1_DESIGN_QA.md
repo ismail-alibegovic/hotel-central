@@ -10,7 +10,7 @@ Three sources, three roles:
 
 Method: the three were rendered locally — `main` and 13 Nov as production Next.js builds (CMS off), WordPress on a disposable SQLite
 database — and captured with the same script (`tests/qa-capture.js`) at 1440×900, 768×1024 and 390×844, full page plus header,
-open menu and footer, 16 addresses each. Side-by-side sheets are in `tests/evidence/round1-qa/`. Nothing on `main`, the 13 Nov branch,
+open menu and footer, 16 addresses each. Side-by-side sheets (original | 13 Nov | WordPress, made by `tests/qa-sheets.js`) are in `tests/evidence/round1-qa/`. Nothing on `main`, the 13 Nov branch,
 production or any hosting was changed.
 
 ## 1. What changed on 13 Nov, and what WordPress does with it
@@ -60,7 +60,34 @@ club inherits the club's look and address. `tests/elementor-all.js` opens, edits
 What staff manage outside Elementor (by design): logos, colours and header/footer layout (theme), section menus (Appearance → Menus),
 opening hours and contact data (Hotel Information), interface words (Languages → Translations, administrators).
 
+### Test results (full output: `tests/evidence/round1-qa/TEST-RESULTS.md`)
+
+| Suite | Result |
+| --- | --- |
+| `tests/round1-editor.js` — Round 1 workflows as an **Editor** | **17/17** |
+| `tests/elementor-all.js` — all 22 pages (EN+BS) opened, edited, saved, verified live and restored in Elementor | **22/22** |
+| `tests/functional.js` — menu + sub-pages, booking bar, carousel, contact without form, language switch, 301s, 404, JS errors | **22/22** |
+| `tests/mobile.js` — mobile menu (11 links ≥ 40 px), language switch, booking sheet, sticky book bar, no horizontal scroll | **20/21** — see below |
+
+* The one mobile failure — *"Let's go" opens the booking engine in a new tab* — happens only under the suite's stub of `live.ipms247.com`.
+  Without the stub the tab opens in 0.9 s and reaches the engine; the desktop suite passes the same flow. Left failing and reported, not hidden.
+* **External finding for the hotel:** `live.ipms247.com` now 302-redirects to `letsbook.me`, and after the redirect the engine showed
+  *adults=2, children=0* although the search sent 3 adults / 1 child — the booking provider's redirect appears to drop the search details.
+  This is the existing eZee integration (unchanged by this work); worth raising with eZee/the hotel.
+
+### Found and fixed during the final pass
+* **Header logo size:** the theme's base rule `.hc img{height:auto;max-width:100%}` outranked the logo's size, so on phones the logo
+  rendered 199 px tall and swallowed taps meant for the booking sheet's backdrop. Rules now scoped (`.hc .hc-wordmark .hc-logo`); verified
+  76 px on an emulated iPhone and the backdrop tap works. (Earlier 390 px screenshots used a desktop browser context and did not show it.)
+* Mobile menu sub-page links were 27 px tall → 40 px touch targets.
+* Header "Book now" pill wrapped on phones → never wraps.
+* Fitness Club / Day Spa: the header call-to-action collided with the centred brand logo on phones → hidden below 768 px (it is in the page and section menu).
+
 ## 5. Open items
+
+* **Design point for the hotel's review:** at the top of the homepage the hanging logo's building drawing sits over the photograph's own
+  tower dome (both are centred). A darker crown of shade behind the bar keeps it legible; changing it further means recropping the approved
+  photo or altering the logo, which needs the hotel's decision.
 
 * **From the hotel:** vector logos (hotel incl. light version, Day Spa transparent) and approval of the two derived files; café/gym/pool/spa
   opening hours; membership options and prices; the monthly timetable; conference packages; Instagram links; privacy/legal pages; room
@@ -76,4 +103,6 @@ PHP_CLI_SERVER_WORKERS=6 php -S 0.0.0.0:8080 -t site scripts/router.php
 ```
 Open http://localhost:8080/en/ (admin / `WP_ADMIN_PASS`, default `admin-change-me` — change it). Re-run checks:
 `node tests/qa-capture.js out http://localhost:8080 wp` (screenshots), `node tests/functional.js`, `node tests/mobile.js`,
-`node tests/round1-editor.js` (on a disposable copy), `node tests/elementor-all.js`.
+`node tests/round1-editor.js` (on a disposable copy), `node tests/elementor-all.js`, and the comparison sheets with
+`node tests/qa-sheets.js out <mainUrl> <nov13Url> <wpUrl>` (build `main` and `claude/tender-sagan-b4iz47` with `npx next build` / `next start`).
+Set `PW_CHROMIUM` to a Chromium binary if Playwright cannot find its own.

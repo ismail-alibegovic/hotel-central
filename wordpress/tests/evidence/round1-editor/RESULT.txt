@@ -1,0 +1,20 @@
+PASS | 0 logged in as an Editor (not an administrator) | staff_editor
+PASS | 1a "Save Draft" keeps the published price unchanged | KM 40
+PASS | 1b "Preview Changes" shows the new price before it is published | 
+PASS | 1c after "Publish" the new price is live | 
+PASS | 2a Fitness Club title edited in Elementor and live | 
+PASS | 2b Fitness Club photograph replaced from the Media Library and live | /wp-content/uploads/2026/11/merch.jpg
+PASS | 3a Bosnian page changed | 
+PASS | 3b English page unchanged | 
+PASS | 3c language switcher links the two Day Spa pages | 
+PASS | 4a room detail page shows the edited size | 
+PASS | 4b homepage rooms carousel uses the same room data | 
+PASS | 5a Café page shows the café hours (EN + BS) | 
+PASS | 5b Day Spa page shows the spa hours | 
+PASS | 5c Fitness Club page shows the gym hours (BS) | 
+PASS | 6a Fitness Club section menu label changed by the Editor | 
+PASS | 6b main menu shows Central Café under About and Membership / Class timetable under the Fitness Club | 
+PASS | 7 new sub-page of the club: own address under /centralfitnessclub/ and club branding | <title>Personal training &#8211; Hotel Central Sarajevo
+
+17/17 passed
+page errors: Cannot read properties of undefined (reading 'hasClass')

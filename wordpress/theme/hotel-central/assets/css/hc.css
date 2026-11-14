@@ -957,11 +957,11 @@ html.menu-lock{overflow:hidden}
    or pages without a photographic hero) the original typeset wordmark takes over — the full logo would be illegible at bar height. */
 .hc-wordmark{position:relative}
 .hc-wordmark span{transition:opacity .5s var(--ease-out)}
-.hc-logo{position:absolute;top:10px;left:50%;translate:-50% 0;width:auto;height:76px;max-width:none;transition:opacity .5s var(--ease-out),translate .7s var(--ease-out)}
-@media(min-width:768px){.hc-logo{height:96px;top:12px}}
-@media(min-width:1024px){.hc-logo{height:118px;top:14px}}
+.hc .hc-wordmark .hc-logo{position:absolute;top:10px;left:50%;translate:-50% 0;width:auto;height:76px;max-width:none;transition:opacity .5s var(--ease-out),translate .7s var(--ease-out)}
+@media(min-width:768px){.hc .hc-wordmark .hc-logo{height:96px;top:12px}}
+@media(min-width:1024px){.hc .hc-wordmark .hc-logo{height:118px;top:14px}}
 .hc-header:not(.is-solid):not(.menu-open) .hc-wordmark span{opacity:0}
-.hc-header.is-solid .hc-logo,.hc-header.menu-open .hc-logo{opacity:0;translate:-50% -12px;pointer-events:none}
+.hc .hc-header.is-solid .hc-logo,.hc .hc-header.menu-open .hc-logo{opacity:0;translate:-50% -12px;pointer-events:none}
 .hc-solid-start .hc-logo{display:none}
 .hc-solid-start .hc-header .hc-wordmark span{opacity:1}
 /* the bar's hairline opens behind the hanging logo */
@@ -1119,3 +1119,14 @@ html.menu-lock{overflow:hidden}
 .hc-hdr-book .hc-link-line::after,.hc-hdr-book .hc-link-line::before{display:none}
 .hc-hdr-book:hover .hc-link-line,.hc-hdr-book:focus-visible .hc-link-line{background:#fff;border-color:#fff;color:var(--deep)}
 @media(min-width:1024px){.hc-hdr-book .hc-link-line{height:40px;padding:0 22px}}
+/* phones: the brand logo needs the centre of the bar — the brand's call to action stays in the page and its section menu */
+@media(max-width:767px){.hc-brand .hc-hdr-book{display:none}}
+/* touch screens: sub-page links in the menu are full 40 px targets */
+@media(max-width:1023px){.hc-menu nav .hc-sub a{min-height:40px;padding:0}}
+/* the hanging logo needs a calm ground: a deeper crown of shade behind the bar on photographic heroes (as main's "darker crown for the navigation") */
+.hc-header::before{content:"";position:absolute;inset:0 0 auto 0;height:150px;background:linear-gradient(180deg,rgb(2 13 16/.62) 0%,rgb(2 13 16/.38) 55%,rgb(2 13 16/0) 100%);pointer-events:none;z-index:-1;transition:opacity .6s var(--ease-out)}
+@media(min-width:1024px){.hc-header::before{height:190px}}
+.hc-header.is-solid::before,.hc-header.menu-open::before,.hc-solid-start .hc-header::before{opacity:0}
+/* "Book now" pill never wraps; tighter on phones */
+.hc-hdr-book .hc-link-line{white-space:nowrap}
+@media(max-width:399px){.hc-hdr-book .hc-link-line{padding:0 12px;letter-spacing:.14em}}
