@@ -28,9 +28,9 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
 
 export function HotelExperience({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.hotel;
-  const left = img(images?.hotelLeft, { src: "/images/final-6230.jpg", alt: "Relaxation lounge of the Club & Spa with a forest mural", position: "38% 50%" });
+  const left = img(images?.hotelLeft, { src: "/images/hc26-lobby-windows.jpg", alt: "The hotel lobby with tall arched windows onto the street", position: "50% 50%" });
   const center = img(images?.hotelCenter, { src: "/images/3064.jpg", alt: "The white façade and corner tower of Hotel Central in Sarajevo's old town", position: "56% 30%" });
-  const right = img(images?.hotelRight, { src: "/images/dorucak5.jpg", alt: "Restaurant Central breakfast buffet", position: "50% 50%" });
+  const right = img(images?.hotelRight, { src: "/images/hc26-restaurant.jpg", alt: "Restaurant Central with its arched windows", position: "50% 55%" });
   return (
     <section aria-labelledby="hotel-title" className="relative overflow-hidden bg-ivory pt-[30px] text-ink md:pt-0">
       <h2 id="hotel-title" className="sr-only">

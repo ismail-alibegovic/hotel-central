@@ -40,11 +40,11 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         ogImage: "/images/3064.jpg",
         blocks: [
           { type: "hero", image: img("3064.jpg", "Hotel Central's façade and corner tower on Ćumurija street", "55% 35%"), eyebrow: a.hero.eyebrow, title: a.hero.title, intro: a.hero.intro, meta: ["Hotel Central", "(01–03)", "Ćumurija 8"] },
-          split({ label: a.story.label, index: "Hotel Central, Sarajevo", title: a.story.title, body: a.story.body, line: "hotel", images: [img("3075.jpg", "The hotel's façade lit at night", "45% 40%"), img("p11.jpg", "Terrace of the presidential suite above the rooftops")], facts: a.facts }),
-          split({ tone: "deep", reverse: true, label: a.rooms.label, title: a.rooms.title, body: a.rooms.body, line: "rooms", images: [img("3067.jpg", "A suite with patterned wallpaper and seating area"), img("dorucak6.jpg", "Bosnian coffee served at breakfast")], primary: { label: a.rooms.cta, link: internal(locale, "/rooms") } }),
+          split({ label: a.story.label, index: "Hotel Central, Sarajevo", title: a.story.title, body: a.story.body, line: "hotel", images: [img("hc26-facade-entrance.jpg", "A guest entering Hotel Central under its iron canopy", "50% 55%"), img("hc26-lobby.jpg", "The lobby with its wave-shaped ceiling and white leather armchairs")], facts: a.facts }),
+          split({ tone: "deep", reverse: true, label: a.rooms.label, title: a.rooms.title, body: a.rooms.body, line: "rooms", images: [img("hc26-bed.jpg", "A double bed with a metallic headboard and burgundy curtains"), img("hc26-room-door.jpg", "A guest opening the door of room 108")], primary: { label: a.rooms.cta, link: internal(locale, "/rooms") } }),
           { type: "statement", text: a.statement, label: "(—)", tone: "ivory" },
-          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("3069.jpg", "The heated 25-metre pool"), img("final-6230.jpg", "Relaxation lounge of the spa")], primary: { label: a.wellness.cta, link: internal(locale, "/spa") } }),
-          { type: "gallery", tone: "ivory", images: [img("p05.jpg", "Living room of the presidential suite"), img("final-6202.jpg", "Treatment room of the day spa"), img("3073.jpg", "The conference room"), img("dorucak5.jpg", "Breakfast at Restaurant Central"), img("junior02.jpg", "Junior suite bedroom")] },
+          split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("hc26-pool-lanes.jpg", "The heated 25-metre pool of Central Fitness Club", "50% 60%"), img("hc26-dayspa-relax.jpg", "The relaxation room of Central Day Spa")], primary: { label: "Central Fitness Club", link: internal(locale, "/centralfitnessclub") }, secondary: { label: "Central Day Spa", link: internal(locale, "/dayspa") } }),
+          { type: "gallery", tone: "ivory", images: [img("hc26-lounge-window.jpg", "The lounge under a tall arched window"), img("hc26-reception.jpg", "Checking in at reception"), img("hc26-restaurant.jpg", "Restaurant Central with its arched windows"), img("hc26-stairs.jpg", "The staircase with its magenta carpet"), img("p05.jpg", "Living room of the presidential suite")] },
           { type: "finalBooking", image: "/images/3075.jpg", alt: "Hotel Central at night" },
         ],
       };
@@ -89,9 +89,9 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
       const r = p.restaurant;
       return {
         meta: r.meta,
-        ogImage: "/images/dorucak5.jpg",
+        ogImage: "/images/hc26-restaurant.jpg",
         blocks: [
-          { type: "hero", image: img("dorucak5.jpg", "The breakfast buffet at Restaurant Central"), eyebrow: r.hero.eyebrow, title: r.hero.title, intro: r.hero.intro, meta: ["Hotel Central", "(Restaurant)", dict.home.restaurant.metaRight] },
+          { type: "hero", image: img("hc26-restaurant.jpg", "Restaurant Central: black tables, orange chairs and tall arched windows", "50% 60%"), eyebrow: r.hero.eyebrow, title: r.hero.title, intro: r.hero.intro, meta: ["Hotel Central", "(Restaurant)", dict.home.restaurant.metaRight] },
           split({ label: r.breakfast.label, title: r.breakfast.title, body: r.breakfast.body, line: "restaurant", images: [img("hc-comfort-2.jpg", "Breakfast tray with tea and croissants"), img("dorucak6.jpg", "Bosnian coffee in a copper džezva")] }),
           { type: "gallery", tone: "deep", images: [img("dorucak4.jpg", "Breakfast buffet"), img("dorucak1.jpg", "Fresh fruit platter at breakfast"), img("breakfast2.jpg", "Fried eggs served at breakfast"), img("dorucak2.jpg", "Cheese selection at the buffet"), img("breakfast3.jpg", "Eggs with asparagus")] },
           split({ tone: "olive", reverse: true, label: r.catering.label, title: r.catering.title, body: r.catering.body, line: "spa", images: [img("breakfast1.jpg", "Omelette served at breakfast"), img("dorucak3.jpg", "Cheese and cold cuts at the buffet")], primary: { label: r.catering.cta, link: internal(locale, "/contact") } }),
@@ -103,10 +103,10 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
       const e = p.events;
       return {
         meta: e.meta,
-        ogImage: "/images/3073.jpg",
+        ogImage: "/images/hc26-conference.jpg",
         blocks: [
-          { type: "hero", image: img("3073.jpg", "The conference room on the third floor"), eyebrow: e.hero.eyebrow, title: e.hero.title, intro: e.hero.intro, meta: ["60–70", "(Meetings & events)", dict.home.events.metaRight] },
-          split({ tone: "deep", label: e.room.label, title: e.room.title, body: e.room.body, line: "rooms", images: [img("img_9202.jpg", "Theatre-style seating in the conference room"), img("img_9289.jpg", "Conference room door sign")], facts: e.facts }),
+          { type: "hero", image: img("hc26-conference.jpg", "The conference room set up in a U shape with two projection screens", "50% 55%"), eyebrow: e.hero.eyebrow, title: e.hero.title, intro: e.hero.intro, meta: ["60–70", "(Meetings & events)", dict.home.events.metaRight] },
+          split({ tone: "deep", label: e.room.label, title: e.room.title, body: e.room.body, line: "rooms", images: [img("hc26-conference-u.jpg", "The conference room with its patterned wallpaper"), img("hc26-conference-foyer.jpg", "The bar in the conference foyer")], facts: e.facts }),
           { type: "gallery", tone: "ivory", images: [img("img_9226.jpg", "Conference chairs in soft focus"), img("img_9235.jpg", "Projector detail"), img("img_9216.jpg", "Seating with delegate microphones"), img("img_9180.jpg", "Reception counter in the conference area"), img("img_9271.jpg", "Rows of conference chairs")] },
           split({
             tone: "olive",
@@ -129,9 +129,9 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: l.meta,
         ogImage: "/images/3064.jpg",
         blocks: [
-          { type: "hero", image: img("3064.jpg", "Hotel Central on Ćumurija street", "55% 40%"), eyebrow: l.hero.eyebrow, title: l.hero.title, intro: l.hero.intro, meta: [hotel.street, "(Location)", `${hotel.postalCode} ${hotel.city}`] },
+          { type: "hero", image: img("hc26-facade-sky.jpg", "The CENTRAL letters on the hotel's façade under a summer sky", "50% 45%"), eyebrow: l.hero.eyebrow, title: l.hero.title, intro: l.hero.intro, meta: [hotel.street, "(Location)", `${hotel.postalCode} ${hotel.city}`] },
           { type: "arrival", label: l.arrive, transport: l.transport },
-          split({ tone: "deep", label: l.walk.label, title: l.walk.title, body: l.walk.body, line: "rooms", images: [img("3075.jpg", "Hotel Central's corner on Ćumurija street at night", "40% 50%"), img("p11.jpg", "View over Sarajevo's rooftops from the terrace")], bullets: { title: l.nearby, items: l.landmarks } }),
+          split({ tone: "deep", label: l.walk.label, title: l.walk.title, body: l.walk.body, line: "rooms", images: [img("hc26-street-view.jpg", "The view from the hotel's door: a red Austro-Hungarian building and the cathedral's spire", "50% 60%"), img("hc26-cafe-window.jpg", "A guest working by the café window on Ćumurija street")], bullets: { title: l.nearby, items: l.landmarks } }),
           { type: "finalBooking" },
         ],
       };
@@ -142,7 +142,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: c.meta,
         ogImage: "/images/3075.jpg",
         blocks: [
-          { type: "hero", image: img("3075.jpg", "Hotel Central at night", "50% 40%"), eyebrow: c.hero.eyebrow, title: c.hero.title, intro: c.hero.intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
+          { type: "hero", image: img("hc26-reception.jpg", "A guest at the reception desk of Hotel Central", "50% 40%"), eyebrow: c.hero.eyebrow, title: c.hero.title, intro: c.hero.intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
           { type: "contact", office: { label: c.office, body: c.officeBody }, reservations: { label: c.reservations, body: c.reservationsBody }, write: { label: c.write }, social: { label: c.social, body: c.socialBody } },
         ],
       };

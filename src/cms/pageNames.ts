@@ -2,7 +2,7 @@
 export const pageNames: Record<string, string> = {
   about: "About",
   rooms: "Rooms overview",
-  spa: "Spa",
+  spa: "Club & Spa (old page, not shown)",
   restaurant: "Restaurant",
   "meetings-events": "Meetings & Events",
   location: "Location",

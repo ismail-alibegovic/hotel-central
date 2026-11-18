@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionary";
@@ -6,7 +7,6 @@ import { booking, hotel } from "@/content/hotel";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "./DecorativeLine";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { RevealLines } from "./Reveal";
 import { Arrow } from "./ui";
 
 export function Footer({
@@ -43,11 +43,9 @@ export function Footer({
         </div>
       </div>
 
-      {/* Typographic statement */}
-      <div className="relative z-[1] px-[var(--gutter)] pb-6 pt-14 md:pb-[2vw] md:pt-[5vw]">
-        <p aria-hidden className="font-display text-[17vw] leading-[0.84] md:text-[14.5vw]">
-          <RevealLines lines={f.statement} lineClassName={["", "pl-[5vw] md:pl-[22vw]"]} />
-        </p>
+      {/* The hotel's logo (CH-018: the logo instead of the large typographic statement) */}
+      <div className="relative z-[1] flex justify-center px-[var(--gutter)] pb-10 pt-14 md:pb-[3vw] md:pt-[4.5vw]">
+        <Image src="/brand/hotel-central-white.png" alt={hotel.name} width={900} height={809} sizes="(min-width: 768px) 200px, 150px" className="h-auto w-[150px] md:w-[200px]" />
       </div>
 
       {/* Information */}

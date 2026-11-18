@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -81,12 +82,16 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
           </div>
 
           {/* Centre: wordmark */}
-          <Link
-            href={href(locale)}
-            className="flex items-center justify-center whitespace-nowrap text-[11px] tracking-[0.34em] uppercase min-[400px]:text-[12px] md:text-[13px] md:tracking-[0.42em] xl:text-[15px]"
-            aria-label="Hotel Central Sarajevo — home"
-          >
-            <span className="pl-[0.42em]">Hotel Central</span>
+          <Link href={href(locale)} className="flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
+            <Image
+              src="/brand/hotel-central-white.png"
+              alt=""
+              width={900}
+              height={809}
+              priority
+              sizes="64px"
+              className={`h-auto w-auto transition-[max-height] duration-700 ${solid ? "max-h-[40px] md:max-h-[48px]" : "max-h-[46px] md:max-h-[56px]"}`}
+            />
           </Link>
 
           {/* Right: rooms + book */}

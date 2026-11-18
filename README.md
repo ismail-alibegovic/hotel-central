@@ -26,7 +26,9 @@ All routes exist in English (`/en/...`) and Bosnian (`/bs/...`); the language sw
 | `/` | Hero + booking bar · The hotel · Rooms carousel · Club & Spa · Restaurant · Location · Meetings & Events · Final booking |
 | `/about` | Story, facts, rooms, wellness, gallery |
 | `/rooms`, `/rooms/[slug]` | Six room categories; detail pages with specs, full amenities, gallery, room-specific booking link, other rooms |
-| `/spa` | Pool, facilities, gym, Wellness Day Spa (links to the hotel's live price list) |
+| `/centralfitnessclub`, `/membership`, `/timetable` | **Central Fitness Club**, its own design (CFC green, after the FIJI Sport Club reference): gym, pool & saunas, classes, memberships, weekly timetable |
+| `/dayspa` | **Central Day Spa**, its own design (Day Spa logo colours, after the Revo Spa reference): treatments, full price list, packages, online booking (Lime Booking) |
+| `/spa` | Redirects to `/centralfitnessclub` (the combined page was split in two) |
 | `/restaurant` | Breakfast, gallery, corporate catering |
 | `/meetings-events` | Conference room, verified facts, enquiry |
 | `/location` | Tinted Google map, directions link, arrival options, nearby landmarks |

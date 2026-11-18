@@ -18,6 +18,8 @@ export function navItems(can: Can, role: Role): NavModel {
   if (can.collection("pages")) top.push(link("pages", "Pages", "/admin/collections/pages"));
   else if (can.collection("custom-pages")) top.push(link("pages", "Pages", "/admin/collections/custom-pages"));
   if (can.collection("media")) top.push(link("media", "Photos & Media", "/admin/collections/media"));
+  if (can.global("day-spa")) top.push(link("day-spa", "Central Day Spa", "/admin/globals/day-spa"));
+  if (can.global("fitness-club")) top.push(link("fitness-club", "Central Fitness Club", "/admin/globals/fitness-club"));
 
   const settings: NavLink[] = [];
   if (can.global("hotel-info")) settings.push(link("hotel-info", "Hotel Information", "/admin/globals/hotel-info"));

@@ -19,9 +19,9 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
 /** Split photographic composition: full-height conference photograph on the left. */
 export function EventsSection({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.events;
-  const main = img(images?.eventsMain, { src: "/images/3073.jpg", alt: "The conference room on the third floor set up for a meeting" });
-  const mainM = img(images?.eventsMain, { src: "/images/3073.jpg", alt: "The conference room on the third floor" });
-  const second = img(images?.eventsSecondary, { src: "/images/img_9216.jpg", alt: "Chairs and microphones in the conference room", position: "50% 50%" });
+  const main = img(images?.eventsMain, { src: "/images/hc26-conference.jpg", alt: "The conference room set up in a U shape for a meeting" });
+  const mainM = img(images?.eventsMain, { src: "/images/hc26-conference.jpg", alt: "The conference room" });
+  const second = img(images?.eventsSecondary, { src: "/images/hc26-conference-foyer.jpg", alt: "The bar in the conference foyer", position: "50% 50%" });
   return (
     <section aria-labelledby="events-title" className="relative overflow-hidden bg-ivory text-ink">
       <h2 id="events-title" className="sr-only">

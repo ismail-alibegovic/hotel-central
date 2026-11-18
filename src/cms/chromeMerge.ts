@@ -22,9 +22,11 @@ const lines = (v: string | null | undefined) => {
 export function mergeChrome(locale: Locale, dict: Dictionary, nav: Navigation | null, foot: Footer | null): { dict: Dictionary; social: SocialLink[] } {
   if (!nav && !foot) return { dict, social: staticSocial };
 
+  // The combined "Club & Spa" page (/spa) became two sites of their own: a saved menu entry for it shows both.
+  const brands = dict.nav.items.filter((i) => i.href === "/centralfitnessclub" || i.href === "/dayspa");
   const items = (nav?.items ?? [])
     .filter((r) => r.visible !== false && text(r.label) && text(r.path) && validateLink("internal", r.path) === true)
-    .map((r) => ({ href: r.path!.trim(), label: r.label.trim() }));
+    .flatMap((r) => (r.path!.trim() === "/spa" ? brands : [{ href: r.path!.trim(), label: r.label.trim() }]));
 
   const merged: Dictionary = {
     ...dict,

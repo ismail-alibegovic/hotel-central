@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 /** Open full-screen menu and footer, both languages, at the three widths. Baselines are rendered by the CI runner. */
 for (const locale of ["en", "bs"] as const) {
   test(`visual menu open ${locale}`, async ({ page }) => {
-    await page.goto(`/${locale}/spa`, { waitUntil: "networkidle" });
+    await page.goto(`/${locale}/restaurant`, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
     await page.locator('header button[aria-controls="site-menu"]').click();
     await expect(page.locator("#site-menu")).toBeVisible();
@@ -12,7 +12,7 @@ for (const locale of ["en", "bs"] as const) {
   });
 
   test(`visual footer ${locale}`, async ({ page }) => {
-    await page.goto(`/${locale}/spa`, { waitUntil: "networkidle" });
+    await page.goto(`/${locale}/restaurant`, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
     // Fixed layers (header, skip link, mobile booking bar) would be captured on top of the footer.
     await page.addStyleTag({ content: ".fixed { visibility: hidden !important; }" });
