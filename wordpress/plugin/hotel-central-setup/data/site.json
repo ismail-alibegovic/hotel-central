@@ -19880,7 +19880,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-about__a"
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -19894,7 +19894,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-about__b"
+            "_css_classes": "ds-fill"
            },
            "elements": []
           }
@@ -23526,7 +23526,8 @@
              "url": "hc-media://images/dayspa/serum-drop.jpg",
              "id": ""
             },
-            "image_size": "full"
+            "image_size": "full",
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -23539,7 +23540,8 @@
              "url": "hc-media://images/dayspa/maderotherapy-tools.jpg",
              "id": ""
             },
-            "image_size": "full"
+            "image_size": "full",
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -23553,7 +23555,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-why__wide"
+            "_css_classes": "ds-fill ds-why__wide"
            },
            "elements": []
           }
@@ -23877,7 +23879,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-about__a"
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -23891,7 +23893,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-about__b"
+            "_css_classes": "ds-fill"
            },
            "elements": []
           }
@@ -27523,7 +27525,8 @@
              "url": "hc-media://images/dayspa/serum-drop.jpg",
              "id": ""
             },
-            "image_size": "full"
+            "image_size": "full",
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -27536,7 +27539,8 @@
              "url": "hc-media://images/dayspa/maderotherapy-tools.jpg",
              "id": ""
             },
-            "image_size": "full"
+            "image_size": "full",
+            "_css_classes": "ds-fill"
            },
            "elements": []
           },
@@ -27550,7 +27554,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "ds-why__wide"
+            "_css_classes": "ds-fill ds-why__wide"
            },
            "elements": []
           }
@@ -28269,7 +28273,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-arch"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           }
@@ -28402,7 +28406,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-pool__img"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           },
@@ -28416,7 +28420,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-pool__circle"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           }
@@ -28881,7 +28885,7 @@
            "id": ""
           },
           "image_size": "full",
-          "_css_classes": "cfc-classes__img"
+          "_css_classes": "cfc-fill cfc-fill--bleed"
          },
          "elements": []
         }
@@ -29046,7 +29050,7 @@
            "id": ""
           },
           "image_size": "full",
-          "_css_classes": "cfc-join__img"
+          "_css_classes": "cfc-fill cfc-fill--bleed"
          },
          "elements": []
         }
@@ -29617,7 +29621,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-arch"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           }
@@ -29750,7 +29754,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-pool__img"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           },
@@ -29764,7 +29768,7 @@
              "id": ""
             },
             "image_size": "full",
-            "_css_classes": "cfc-pool__circle"
+            "_css_classes": "cfc-fill"
            },
            "elements": []
           }
@@ -30229,7 +30233,7 @@
            "id": ""
           },
           "image_size": "full",
-          "_css_classes": "cfc-classes__img"
+          "_css_classes": "cfc-fill cfc-fill--bleed"
          },
          "elements": []
         }
@@ -30394,7 +30398,7 @@
            "id": ""
           },
           "image_size": "full",
-          "_css_classes": "cfc-join__img"
+          "_css_classes": "cfc-fill cfc-fill--bleed"
          },
          "elements": []
         }
@@ -30416,77 +30420,59 @@
      "description": "Membership at Central Fitness Club, Hotel Central Sarajevo: gym, group classes, pool and saunas, with free personal programmes.",
      "elementor": [
       {
-       "id": "1300006",
+       "id": "1300004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
-        "flex_direction": "row",
-        "css_classes": "cfc-pagehero"
+        "flex_direction": "column",
+        "css_classes": "cfc-hero cfc-hero--page",
+        "background_background": "classic",
+        "background_image": {
+         "url": "hc-media://images/club/member-tshirt.jpg",
+         "id": ""
+        },
+        "background_position": "center center",
+        "background_size": "cover",
+        "background_repeat": "no-repeat"
        },
        "elements": [
         {
-         "id": "1300004",
-         "elType": "container",
-         "isInner": true,
+         "id": "1300001",
+         "elType": "widget",
+         "widgetType": "heading",
          "settings": {
-          "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "cfc-pagehero__text"
+          "title": "Membership",
+          "header_size": "p",
+          "_css_classes": "cfc-eyebrow"
          },
-         "elements": [
-          {
-           "id": "1300001",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Membership",
-            "header_size": "p",
-            "_css_classes": "cfc-eyebrow"
-           },
-           "elements": []
-          },
-          {
-           "id": "1300002",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Membership",
-            "header_size": "h1",
-            "_css_classes": "cfc-title cfc-title--xl"
-           },
-           "elements": []
-          },
-          {
-           "id": "1300003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>One membership for the gym, group classes, the pool and the saunas. Prices are given at reception or by phone.</p>",
-            "_css_classes": "cfc-muted"
-           },
-           "elements": []
-          }
-         ]
+         "elements": []
         },
         {
-         "id": "1300005",
+         "id": "1300002",
          "elType": "widget",
-         "widgetType": "image",
+         "widgetType": "heading",
          "settings": {
-          "image": {
-           "url": "hc-media://images/club/member-tshirt.jpg",
-           "id": ""
-          },
-          "image_size": "full",
-          "_css_classes": "cfc-arch"
+          "title": "Membership",
+          "header_size": "h1",
+          "_css_classes": "cfc-hero__title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1300003",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>One membership for the gym, group classes, the pool and the saunas. Prices are given at reception or by phone.</p>",
+          "_css_classes": "cfc-hero__body"
          },
          "elements": []
         }
        ]
       },
       {
-       "id": "1300015",
+       "id": "1300013",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30496,7 +30482,7 @@
        },
        "elements": [
         {
-         "id": "1300007",
+         "id": "1300005",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -30507,7 +30493,7 @@
          "elements": []
         },
         {
-         "id": "1300012",
+         "id": "1300010",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30517,7 +30503,7 @@
          },
          "elements": [
           {
-           "id": "1300011",
+           "id": "130000f",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -30527,7 +30513,7 @@
            },
            "elements": [
             {
-             "id": "1300008",
+             "id": "1300006",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -30538,7 +30524,7 @@
              "elements": []
             },
             {
-             "id": "1300009",
+             "id": "1300007",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -30549,14 +30535,14 @@
              "elements": []
             },
             {
-             "id": "130000d",
+             "id": "130000b",
              "elType": "widget",
              "widgetType": "icon-list",
              "settings": {
               "view": "traditional",
               "icon_list": [
                {
-                "_id": "130000a",
+                "_id": "1300008",
                 "text": "Full access to the club and Central Day Spa",
                 "selected_icon": {
                  "value": "",
@@ -30564,7 +30550,7 @@
                 }
                },
                {
-                "_id": "130000b",
+                "_id": "1300009",
                 "text": "Gym, group classes, pool and saunas",
                 "selected_icon": {
                  "value": "",
@@ -30572,7 +30558,7 @@
                 }
                },
                {
-                "_id": "130000c",
+                "_id": "130000a",
                 "text": "Free personal programme and results tracking",
                 "selected_icon": {
                  "value": "",
@@ -30585,7 +30571,7 @@
              "elements": []
             },
             {
-             "id": "1300010",
+             "id": "130000e",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -30595,7 +30581,7 @@
              },
              "elements": [
               {
-               "id": "130000e",
+               "id": "130000c",
                "elType": "widget",
                "widgetType": "shortcode",
                "settings": {
@@ -30604,7 +30590,7 @@
                "elements": []
               },
               {
-               "id": "130000f",
+               "id": "130000d",
                "elType": "widget",
                "widgetType": "button",
                "settings": {
@@ -30625,7 +30611,7 @@
          ]
         },
         {
-         "id": "1300013",
+         "id": "1300011",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30635,7 +30621,7 @@
          "elements": []
         },
         {
-         "id": "1300014",
+         "id": "1300012",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30647,7 +30633,7 @@
        ]
       },
       {
-       "id": "1300023",
+       "id": "1300021",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30657,7 +30643,7 @@
        },
        "elements": [
         {
-         "id": "130001e",
+         "id": "130001c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30667,7 +30653,7 @@
          },
          "elements": [
           {
-           "id": "1300016",
+           "id": "1300014",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30678,14 +30664,14 @@
            "elements": []
           },
           {
-           "id": "130001d",
+           "id": "130001b",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1300017",
+              "_id": "1300015",
               "text": "Free one-to-one instruction on your first visit",
               "selected_icon": {
                "value": "",
@@ -30693,7 +30679,7 @@
               }
              },
              {
-              "_id": "1300018",
+              "_id": "1300016",
               "text": "A free personal gym programme",
               "selected_icon": {
                "value": "",
@@ -30701,7 +30687,7 @@
               }
              },
              {
-              "_id": "1300019",
+              "_id": "1300017",
               "text": "Free results tracking every 10 visits",
               "selected_icon": {
                "value": "",
@@ -30709,7 +30695,7 @@
               }
              },
              {
-              "_id": "130001a",
+              "_id": "1300018",
               "text": "A free programme update every 20 visits",
               "selected_icon": {
                "value": "",
@@ -30717,7 +30703,7 @@
               }
              },
              {
-              "_id": "130001b",
+              "_id": "1300019",
               "text": "About 20 group classes every week",
               "selected_icon": {
                "value": "",
@@ -30725,7 +30711,7 @@
               }
              },
              {
-              "_id": "130001c",
+              "_id": "130001a",
               "text": "The pool, sauna, steam bath and caldarium",
               "selected_icon": {
                "value": "",
@@ -30740,7 +30726,7 @@
          ]
         },
         {
-         "id": "1300022",
+         "id": "1300020",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30758,7 +30744,7 @@
          },
          "elements": [
           {
-           "id": "130001f",
+           "id": "130001d",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30769,7 +30755,7 @@
            "elements": []
           },
           {
-           "id": "1300020",
+           "id": "130001e",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -30779,7 +30765,7 @@
            "elements": []
           },
           {
-           "id": "1300021",
+           "id": "130001f",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -30799,77 +30785,59 @@
      "description": "Članarine u Central Fitness Clubu, Hotel Central Sarajevo: teretana, grupni časovi, bazen i saune, uz besplatne personalizirane programe.",
      "elementor": [
       {
-       "id": "1380006",
+       "id": "1380004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
-        "flex_direction": "row",
-        "css_classes": "cfc-pagehero"
+        "flex_direction": "column",
+        "css_classes": "cfc-hero cfc-hero--page",
+        "background_background": "classic",
+        "background_image": {
+         "url": "hc-media://images/club/member-tshirt.jpg",
+         "id": ""
+        },
+        "background_position": "center center",
+        "background_size": "cover",
+        "background_repeat": "no-repeat"
        },
        "elements": [
         {
-         "id": "1380004",
-         "elType": "container",
-         "isInner": true,
+         "id": "1380001",
+         "elType": "widget",
+         "widgetType": "heading",
          "settings": {
-          "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "cfc-pagehero__text"
+          "title": "Članarine",
+          "header_size": "p",
+          "_css_classes": "cfc-eyebrow"
          },
-         "elements": [
-          {
-           "id": "1380001",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Članarine",
-            "header_size": "p",
-            "_css_classes": "cfc-eyebrow"
-           },
-           "elements": []
-          },
-          {
-           "id": "1380002",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Članarine",
-            "header_size": "h1",
-            "_css_classes": "cfc-title cfc-title--xl"
-           },
-           "elements": []
-          },
-          {
-           "id": "1380003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Jedna članarina za teretanu, grupne časove, bazen i saune. Cijene dobijate na recepciji ili telefonom.</p>",
-            "_css_classes": "cfc-muted"
-           },
-           "elements": []
-          }
-         ]
+         "elements": []
         },
         {
-         "id": "1380005",
+         "id": "1380002",
          "elType": "widget",
-         "widgetType": "image",
+         "widgetType": "heading",
          "settings": {
-          "image": {
-           "url": "hc-media://images/club/member-tshirt.jpg",
-           "id": ""
-          },
-          "image_size": "full",
-          "_css_classes": "cfc-arch"
+          "title": "Članarine",
+          "header_size": "h1",
+          "_css_classes": "cfc-hero__title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1380003",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Jedna članarina za teretanu, grupne časove, bazen i saune. Cijene dobijate na recepciji ili telefonom.</p>",
+          "_css_classes": "cfc-hero__body"
          },
          "elements": []
         }
        ]
       },
       {
-       "id": "1380015",
+       "id": "1380013",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30879,7 +30847,7 @@
        },
        "elements": [
         {
-         "id": "1380007",
+         "id": "1380005",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -30890,7 +30858,7 @@
          "elements": []
         },
         {
-         "id": "1380012",
+         "id": "1380010",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30900,7 +30868,7 @@
          },
          "elements": [
           {
-           "id": "1380011",
+           "id": "138000f",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -30910,7 +30878,7 @@
            },
            "elements": [
             {
-             "id": "1380008",
+             "id": "1380006",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -30921,7 +30889,7 @@
              "elements": []
             },
             {
-             "id": "1380009",
+             "id": "1380007",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -30932,14 +30900,14 @@
              "elements": []
             },
             {
-             "id": "138000d",
+             "id": "138000b",
              "elType": "widget",
              "widgetType": "icon-list",
              "settings": {
               "view": "traditional",
               "icon_list": [
                {
-                "_id": "138000a",
+                "_id": "1380008",
                 "text": "Puni pristup klubu i Central Day Spa",
                 "selected_icon": {
                  "value": "",
@@ -30947,7 +30915,7 @@
                 }
                },
                {
-                "_id": "138000b",
+                "_id": "1380009",
                 "text": "Teretana, grupni časovi, bazen i saune",
                 "selected_icon": {
                  "value": "",
@@ -30955,7 +30923,7 @@
                 }
                },
                {
-                "_id": "138000c",
+                "_id": "138000a",
                 "text": "Besplatan personalizirani program i praćenje rezultata",
                 "selected_icon": {
                  "value": "",
@@ -30968,7 +30936,7 @@
              "elements": []
             },
             {
-             "id": "1380010",
+             "id": "138000e",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -30978,7 +30946,7 @@
              },
              "elements": [
               {
-               "id": "138000e",
+               "id": "138000c",
                "elType": "widget",
                "widgetType": "shortcode",
                "settings": {
@@ -30987,7 +30955,7 @@
                "elements": []
               },
               {
-               "id": "138000f",
+               "id": "138000d",
                "elType": "widget",
                "widgetType": "button",
                "settings": {
@@ -31008,7 +30976,7 @@
          ]
         },
         {
-         "id": "1380013",
+         "id": "1380011",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31018,7 +30986,7 @@
          "elements": []
         },
         {
-         "id": "1380014",
+         "id": "1380012",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31030,7 +30998,7 @@
        ]
       },
       {
-       "id": "1380023",
+       "id": "1380021",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31040,7 +31008,7 @@
        },
        "elements": [
         {
-         "id": "138001e",
+         "id": "138001c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31050,7 +31018,7 @@
          },
          "elements": [
           {
-           "id": "1380016",
+           "id": "1380014",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -31061,14 +31029,14 @@
            "elements": []
           },
           {
-           "id": "138001d",
+           "id": "138001b",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1380017",
+              "_id": "1380015",
               "text": "Besplatne individualne upute pri prvom dolasku",
               "selected_icon": {
                "value": "",
@@ -31076,7 +31044,7 @@
               }
              },
              {
-              "_id": "1380018",
+              "_id": "1380016",
               "text": "Besplatan personalizirani program treninga",
               "selected_icon": {
                "value": "",
@@ -31084,7 +31052,7 @@
               }
              },
              {
-              "_id": "1380019",
+              "_id": "1380017",
               "text": "Besplatno praćenje rezultata svakih 10 dolazaka",
               "selected_icon": {
                "value": "",
@@ -31092,7 +31060,7 @@
               }
              },
              {
-              "_id": "138001a",
+              "_id": "1380018",
               "text": "Besplatno ažuriranje programa svakih 20 dolazaka",
               "selected_icon": {
                "value": "",
@@ -31100,7 +31068,7 @@
               }
              },
              {
-              "_id": "138001b",
+              "_id": "1380019",
               "text": "Oko 20 grupnih časova svake sedmice",
               "selected_icon": {
                "value": "",
@@ -31108,7 +31076,7 @@
               }
              },
              {
-              "_id": "138001c",
+              "_id": "138001a",
               "text": "Bazen, sauna, parno kupatilo i caldarium",
               "selected_icon": {
                "value": "",
@@ -31123,7 +31091,7 @@
          ]
         },
         {
-         "id": "1380022",
+         "id": "1380020",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31141,7 +31109,7 @@
          },
          "elements": [
           {
-           "id": "138001f",
+           "id": "138001d",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -31152,7 +31120,7 @@
            "elements": []
           },
           {
-           "id": "1380020",
+           "id": "138001e",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -31162,7 +31130,7 @@
            "elements": []
           },
           {
-           "id": "1380021",
+           "id": "138001f",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -31190,77 +31158,59 @@
      "description": "This week's group classes at Central Fitness Club, Hotel Central Sarajevo: yoga, pilates, HIIT, kettlebell, aqua aerobic and more.",
      "elementor": [
       {
-       "id": "1400006",
+       "id": "1400004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
-        "flex_direction": "row",
-        "css_classes": "cfc-pagehero"
+        "flex_direction": "column",
+        "css_classes": "cfc-hero cfc-hero--page",
+        "background_background": "classic",
+        "background_image": {
+         "url": "hc-media://images/club/studio.jpg",
+         "id": ""
+        },
+        "background_position": "center center",
+        "background_size": "cover",
+        "background_repeat": "no-repeat"
        },
        "elements": [
         {
-         "id": "1400004",
-         "elType": "container",
-         "isInner": true,
+         "id": "1400001",
+         "elType": "widget",
+         "widgetType": "heading",
          "settings": {
-          "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "cfc-pagehero__text"
+          "title": "Timetable",
+          "header_size": "p",
+          "_css_classes": "cfc-eyebrow"
          },
-         "elements": [
-          {
-           "id": "1400001",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Timetable",
-            "header_size": "p",
-            "_css_classes": "cfc-eyebrow"
-           },
-           "elements": []
-          },
-          {
-           "id": "1400002",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Class timetable",
-            "header_size": "h1",
-            "_css_classes": "cfc-title cfc-title--xl"
-           },
-           "elements": []
-          },
-          {
-           "id": "1400003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Group classes in the studio and in the pool. Places are limited, so come a few minutes early.</p>",
-            "_css_classes": "cfc-muted"
-           },
-           "elements": []
-          }
-         ]
+         "elements": []
         },
         {
-         "id": "1400005",
+         "id": "1400002",
          "elType": "widget",
-         "widgetType": "image",
+         "widgetType": "heading",
          "settings": {
-          "image": {
-           "url": "hc-media://images/club/studio.jpg",
-           "id": ""
-          },
-          "image_size": "full",
-          "_css_classes": "cfc-arch"
+          "title": "Class timetable",
+          "header_size": "h1",
+          "_css_classes": "cfc-hero__title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1400003",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Group classes in the studio and in the pool. Places are limited, so come a few minutes early.</p>",
+          "_css_classes": "cfc-hero__body"
          },
          "elements": []
         }
        ]
       },
       {
-       "id": "140001e",
+       "id": "140001c",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31270,7 +31220,7 @@
        },
        "elements": [
         {
-         "id": "1400007",
+         "id": "1400005",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31280,7 +31230,7 @@
          "elements": []
         },
         {
-         "id": "140001d",
+         "id": "140001b",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31290,7 +31240,7 @@
          },
          "elements": [
           {
-           "id": "140000a",
+           "id": "1400008",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31300,7 +31250,7 @@
            },
            "elements": [
             {
-             "id": "1400008",
+             "id": "1400006",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31311,7 +31261,7 @@
              "elements": []
             },
             {
-             "id": "1400009",
+             "id": "1400007",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31323,7 +31273,7 @@
            ]
           },
           {
-           "id": "140000d",
+           "id": "140000b",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31333,7 +31283,7 @@
            },
            "elements": [
             {
-             "id": "140000b",
+             "id": "1400009",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31344,7 +31294,7 @@
              "elements": []
             },
             {
-             "id": "140000c",
+             "id": "140000a",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31356,7 +31306,7 @@
            ]
           },
           {
-           "id": "1400010",
+           "id": "140000e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31366,7 +31316,7 @@
            },
            "elements": [
             {
-             "id": "140000e",
+             "id": "140000c",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31377,7 +31327,7 @@
              "elements": []
             },
             {
-             "id": "140000f",
+             "id": "140000d",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31389,7 +31339,7 @@
            ]
           },
           {
-           "id": "1400013",
+           "id": "1400011",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31399,7 +31349,7 @@
            },
            "elements": [
             {
-             "id": "1400011",
+             "id": "140000f",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31410,7 +31360,7 @@
              "elements": []
             },
             {
-             "id": "1400012",
+             "id": "1400010",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31422,7 +31372,7 @@
            ]
           },
           {
-           "id": "1400016",
+           "id": "1400014",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31432,7 +31382,7 @@
            },
            "elements": [
             {
-             "id": "1400014",
+             "id": "1400012",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31443,7 +31393,7 @@
              "elements": []
             },
             {
-             "id": "1400015",
+             "id": "1400013",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31455,7 +31405,7 @@
            ]
           },
           {
-           "id": "1400019",
+           "id": "1400017",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31465,7 +31415,7 @@
            },
            "elements": [
             {
-             "id": "1400017",
+             "id": "1400015",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31476,7 +31426,7 @@
              "elements": []
             },
             {
-             "id": "1400018",
+             "id": "1400016",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31488,7 +31438,7 @@
            ]
           },
           {
-           "id": "140001c",
+           "id": "140001a",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31498,7 +31448,7 @@
            },
            "elements": [
             {
-             "id": "140001a",
+             "id": "1400018",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31509,7 +31459,7 @@
              "elements": []
             },
             {
-             "id": "140001b",
+             "id": "1400019",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31525,7 +31475,7 @@
        ]
       },
       {
-       "id": "1400030",
+       "id": "140002e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31535,7 +31485,7 @@
        },
        "elements": [
         {
-         "id": "140001f",
+         "id": "140001d",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -31546,7 +31496,7 @@
          "elements": []
         },
         {
-         "id": "1400020",
+         "id": "140001e",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31556,7 +31506,7 @@
          "elements": []
         },
         {
-         "id": "1400021",
+         "id": "140001f",
          "elType": "widget",
          "widgetType": "shortcode",
          "settings": {
@@ -31565,7 +31515,7 @@
          "elements": []
         },
         {
-         "id": "1400022",
+         "id": "1400020",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -31576,14 +31526,14 @@
          "elements": []
         },
         {
-         "id": "140002f",
+         "id": "140002d",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "view": "traditional",
           "icon_list": [
            {
-            "_id": "1400023",
+            "_id": "1400021",
             "text": "Yoga",
             "selected_icon": {
              "value": "",
@@ -31591,7 +31541,7 @@
             }
            },
            {
-            "_id": "1400024",
+            "_id": "1400022",
             "text": "Pilates",
             "selected_icon": {
              "value": "",
@@ -31599,7 +31549,7 @@
             }
            },
            {
-            "_id": "1400025",
+            "_id": "1400023",
             "text": "Body mix",
             "selected_icon": {
              "value": "",
@@ -31607,7 +31557,7 @@
             }
            },
            {
-            "_id": "1400026",
+            "_id": "1400024",
             "text": "HIIT",
             "selected_icon": {
              "value": "",
@@ -31615,7 +31565,7 @@
             }
            },
            {
-            "_id": "1400027",
+            "_id": "1400025",
             "text": "Kettlebell",
             "selected_icon": {
              "value": "",
@@ -31623,7 +31573,7 @@
             }
            },
            {
-            "_id": "1400028",
+            "_id": "1400026",
             "text": "Muscle pump",
             "selected_icon": {
              "value": "",
@@ -31631,7 +31581,7 @@
             }
            },
            {
-            "_id": "1400029",
+            "_id": "1400027",
             "text": "Aqua aerobic",
             "selected_icon": {
              "value": "",
@@ -31639,7 +31589,7 @@
             }
            },
            {
-            "_id": "140002a",
+            "_id": "1400028",
             "text": "Circuit training",
             "selected_icon": {
              "value": "",
@@ -31647,7 +31597,7 @@
             }
            },
            {
-            "_id": "140002b",
+            "_id": "1400029",
             "text": "Indoor spinning",
             "selected_icon": {
              "value": "",
@@ -31655,7 +31605,7 @@
             }
            },
            {
-            "_id": "140002c",
+            "_id": "140002a",
             "text": "Fat burning",
             "selected_icon": {
              "value": "",
@@ -31663,7 +31613,7 @@
             }
            },
            {
-            "_id": "140002d",
+            "_id": "140002b",
             "text": "PT4 Pro",
             "selected_icon": {
              "value": "",
@@ -31671,7 +31621,7 @@
             }
            },
            {
-            "_id": "140002e",
+            "_id": "140002c",
             "text": "Perfect swimming",
             "selected_icon": {
              "value": "",
@@ -31693,77 +31643,59 @@
      "description": "Grupni časovi ove sedmice u Central Fitness Clubu, Hotel Central Sarajevo: yoga, pilates, HIIT, kettlebell, aqua aerobik i drugi.",
      "elementor": [
       {
-       "id": "1480006",
+       "id": "1480004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
-        "flex_direction": "row",
-        "css_classes": "cfc-pagehero"
+        "flex_direction": "column",
+        "css_classes": "cfc-hero cfc-hero--page",
+        "background_background": "classic",
+        "background_image": {
+         "url": "hc-media://images/club/studio.jpg",
+         "id": ""
+        },
+        "background_position": "center center",
+        "background_size": "cover",
+        "background_repeat": "no-repeat"
        },
        "elements": [
         {
-         "id": "1480004",
-         "elType": "container",
-         "isInner": true,
+         "id": "1480001",
+         "elType": "widget",
+         "widgetType": "heading",
          "settings": {
-          "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "cfc-pagehero__text"
+          "title": "Raspored",
+          "header_size": "p",
+          "_css_classes": "cfc-eyebrow"
          },
-         "elements": [
-          {
-           "id": "1480001",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Raspored",
-            "header_size": "p",
-            "_css_classes": "cfc-eyebrow"
-           },
-           "elements": []
-          },
-          {
-           "id": "1480002",
-           "elType": "widget",
-           "widgetType": "heading",
-           "settings": {
-            "title": "Raspored časova",
-            "header_size": "h1",
-            "_css_classes": "cfc-title cfc-title--xl"
-           },
-           "elements": []
-          },
-          {
-           "id": "1480003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Grupni časovi u sali i u bazenu. Broj mjesta je ograničen, pa dođite nekoliko minuta ranije.</p>",
-            "_css_classes": "cfc-muted"
-           },
-           "elements": []
-          }
-         ]
+         "elements": []
         },
         {
-         "id": "1480005",
+         "id": "1480002",
          "elType": "widget",
-         "widgetType": "image",
+         "widgetType": "heading",
          "settings": {
-          "image": {
-           "url": "hc-media://images/club/studio.jpg",
-           "id": ""
-          },
-          "image_size": "full",
-          "_css_classes": "cfc-arch"
+          "title": "Raspored časova",
+          "header_size": "h1",
+          "_css_classes": "cfc-hero__title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1480003",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Grupni časovi u sali i u bazenu. Broj mjesta je ograničen, pa dođite nekoliko minuta ranije.</p>",
+          "_css_classes": "cfc-hero__body"
          },
          "elements": []
         }
        ]
       },
       {
-       "id": "148001e",
+       "id": "148001c",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31773,7 +31705,7 @@
        },
        "elements": [
         {
-         "id": "1480007",
+         "id": "1480005",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31783,7 +31715,7 @@
          "elements": []
         },
         {
-         "id": "148001d",
+         "id": "148001b",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31793,7 +31725,7 @@
          },
          "elements": [
           {
-           "id": "148000a",
+           "id": "1480008",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31803,7 +31735,7 @@
            },
            "elements": [
             {
-             "id": "1480008",
+             "id": "1480006",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31814,7 +31746,7 @@
              "elements": []
             },
             {
-             "id": "1480009",
+             "id": "1480007",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31826,7 +31758,7 @@
            ]
           },
           {
-           "id": "148000d",
+           "id": "148000b",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31836,7 +31768,7 @@
            },
            "elements": [
             {
-             "id": "148000b",
+             "id": "1480009",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31847,7 +31779,7 @@
              "elements": []
             },
             {
-             "id": "148000c",
+             "id": "148000a",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31859,7 +31791,7 @@
            ]
           },
           {
-           "id": "1480010",
+           "id": "148000e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31869,7 +31801,7 @@
            },
            "elements": [
             {
-             "id": "148000e",
+             "id": "148000c",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31880,7 +31812,7 @@
              "elements": []
             },
             {
-             "id": "148000f",
+             "id": "148000d",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31892,7 +31824,7 @@
            ]
           },
           {
-           "id": "1480013",
+           "id": "1480011",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31902,7 +31834,7 @@
            },
            "elements": [
             {
-             "id": "1480011",
+             "id": "148000f",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31913,7 +31845,7 @@
              "elements": []
             },
             {
-             "id": "1480012",
+             "id": "1480010",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31925,7 +31857,7 @@
            ]
           },
           {
-           "id": "1480016",
+           "id": "1480014",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31935,7 +31867,7 @@
            },
            "elements": [
             {
-             "id": "1480014",
+             "id": "1480012",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31946,7 +31878,7 @@
              "elements": []
             },
             {
-             "id": "1480015",
+             "id": "1480013",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31958,7 +31890,7 @@
            ]
           },
           {
-           "id": "1480019",
+           "id": "1480017",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31968,7 +31900,7 @@
            },
            "elements": [
             {
-             "id": "1480017",
+             "id": "1480015",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31979,7 +31911,7 @@
              "elements": []
             },
             {
-             "id": "1480018",
+             "id": "1480016",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31991,7 +31923,7 @@
            ]
           },
           {
-           "id": "148001c",
+           "id": "148001a",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -32001,7 +31933,7 @@
            },
            "elements": [
             {
-             "id": "148001a",
+             "id": "1480018",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -32012,7 +31944,7 @@
              "elements": []
             },
             {
-             "id": "148001b",
+             "id": "1480019",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -32028,7 +31960,7 @@
        ]
       },
       {
-       "id": "1480030",
+       "id": "148002e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -32038,7 +31970,7 @@
        },
        "elements": [
         {
-         "id": "148001f",
+         "id": "148001d",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -32049,7 +31981,7 @@
          "elements": []
         },
         {
-         "id": "1480020",
+         "id": "148001e",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -32059,7 +31991,7 @@
          "elements": []
         },
         {
-         "id": "1480021",
+         "id": "148001f",
          "elType": "widget",
          "widgetType": "shortcode",
          "settings": {
@@ -32068,7 +32000,7 @@
          "elements": []
         },
         {
-         "id": "1480022",
+         "id": "1480020",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -32079,14 +32011,14 @@
          "elements": []
         },
         {
-         "id": "148002f",
+         "id": "148002d",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "view": "traditional",
           "icon_list": [
            {
-            "_id": "1480023",
+            "_id": "1480021",
             "text": "Yoga",
             "selected_icon": {
              "value": "",
@@ -32094,7 +32026,7 @@
             }
            },
            {
-            "_id": "1480024",
+            "_id": "1480022",
             "text": "Pilates",
             "selected_icon": {
              "value": "",
@@ -32102,7 +32034,7 @@
             }
            },
            {
-            "_id": "1480025",
+            "_id": "1480023",
             "text": "Body mix",
             "selected_icon": {
              "value": "",
@@ -32110,7 +32042,7 @@
             }
            },
            {
-            "_id": "1480026",
+            "_id": "1480024",
             "text": "HIIT",
             "selected_icon": {
              "value": "",
@@ -32118,7 +32050,7 @@
             }
            },
            {
-            "_id": "1480027",
+            "_id": "1480025",
             "text": "Kettlebell",
             "selected_icon": {
              "value": "",
@@ -32126,7 +32058,7 @@
             }
            },
            {
-            "_id": "1480028",
+            "_id": "1480026",
             "text": "Muscle pump",
             "selected_icon": {
              "value": "",
@@ -32134,7 +32066,7 @@
             }
            },
            {
-            "_id": "1480029",
+            "_id": "1480027",
             "text": "Aqua aerobic",
             "selected_icon": {
              "value": "",
@@ -32142,7 +32074,7 @@
             }
            },
            {
-            "_id": "148002a",
+            "_id": "1480028",
             "text": "Circuit training",
             "selected_icon": {
              "value": "",
@@ -32150,7 +32082,7 @@
             }
            },
            {
-            "_id": "148002b",
+            "_id": "1480029",
             "text": "Indoor spinning",
             "selected_icon": {
              "value": "",
@@ -32158,7 +32090,7 @@
             }
            },
            {
-            "_id": "148002c",
+            "_id": "148002a",
             "text": "Fat burning",
             "selected_icon": {
              "value": "",
@@ -32166,7 +32098,7 @@
             }
            },
            {
-            "_id": "148002d",
+            "_id": "148002b",
             "text": "PT4 Pro",
             "selected_icon": {
              "value": "",
@@ -32174,7 +32106,7 @@
             }
            },
            {
-            "_id": "148002e",
+            "_id": "148002c",
             "text": "Perfect swimming",
             "selected_icon": {
              "value": "",

@@ -1,4 +1,27 @@
-/* Hotel Central theme: header state on scroll, the menu (open/close, Escape, focus), nothing else. */
+/* Hotel Central theme: header state on scroll, the menu (open/close, Escape, focus), the spa price list on phones. */
+(function () {
+  // Day Spa price list: on phones each category folds open on tap (the first one starts open), so the
+  // page is not 60 rows long. Not in the Elementor editor, where every row must stay editable.
+  if (document.body.classList.contains("elementor-editor-active")) return;
+  if (!window.matchMedia("(max-width: 767px)").matches) return;
+  document.querySelectorAll(".ds-pricecat").forEach(function (cat, i) {
+    var title = cat.querySelector(".ds-pricecat__title .elementor-heading-title");
+    if (!title) return;
+    var set = function (open) {
+      cat.classList.toggle("is-collapsed", !open);
+      title.setAttribute("aria-expanded", String(open));
+    };
+    title.setAttribute("role", "button");
+    title.setAttribute("tabindex", "0");
+    set(i === 0);
+    var toggle = function () { set(cat.classList.contains("is-collapsed")); };
+    title.addEventListener("click", toggle);
+    title.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
 (function () {
   var header = document.querySelector("[data-hc-header]");
   if (!header) return;
