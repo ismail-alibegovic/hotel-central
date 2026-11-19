@@ -144,13 +144,13 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .hc-site .e-con.hc-btns { flex-direction: row; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
 /* Hero */
-.hc-site .e-con.hc-hero { position: relative; min-height: min(820px, 92svh); justify-content: flex-end; color: #fff; isolation: isolate; }
+.hc-site .e-con.hc-hero { position: relative; min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px)); justify-content: flex-end; color: #fff; isolation: isolate; }
 .hc-site .e-con.hc-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 22 16 / 0.55) 0%, rgb(20 22 16 / 0.15) 40%, rgb(20 22 16 / 0.65) 100%); }
 .hc-site .e-con.hc-hero__inner { padding: 150px var(--gutter) clamp(48px, 7vw, 96px); max-width: 1100px; }
 .hc-site .hc-hero__title .elementor-heading-title { font: 400 clamp(48px, 8.5vw, 132px)/0.92 var(--hc-display); text-transform: uppercase; margin-top: 16px; text-wrap: balance; }
 .hc-site .hc-hero__title--long .elementor-heading-title { font-size: clamp(38px, 5.4vw, 84px); line-height: 0.98; }
 .hc-site .hc-hero__intro { max-width: 52ch; margin-top: 20px; font-size: 16px; }
-.hc-site .hc-hero--home { min-height: min(900px, 100svh); }
+.hc-site .e-con.hc-hero--home { min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px)); }
 .hc-site .hc-hero--home .e-con.hc-hero__inner { margin: 0 auto; text-align: center; align-items: center; }
 .hc-site .hc-hero--home .hc-hero__intro { margin-inline: auto; }
 .hc-site .hc-hero--home .e-con.hc-btns { justify-content: center; }
@@ -329,7 +329,7 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-spa .e-con.ds-btns { flex-direction: row; flex-wrap: wrap; gap: 14px; align-items: center; }
 .brand-spa .hc-contact-button { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; box-shadow: inset 0 0 0 1px currentColor; text-decoration: none; font-size: 14px; }
 
-.brand-spa .e-con.ds-hero { position: relative; isolation: isolate; min-height: min(860px, 100svh); align-items: flex-end; justify-content: space-between; gap: 24px; padding: 130px var(--gutter) clamp(40px, 6vw, 70px); color: #fff; flex-wrap: wrap; }
+.brand-spa .e-con.ds-hero { position: relative; isolation: isolate; min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px)); align-items: flex-end; justify-content: space-between; gap: 24px; padding: 130px var(--gutter) clamp(40px, 6vw, 70px); color: #fff; flex-wrap: wrap; }
 .brand-spa .e-con.ds-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(30 7 10 / 0.6), rgb(30 7 10 / 0.12) 38%, rgb(30 7 10 / 0.78)); }
 .brand-spa .e-con.ds-hero__text { gap: 18px; max-width: 760px; }
 .brand-spa .ds-hero__title .elementor-heading-title { font: 600 clamp(44px, 6vw, 92px)/1.02 var(--ds-display); letter-spacing: -0.02em; }
@@ -459,7 +459,7 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-club .cfc-green .hc-contact-button, .brand-club .cfc-tour .hc-contact-button, .brand-club .cfc-join .hc-contact-button { background: transparent; box-shadow: inset 0 0 0 1px currentColor; }
 
 /* Hero with organic cream cut-outs */
-.brand-club .e-con.cfc-hero { position: relative; isolation: isolate; min-height: min(780px, 100svh); justify-content: center; align-items: center; text-align: center; color: #fff; padding: 120px 20px 140px; overflow: hidden; background-position: center 30% !important; }
+.brand-club .e-con.cfc-hero { position: relative; isolation: isolate; min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px)); justify-content: center; align-items: center; text-align: center; color: #fff; padding: 120px 20px 140px; overflow: hidden; background-position: center 30% !important; }
 .brand-club .e-con.cfc-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 50% 55%, rgb(20 40 30 / 0.6), rgb(20 40 30 / 0.32) 50%, rgb(20 40 30 / 0.1) 85%); }
 .brand-club .e-con.cfc-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: clamp(60px, 9vw, 120px); background: var(--cfc-cream); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 V58 C120,18 230,110 370,96 C520,80 560,120 600,120 Z M760,120 C860,88 980,26 1080,58 C1140,76 1180,40 1200,18 V120 Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 V58 C120,18 230,110 370,96 C520,80 560,120 600,120 Z M760,120 C860,88 980,26 1080,58 C1140,76 1180,40 1200,18 V120 Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
 .brand-club .cfc-hero .cfc-eyebrow .elementor-heading-title { color: rgb(255 255 255 / 0.85); }
