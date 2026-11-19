@@ -1,0 +1,66 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Hotel Central — WordPress + Elementor (free)",
+    "author": "Hotel Central Sarajevo",
+    "description": "Hotel Central Sarajevo, Central Day Spa and Central Fitness Club built with Elementor free, Polylang and the Hotel Central child theme of Hello Elementor."
+  },
+  "landingPage": "/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+      "step": "login"
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "hello-elementor"
+      },
+      "options": {
+        "activate": false
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "elementor"
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "polylang"
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/wordpress/dist/hotel-central-theme.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/wordpress/dist/hotel-central-setup.zip"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php define('HC_IMPORTING', true); define('WP_ADMIN', true); $log='/wordpress/wp-content/hc-import.log'; register_shutdown_function(function() use ($log){ $e=error_get_last(); if($e && in_array($e['type'],[E_ERROR,E_PARSE,E_CORE_ERROR,E_COMPILE_ERROR],true)){ file_put_contents($log, 'FATAL: '.$e['message'].' @ '.$e['file'].':'.$e['line'].\"\\n\", FILE_APPEND); } }); require_once '/wordpress/wp-load.php'; require_once ABSPATH.'wp-admin/includes/admin.php'; try { $r = function_exists('hc_site_import') ? hc_site_import() : ['hc_site_import missing; active plugins: '.implode(',', (array) get_option('active_plugins'))]; } catch (Throwable $e) { $r = ['ERROR: '.get_class($e).': '.$e->getMessage().' @ '.$e->getFile().':'.$e->getLine()]; } file_put_contents($log, implode(\"\\n\", $r).\"\\n\", FILE_APPEND); echo implode(\"\\n\", $r);"
+    }
+  ]
+}
