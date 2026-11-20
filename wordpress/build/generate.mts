@@ -5,7 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { clubCopy, classTypes } from "../../src/content/club";
+import { CLUB_BOOKING_URL, clubCopy, classTypes } from "../../src/content/club";
 import { DAYSPA_BOOKING_URL, daySpaCopy, spaCategories, spaPackages } from "../../src/content/dayspa";
 import { getDictionary } from "../../src/content/dictionary";
 import { booking, hotel } from "../../src/content/hotel";
@@ -398,6 +398,9 @@ add({
         ...spaCategories.map((cat) => box("ds-pricecat", [heading(cat.name[lang], "h3", "ds-pricecat__title"), ...cat.items.map((t) => box("ds-row", [heading(t.name[lang] + (t.note ? `<small>${t.note[lang]}</small>` : ""), "p", "ds-row__name"), heading(t.duration ?? "—", "p", "ds-row__dur"), heading(`${t.price} KM`, "p", "ds-row__price")], { row: true }))])),
       ], { anchor: "prices" }),
       box("ds-packages", [heading(c.packages.label, "p", "ds-eyebrow"), heading(c.packages.title, "h2", "ds-title"), box("ds-packages__grid", spaPackages.map((p, i) => box(`ds-package${i === 1 ? " is-featured" : ""}`, [heading(p.name[lang], "h3", "ds-package__name"), heading(`${p.price} KM <small>/ ${p.duration}</small>`, "p", "ds-package__price"), list(p.includes.map((t) => ({ text: t[lang] })), "ds-ticks"), dsBtn(c.packages.book, book, i === 1 ? "ds-btn--light" : "")])), { row: true })], { anchor: "packages" }),
+      box("ds-members", [heading(ig[lang].members.eyebrow, "p", "ds-eyebrow"), heading(ig[lang].members.title, "h2", "ds-title"), text(`<p>${ig[lang].members.body}</p>`, "ds-members__body"), editorNote(ig[lang].members.note),
+        box("ds-members__grid", ig[lang].members.items.map((m) => box("ds-member", [heading(m.name, "h3", "ds-member__name"), text(`<p>${m.what}</p>`, "ds-member__what"), heading(`${m.price} KM`, "p", "ds-member__price")])), { row: true }),
+        dsBtn(c.hero.cta, book, "ds-btn--light")], { anchor: "members" }),
       box("ds-why", [
         box("ds-why__text", [heading(c.why.label, "p", "ds-eyebrow"), heading(c.why.title, "h2", "ds-title"), text(`<p>${c.why.body}</p>`, "ds-muted"), list(c.why.ticks.map((t) => ({ text: t })), "ds-ticks ds-ticks--grid"), heading(c.footer.hours, "h3", "ds-subhead"), shortcode('[hc_hours place="spa"]', "ds-hours"), dsBtn(c.hero.cta, book)]),
         box("ds-why__media", [image("images/dayspa/serum-drop.jpg", "ds-fill"), image("images/dayspa/maderotherapy-tools.jpg", "ds-fill"), image("images/dayspa/corridor.jpg", "ds-fill ds-why__wide")], { row: true }),
@@ -411,6 +414,23 @@ add({
 /* ─────────────────────────── Central Fitness Club ─────────────────────────── */
 
 const cfcBtn = (label: string, url: string, variant = "") => button(label, url, `cfc-btn ${variant}`.trim());
+const clubBook = (lang: Lang) => CLUB_BOOKING_URL.replace("/en/", `/${lang}/`);
+
+/* From the club's and the spa's Instagram (checked 2026-11-20): members' treatments, the Sunday Running Club, online class booking. */
+const ig = L(
+  {
+    bookClass: "Book a class online",
+    members: { eyebrow: "For Central Fitness Club members", title: "Members' treatments", body: "Recovery made for training days, at member prices. Show your membership card when you book.", items: [{ name: "Express Recovery", what: "30-minute massage", price: "30" }, { name: "Heat & Reset", what: "Iyashi Dome session and a massage", price: "45" }, { name: "Central Recovery", what: "Cupping therapy and a massage", price: "60" }], note: "Check these treatments and prices against the current members' offer before publishing.", club: "Members' treatments at Central Day Spa, from 30 KM" },
+    run: { eyebrow: "Sunday Running Club", title: "Run with us", body: "Every Sunday the club runs together. Meet at 9:30, start at 10:00. Free for everyone who joins, members or not.", facts: [{ k: "Meet", v: "Sunday, 9:30" }, { k: "Start", v: "10:00" }, { k: "Price", v: "Free" }], cta: "Dates on Instagram" },
+    timetable: { title: "Book your class online", body: "See this week's classes and book your place online, or call the club." },
+  },
+  {
+    bookClass: "Rezervišite čas online",
+    members: { eyebrow: "Za članove Central Fitness Cluba", title: "Tretmani za članove", body: "Oporavak za dane treninga, po cijenama za članove. Pokažite člansku kartu pri rezervaciji.", items: [{ name: "Express Recovery", what: "Masaža od 30 minuta", price: "30" }, { name: "Heat & Reset", what: "Iyashi Dome i masaža", price: "45" }, { name: "Central Recovery", what: "Cupping terapija i masaža", price: "60" }], note: "Prije objave provjerite ove tretmane i cijene prema aktuelnoj ponudi za članove.", club: "Tretmani za članove u Central Day Spa, od 30 KM" },
+    run: { eyebrow: "Sunday Running Club", title: "Trčite s nama", body: "Svake nedjelje klub trči zajedno. Okupljanje u 9:30, start u 10:00. Besplatno za sve učesnike, članove i nečlanove.", facts: [{ k: "Okupljanje", v: "Nedjelja, 9:30" }, { k: "Start", v: "10:00" }, { k: "Cijena", v: "Besplatno" }], cta: "Termini na Instagramu" },
+    timetable: { title: "Rezervišite čas online", body: "Pogledajte časove ove sedmice i rezervišite mjesto online ili pozovite klub." },
+  },
+);
 add({
   key: "club", brand: "club", slug: L("centralfitnessclub", "central-fitness-club"), title: L("Central Fitness Club", "Central Fitness Club"),
   description: L(clubCopy("en").meta.description, clubCopy("bs").meta.description),
@@ -428,12 +448,13 @@ add({
         box("cfc-benefits__media", [image("images/club/spin-window.jpg", "cfc-fill")]),
         box("cfc-benefits__text", [heading(c.benefits.eyebrow, "p", "cfc-eyebrow"), heading(c.benefits.title, "h2", "cfc-title"), list(c.benefits.items.map((t) => ({ text: t })), "cfc-numbered")]),
       ], { row: true }),
+      box("cfc-run", [box("cfc-run__text", [heading(ig[lang].run.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(ig[lang].run.title, "h2", "cfc-title"), text(`<p>${ig[lang].run.body}</p>`, "cfc-on-green")]), box("cfc-run__side", [facts(ig[lang].run.facts, "cfc-run__facts"), cfcBtn(ig[lang].run.cta, "https://www.instagram.com/central.fitness.club/", "cfc-btn--cream")])], { row: true, anchor: "running" }),
       box("cfc-pool", [
         box("cfc-pool__media", [image("images/club/pool-jets.jpg", "cfc-fill"), image("images/club/sauna.jpg", "cfc-fill")]),
         box("cfc-pool__text", [heading(c.pool.eyebrow, "p", "cfc-eyebrow"), heading(c.pool.title, "h2", "cfc-title"), text(`<p>${c.pool.body}</p>`, "cfc-muted"), box("cfc-zones", c.pool.zones.map((z) => box("cfc-zone", [heading(z.name, "h3", "cfc-zone__name"), text(`<p>${z.body}</p>`, "cfc-muted")])), { row: true }), cfcBtn(c.pool.spa, page("dayspa"), "cfc-btn--line")]),
       ], { row: true, anchor: "pool" }),
       box("cfc-classes", [
-        box("cfc-classes__text", [heading(c.classes.eyebrow, "p", "cfc-eyebrow"), heading(c.classes.title, "h2", "cfc-title"), text(`<p>${c.classes.body}</p>`, "cfc-ink"), list(classTypes.map((t) => ({ text: t })), "cfc-chips"), cfcBtn(c.classes.cta, page("club-timetable"))]),
+        box("cfc-classes__text", [heading(c.classes.eyebrow, "p", "cfc-eyebrow"), heading(c.classes.title, "h2", "cfc-title"), text(`<p>${c.classes.body}</p>`, "cfc-ink"), list(classTypes.map((t) => ({ text: t })), "cfc-chips"), box("cfc-btns", [cfcBtn(ig[lang].bookClass, clubBook(lang)), cfcBtn(c.classes.cta, page("club-timetable"), "cfc-btn--line")], { row: true })]),
         image("images/club/kettlebells-rooftops.jpg", "cfc-fill cfc-fill--bleed"),
       ], { row: true, anchor: "classes" }),
       box("cfc-gallery", [gallery(["images/club/running.jpg", "images/club/strength-floor.jpg", "images/club/kettlebells.jpg", "images/club/pool-bench.jpg", "images/club/stairs.jpg", "images/club/dumbbells.jpg", "images/club/foam-roller.jpg", "images/club/feel-your-power.jpg"], "", 4)]),
@@ -452,7 +473,7 @@ add({
     return [
       box("cfc-hero cfc-hero--page", [heading(m.eyebrow, "p", "cfc-eyebrow"), heading(m.title, "h1", "cfc-hero__title"), text(`<p>${m.body}</p>`, "cfc-hero__body")], { bg: "images/club/member-tshirt.jpg" }),
       box("cfc-green", [heading(m.plansTitle, "h2", "cfc-title"), box("cfc-plans", m.defaultPlans.map((p) => box(`cfc-plan${p.highlight ? " is-featured" : ""}`, [heading(p.name, "h3", "cfc-plan__name"), heading(p.price ? `${p.price} KM` : m.onRequest, "p", "cfc-plan__price"), list(p.features.map((t) => ({ text: t })), "cfc-dashes"), box("cfc-btns", [shortcode("[hc_contact what=club_phone style=button]", ""), cfcBtn(m.ask, mail, "cfc-btn--line")], { row: true })])), { row: true }), text(`<p>${lang === "en" ? "Monthly and other memberships: ask at reception or call the club." : "Mjesečne i druge članarine: pitajte na recepciji ili pozovite klub."}</p>`, "cfc-on-green cfc-small"), editorNote(lang === "en" ? "Add each plan and its price here in Elementor: duplicate the yellow card, change the name, price and what it includes." : "Svaku članarinu i cijenu dodajte ovdje u Elementoru: duplicirajte žutu karticu i promijenite naziv, cijenu i šta uključuje.")]),
-      box("cfc-benefits", [box("cfc-benefits__text", [heading(m.benefitsTitle, "h2", "cfc-title"), list(c.benefits.items.map((t) => ({ text: t })), "cfc-numbered")]), box("cfc-tour", [heading(m.tourTitle, "h3", "cfc-title"), text(`<p>${m.tourBody}</p>`, "cfc-on-green"), shortcode("[hc_contact what=club_phone style=button]", "")], { bg: "images/club/spin-window.jpg" })], { row: true }),
+      box("cfc-benefits", [box("cfc-benefits__text", [heading(m.benefitsTitle, "h2", "cfc-title"), list([...c.benefits.items, ig[lang].members.club].map((t) => ({ text: t })), "cfc-numbered"), cfcBtn(ig[lang].members.title, page("dayspa", "#members"), "cfc-btn--line")]), box("cfc-tour", [heading(m.tourTitle, "h3", "cfc-title"), text(`<p>${m.tourBody}</p>`, "cfc-on-green"), shortcode("[hc_contact what=club_phone style=button]", "")], { bg: "images/club/spin-window.jpg" })], { row: true }),
     ];
   },
 });
@@ -465,11 +486,11 @@ add({
     const day = (d: number) => box("cfc-day", [heading(t.days[d], "h3", "cfc-day__name"), text(`<p>${t.noClasses}</p>`, "cfc-muted cfc-small")]);
     return [
       box("cfc-hero cfc-hero--page", [heading(t.eyebrow, "p", "cfc-eyebrow"), heading(t.title, "h1", "cfc-hero__title"), text(`<p>${t.body}</p>`, "cfc-hero__body")], { bg: "images/club/studio.jpg" }),
+      box("cfc-sunblock", [heading(ig[lang].timetable.title, "h2", "cfc-title"), text(`<p>${ig[lang].timetable.body}</p>`, "cfc-ink"), box("cfc-btns", [cfcBtn(ig[lang].bookClass, clubBook(lang)), shortcode("[hc_contact what=club_phone style=button]", "")], { row: true }), heading(t.typesTitle, "h3", "cfc-subhead"), list(classTypes.map((x) => ({ text: x })), "cfc-chips")]),
       box("cfc-week", [
         editorNote(lang === "en" ? "Fill in each day below in Elementor (one line per class: time, class, trainer), or replace this block with a picture of the monthly timetable." : "Upišite svaki dan ispod u Elementoru (jedan red po času: vrijeme, čas, trener) ili ovaj blok zamijenite slikom mjesečnog rasporeda."),
         box("cfc-week__grid", [0, 1, 2, 3, 4, 5, 6].map(day), { row: true }),
       ]),
-      box("cfc-sunblock", [heading(t.emptyTitle, "h2", "cfc-title"), text(`<p>${t.emptyBody}</p>`, "cfc-ink"), shortcode("[hc_contact what=club_phone style=button]", ""), heading(t.typesTitle, "h3", "cfc-subhead"), list(classTypes.map((x) => ({ text: x })), "cfc-chips")]),
     ];
   },
 });
@@ -491,6 +512,7 @@ const out = {
     club_phone: hotel.phoneDisplay,
     booking_url: booking.bookingUrl,
     spa_booking_url: DAYSPA_BOOKING_URL,
+    club_booking_url: CLUB_BOOKING_URL,
     facebook: hotel.facebook,
     instagram_hotel: "https://www.instagram.com/hotelcentralsarajevo/",
     instagram_club: "https://www.instagram.com/central.fitness.club/",

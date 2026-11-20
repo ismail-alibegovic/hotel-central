@@ -19742,7 +19742,7 @@
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
-            "title": "Wellness Day Spa · Hotel Central Sarajevo",
+            "title": "Relax · Restore · Rebalance",
             "header_size": "p",
             "_css_classes": "ds-eyebrow"
            },
@@ -23374,7 +23374,221 @@
        ]
       },
       {
-       "id": "1100152",
+       "id": "1100154",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "css_classes": "ds-members",
+        "_element_id": "members"
+       },
+       "elements": [
+        {
+         "id": "1100142",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "For Central Fitness Club members",
+          "header_size": "p",
+          "_css_classes": "ds-eyebrow"
+         },
+         "elements": []
+        },
+        {
+         "id": "1100143",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Members' treatments",
+          "header_size": "h2",
+          "_css_classes": "ds-title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1100144",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Recovery made for training days, at member prices. Show your membership card when you book.</p>",
+          "_css_classes": "ds-members__body"
+         },
+         "elements": []
+        },
+        {
+         "id": "1100145",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Check these treatments and prices against the current members' offer before publishing.</p>",
+          "_css_classes": "hc-editor-note"
+         },
+         "elements": []
+        },
+        {
+         "id": "1100152",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "css_classes": "ds-members__grid"
+         },
+         "elements": [
+          {
+           "id": "1100149",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "1100146",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Express Recovery",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "1100147",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>30-minute massage</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "1100148",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "30 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          },
+          {
+           "id": "110014d",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "110014a",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Heat & Reset",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "110014b",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Iyashi Dome session and a massage</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "110014c",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "45 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          },
+          {
+           "id": "1100151",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "110014e",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central Recovery",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "110014f",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Cupping therapy and a massage</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "1100150",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "60 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "id": "1100153",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "Book a treatment",
+          "link": {
+           "url": "https://form.lime-booking.com/en/HotelCentralSarajevo/service",
+           "is_external": "on",
+           "nofollow": ""
+          },
+          "_css_classes": "ds-btn ds-btn--light"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "1100165",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -23384,7 +23598,7 @@
        },
        "elements": [
         {
-         "id": "110014d",
+         "id": "1100160",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -23394,7 +23608,7 @@
          },
          "elements": [
           {
-           "id": "1100142",
+           "id": "1100155",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -23405,7 +23619,7 @@
            "elements": []
           },
           {
-           "id": "1100143",
+           "id": "1100156",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -23416,7 +23630,7 @@
            "elements": []
           },
           {
-           "id": "1100144",
+           "id": "1100157",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -23426,14 +23640,14 @@
            "elements": []
           },
           {
-           "id": "1100149",
+           "id": "110015c",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1100145",
+              "_id": "1100158",
               "text": "Qualified therapists",
               "selected_icon": {
                "value": "",
@@ -23441,7 +23655,7 @@
               }
              },
              {
-              "_id": "1100146",
+              "_id": "1100159",
               "text": "Clear prices and packages",
               "selected_icon": {
                "value": "",
@@ -23449,7 +23663,7 @@
               }
              },
              {
-              "_id": "1100147",
+              "_id": "110015a",
               "text": "Pool and saunas with every treatment",
               "selected_icon": {
                "value": "",
@@ -23457,7 +23671,7 @@
               }
              },
              {
-              "_id": "1100148",
+              "_id": "110015b",
               "text": "Inside Hotel Central, by Baščaršija",
               "selected_icon": {
                "value": "",
@@ -23470,7 +23684,7 @@
            "elements": []
           },
           {
-           "id": "110014a",
+           "id": "110015d",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -23481,7 +23695,7 @@
            "elements": []
           },
           {
-           "id": "110014b",
+           "id": "110015e",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -23491,7 +23705,7 @@
            "elements": []
           },
           {
-           "id": "110014c",
+           "id": "110015f",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -23508,7 +23722,7 @@
          ]
         },
         {
-         "id": "1100151",
+         "id": "1100164",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -23518,7 +23732,7 @@
          },
          "elements": [
           {
-           "id": "110014e",
+           "id": "1100161",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -23532,7 +23746,7 @@
            "elements": []
           },
           {
-           "id": "110014f",
+           "id": "1100162",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -23546,7 +23760,7 @@
            "elements": []
           },
           {
-           "id": "1100150",
+           "id": "1100163",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -23564,7 +23778,7 @@
        ]
       },
       {
-       "id": "1100154",
+       "id": "1100167",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -23574,7 +23788,7 @@
        },
        "elements": [
         {
-         "id": "1100153",
+         "id": "1100166",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -23622,7 +23836,7 @@
        ]
       },
       {
-       "id": "110015a",
+       "id": "110016d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -23641,7 +23855,7 @@
        },
        "elements": [
         {
-         "id": "1100155",
+         "id": "1100168",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -23652,7 +23866,7 @@
          "elements": []
         },
         {
-         "id": "1100156",
+         "id": "1100169",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -23663,7 +23877,7 @@
          "elements": []
         },
         {
-         "id": "1100159",
+         "id": "110016c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -23673,7 +23887,7 @@
          },
          "elements": [
           {
-           "id": "1100157",
+           "id": "110016a",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -23688,7 +23902,7 @@
            "elements": []
           },
           {
-           "id": "1100158",
+           "id": "110016b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -23741,7 +23955,7 @@
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
-            "title": "Wellness Day Spa · Hotel Central Sarajevo",
+            "title": "Opuštanje · Obnova · Ravnoteža",
             "header_size": "p",
             "_css_classes": "ds-eyebrow"
            },
@@ -27373,7 +27587,221 @@
        ]
       },
       {
-       "id": "1180152",
+       "id": "1180154",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "css_classes": "ds-members",
+        "_element_id": "members"
+       },
+       "elements": [
+        {
+         "id": "1180142",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Za članove Central Fitness Cluba",
+          "header_size": "p",
+          "_css_classes": "ds-eyebrow"
+         },
+         "elements": []
+        },
+        {
+         "id": "1180143",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Tretmani za članove",
+          "header_size": "h2",
+          "_css_classes": "ds-title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1180144",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Oporavak za dane treninga, po cijenama za članove. Pokažite člansku kartu pri rezervaciji.</p>",
+          "_css_classes": "ds-members__body"
+         },
+         "elements": []
+        },
+        {
+         "id": "1180145",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Prije objave provjerite ove tretmane i cijene prema aktuelnoj ponudi za članove.</p>",
+          "_css_classes": "hc-editor-note"
+         },
+         "elements": []
+        },
+        {
+         "id": "1180152",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "css_classes": "ds-members__grid"
+         },
+         "elements": [
+          {
+           "id": "1180149",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "1180146",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Express Recovery",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "1180147",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Masaža od 30 minuta</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "1180148",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "30 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          },
+          {
+           "id": "118014d",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "118014a",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Heat & Reset",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "118014b",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Iyashi Dome i masaža</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "118014c",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "45 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          },
+          {
+           "id": "1180151",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "ds-member"
+           },
+           "elements": [
+            {
+             "id": "118014e",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central Recovery",
+              "header_size": "h3",
+              "_css_classes": "ds-member__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "118014f",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Cupping terapija i masaža</p>",
+              "_css_classes": "ds-member__what"
+             },
+             "elements": []
+            },
+            {
+             "id": "1180150",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "60 KM",
+              "header_size": "p",
+              "_css_classes": "ds-member__price"
+             },
+             "elements": []
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "id": "1180153",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "Rezerviši tretman",
+          "link": {
+           "url": "https://form.lime-booking.com/bs/HotelCentralSarajevo/service",
+           "is_external": "on",
+           "nofollow": ""
+          },
+          "_css_classes": "ds-btn ds-btn--light"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "1180165",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -27383,7 +27811,7 @@
        },
        "elements": [
         {
-         "id": "118014d",
+         "id": "1180160",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -27393,7 +27821,7 @@
          },
          "elements": [
           {
-           "id": "1180142",
+           "id": "1180155",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -27404,7 +27832,7 @@
            "elements": []
           },
           {
-           "id": "1180143",
+           "id": "1180156",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -27415,7 +27843,7 @@
            "elements": []
           },
           {
-           "id": "1180144",
+           "id": "1180157",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -27425,14 +27853,14 @@
            "elements": []
           },
           {
-           "id": "1180149",
+           "id": "118015c",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1180145",
+              "_id": "1180158",
               "text": "Kvalifikovani terapeuti",
               "selected_icon": {
                "value": "",
@@ -27440,7 +27868,7 @@
               }
              },
              {
-              "_id": "1180146",
+              "_id": "1180159",
               "text": "Jasne cijene i paketi",
               "selected_icon": {
                "value": "",
@@ -27448,7 +27876,7 @@
               }
              },
              {
-              "_id": "1180147",
+              "_id": "118015a",
               "text": "Bazen i saune uz svaki tretman",
               "selected_icon": {
                "value": "",
@@ -27456,7 +27884,7 @@
               }
              },
              {
-              "_id": "1180148",
+              "_id": "118015b",
               "text": "U Hotelu Central, kod Baščaršije",
               "selected_icon": {
                "value": "",
@@ -27469,7 +27897,7 @@
            "elements": []
           },
           {
-           "id": "118014a",
+           "id": "118015d",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -27480,7 +27908,7 @@
            "elements": []
           },
           {
-           "id": "118014b",
+           "id": "118015e",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -27490,7 +27918,7 @@
            "elements": []
           },
           {
-           "id": "118014c",
+           "id": "118015f",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -27507,7 +27935,7 @@
          ]
         },
         {
-         "id": "1180151",
+         "id": "1180164",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -27517,7 +27945,7 @@
          },
          "elements": [
           {
-           "id": "118014e",
+           "id": "1180161",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -27531,7 +27959,7 @@
            "elements": []
           },
           {
-           "id": "118014f",
+           "id": "1180162",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -27545,7 +27973,7 @@
            "elements": []
           },
           {
-           "id": "1180150",
+           "id": "1180163",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -27563,7 +27991,7 @@
        ]
       },
       {
-       "id": "1180154",
+       "id": "1180167",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -27573,7 +28001,7 @@
        },
        "elements": [
         {
-         "id": "1180153",
+         "id": "1180166",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -27621,7 +28049,7 @@
        ]
       },
       {
-       "id": "118015a",
+       "id": "118016d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -27640,7 +28068,7 @@
        },
        "elements": [
         {
-         "id": "1180155",
+         "id": "1180168",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -27651,7 +28079,7 @@
          "elements": []
         },
         {
-         "id": "1180156",
+         "id": "1180169",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -27662,7 +28090,7 @@
          "elements": []
         },
         {
-         "id": "1180159",
+         "id": "118016c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -27672,7 +28100,7 @@
          },
          "elements": [
           {
-           "id": "1180157",
+           "id": "118016a",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -27687,7 +28115,7 @@
            "elements": []
           },
           {
-           "id": "1180158",
+           "id": "118016b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -27738,7 +28166,7 @@
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
-          "title": "Hotel Central · Sarajevo",
+          "title": "Strength · Conditioning · Community",
           "header_size": "p",
           "_css_classes": "cfc-eyebrow"
          },
@@ -28376,7 +28804,101 @@
        ]
       },
       {
-       "id": "1200056",
+       "id": "1200042",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "css_classes": "cfc-run",
+        "_element_id": "running"
+       },
+       "elements": [
+        {
+         "id": "120003e",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "css_classes": "cfc-run__text"
+         },
+         "elements": [
+          {
+           "id": "120003b",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Sunday Running Club",
+            "header_size": "p",
+            "_css_classes": "cfc-eyebrow cfc-eyebrow--sun"
+           },
+           "elements": []
+          },
+          {
+           "id": "120003c",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Run with us",
+            "header_size": "h2",
+            "_css_classes": "cfc-title"
+           },
+           "elements": []
+          },
+          {
+           "id": "120003d",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p>Every Sunday the club runs together. Meet at 9:30, start at 10:00. Free for everyone who joins, members or not.</p>",
+            "_css_classes": "cfc-on-green"
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "1200041",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "css_classes": "cfc-run__side"
+         },
+         "elements": [
+          {
+           "id": "120003f",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<dl class=\"hc-facts\"><div><dt>Meet</dt><dd>Sunday, 9:30</dd></div><div><dt>Start</dt><dd>10:00</dd></div><div><dt>Price</dt><dd>Free</dd></div></dl>",
+            "_css_classes": "cfc-run__facts"
+           },
+           "elements": []
+          },
+          {
+           "id": "1200040",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Dates on Instagram",
+            "link": {
+             "url": "https://www.instagram.com/central.fitness.club/",
+             "is_external": "on",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn cfc-btn--cream"
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "120005e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -28387,7 +28909,7 @@
        },
        "elements": [
         {
-         "id": "120003d",
+         "id": "1200045",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -28397,7 +28919,7 @@
          },
          "elements": [
           {
-           "id": "120003b",
+           "id": "1200043",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -28411,7 +28933,7 @@
            "elements": []
           },
           {
-           "id": "120003c",
+           "id": "1200044",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -28427,7 +28949,7 @@
          ]
         },
         {
-         "id": "1200055",
+         "id": "120005d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -28437,7 +28959,7 @@
          },
          "elements": [
           {
-           "id": "120003e",
+           "id": "1200046",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28448,7 +28970,7 @@
            "elements": []
           },
           {
-           "id": "120003f",
+           "id": "1200047",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28459,7 +28981,7 @@
            "elements": []
           },
           {
-           "id": "1200040",
+           "id": "1200048",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -28469,7 +28991,7 @@
            "elements": []
           },
           {
-           "id": "1200053",
+           "id": "120005b",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -28479,7 +29001,7 @@
            },
            "elements": [
             {
-             "id": "1200043",
+             "id": "120004b",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28489,7 +29011,7 @@
              },
              "elements": [
               {
-               "id": "1200041",
+               "id": "1200049",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28500,7 +29022,7 @@
                "elements": []
               },
               {
-               "id": "1200042",
+               "id": "120004a",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28512,7 +29034,7 @@
              ]
             },
             {
-             "id": "1200046",
+             "id": "120004e",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28522,7 +29044,7 @@
              },
              "elements": [
               {
-               "id": "1200044",
+               "id": "120004c",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28533,7 +29055,7 @@
                "elements": []
               },
               {
-               "id": "1200045",
+               "id": "120004d",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28545,7 +29067,7 @@
              ]
             },
             {
-             "id": "1200049",
+             "id": "1200051",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28555,7 +29077,7 @@
              },
              "elements": [
               {
-               "id": "1200047",
+               "id": "120004f",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28566,7 +29088,7 @@
                "elements": []
               },
               {
-               "id": "1200048",
+               "id": "1200050",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28578,7 +29100,7 @@
              ]
             },
             {
-             "id": "120004c",
+             "id": "1200054",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28588,7 +29110,7 @@
              },
              "elements": [
               {
-               "id": "120004a",
+               "id": "1200052",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28599,7 +29121,7 @@
                "elements": []
               },
               {
-               "id": "120004b",
+               "id": "1200053",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28611,7 +29133,7 @@
              ]
             },
             {
-             "id": "120004f",
+             "id": "1200057",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28621,7 +29143,7 @@
              },
              "elements": [
               {
-               "id": "120004d",
+               "id": "1200055",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28632,7 +29154,7 @@
                "elements": []
               },
               {
-               "id": "120004e",
+               "id": "1200056",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28644,7 +29166,7 @@
              ]
             },
             {
-             "id": "1200052",
+             "id": "120005a",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -28654,7 +29176,7 @@
              },
              "elements": [
               {
-               "id": "1200050",
+               "id": "1200058",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -28665,7 +29187,7 @@
                "elements": []
               },
               {
-               "id": "1200051",
+               "id": "1200059",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -28679,7 +29201,7 @@
            ]
           },
           {
-           "id": "1200054",
+           "id": "120005c",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -28698,7 +29220,7 @@
        ]
       },
       {
-       "id": "120006a",
+       "id": "1200076",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -28709,7 +29231,7 @@
        },
        "elements": [
         {
-         "id": "1200068",
+         "id": "1200074",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -28719,7 +29241,7 @@
          },
          "elements": [
           {
-           "id": "1200057",
+           "id": "120005f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28730,7 +29252,7 @@
            "elements": []
           },
           {
-           "id": "1200058",
+           "id": "1200060",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28741,7 +29263,7 @@
            "elements": []
           },
           {
-           "id": "1200059",
+           "id": "1200061",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -28751,79 +29273,15 @@
            "elements": []
           },
           {
-           "id": "1200066",
+           "id": "1200070",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "120005a",
-              "text": "Yoga",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "120005b",
-              "text": "Pilates",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "120005c",
-              "text": "Body mix",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "120005d",
-              "text": "HIIT",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "120005e",
-              "text": "Kettlebell",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "120005f",
-              "text": "Muscle pump",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "1200060",
-              "text": "Aqua aerobic",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "1200061",
-              "text": "Circuit training",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
               "_id": "1200062",
-              "text": "Indoor spinning",
+              "text": "Functional Strength",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -28831,7 +29289,7 @@
              },
              {
               "_id": "1200063",
-              "text": "Fat burning",
+              "text": "HIIT",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -28839,7 +29297,7 @@
              },
              {
               "_id": "1200064",
-              "text": "PT4 Pro",
+              "text": "Glute Attack",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -28847,7 +29305,87 @@
              },
              {
               "_id": "1200065",
-              "text": "Perfect swimming",
+              "text": "Tabata",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1200066",
+              "text": "Body Balance",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1200067",
+              "text": "Core Control",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1200068",
+              "text": "Aqua Aerobic",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1200069",
+              "text": "Full Body Circuit",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006a",
+              "text": "Yoga",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006b",
+              "text": "Kettlebell Combo",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006c",
+              "text": "Kettlebells",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006d",
+              "text": "Strong & Lean",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006e",
+              "text": "Total Body Sculpt",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "120006f",
+              "text": "Full Body Burn",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -28859,24 +29397,51 @@
            "elements": []
           },
           {
-           "id": "1200067",
-           "elType": "widget",
-           "widgetType": "button",
+           "id": "1200073",
+           "elType": "container",
+           "isInner": true,
            "settings": {
-            "text": "See the timetable",
-            "link": {
-             "url": "hc-page://club-timetable",
-             "is_external": "",
-             "nofollow": ""
-            },
-            "_css_classes": "cfc-btn"
+            "content_width": "full",
+            "flex_direction": "row",
+            "css_classes": "cfc-btns"
            },
-           "elements": []
+           "elements": [
+            {
+             "id": "1200071",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "Book a class online",
+              "link": {
+               "url": "https://form.lime-booking.com/en/Fitness%20Central%20Sarajevo/service",
+               "is_external": "on",
+               "nofollow": ""
+              },
+              "_css_classes": "cfc-btn"
+             },
+             "elements": []
+            },
+            {
+             "id": "1200072",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "See the timetable",
+              "link": {
+               "url": "hc-page://club-timetable",
+               "is_external": "",
+               "nofollow": ""
+              },
+              "_css_classes": "cfc-btn cfc-btn--line"
+             },
+             "elements": []
+            }
+           ]
           }
          ]
         },
         {
-         "id": "1200069",
+         "id": "1200075",
          "elType": "widget",
          "widgetType": "image",
          "settings": {
@@ -28892,7 +29457,7 @@
        ]
       },
       {
-       "id": "120006c",
+       "id": "1200078",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -28902,7 +29467,7 @@
        },
        "elements": [
         {
-         "id": "120006b",
+         "id": "1200077",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -28950,7 +29515,7 @@
        ]
       },
       {
-       "id": "1200075",
+       "id": "1200081",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -28960,7 +29525,7 @@
        },
        "elements": [
         {
-         "id": "1200073",
+         "id": "120007f",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -28970,7 +29535,7 @@
          },
          "elements": [
           {
-           "id": "120006d",
+           "id": "1200079",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28981,7 +29546,7 @@
            "elements": []
           },
           {
-           "id": "120006e",
+           "id": "120007a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -28992,7 +29557,7 @@
            "elements": []
           },
           {
-           "id": "120006f",
+           "id": "120007b",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -29002,7 +29567,7 @@
            "elements": []
           },
           {
-           "id": "1200072",
+           "id": "120007e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -29012,7 +29577,7 @@
            },
            "elements": [
             {
-             "id": "1200070",
+             "id": "120007c",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -29027,7 +29592,7 @@
              "elements": []
             },
             {
-             "id": "1200071",
+             "id": "120007d",
              "elType": "widget",
              "widgetType": "shortcode",
              "settings": {
@@ -29041,7 +29606,7 @@
          ]
         },
         {
-         "id": "1200074",
+         "id": "1200080",
          "elType": "widget",
          "widgetType": "image",
          "settings": {
@@ -29086,7 +29651,7 @@
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
-          "title": "Hotel Central · Sarajevo",
+          "title": "Snaga · Kondicija · Zajednica",
           "header_size": "p",
           "_css_classes": "cfc-eyebrow"
          },
@@ -29724,7 +30289,101 @@
        ]
       },
       {
-       "id": "1280056",
+       "id": "1280042",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "css_classes": "cfc-run",
+        "_element_id": "running"
+       },
+       "elements": [
+        {
+         "id": "128003e",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "css_classes": "cfc-run__text"
+         },
+         "elements": [
+          {
+           "id": "128003b",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Sunday Running Club",
+            "header_size": "p",
+            "_css_classes": "cfc-eyebrow cfc-eyebrow--sun"
+           },
+           "elements": []
+          },
+          {
+           "id": "128003c",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Trčite s nama",
+            "header_size": "h2",
+            "_css_classes": "cfc-title"
+           },
+           "elements": []
+          },
+          {
+           "id": "128003d",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p>Svake nedjelje klub trči zajedno. Okupljanje u 9:30, start u 10:00. Besplatno za sve učesnike, članove i nečlanove.</p>",
+            "_css_classes": "cfc-on-green"
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "1280041",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "css_classes": "cfc-run__side"
+         },
+         "elements": [
+          {
+           "id": "128003f",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<dl class=\"hc-facts\"><div><dt>Okupljanje</dt><dd>Nedjelja, 9:30</dd></div><div><dt>Start</dt><dd>10:00</dd></div><div><dt>Cijena</dt><dd>Besplatno</dd></div></dl>",
+            "_css_classes": "cfc-run__facts"
+           },
+           "elements": []
+          },
+          {
+           "id": "1280040",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Termini na Instagramu",
+            "link": {
+             "url": "https://www.instagram.com/central.fitness.club/",
+             "is_external": "on",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn cfc-btn--cream"
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "128005e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -29735,7 +30394,7 @@
        },
        "elements": [
         {
-         "id": "128003d",
+         "id": "1280045",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -29745,7 +30404,7 @@
          },
          "elements": [
           {
-           "id": "128003b",
+           "id": "1280043",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -29759,7 +30418,7 @@
            "elements": []
           },
           {
-           "id": "128003c",
+           "id": "1280044",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -29775,7 +30434,7 @@
          ]
         },
         {
-         "id": "1280055",
+         "id": "128005d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -29785,7 +30444,7 @@
          },
          "elements": [
           {
-           "id": "128003e",
+           "id": "1280046",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -29796,7 +30455,7 @@
            "elements": []
           },
           {
-           "id": "128003f",
+           "id": "1280047",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -29807,7 +30466,7 @@
            "elements": []
           },
           {
-           "id": "1280040",
+           "id": "1280048",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -29817,7 +30476,7 @@
            "elements": []
           },
           {
-           "id": "1280053",
+           "id": "128005b",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -29827,7 +30486,7 @@
            },
            "elements": [
             {
-             "id": "1280043",
+             "id": "128004b",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -29837,7 +30496,7 @@
              },
              "elements": [
               {
-               "id": "1280041",
+               "id": "1280049",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -29848,7 +30507,7 @@
                "elements": []
               },
               {
-               "id": "1280042",
+               "id": "128004a",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -29860,7 +30519,7 @@
              ]
             },
             {
-             "id": "1280046",
+             "id": "128004e",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -29870,7 +30529,7 @@
              },
              "elements": [
               {
-               "id": "1280044",
+               "id": "128004c",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -29881,7 +30540,7 @@
                "elements": []
               },
               {
-               "id": "1280045",
+               "id": "128004d",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -29893,7 +30552,7 @@
              ]
             },
             {
-             "id": "1280049",
+             "id": "1280051",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -29903,7 +30562,7 @@
              },
              "elements": [
               {
-               "id": "1280047",
+               "id": "128004f",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -29914,7 +30573,7 @@
                "elements": []
               },
               {
-               "id": "1280048",
+               "id": "1280050",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -29926,7 +30585,7 @@
              ]
             },
             {
-             "id": "128004c",
+             "id": "1280054",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -29936,7 +30595,7 @@
              },
              "elements": [
               {
-               "id": "128004a",
+               "id": "1280052",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -29947,7 +30606,7 @@
                "elements": []
               },
               {
-               "id": "128004b",
+               "id": "1280053",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -29959,7 +30618,7 @@
              ]
             },
             {
-             "id": "128004f",
+             "id": "1280057",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -29969,7 +30628,7 @@
              },
              "elements": [
               {
-               "id": "128004d",
+               "id": "1280055",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -29980,7 +30639,7 @@
                "elements": []
               },
               {
-               "id": "128004e",
+               "id": "1280056",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -29992,7 +30651,7 @@
              ]
             },
             {
-             "id": "1280052",
+             "id": "128005a",
              "elType": "container",
              "isInner": true,
              "settings": {
@@ -30002,7 +30661,7 @@
              },
              "elements": [
               {
-               "id": "1280050",
+               "id": "1280058",
                "elType": "widget",
                "widgetType": "heading",
                "settings": {
@@ -30013,7 +30672,7 @@
                "elements": []
               },
               {
-               "id": "1280051",
+               "id": "1280059",
                "elType": "widget",
                "widgetType": "text-editor",
                "settings": {
@@ -30027,7 +30686,7 @@
            ]
           },
           {
-           "id": "1280054",
+           "id": "128005c",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -30046,7 +30705,7 @@
        ]
       },
       {
-       "id": "128006a",
+       "id": "1280076",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30057,7 +30716,7 @@
        },
        "elements": [
         {
-         "id": "1280068",
+         "id": "1280074",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30067,7 +30726,7 @@
          },
          "elements": [
           {
-           "id": "1280057",
+           "id": "128005f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30078,7 +30737,7 @@
            "elements": []
           },
           {
-           "id": "1280058",
+           "id": "1280060",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30089,7 +30748,7 @@
            "elements": []
           },
           {
-           "id": "1280059",
+           "id": "1280061",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -30099,79 +30758,15 @@
            "elements": []
           },
           {
-           "id": "1280066",
+           "id": "1280070",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "128005a",
-              "text": "Yoga",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "128005b",
-              "text": "Pilates",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "128005c",
-              "text": "Body mix",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "128005d",
-              "text": "HIIT",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "128005e",
-              "text": "Kettlebell",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "128005f",
-              "text": "Muscle pump",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "1280060",
-              "text": "Aqua aerobic",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
-              "_id": "1280061",
-              "text": "Circuit training",
-              "selected_icon": {
-               "value": "",
-               "library": ""
-              }
-             },
-             {
               "_id": "1280062",
-              "text": "Indoor spinning",
+              "text": "Functional Strength",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -30179,7 +30774,7 @@
              },
              {
               "_id": "1280063",
-              "text": "Fat burning",
+              "text": "HIIT",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -30187,7 +30782,7 @@
              },
              {
               "_id": "1280064",
-              "text": "PT4 Pro",
+              "text": "Glute Attack",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -30195,7 +30790,87 @@
              },
              {
               "_id": "1280065",
-              "text": "Perfect swimming",
+              "text": "Tabata",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1280066",
+              "text": "Body Balance",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1280067",
+              "text": "Core Control",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1280068",
+              "text": "Aqua Aerobic",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1280069",
+              "text": "Full Body Circuit",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006a",
+              "text": "Yoga",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006b",
+              "text": "Kettlebell Combo",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006c",
+              "text": "Kettlebells",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006d",
+              "text": "Strong & Lean",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006e",
+              "text": "Total Body Sculpt",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "128006f",
+              "text": "Full Body Burn",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -30207,24 +30882,51 @@
            "elements": []
           },
           {
-           "id": "1280067",
-           "elType": "widget",
-           "widgetType": "button",
+           "id": "1280073",
+           "elType": "container",
+           "isInner": true,
            "settings": {
-            "text": "Pogledaj raspored",
-            "link": {
-             "url": "hc-page://club-timetable",
-             "is_external": "",
-             "nofollow": ""
-            },
-            "_css_classes": "cfc-btn"
+            "content_width": "full",
+            "flex_direction": "row",
+            "css_classes": "cfc-btns"
            },
-           "elements": []
+           "elements": [
+            {
+             "id": "1280071",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "Rezervišite čas online",
+              "link": {
+               "url": "https://form.lime-booking.com/bs/Fitness%20Central%20Sarajevo/service",
+               "is_external": "on",
+               "nofollow": ""
+              },
+              "_css_classes": "cfc-btn"
+             },
+             "elements": []
+            },
+            {
+             "id": "1280072",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "Pogledaj raspored",
+              "link": {
+               "url": "hc-page://club-timetable",
+               "is_external": "",
+               "nofollow": ""
+              },
+              "_css_classes": "cfc-btn cfc-btn--line"
+             },
+             "elements": []
+            }
+           ]
           }
          ]
         },
         {
-         "id": "1280069",
+         "id": "1280075",
          "elType": "widget",
          "widgetType": "image",
          "settings": {
@@ -30240,7 +30942,7 @@
        ]
       },
       {
-       "id": "128006c",
+       "id": "1280078",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30250,7 +30952,7 @@
        },
        "elements": [
         {
-         "id": "128006b",
+         "id": "1280077",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -30298,7 +31000,7 @@
        ]
       },
       {
-       "id": "1280075",
+       "id": "1280081",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30308,7 +31010,7 @@
        },
        "elements": [
         {
-         "id": "1280073",
+         "id": "128007f",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30318,7 +31020,7 @@
          },
          "elements": [
           {
-           "id": "128006d",
+           "id": "1280079",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30329,7 +31031,7 @@
            "elements": []
           },
           {
-           "id": "128006e",
+           "id": "128007a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30340,7 +31042,7 @@
            "elements": []
           },
           {
-           "id": "128006f",
+           "id": "128007b",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -30350,7 +31052,7 @@
            "elements": []
           },
           {
-           "id": "1280072",
+           "id": "128007e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -30360,7 +31062,7 @@
            },
            "elements": [
             {
-             "id": "1280070",
+             "id": "128007c",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -30375,7 +31077,7 @@
              "elements": []
             },
             {
-             "id": "1280071",
+             "id": "128007d",
              "elType": "widget",
              "widgetType": "shortcode",
              "settings": {
@@ -30389,7 +31091,7 @@
          ]
         },
         {
-         "id": "1280074",
+         "id": "1280080",
          "elType": "widget",
          "widgetType": "image",
          "settings": {
@@ -30472,7 +31174,7 @@
        ]
       },
       {
-       "id": "1300013",
+       "id": "130001d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30493,7 +31195,7 @@
          "elements": []
         },
         {
-         "id": "1300010",
+         "id": "130001a",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30607,11 +31309,117 @@
              ]
             }
            ]
+          },
+          {
+           "id": "1300019",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "cfc-plan"
+           },
+           "elements": [
+            {
+             "id": "1300010",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Student membership",
+              "header_size": "h3",
+              "_css_classes": "cfc-plan__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "1300011",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Price on request",
+              "header_size": "p",
+              "_css_classes": "cfc-plan__price"
+             },
+             "elements": []
+            },
+            {
+             "id": "1300015",
+             "elType": "widget",
+             "widgetType": "icon-list",
+             "settings": {
+              "view": "traditional",
+              "icon_list": [
+               {
+                "_id": "1300012",
+                "text": "For students with a valid student card",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "1300013",
+                "text": "Gym, group classes, pool and saunas",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "1300014",
+                "text": "Ask at reception for the current price",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               }
+              ],
+              "_css_classes": "cfc-dashes"
+             },
+             "elements": []
+            },
+            {
+             "id": "1300018",
+             "elType": "container",
+             "isInner": true,
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "css_classes": "cfc-btns"
+             },
+             "elements": [
+              {
+               "id": "1300016",
+               "elType": "widget",
+               "widgetType": "shortcode",
+               "settings": {
+                "shortcode": "[hc_contact what=club_phone style=button]"
+               },
+               "elements": []
+              },
+              {
+               "id": "1300017",
+               "elType": "widget",
+               "widgetType": "button",
+               "settings": {
+                "text": "Ask about this plan",
+                "link": {
+                 "url": "mailto:info@hotelcentral.ba?subject=Central%20Fitness%20Club",
+                 "is_external": "",
+                 "nofollow": ""
+                },
+                "_css_classes": "cfc-btn cfc-btn--line"
+               },
+               "elements": []
+              }
+             ]
+            }
+           ]
           }
          ]
         },
         {
-         "id": "1300011",
+         "id": "130001b",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30621,7 +31429,7 @@
          "elements": []
         },
         {
-         "id": "1300012",
+         "id": "130001c",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30633,7 +31441,7 @@
        ]
       },
       {
-       "id": "1300021",
+       "id": "130002d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30643,7 +31451,7 @@
        },
        "elements": [
         {
-         "id": "130001c",
+         "id": "1300028",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30653,7 +31461,7 @@
          },
          "elements": [
           {
-           "id": "1300014",
+           "id": "130001e",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30664,14 +31472,14 @@
            "elements": []
           },
           {
-           "id": "130001b",
+           "id": "1300026",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1300015",
+              "_id": "130001f",
               "text": "Free one-to-one instruction on your first visit",
               "selected_icon": {
                "value": "",
@@ -30679,7 +31487,7 @@
               }
              },
              {
-              "_id": "1300016",
+              "_id": "1300020",
               "text": "A free personal gym programme",
               "selected_icon": {
                "value": "",
@@ -30687,7 +31495,7 @@
               }
              },
              {
-              "_id": "1300017",
+              "_id": "1300021",
               "text": "Free results tracking every 10 visits",
               "selected_icon": {
                "value": "",
@@ -30695,7 +31503,7 @@
               }
              },
              {
-              "_id": "1300018",
+              "_id": "1300022",
               "text": "A free programme update every 20 visits",
               "selected_icon": {
                "value": "",
@@ -30703,7 +31511,7 @@
               }
              },
              {
-              "_id": "1300019",
+              "_id": "1300023",
               "text": "About 20 group classes every week",
               "selected_icon": {
                "value": "",
@@ -30711,8 +31519,16 @@
               }
              },
              {
-              "_id": "130001a",
+              "_id": "1300024",
               "text": "The pool, sauna, steam bath and caldarium",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1300025",
+              "text": "Members' treatments at Central Day Spa, from 30 KM",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -30722,11 +31538,26 @@
             "_css_classes": "cfc-numbered"
            },
            "elements": []
+          },
+          {
+           "id": "1300027",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Members' treatments",
+            "link": {
+             "url": "hc-page://dayspa#members",
+             "is_external": "",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn cfc-btn--line"
+           },
+           "elements": []
           }
          ]
         },
         {
-         "id": "1300020",
+         "id": "130002c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30744,7 +31575,7 @@
          },
          "elements": [
           {
-           "id": "130001d",
+           "id": "1300029",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -30755,7 +31586,7 @@
            "elements": []
           },
           {
-           "id": "130001e",
+           "id": "130002a",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -30765,7 +31596,7 @@
            "elements": []
           },
           {
-           "id": "130001f",
+           "id": "130002b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -30837,7 +31668,7 @@
        ]
       },
       {
-       "id": "1380013",
+       "id": "138001d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -30858,7 +31689,7 @@
          "elements": []
         },
         {
-         "id": "1380010",
+         "id": "138001a",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -30972,11 +31803,117 @@
              ]
             }
            ]
+          },
+          {
+           "id": "1380019",
+           "elType": "container",
+           "isInner": true,
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "cfc-plan"
+           },
+           "elements": [
+            {
+             "id": "1380010",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Studentska članarina",
+              "header_size": "h3",
+              "_css_classes": "cfc-plan__name"
+             },
+             "elements": []
+            },
+            {
+             "id": "1380011",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Cijena na upit",
+              "header_size": "p",
+              "_css_classes": "cfc-plan__price"
+             },
+             "elements": []
+            },
+            {
+             "id": "1380015",
+             "elType": "widget",
+             "widgetType": "icon-list",
+             "settings": {
+              "view": "traditional",
+              "icon_list": [
+               {
+                "_id": "1380012",
+                "text": "Za studente s važećim indeksom",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "1380013",
+                "text": "Teretana, grupni časovi, bazen i saune",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "1380014",
+                "text": "Aktuelnu cijenu saznajte na recepciji",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               }
+              ],
+              "_css_classes": "cfc-dashes"
+             },
+             "elements": []
+            },
+            {
+             "id": "1380018",
+             "elType": "container",
+             "isInner": true,
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "css_classes": "cfc-btns"
+             },
+             "elements": [
+              {
+               "id": "1380016",
+               "elType": "widget",
+               "widgetType": "shortcode",
+               "settings": {
+                "shortcode": "[hc_contact what=club_phone style=button]"
+               },
+               "elements": []
+              },
+              {
+               "id": "1380017",
+               "elType": "widget",
+               "widgetType": "button",
+               "settings": {
+                "text": "Pitajte za ovu članarinu",
+                "link": {
+                 "url": "mailto:info@hotelcentral.ba?subject=Central%20Fitness%20Club",
+                 "is_external": "",
+                 "nofollow": ""
+                },
+                "_css_classes": "cfc-btn cfc-btn--line"
+               },
+               "elements": []
+              }
+             ]
+            }
+           ]
           }
          ]
         },
         {
-         "id": "1380011",
+         "id": "138001b",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30986,7 +31923,7 @@
          "elements": []
         },
         {
-         "id": "1380012",
+         "id": "138001c",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -30998,7 +31935,7 @@
        ]
       },
       {
-       "id": "1380021",
+       "id": "138002d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31008,7 +31945,7 @@
        },
        "elements": [
         {
-         "id": "138001c",
+         "id": "1380028",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31018,7 +31955,7 @@
          },
          "elements": [
           {
-           "id": "1380014",
+           "id": "138001e",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -31029,14 +31966,14 @@
            "elements": []
           },
           {
-           "id": "138001b",
+           "id": "1380026",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "1380015",
+              "_id": "138001f",
               "text": "Besplatne individualne upute pri prvom dolasku",
               "selected_icon": {
                "value": "",
@@ -31044,7 +31981,7 @@
               }
              },
              {
-              "_id": "1380016",
+              "_id": "1380020",
               "text": "Besplatan personalizirani program treninga",
               "selected_icon": {
                "value": "",
@@ -31052,7 +31989,7 @@
               }
              },
              {
-              "_id": "1380017",
+              "_id": "1380021",
               "text": "Besplatno praćenje rezultata svakih 10 dolazaka",
               "selected_icon": {
                "value": "",
@@ -31060,7 +31997,7 @@
               }
              },
              {
-              "_id": "1380018",
+              "_id": "1380022",
               "text": "Besplatno ažuriranje programa svakih 20 dolazaka",
               "selected_icon": {
                "value": "",
@@ -31068,7 +32005,7 @@
               }
              },
              {
-              "_id": "1380019",
+              "_id": "1380023",
               "text": "Oko 20 grupnih časova svake sedmice",
               "selected_icon": {
                "value": "",
@@ -31076,8 +32013,16 @@
               }
              },
              {
-              "_id": "138001a",
+              "_id": "1380024",
               "text": "Bazen, sauna, parno kupatilo i caldarium",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "1380025",
+              "text": "Tretmani za članove u Central Day Spa, od 30 KM",
               "selected_icon": {
                "value": "",
                "library": ""
@@ -31087,11 +32032,26 @@
             "_css_classes": "cfc-numbered"
            },
            "elements": []
+          },
+          {
+           "id": "1380027",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Tretmani za članove",
+            "link": {
+             "url": "hc-page://dayspa#members",
+             "is_external": "",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn cfc-btn--line"
+           },
+           "elements": []
           }
          ]
         },
         {
-         "id": "1380020",
+         "id": "138002c",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31109,7 +32069,7 @@
          },
          "elements": [
           {
-           "id": "138001d",
+           "id": "1380029",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -31120,7 +32080,7 @@
            "elements": []
           },
           {
-           "id": "138001e",
+           "id": "138002a",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -31130,7 +32090,7 @@
            "elements": []
           },
           {
-           "id": "138001f",
+           "id": "138002b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -31210,7 +32170,211 @@
        ]
       },
       {
-       "id": "140001c",
+       "id": "140001a",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "css_classes": "cfc-sunblock"
+       },
+       "elements": [
+        {
+         "id": "1400005",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Book your class online",
+          "header_size": "h2",
+          "_css_classes": "cfc-title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1400006",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>See this week's classes and book your place online, or call the club.</p>",
+          "_css_classes": "cfc-ink"
+         },
+         "elements": []
+        },
+        {
+         "id": "1400009",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "css_classes": "cfc-btns"
+         },
+         "elements": [
+          {
+           "id": "1400007",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Book a class online",
+            "link": {
+             "url": "https://form.lime-booking.com/en/Fitness%20Central%20Sarajevo/service",
+             "is_external": "on",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn"
+           },
+           "elements": []
+          },
+          {
+           "id": "1400008",
+           "elType": "widget",
+           "widgetType": "shortcode",
+           "settings": {
+            "shortcode": "[hc_contact what=club_phone style=button]"
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "140000a",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Classes at the club",
+          "header_size": "h3",
+          "_css_classes": "cfc-subhead"
+         },
+         "elements": []
+        },
+        {
+         "id": "1400019",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "view": "traditional",
+          "icon_list": [
+           {
+            "_id": "140000b",
+            "text": "Functional Strength",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "140000c",
+            "text": "HIIT",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "140000d",
+            "text": "Glute Attack",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "140000e",
+            "text": "Tabata",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "140000f",
+            "text": "Body Balance",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400010",
+            "text": "Core Control",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400011",
+            "text": "Aqua Aerobic",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400012",
+            "text": "Full Body Circuit",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400013",
+            "text": "Yoga",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400014",
+            "text": "Kettlebell Combo",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400015",
+            "text": "Kettlebells",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400016",
+            "text": "Strong & Lean",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400017",
+            "text": "Total Body Sculpt",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1400018",
+            "text": "Full Body Burn",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           }
+          ],
+          "_css_classes": "cfc-chips"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "1400032",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31220,7 +32384,7 @@
        },
        "elements": [
         {
-         "id": "1400005",
+         "id": "140001b",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31230,7 +32394,7 @@
          "elements": []
         },
         {
-         "id": "140001b",
+         "id": "1400031",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31240,7 +32404,7 @@
          },
          "elements": [
           {
-           "id": "1400008",
+           "id": "140001e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31250,7 +32414,7 @@
            },
            "elements": [
             {
-             "id": "1400006",
+             "id": "140001c",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31261,7 +32425,7 @@
              "elements": []
             },
             {
-             "id": "1400007",
+             "id": "140001d",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31273,7 +32437,7 @@
            ]
           },
           {
-           "id": "140000b",
+           "id": "1400021",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31283,7 +32447,7 @@
            },
            "elements": [
             {
-             "id": "1400009",
+             "id": "140001f",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31294,7 +32458,7 @@
              "elements": []
             },
             {
-             "id": "140000a",
+             "id": "1400020",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31306,7 +32470,7 @@
            ]
           },
           {
-           "id": "140000e",
+           "id": "1400024",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31316,7 +32480,7 @@
            },
            "elements": [
             {
-             "id": "140000c",
+             "id": "1400022",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31327,7 +32491,7 @@
              "elements": []
             },
             {
-             "id": "140000d",
+             "id": "1400023",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31339,7 +32503,7 @@
            ]
           },
           {
-           "id": "1400011",
+           "id": "1400027",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31349,7 +32513,7 @@
            },
            "elements": [
             {
-             "id": "140000f",
+             "id": "1400025",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31360,7 +32524,7 @@
              "elements": []
             },
             {
-             "id": "1400010",
+             "id": "1400026",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31372,7 +32536,7 @@
            ]
           },
           {
-           "id": "1400014",
+           "id": "140002a",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31382,7 +32546,7 @@
            },
            "elements": [
             {
-             "id": "1400012",
+             "id": "1400028",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31393,7 +32557,7 @@
              "elements": []
             },
             {
-             "id": "1400013",
+             "id": "1400029",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31405,7 +32569,7 @@
            ]
           },
           {
-           "id": "1400017",
+           "id": "140002d",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31415,7 +32579,7 @@
            },
            "elements": [
             {
-             "id": "1400015",
+             "id": "140002b",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31426,7 +32590,7 @@
              "elements": []
             },
             {
-             "id": "1400016",
+             "id": "140002c",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31438,7 +32602,7 @@
            ]
           },
           {
-           "id": "140001a",
+           "id": "1400030",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31448,7 +32612,7 @@
            },
            "elements": [
             {
-             "id": "1400018",
+             "id": "140002e",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31459,7 +32623,7 @@
              "elements": []
             },
             {
-             "id": "1400019",
+             "id": "140002f",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31471,167 +32635,6 @@
            ]
           }
          ]
-        }
-       ]
-      },
-      {
-       "id": "140002e",
-       "elType": "container",
-       "isInner": false,
-       "settings": {
-        "content_width": "full",
-        "flex_direction": "column",
-        "css_classes": "cfc-sunblock"
-       },
-       "elements": [
-        {
-         "id": "140001d",
-         "elType": "widget",
-         "widgetType": "heading",
-         "settings": {
-          "title": "This month's timetable is on its way",
-          "header_size": "h2",
-          "_css_classes": "cfc-title"
-         },
-         "elements": []
-        },
-        {
-         "id": "140001e",
-         "elType": "widget",
-         "widgetType": "text-editor",
-         "settings": {
-          "editor": "<p>Call us or ask at reception for this week's classes.</p>",
-          "_css_classes": "cfc-ink"
-         },
-         "elements": []
-        },
-        {
-         "id": "140001f",
-         "elType": "widget",
-         "widgetType": "shortcode",
-         "settings": {
-          "shortcode": "[hc_contact what=club_phone style=button]"
-         },
-         "elements": []
-        },
-        {
-         "id": "1400020",
-         "elType": "widget",
-         "widgetType": "heading",
-         "settings": {
-          "title": "Classes at the club",
-          "header_size": "h3",
-          "_css_classes": "cfc-subhead"
-         },
-         "elements": []
-        },
-        {
-         "id": "140002d",
-         "elType": "widget",
-         "widgetType": "icon-list",
-         "settings": {
-          "view": "traditional",
-          "icon_list": [
-           {
-            "_id": "1400021",
-            "text": "Yoga",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400022",
-            "text": "Pilates",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400023",
-            "text": "Body mix",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400024",
-            "text": "HIIT",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400025",
-            "text": "Kettlebell",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400026",
-            "text": "Muscle pump",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400027",
-            "text": "Aqua aerobic",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400028",
-            "text": "Circuit training",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1400029",
-            "text": "Indoor spinning",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "140002a",
-            "text": "Fat burning",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "140002b",
-            "text": "PT4 Pro",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "140002c",
-            "text": "Perfect swimming",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           }
-          ],
-          "_css_classes": "cfc-chips"
-         },
-         "elements": []
         }
        ]
       }
@@ -31695,7 +32698,211 @@
        ]
       },
       {
-       "id": "148001c",
+       "id": "148001a",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "css_classes": "cfc-sunblock"
+       },
+       "elements": [
+        {
+         "id": "1480005",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Rezervišite čas online",
+          "header_size": "h2",
+          "_css_classes": "cfc-title"
+         },
+         "elements": []
+        },
+        {
+         "id": "1480006",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Pogledajte časove ove sedmice i rezervišite mjesto online ili pozovite klub.</p>",
+          "_css_classes": "cfc-ink"
+         },
+         "elements": []
+        },
+        {
+         "id": "1480009",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "css_classes": "cfc-btns"
+         },
+         "elements": [
+          {
+           "id": "1480007",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Rezervišite čas online",
+            "link": {
+             "url": "https://form.lime-booking.com/bs/Fitness%20Central%20Sarajevo/service",
+             "is_external": "on",
+             "nofollow": ""
+            },
+            "_css_classes": "cfc-btn"
+           },
+           "elements": []
+          },
+          {
+           "id": "1480008",
+           "elType": "widget",
+           "widgetType": "shortcode",
+           "settings": {
+            "shortcode": "[hc_contact what=club_phone style=button]"
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "148000a",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Časovi u klubu",
+          "header_size": "h3",
+          "_css_classes": "cfc-subhead"
+         },
+         "elements": []
+        },
+        {
+         "id": "1480019",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "view": "traditional",
+          "icon_list": [
+           {
+            "_id": "148000b",
+            "text": "Functional Strength",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "148000c",
+            "text": "HIIT",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "148000d",
+            "text": "Glute Attack",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "148000e",
+            "text": "Tabata",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "148000f",
+            "text": "Body Balance",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480010",
+            "text": "Core Control",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480011",
+            "text": "Aqua Aerobic",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480012",
+            "text": "Full Body Circuit",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480013",
+            "text": "Yoga",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480014",
+            "text": "Kettlebell Combo",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480015",
+            "text": "Kettlebells",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480016",
+            "text": "Strong & Lean",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480017",
+            "text": "Total Body Sculpt",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           {
+            "_id": "1480018",
+            "text": "Full Body Burn",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           }
+          ],
+          "_css_classes": "cfc-chips"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "1480032",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -31705,7 +32912,7 @@
        },
        "elements": [
         {
-         "id": "1480005",
+         "id": "148001b",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -31715,7 +32922,7 @@
          "elements": []
         },
         {
-         "id": "148001b",
+         "id": "1480031",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -31725,7 +32932,7 @@
          },
          "elements": [
           {
-           "id": "1480008",
+           "id": "148001e",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31735,7 +32942,7 @@
            },
            "elements": [
             {
-             "id": "1480006",
+             "id": "148001c",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31746,7 +32953,7 @@
              "elements": []
             },
             {
-             "id": "1480007",
+             "id": "148001d",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31758,7 +32965,7 @@
            ]
           },
           {
-           "id": "148000b",
+           "id": "1480021",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31768,7 +32975,7 @@
            },
            "elements": [
             {
-             "id": "1480009",
+             "id": "148001f",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31779,7 +32986,7 @@
              "elements": []
             },
             {
-             "id": "148000a",
+             "id": "1480020",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31791,7 +32998,7 @@
            ]
           },
           {
-           "id": "148000e",
+           "id": "1480024",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31801,7 +33008,7 @@
            },
            "elements": [
             {
-             "id": "148000c",
+             "id": "1480022",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31812,7 +33019,7 @@
              "elements": []
             },
             {
-             "id": "148000d",
+             "id": "1480023",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31824,7 +33031,7 @@
            ]
           },
           {
-           "id": "1480011",
+           "id": "1480027",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31834,7 +33041,7 @@
            },
            "elements": [
             {
-             "id": "148000f",
+             "id": "1480025",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31845,7 +33052,7 @@
              "elements": []
             },
             {
-             "id": "1480010",
+             "id": "1480026",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31857,7 +33064,7 @@
            ]
           },
           {
-           "id": "1480014",
+           "id": "148002a",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31867,7 +33074,7 @@
            },
            "elements": [
             {
-             "id": "1480012",
+             "id": "1480028",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31878,7 +33085,7 @@
              "elements": []
             },
             {
-             "id": "1480013",
+             "id": "1480029",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31890,7 +33097,7 @@
            ]
           },
           {
-           "id": "1480017",
+           "id": "148002d",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31900,7 +33107,7 @@
            },
            "elements": [
             {
-             "id": "1480015",
+             "id": "148002b",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31911,7 +33118,7 @@
              "elements": []
             },
             {
-             "id": "1480016",
+             "id": "148002c",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31923,7 +33130,7 @@
            ]
           },
           {
-           "id": "148001a",
+           "id": "1480030",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -31933,7 +33140,7 @@
            },
            "elements": [
             {
-             "id": "1480018",
+             "id": "148002e",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -31944,7 +33151,7 @@
              "elements": []
             },
             {
-             "id": "1480019",
+             "id": "148002f",
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
@@ -31956,167 +33163,6 @@
            ]
           }
          ]
-        }
-       ]
-      },
-      {
-       "id": "148002e",
-       "elType": "container",
-       "isInner": false,
-       "settings": {
-        "content_width": "full",
-        "flex_direction": "column",
-        "css_classes": "cfc-sunblock"
-       },
-       "elements": [
-        {
-         "id": "148001d",
-         "elType": "widget",
-         "widgetType": "heading",
-         "settings": {
-          "title": "Raspored za ovaj mjesec stiže uskoro",
-          "header_size": "h2",
-          "_css_classes": "cfc-title"
-         },
-         "elements": []
-        },
-        {
-         "id": "148001e",
-         "elType": "widget",
-         "widgetType": "text-editor",
-         "settings": {
-          "editor": "<p>Pozovite nas ili pitajte na recepciji za časove ove sedmice.</p>",
-          "_css_classes": "cfc-ink"
-         },
-         "elements": []
-        },
-        {
-         "id": "148001f",
-         "elType": "widget",
-         "widgetType": "shortcode",
-         "settings": {
-          "shortcode": "[hc_contact what=club_phone style=button]"
-         },
-         "elements": []
-        },
-        {
-         "id": "1480020",
-         "elType": "widget",
-         "widgetType": "heading",
-         "settings": {
-          "title": "Časovi u klubu",
-          "header_size": "h3",
-          "_css_classes": "cfc-subhead"
-         },
-         "elements": []
-        },
-        {
-         "id": "148002d",
-         "elType": "widget",
-         "widgetType": "icon-list",
-         "settings": {
-          "view": "traditional",
-          "icon_list": [
-           {
-            "_id": "1480021",
-            "text": "Yoga",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480022",
-            "text": "Pilates",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480023",
-            "text": "Body mix",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480024",
-            "text": "HIIT",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480025",
-            "text": "Kettlebell",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480026",
-            "text": "Muscle pump",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480027",
-            "text": "Aqua aerobic",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480028",
-            "text": "Circuit training",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "1480029",
-            "text": "Indoor spinning",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "148002a",
-            "text": "Fat burning",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "148002b",
-            "text": "PT4 Pro",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           },
-           {
-            "_id": "148002c",
-            "text": "Perfect swimming",
-            "selected_icon": {
-             "value": "",
-             "library": ""
-            }
-           }
-          ],
-          "_css_classes": "cfc-chips"
-         },
-         "elements": []
         }
        ]
       }
@@ -32342,6 +33388,7 @@
   "club_phone": "+387 33 561 800",
   "booking_url": "https://letsbook.me/booking/hotelcentralsarajevo",
   "spa_booking_url": "https://form.lime-booking.com/en/HotelCentralSarajevo/service",
+  "club_booking_url": "https://form.lime-booking.com/en/Fitness%20Central%20Sarajevo/service",
   "facebook": "https://www.facebook.com/hotel.central.568",
   "instagram_hotel": "https://www.instagram.com/hotelcentralsarajevo/",
   "instagram_club": "https://www.instagram.com/central.fitness.club/",

@@ -36,7 +36,7 @@ Text Domain:  hotel-central
   --ds-ink: #221315;
   --ds-mute: #6e5b5c;
   --ds-line: rgb(64 16 20 / 0.13);
-  --ds-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --ds-display: "Playfair Display", Georgia, "Times New Roman", serif; /* the serif of the spa's Instagram */
   --ds-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   /* Central Fitness Club (logo: forest green) */
   --cfc-green: #244a35;
@@ -318,12 +318,12 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .ds-header__book i, .ds-site-arrow { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid currentColor; font-style: normal; }
 .ds-toggle { display: none; }
 .ds-menu { background: var(--ds-cream); color: var(--ds-wine); }
-.ds-menu .hc-menu__list a { font-family: var(--ds-display); font-weight: 600; }
+.ds-menu .hc-menu__list a { font-family: var(--ds-display); font-weight: 400; }
 @media (max-width: 1080px) { .ds-header__nav, .ds-header__phone { display: none; } .ds-toggle { display: inline-flex; } }
 @media (max-width: 600px) { .ds-header__book, .ds-header__right .hc-langs { display: none; } .ds-header__bar { height: 76px; } }
 
 .brand-spa .ds-eyebrow .elementor-heading-title { font: 500 11px/1.4 var(--ds-body); letter-spacing: 0.22em; text-transform: uppercase; }
-.brand-spa .ds-title .elementor-heading-title { font: 600 clamp(32px, 3.6vw, 48px)/1.08 var(--ds-display); letter-spacing: -0.015em; color: var(--ds-wine); text-wrap: balance; }
+.brand-spa .ds-title .elementor-heading-title { font: 400 clamp(34px, 3.8vw, 52px)/1.1 var(--ds-display); letter-spacing: -0.005em; color: var(--ds-wine); text-wrap: balance; }
 .brand-spa .ds-muted { color: var(--ds-mute); max-width: 56ch; }
 .brand-spa .ds-btn .elementor-button { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 6px 6px 22px; border-radius: 999px; background: var(--ds-wine); color: #fff; font: 500 14px/1 var(--ds-body); }
 .brand-spa .ds-btn .elementor-button::after { content: "→"; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid currentColor; transition: transform 0.5s; }
@@ -339,10 +339,10 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-spa .e-con.ds-hero { position: relative; isolation: isolate; min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px)); align-items: flex-end; justify-content: space-between; gap: 24px; padding: 130px var(--gutter) clamp(40px, 6vw, 70px); color: #fff; flex-wrap: wrap; }
 .brand-spa .e-con.ds-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(30 7 10 / 0.6), rgb(30 7 10 / 0.12) 38%, rgb(30 7 10 / 0.78)); }
 .brand-spa .e-con.ds-hero__text { gap: 18px; max-width: 760px; }
-.brand-spa .ds-hero__title .elementor-heading-title { font: 600 clamp(44px, 6vw, 92px)/1.02 var(--ds-display); letter-spacing: -0.02em; }
+.brand-spa .ds-hero__title .elementor-heading-title { font: 400 clamp(46px, 6.4vw, 96px)/1.04 var(--ds-display); letter-spacing: -0.01em; }
 .brand-spa .e-con.ds-glass { max-width: 340px; padding: 24px; gap: 10px; border-radius: 20px; border: 1px solid rgb(255 255 255 / 0.22); background: rgb(43 10 13 / 0.42); backdrop-filter: blur(10px); }
-.brand-spa .ds-glass__title .elementor-heading-title { font: 600 19px/1.25 var(--ds-display); }
-.brand-spa .ds-glass__big .elementor-heading-title { font: 600 46px/1 var(--ds-display); }
+.brand-spa .ds-glass__title .elementor-heading-title { font: 500 19px/1.25 var(--ds-display); }
+.brand-spa .ds-glass__big .elementor-heading-title { font: 500 46px/1 var(--ds-display); }
 .brand-spa .ds-glass__body { font-size: 14px; opacity: 0.85; }
 
 .brand-spa .e-con.ds-about, .brand-spa .e-con.ds-why { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: stretch; padding: clamp(56px, 7vw, 100px) var(--gutter); }
@@ -352,7 +352,7 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-spa .ds-fill { position: relative; min-height: 260px; height: 100%; }
 .brand-spa .ds-fill img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 .brand-spa .ds-features .elementor-icon-list-item { padding: 16px 0; border-top: 1px solid var(--ds-line); color: var(--ds-mute); }
-.brand-spa .ds-features strong { color: var(--ds-ink); font-family: var(--ds-display); font-weight: 600; }
+.brand-spa .ds-features strong { color: var(--ds-ink); font-family: var(--ds-display); font-weight: 500; }
 
 .brand-spa .e-con.ds-band { background: var(--ds-wine); color: #fff; align-items: center; text-align: center; gap: 14px; padding: clamp(56px, 7vw, 88px) 20px; }
 .brand-spa .ds-band .ds-title .elementor-heading-title { color: #fff; }
@@ -362,12 +362,12 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-spa .ds-service__img img { aspect-ratio: 4 / 3.2; object-fit: cover; }
 .brand-spa .ds-price-tag { position: absolute; top: 16px; left: 16px; z-index: 2; }
 .brand-spa .ds-price-tag .elementor-heading-title { background: #fff; color: var(--ds-ink); border-radius: 999px; padding: 8px 14px; font: 500 13px/1 var(--ds-body); }
-.brand-spa .ds-service__title .elementor-heading-title { font: 600 22px/1.2 var(--ds-display); margin-top: 12px; }
+.brand-spa .ds-service__title .elementor-heading-title { font: 500 22px/1.2 var(--ds-display); margin-top: 12px; }
 .brand-spa .ds-service .ds-muted { max-width: 32ch; padding: 0 20px; font-size: 14px; }
 
 .brand-spa .e-con.ds-prices { padding: clamp(64px, 8vw, 120px) var(--gutter); gap: 14px; max-width: 1100px; margin: 0 auto; }
 .brand-spa .e-con.ds-pricecat { margin-top: 36px; }
-.brand-spa .ds-pricecat__title .elementor-heading-title { font: 600 26px/1.2 var(--ds-display); color: var(--ds-wine); padding-bottom: 12px; border-bottom: 2px solid var(--ds-sage); }
+.brand-spa .ds-pricecat__title .elementor-heading-title { font: 500 26px/1.2 var(--ds-display); color: var(--ds-wine); padding-bottom: 12px; border-bottom: 2px solid var(--ds-sage); }
 .brand-spa .e-con.ds-row { display: grid; grid-template-columns: minmax(0, 1fr) 110px 90px; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--ds-line); }
 .brand-spa .ds-row__name .elementor-heading-title { font: 400 16px/1.35 var(--ds-body); }
 .brand-spa .ds-row__name small { display: block; font-size: 13px; color: var(--ds-mute); }
@@ -378,13 +378,13 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .brand-spa .e-con.ds-packages__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; width: 100%; max-width: 1180px; margin-top: 30px; text-align: left; }
 .brand-spa .e-con.ds-package { background: var(--ds-paper); border-radius: 22px; padding: 30px; gap: 16px; }
 .brand-spa .e-con.ds-package.is-featured { background: var(--ds-wine); color: #fff; transform: translateY(-14px); }
-.brand-spa .ds-package__name .elementor-heading-title { font: 600 22px/1.2 var(--ds-display); }
-.brand-spa .ds-package__price .elementor-heading-title { font: 600 46px/1 var(--ds-display); }
+.brand-spa .ds-package__name .elementor-heading-title { font: 500 22px/1.2 var(--ds-display); }
+.brand-spa .ds-package__price .elementor-heading-title { font: 500 46px/1 var(--ds-display); }
 .brand-spa .ds-package__price small { font: 400 15px var(--ds-body); opacity: 0.7; }
 .brand-spa .ds-ticks .elementor-icon-list-item { border-color: var(--ds-line); }
 .brand-spa .ds-ticks .elementor-icon-list-text::before { content: "✦"; color: var(--ds-sage); margin-right: 10px; }
 .brand-spa .ds-ticks--grid .elementor-icon-list-items { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
-.brand-spa .ds-subhead .elementor-heading-title { font: 600 18px/1.2 var(--ds-display); color: var(--ds-wine); margin-top: 6px; }
+.brand-spa .ds-subhead .elementor-heading-title { font: 500 18px/1.2 var(--ds-display); color: var(--ds-wine); margin-top: 6px; }
 .brand-spa .e-con.ds-why__media { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr; gap: 12px; }
 .brand-spa .ds-why__media .ds-why__wide { grid-column: 1 / -1; }
 .brand-spa .e-con.ds-gallery { padding: 0 var(--gutter) clamp(56px, 7vw, 96px); }
@@ -603,3 +603,35 @@ body.logged-in .hc-editor-note p { margin: 0; }
   .brand-spa .ds-pricecat.is-collapsed .ds-pricecat__title .elementor-heading-title::after { content: "+"; }
   .brand-spa .ds-pricecat.is-collapsed > .ds-row { display: none; }
 }
+
+/* Day Spa: the eyebrow over the hero carries the Instagram line "Relax · Restore · Rebalance". */
+.brand-spa .ds-hero .ds-eyebrow .elementor-heading-title { font: italic 400 clamp(17px, 1.6vw, 22px)/1.3 var(--ds-display); letter-spacing: 0.04em; text-transform: none; }
+/* Day Spa: members' treatments, deep wine like the spa's "Members' treatments" post. */
+.brand-spa .e-con.ds-members { background: var(--ds-wine-deep); color: #fff; align-items: center; text-align: center; gap: 14px; padding: clamp(64px, 8vw, 110px) var(--gutter); }
+.brand-spa .ds-members .ds-title .elementor-heading-title { color: #fff; }
+.brand-spa .ds-members .ds-eyebrow .elementor-heading-title { color: var(--ds-lilac); }
+.brand-spa .ds-members__body { max-width: 52ch; color: rgb(255 255 255 / 0.8); }
+.brand-spa .e-con.ds-members__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; max-width: 1000px; margin: 22px 0 18px; border-top: 1px solid rgb(255 255 255 / 0.18); border-bottom: 1px solid rgb(255 255 255 / 0.18); }
+.brand-spa .e-con.ds-member { padding: 30px 22px; gap: 8px; align-items: center; }
+.brand-spa .e-con.ds-member + .e-con.ds-member { border-left: 1px solid rgb(255 255 255 / 0.18); }
+.brand-spa .ds-member__name .elementor-heading-title { font: 400 26px/1.15 var(--ds-display); text-transform: uppercase; letter-spacing: 0.04em; color: #fff; }
+.brand-spa .ds-member__what { color: rgb(255 255 255 / 0.72); font-size: 14px; }
+.brand-spa .ds-member__what p { margin: 0; }
+.brand-spa .ds-member__price .elementor-heading-title { font: 400 40px/1 var(--ds-display); color: var(--ds-lilac); margin-top: 6px; }
+@media (max-width: 767px) {
+  .brand-spa .e-con.ds-members__grid { grid-template-columns: 1fr; }
+  .brand-spa .e-con.ds-member + .e-con.ds-member { border-left: 0; border-top: 1px solid rgb(255 255 255 / 0.18); }
+  .brand-spa .e-con.ds-member { padding: 22px 8px; }
+}
+
+/* Club: Sunday Running Club, a dark green card like the club's Instagram. */
+.brand-club .e-con.cfc-run { --width: auto; width: auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: center; margin: 0 var(--gutter) clamp(56px, 7vw, 96px); padding: clamp(32px, 5vw, 64px); border-radius: 28px; background: #10261b; color: #fff; position: relative; overflow: hidden; isolation: isolate; }
+.brand-club .e-con.cfc-run::after { content: ""; position: absolute; z-index: -1; right: -60px; bottom: -80px; width: 300px; height: 300px; background: var(--cfc-leaf); opacity: 0.5; clip-path: path("M12 288C40 160 140 42 290 12 252 140 162 252 12 288Z"); }
+.brand-club .e-con.cfc-run__text, .brand-club .e-con.cfc-run__side { gap: 16px; align-items: flex-start; }
+.brand-club .cfc-run .cfc-title .elementor-heading-title { color: #fff; }
+.brand-club .cfc-run .hc-facts { width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.brand-club .cfc-run .hc-facts > div { border-color: rgb(255 255 255 / 0.2); }
+.brand-club .cfc-run .hc-facts dt { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cfc-sun); }
+.brand-club .cfc-run .hc-facts dd { margin: 4px 0 0; font-size: 20px; font-weight: 300; }
+@media (max-width: 767px) { .brand-club .e-con.cfc-run { grid-template-columns: 1fr; } }
+.brand-club .e-con.cfc-hero + .e-con.cfc-sunblock { margin-top: clamp(32px, 5vw, 56px); margin-bottom: clamp(32px, 4vw, 48px); }

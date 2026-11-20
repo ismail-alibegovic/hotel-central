@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $phone = hc_opt( 'club_phone' ) ? hc_opt( 'club_phone' ) : hc_opt( 'phone' );
 $email = antispambot( hc_opt( 'email' ) );
 $insta = hc_opt( 'instagram_club' );
+$book  = hc_opt( 'club_booking_url' );
+$book  = $book ? str_replace( '/en/', '/' . hc_lang() . '/', $book ) : '';
 ?>
 <footer class="cfc-footer" id="contact">
 	<svg class="cfc-leaf" viewBox="0 0 300 300" aria-hidden="true"><path d="M12 288C40 160 140 42 290 12 252 140 162 252 12 288Z"/></svg>
@@ -23,6 +25,7 @@ $insta = hc_opt( 'instagram_club' );
 			<p class="cfc-footer__label"><?php echo esc_html( hc_tr( 'Contact', 'Kontakt' ) ); ?></p>
 			<?php if ( $phone ) : ?><p><a href="<?php echo esc_attr( hc_tel( $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p><?php endif; ?>
 			<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
+			<?php if ( $book ) : ?><p><a href="<?php echo esc_url( $book ); ?>" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Book a class online', 'Rezervišite čas online' ) ); ?> ↗</a></p><?php endif; ?>
 		</div>
 		<div>
 			<p class="cfc-footer__label"><?php echo esc_html( hc_tr( 'Opening hours', 'Radno vrijeme' ) ); ?></p>

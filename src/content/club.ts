@@ -14,7 +14,11 @@ export const CLUB_INSTAGRAM: string | undefined = undefined;
 export type ClubPlan = { name: string; price?: string; period?: string; features: string[]; highlight?: boolean };
 export type ClubClass = { day: number; time: string; name: string; duration?: string; room?: string; trainer?: string };
 
-export const classTypes = ["Yoga", "Pilates", "Body mix", "HIIT", "Kettlebell", "Muscle pump", "Aqua aerobic", "Circuit training", "Indoor spinning", "Fat burning", "PT4 Pro", "Perfect swimming"];
+/** The group classes the club currently takes bookings for in Lime Booking (checked 2026-11-20). */
+export const classTypes = ["Functional Strength", "HIIT", "Glute Attack", "Tabata", "Body Balance", "Core Control", "Aqua Aerobic", "Full Body Circuit", "Yoga", "Kettlebell Combo", "Kettlebells", "Strong & Lean", "Total Body Sculpt", "Full Body Burn"];
+
+/** Online booking for group classes and personal programmes (link in the club's Instagram bio); /en/ is swapped for /bs/. */
+export const CLUB_BOOKING_URL = "https://form.lime-booking.com/en/Fitness%20Central%20Sarajevo/service";
 
 const copy = {
   en: {
@@ -27,7 +31,7 @@ const copy = {
       timetableDescription: "This week's group classes at Central Fitness Club, Hotel Central Sarajevo: yoga, pilates, HIIT, kettlebell, aqua aerobic and more.",
     },
     nav: { club: "The club", pool: "Pool & saunas", classes: "Classes", membership: "Membership", timetable: "Timetable", contact: "Contact", hotel: "Hotel Central", join: "Become a member", menu: "Menu", close: "Close", language: "Language" },
-    hero: { eyebrow: "Hotel Central · Sarajevo", title: "Central Fitness Club", tagline: "Feel your power", body: "A gym over three floors, a heated 25-metre pool and saunas, in the middle of Sarajevo.", call: "Call the club" },
+    hero: { eyebrow: "Strength · Conditioning · Community", title: "Central Fitness Club", tagline: "Feel your power", body: "A gym over three floors, a heated 25-metre pool and saunas, in the middle of Sarajevo.", call: "Call the club" },
     intro: { eyebrow: "Our club", title: "Everything you need, under one roof", body: "The latest cardio and strength equipment, group classes, a pool, saunas and a steam bath for recovery. Whether you are a complete beginner or train every day, our trainers make you feel at home from the first visit." },
     stats: [
       { big: "3", label: "floors of gym" },
@@ -84,6 +88,7 @@ const copy = {
       ask: "Ask about this plan",
       defaultPlans: [
         { name: "Annual membership", features: ["Full access to the club and Central Day Spa", "Gym, group classes, pool and saunas", "Free personal programme and results tracking"], highlight: true },
+        { name: "Student membership", features: ["For students with a valid student card", "Gym, group classes, pool and saunas", "Ask at reception for the current price"] },
       ] as ClubPlan[],
       benefitsTitle: "Included with every membership",
       tourTitle: "Come and see the club",
@@ -113,7 +118,7 @@ const copy = {
       timetableDescription: "Grupni časovi ove sedmice u Central Fitness Clubu, Hotel Central Sarajevo: yoga, pilates, HIIT, kettlebell, aqua aerobik i drugi.",
     },
     nav: { club: "Klub", pool: "Bazen i saune", classes: "Časovi", membership: "Članarine", timetable: "Raspored", contact: "Kontakt", hotel: "Hotel Central", join: "Postani član", menu: "Meni", close: "Zatvori", language: "Jezik" },
-    hero: { eyebrow: "Hotel Central · Sarajevo", title: "Central Fitness Club", tagline: "Feel your power", body: "Teretana na tri sprata, grijani bazen od 25 metara i saune, u srcu Sarajeva.", call: "Pozovite klub" },
+    hero: { eyebrow: "Snaga · Kondicija · Zajednica", title: "Central Fitness Club", tagline: "Feel your power", body: "Teretana na tri sprata, grijani bazen od 25 metara i saune, u srcu Sarajeva.", call: "Pozovite klub" },
     intro: { eyebrow: "Naš klub", title: "Sve što vam treba, pod jednim krovom", body: "Najnovija kardio i oprema za snagu, grupni časovi, bazen, saune i parno kupatilo za oporavak. Bilo da tek počinjete ili trenirate svaki dan, naši treneri će se pobrinuti da se osjećate kao kod kuće od prvog dolaska." },
     stats: [
       { big: "3", label: "sprata teretane" },
@@ -170,6 +175,7 @@ const copy = {
       ask: "Pitajte za ovu članarinu",
       defaultPlans: [
         { name: "Godišnja članarina", features: ["Puni pristup klubu i Central Day Spa", "Teretana, grupni časovi, bazen i saune", "Besplatan personalizirani program i praćenje rezultata"], highlight: true },
+        { name: "Studentska članarina", features: ["Za studente s važećim indeksom", "Teretana, grupni časovi, bazen i saune", "Aktuelnu cijenu saznajte na recepciji"] },
       ] as ClubPlan[],
       benefitsTitle: "Uključeno u svaku članarinu",
       tourTitle: "Dođite i upoznajte klub",

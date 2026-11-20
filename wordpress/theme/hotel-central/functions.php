@@ -5,7 +5,7 @@
  * Elementor (free) builds every page's content. What Elementor Free cannot do — a different header and footer per site
  * (Theme Builder is an Elementor Pro feature) — lives here: three headers and footers, chosen by the page's "brand":
  *   hotel  → Hotel Central (olive, Gilda Display)
- *   spa    → Central Day Spa (wine/lilac, Familjen Grotesk + DM Sans)
+ *   spa    → Central Day Spa (wine/lilac, Playfair Display + DM Sans)
  *   club   → Central Fitness Club (CFC green/cream, Jost)
  * The brand is stored in the page field "hc_brand" (set by the import; child pages inherit it from their parent).
  */
@@ -81,7 +81,7 @@ add_filter(
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		wp_enqueue_style( 'hc-fonts', 'https://fonts.googleapis.com/css2?family=Gilda+Display&family=Inter:wght@300;400;500&family=Familjen+Grotesk:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Jost:wght@300;400;500&display=swap', array(), null );
+		wp_enqueue_style( 'hc-fonts', 'https://fonts.googleapis.com/css2?family=Gilda+Display&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Jost:wght@300;400;500&display=swap', array(), null );
 		wp_enqueue_style( 'hello-elementor', get_template_directory_uri() . '/style.css', array(), HC_THEME_VERSION );
 		wp_enqueue_style( 'hotel-central', get_stylesheet_uri(), array( 'hello-elementor', 'hc-fonts' ), HC_THEME_VERSION );
 		wp_enqueue_script( 'hotel-central', get_stylesheet_directory_uri() . '/assets/js/site.js', array(), HC_THEME_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );

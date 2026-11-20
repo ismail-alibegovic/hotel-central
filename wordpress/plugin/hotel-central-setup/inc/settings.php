@@ -18,6 +18,7 @@ function hc_setting_fields(): array {
 		'address'         => array( 'Address (one line)', false ),
 		'booking_url'     => array( 'Room booking address (eZee)', false ),
 		'spa_booking_url' => array( 'Spa booking address (Lime Booking)', false ),
+		'club_booking_url' => array( 'Club class booking address (Lime Booking)', false ),
 		'facebook'        => array( 'Facebook', false ),
 		'instagram_hotel' => array( 'Instagram — Hotel Central', false ),
 		'instagram_club'  => array( 'Instagram — Central Fitness Club', false ),
