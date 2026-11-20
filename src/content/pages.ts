@@ -19,9 +19,9 @@ const en = {
     },
     rooms: {
       label: "(02) Rooms",
-      title: ["Completely", "refurbished"],
+      title: ["Comfort,", "thoughtfully designed"],
       body: [
-        "Each of our completely refurbished, well-appointed rooms is designed with your comfort in mind, featuring modern amenities and stylish decor.",
+        "Our 32 rooms and suites are designed with your comfort in mind, with modern amenities, quality beds and stylish decor.",
         "Start your day with a delicious breakfast buffet and Bosnian coffee at our on-site restaurant.",
       ],
       cta: "View rooms & suites",
@@ -44,8 +44,8 @@ const en = {
     statement: "A perfect blend of comfort, convenience and hospitality.",
   },
   rooms: {
-    meta: { title: "Rooms & Suites", description: "Six categories of refurbished rooms and suites at Hotel Central Sarajevo, from the single room to the presidential suite with terrace." },
-    hero: { eyebrow: "Rooms & suites", title: ["Rooms", "& suites"], intro: "Six categories, each completely refurbished and designed with your comfort in mind." },
+    meta: { title: "Rooms & Suites", description: "Six categories of rooms and suites at Hotel Central Sarajevo, from the single room to the presidential suite with terrace." },
+    hero: { eyebrow: "Rooms & suites", title: ["Rooms", "& suites"], intro: "Six room categories, from the single room to the presidential suite with its terrace." },
     size: "Size",
   },
   spa: {
@@ -200,9 +200,9 @@ const bs: PagesContent = {
     },
     rooms: {
       label: "(02) Sobe",
-      title: ["Potpuno", "renovirane"],
+      title: ["Udobnost", "do detalja"],
       body: [
-        "Svaka od naših renoviranih, dobro opremljenih soba uređena je modernim sadržajima i elegantnim enterijerom, pružajući maksimalnu udobnost.",
+        "Naše 32 sobe i apartmana uređeni su za vašu udobnost, s modernim sadržajima, kvalitetnim krevetima i elegantnim enterijerom.",
         "Započnite dan ukusnim doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu.",
       ],
       cta: "Pogledajte sobe i apartmane",
@@ -225,8 +225,8 @@ const bs: PagesContent = {
     statement: "Savršen spoj udobnosti i gostoprimstva.",
   },
   rooms: {
-    meta: { title: "Sobe i apartmani", description: "Šest kategorija renoviranih soba i apartmana u Hotelu Central Sarajevo, od jednokrevetne sobe do predsjedničkog apartmana sa terasom." },
-    hero: { eyebrow: "Sobe i apartmani", title: ["Sobe", "i apartmani"], intro: "Šest kategorija, svaka potpuno renovirana i uređena za maksimalnu udobnost." },
+    meta: { title: "Sobe i apartmani", description: "Šest kategorija soba i apartmana u Hotelu Central Sarajevo, od jednokrevetne sobe do predsjedničkog apartmana sa terasom." },
+    hero: { eyebrow: "Sobe i apartmani", title: ["Sobe", "i apartmani"], intro: "Šest kategorija soba, od jednokrevetne sobe do predsjedničkog apartmana s terasom." },
     size: "Veličina",
   },
   spa: {

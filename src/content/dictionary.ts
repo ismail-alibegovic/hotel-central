@@ -4,7 +4,7 @@ const en = {
   meta: {
     title: "Hotel Central Sarajevo — Four-star boutique hotel in the heart of Sarajevo",
     description:
-      "A four-star boutique hotel at Ćumurija 8, steps from Baščaršija and the Sacred Heart Cathedral. Refurbished rooms and suites, a 25 m heated pool, spa and Restaurant Central.",
+      "A four-star boutique hotel at Ćumurija 8, steps from Baščaršija and the Sacred Heart Cathedral. 32 rooms and suites, a 25 m heated pool, spa and Restaurant Central.",
   },
   nav: {
     menu: "Menu",
@@ -80,7 +80,7 @@ const en = {
     rooms: {
       metaLeft: "Hotel Central, Sarajevo",
       metaCenter: "(Rooms & suites)",
-      body: "Each of our completely refurbished, well-appointed rooms is designed with your comfort in mind, featuring modern amenities and stylish decor. Start your day with a breakfast buffet and Bosnian coffee at our on-site restaurant.",
+      body: "Thirty-two rooms and suites, each designed for a restful stay, with quality beds, modern amenities and calm, elegant interiors. Start your day with a breakfast buffet and Bosnian coffee at our on-site restaurant.",
       metaIndex: "(02)",
       metaRight: "Room",
     },
@@ -178,7 +178,7 @@ const bs: Dictionary = {
   meta: {
     title: "Hotel Central Sarajevo — Butik hotel sa četiri zvjezdice u srcu Sarajeva",
     description:
-      "Hotel sa četiri zvjezdice na adresi Ćumurija 8, na nekoliko koraka od Baščaršije i Katedrale. Renovirane sobe i apartmani, grijani bazen od 25 m, spa i Restoran Central.",
+      "Hotel sa četiri zvjezdice na adresi Ćumurija 8, na nekoliko koraka od Baščaršije i Katedrale. 32 sobe i apartmana, grijani bazen od 25 m, spa i Restoran Central.",
   },
   nav: {
     menu: "Meni",
@@ -254,7 +254,7 @@ const bs: Dictionary = {
     rooms: {
       metaLeft: "Hotel Central, Sarajevo",
       metaCenter: "(Sobe i apartmani)",
-      body: "Svaka od naših renoviranih, dobro opremljenih soba uređena je modernim sadržajima i elegantnim enterijerom, pružajući maksimalnu udobnost. Započnite dan doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu.",
+      body: "Trideset i dvije sobe i apartmana, svaki uređen za miran boravak, s kvalitetnim krevetima, modernim sadržajima i smirenim, elegantnim enterijerom. Započnite dan doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu.",
       metaIndex: "(02)",
       metaRight: "Soba",
     },
