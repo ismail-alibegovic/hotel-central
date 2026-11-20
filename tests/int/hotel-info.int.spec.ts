@@ -123,7 +123,7 @@ describe("what Hotel Information can never change", () => {
     const route = fs.readFileSync("src/app/api/contact/route.ts", "utf8");
     expect(route).not.toMatch(/@\/cms|hotel-info|getHotelContact/);
     expect(route).toContain("process.env.CONTACT_TO ?? hotel.email");
-    expect(booking.bookingUrl).toBe("https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo");
+    expect(booking.bookingUrl).toBe("https://letsbook.me/booking/hotelcentralsarajevo");
   });
 });
 

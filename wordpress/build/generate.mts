@@ -93,7 +93,7 @@ const x = {
       body: [
         "<strong>Who we are.</strong> Hotel Central Sarajevo, Ćumurija 8, 71000 Sarajevo, Bosnia and Herzegovina. E-mail: info@hotelcentral.ba, telephone +387 33 561 800.",
         "<strong>What this website collects.</strong> The website has no contact form and no user accounts for guests. When you write to us by e-mail or call us, we use your details only to answer you and to handle your booking.",
-        "<strong>Bookings.</strong> Room bookings are made in the secure booking system of our provider eZee (live.ipms247.com), and spa bookings in Lime Booking. Their own privacy terms apply to the data you enter there.",
+        "<strong>Bookings.</strong> Room bookings are made in the secure booking system of our provider eZee (letsbook.me), and spa bookings in Lime Booking. Their own privacy terms apply to the data you enter there.",
         "<strong>Embedded content.</strong> The map on our pages is provided by Google Maps; Google may set cookies when the map loads. Links to Facebook and Instagram open those services.",
         "<strong>Your rights.</strong> You can ask us which personal data we hold about you, and ask us to correct or delete it, by writing to info@hotelcentral.ba.",
       ],
@@ -103,7 +103,7 @@ const x = {
       body: [
         "<strong>Ko smo mi.</strong> Hotel Central Sarajevo, Ćumurija 8, 71000 Sarajevo, Bosna i Hercegovina. E-mail: info@hotelcentral.ba, telefon +387 33 561 800.",
         "<strong>Šta ova stranica prikuplja.</strong> Stranica nema kontakt formu niti korisničke račune za goste. Kada nam pišete ili nas pozovete, vaše podatke koristimo samo da vam odgovorimo i obradimo rezervaciju.",
-        "<strong>Rezervacije.</strong> Sobe se rezervišu u sigurnom sistemu našeg partnera eZee (live.ipms247.com), a spa tretmani u sistemu Lime Booking. Za podatke koje tamo unosite važe njihovi uslovi privatnosti.",
+        "<strong>Rezervacije.</strong> Sobe se rezervišu u sigurnom sistemu našeg partnera eZee (letsbook.me), a spa tretmani u sistemu Lime Booking. Za podatke koje tamo unosite važe njihovi uslovi privatnosti.",
         "<strong>Ugrađeni sadržaj.</strong> Mapu na našim stranicama prikazuje Google Maps; Google može postaviti kolačiće kada se mapa učita. Linkovi na Facebook i Instagram otvaraju te servise.",
         "<strong>Vaša prava.</strong> Možete tražiti informaciju koje vaše lične podatke imamo te njihovu ispravku ili brisanje, pišući na info@hotelcentral.ba.",
       ],
