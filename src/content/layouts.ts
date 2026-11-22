@@ -106,11 +106,10 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: k.meta,
         ogImage: "/images/hc26-cafe-corner.jpg",
         blocks: [
-          { type: "hero", image: img("hc26-cafe-corner.jpg", "Armchairs with pink cushions by the café's tall windows on Ćumurija street", "50% 55%"), eyebrow: k.hero.eyebrow, title: k.hero.title, intro: k.hero.intro, meta: ["Hotel Central", "(Café)", "Ćumurija 8"] },
-          split({ label: k.cafe.label, title: k.cafe.title, body: k.cafe.body, bullets: { title: k.cafe.offerTitle, items: k.cafe.offer }, line: "restaurant", images: [img("hc26-cafe-window.jpg", "A guest working by the café window on Ćumurija street"), img("hc26-cafe-guest.jpg", "A guest with a laptop at a café table with orange chairs")] }),
+          { type: "hero", image: img("hc26-lounge-window.jpg", "Leather armchairs under a tall arched window in the café lounge", "50% 38%"), eyebrow: k.hero.eyebrow, title: k.hero.title, intro: k.hero.intro, meta: ["Hotel Central", "(Café)", "Ćumurija 8"] },
+          split({ label: k.cafe.label, title: k.cafe.title, body: k.cafe.body, bullets: { title: k.cafe.offerTitle, items: k.cafe.offer }, line: "restaurant", images: [img("hc26-cafe-corner.jpg", "Armchairs with pink cushions by the café's tall windows on Ćumurija street", "50% 55%")] }),
           { type: "statement", text: k.statement, label: "(—)", tone: "deep" },
-          split({ tone: "olive", reverse: true, label: k.lounge.label, title: k.lounge.title, body: k.lounge.body, line: "hotel", images: [img("hc26-lounge-window.jpg", "Leather armchairs under a tall arched window in the lounge"), img("hc26-lobby-windows.jpg", "The lounge with its arched windows and plants")] }),
-          { type: "gallery", tone: "ivory", images: [img("hc26-lobby-lounge.jpg", "The lounge with its wave-shaped ceiling and white armchairs"), img("hc26-lobby.jpg", "The lobby with its wave-shaped ceiling and white leather armchairs"), img("dorucak6.jpg", "Bosnian coffee in a copper džezva"), img("hc26-lobby-entrance.jpg", "The hotel entrance seen from the lobby"), img("hc26-street-view.jpg", "The view from the hotel's door onto Ćumurija street")] },
+          split({ tone: "olive", reverse: true, label: k.lounge.label, title: k.lounge.title, body: k.lounge.body, line: "hotel", images: [img("hc26-lobby-windows.jpg", "The lounge with its arched windows and plants", "50% 50%")] }),
           { type: "cta", label: k.menu.label, title: k.menu.title, body: k.menu.body, tone: "deep", sample: false, primary: { label: k.menu.call, link: { kind: "phone", href: hotel.phoneHref, external: false } }, secondary: { label: k.menu.contact, link: internal(locale, "/contact") } },
         ],
       };

@@ -134,7 +134,7 @@ function split(o: { label: string; title: string[]; body: string[]; images: stri
   return box(
     `hc-split hc-tone-${o.tone ?? "ivory"}${o.reverse ? " is-reverse" : ""}`,
     [
-      box("hc-split__media", o.images.map((p, i) => image(img(p), i ? "hc-split__img-b" : "hc-split__img-a"))),
+      box(o.images.length > 1 ? "hc-split__media" : "hc-split__media is-single", o.images.map((p, i) => image(img(p), i ? "hc-split__img-b" : "hc-split__img-a"))),
       box("hc-split__text", [heading(o.label, "p", "hc-eyebrow"), heading(lines(o.title), "h2", "hc-display"), paras(o.body, "hc-body"), ...(o.extra ?? []), ...(o.ctas?.length ? [box("hc-btns", o.ctas, { row: true })] : [])]),
     ],
     { row: true, anchor: o.anchor },
@@ -225,8 +225,8 @@ add({
   build: (lang) => {
     const c = x.cafe[lang];
     return [
-      hero("images/hc26-cafe-corner.jpg", c.eyebrow, [c.title], c.intro),
-      split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-guest.jpg", "images/hc26-lounge-window.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
+      hero("images/hc26-lounge-window.jpg", c.eyebrow, [c.title], c.intro),
+      split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-corner.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
       box("hc-gallery", [gallery(["images/hc26-cafe-window.jpg", "images/hc26-lobby-lounge.jpg", "images/hc26-lobby-windows.jpg", "images/hc26-lobby.jpg"])]),
     ];
   },

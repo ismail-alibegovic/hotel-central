@@ -4111,7 +4111,7 @@
         "css_classes": "hc-hero",
         "background_background": "classic",
         "background_image": {
-         "url": "hc-media://images/hc26-cafe-corner.jpg",
+         "url": "hc-media://images/hc26-lounge-window.jpg",
          "id": ""
         },
         "background_position": "center center",
@@ -4166,7 +4166,7 @@
        ]
       },
       {
-       "id": "0300014",
+       "id": "0300013",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4176,13 +4176,13 @@
        },
        "elements": [
         {
-         "id": "030000f",
+         "id": "030000e",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
           "flex_direction": "column",
-          "css_classes": "hc-split__media"
+          "css_classes": "hc-split__media is-single"
          },
          "elements": [
           {
@@ -4191,32 +4191,18 @@
            "widgetType": "image",
            "settings": {
             "image": {
-             "url": "hc-media://images/hc26-cafe-guest.jpg",
+             "url": "hc-media://images/hc26-cafe-corner.jpg",
              "id": ""
             },
             "image_size": "full",
             "_css_classes": "hc-split__img-a"
            },
            "elements": []
-          },
-          {
-           "id": "030000e",
-           "elType": "widget",
-           "widgetType": "image",
-           "settings": {
-            "image": {
-             "url": "hc-media://images/hc26-lounge-window.jpg",
-             "id": ""
-            },
-            "image_size": "full",
-            "_css_classes": "hc-split__img-b"
-           },
-           "elements": []
           }
          ]
         },
         {
-         "id": "0300013",
+         "id": "0300012",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4226,7 +4212,7 @@
          },
          "elements": [
           {
-           "id": "0300010",
+           "id": "030000f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4237,7 +4223,7 @@
            "elements": []
           },
           {
-           "id": "0300011",
+           "id": "0300010",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4248,7 +4234,7 @@
            "elements": []
           },
           {
-           "id": "0300012",
+           "id": "0300011",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4327,7 +4313,7 @@
        ]
       },
       {
-       "id": "0300016",
+       "id": "0300015",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4337,7 +4323,7 @@
        },
        "elements": [
         {
-         "id": "0300015",
+         "id": "0300014",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -4385,7 +4371,7 @@
         "css_classes": "hc-hero",
         "background_background": "classic",
         "background_image": {
-         "url": "hc-media://images/hc26-cafe-corner.jpg",
+         "url": "hc-media://images/hc26-lounge-window.jpg",
          "id": ""
         },
         "background_position": "center center",
@@ -4440,7 +4426,7 @@
        ]
       },
       {
-       "id": "0380014",
+       "id": "0380013",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4450,13 +4436,13 @@
        },
        "elements": [
         {
-         "id": "038000f",
+         "id": "038000e",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
           "flex_direction": "column",
-          "css_classes": "hc-split__media"
+          "css_classes": "hc-split__media is-single"
          },
          "elements": [
           {
@@ -4465,32 +4451,18 @@
            "widgetType": "image",
            "settings": {
             "image": {
-             "url": "hc-media://images/hc26-cafe-guest.jpg",
+             "url": "hc-media://images/hc26-cafe-corner.jpg",
              "id": ""
             },
             "image_size": "full",
             "_css_classes": "hc-split__img-a"
            },
            "elements": []
-          },
-          {
-           "id": "038000e",
-           "elType": "widget",
-           "widgetType": "image",
-           "settings": {
-            "image": {
-             "url": "hc-media://images/hc26-lounge-window.jpg",
-             "id": ""
-            },
-            "image_size": "full",
-            "_css_classes": "hc-split__img-b"
-           },
-           "elements": []
           }
          ]
         },
         {
-         "id": "0380013",
+         "id": "0380012",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4500,7 +4472,7 @@
          },
          "elements": [
           {
-           "id": "0380010",
+           "id": "038000f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4511,7 +4483,7 @@
            "elements": []
           },
           {
-           "id": "0380011",
+           "id": "0380010",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4522,7 +4494,7 @@
            "elements": []
           },
           {
-           "id": "0380012",
+           "id": "0380011",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4601,7 +4573,7 @@
        ]
       },
       {
-       "id": "0380016",
+       "id": "0380015",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4611,7 +4583,7 @@
        },
        "elements": [
         {
-         "id": "0380015",
+         "id": "0380014",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -34124,10 +34096,6 @@
   },
   {
    "path": "images/hc26-cafe-corner.jpg",
-   "alt": ""
-  },
-  {
-   "path": "images/hc26-cafe-guest.jpg",
    "alt": ""
   },
   {

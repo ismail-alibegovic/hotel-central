@@ -186,6 +186,9 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .hc-site .e-con.hc-split__media { position: relative; display: block; padding-bottom: 14%; }
 .hc-site .hc-split__img-a img { aspect-ratio: 4 / 4.6; object-fit: cover; width: 78%; }
 .hc-site .hc-split__img-b { position: absolute; right: 0; bottom: 0; width: 44%; }
+/* A split with one photograph: the photo fills its column, nothing overlaps. */
+.hc-site .e-con.hc-split__media.is-single { padding-bottom: 0; }
+.hc-site .hc-split__media.is-single .hc-split__img-a img { width: 100%; aspect-ratio: 4 / 5; }
 .hc-site .hc-split__img-b img { aspect-ratio: 3 / 4; object-fit: cover; border: 8px solid var(--hc-split-bg, var(--hc-ivory)); }
 .hc-site .e-con.hc-split__text { gap: 18px; }
 .hc-tone-ivory { --hc-split-bg: var(--hc-ivory); background: var(--hc-ivory); }
