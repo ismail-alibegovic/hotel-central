@@ -168,7 +168,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             body: cf.ctaBody,
             tone: "deep",
             sample: false,
-            primary: { label: cf.ctaMail, link: { kind: "email", href: `mailto:${hotel.email}?subject=${encodeURIComponent(locale === "en" ? "Meeting / event enquiry" : "Upit za sastanak / događaj")}`, external: false } },
+            primary: { label: cf.ctaMail, link: { kind: "internal", href: "#enquiry", external: false } },
             secondary: { label: `${cf.ctaCall} ${hotel.phoneDisplay}`, link: { kind: "phone", href: hotel.phoneHref, external: false } },
           },
           { type: "finalBooking" },

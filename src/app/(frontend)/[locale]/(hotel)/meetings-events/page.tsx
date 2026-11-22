@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { EventEnquiry } from "@/components/EventEnquiry";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
 import { getPageLayout } from "@/cms/pages";
 import { getRooms } from "@/cms/rooms";
@@ -22,10 +23,15 @@ export default async function Events({ params }: P) {
   // Rooms are only fetched by pages that show them (the room list, or a hero counting them).
   const needsRooms = blocks.some((b) => b.type === "roomList" || (b.type === "hero" && b.meta?.some((m) => m.includes("{roomCount}"))));
   const rooms = needsRooms ? (await getRooms(locale)).rooms : [];
+  const last = blocks.findIndex((b) => b.type === "finalBooking");
+  const cut = last === -1 ? blocks.length : last;
   return (
     <>
       {draft && <LivePreviewListener />}
-      <BlockRenderer blocks={blocks} locale={locale} dict={dict} rooms={rooms} />
+      {/* The enquiry form sits right before the closing booking band (or at the end if the page has none) */}
+      <BlockRenderer blocks={blocks.slice(0, cut)} locale={locale} dict={dict} rooms={rooms} />
+      <EventEnquiry locale={locale} dict={dict} />
+      <BlockRenderer blocks={blocks.slice(cut)} locale={locale} dict={dict} rooms={rooms} />
     </>
   );
 }
