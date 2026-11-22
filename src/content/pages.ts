@@ -180,7 +180,7 @@ const en = {
     reservationsBody: "We have agents waiting to talk to you about your hotel booking.",
     write: "Send us an email",
     social: "Social media",
-    socialBody: "Visit us on Facebook for the latest updates and news.",
+    socialBody: "Follow us on Instagram and Facebook for the latest updates and news.",
   },
 };
 
@@ -361,7 +361,7 @@ const bs: PagesContent = {
     reservationsBody: "Naši agenti rado će razgovarati s Vama o rezervaciji.",
     write: "Pošaljite email",
     social: "Društvene mreže",
-    socialBody: "Posjetite nas na Facebooku za najnovije vijesti.",
+    socialBody: "Pratite nas na Instagramu i Facebooku za najnovije vijesti.",
   },
 };
 

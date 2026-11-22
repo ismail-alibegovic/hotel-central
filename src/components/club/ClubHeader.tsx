@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import type { ClubCopy } from "@/content/club";
+import { CLUB_INSTAGRAM, type ClubCopy } from "@/content/club";
 import { href, type Locale } from "@/lib/i18n";
 
 /** Club header: dark, transparent over the hero and solid once the page scrolls; white logo, the club's pages and "Become a member". */
@@ -111,7 +111,12 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
           <Link href={`${base}/membership`} onClick={close} className="cfc-btn cfc-btn--volt mt-8 self-start">
             {c.join} <span aria-hidden>→</span>
           </Link>
-          <Link href={href(locale)} onClick={close} className="mt-6 text-[14px] text-white/60">
+          {CLUB_INSTAGRAM && (
+            <a href={CLUB_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="mt-6 text-[14px] text-white">
+              Instagram ↗
+            </a>
+          )}
+          <Link href={href(locale)} onClick={close} className="mt-4 text-[14px] text-white/60">
             ← {c.hotel}
           </Link>
           <LanguageSwitcher locale={locale} label={c.language} className="mt-8 text-white" />

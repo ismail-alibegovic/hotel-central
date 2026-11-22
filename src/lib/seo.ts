@@ -63,7 +63,7 @@ export function hotelJsonLd(locale: Locale, contact: HotelContact = builtInConta
       { "@type": "LocationFeatureSpecification", name: "Fitness centre", value: true },
       { "@type": "LocationFeatureSpecification", name: "Free WiFi", value: true },
     ],
-    sameAs: [hotel.facebook],
+    sameAs: [hotel.instagram, hotel.facebook],
     potentialAction: { "@type": "ReserveAction", target: booking.bookingUrl },
   };
 }

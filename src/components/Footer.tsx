@@ -12,7 +12,10 @@ import { Arrow } from "./ui";
 export function Footer({
   locale,
   dict,
-  social = [{ label: "Facebook", href: hotel.facebook }],
+  social = [
+    { label: "Instagram", href: hotel.instagram },
+    { label: "Facebook", href: hotel.facebook },
+  ],
   contact = builtInContact(locale),
 }: {
   locale: Locale;

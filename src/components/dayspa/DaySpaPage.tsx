@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn, RevealLines } from "@/components/Reveal";
 import type { BrandContact } from "@/components/brands/contact";
-import type { DaySpaCopy } from "@/content/dayspa";
+import { DAYSPA_INSTAGRAM, type DaySpaCopy } from "@/content/dayspa";
 import { href, type Locale } from "@/lib/i18n";
 import { PriceList, type PriceCategory } from "./PriceList";
 
@@ -295,9 +295,14 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
               {c.cta.call} · {contact.phone.display}
             </Btn>
           </div>
-          <a href={mailto} className="ds-link text-[15px] text-white/85">
-            {contact.email}
-          </a>
+          <p className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px] text-white/85">
+            <a href={mailto} className="ds-link">
+              {contact.email}
+            </a>
+            <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="ds-link">
+              Instagram @central.day.spa ↗
+            </a>
+          </p>
         </FadeIn>
       </section>
     </>
@@ -334,6 +339,11 @@ export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; 
             <p>
               <a href={`mailto:${contact.email}`} className="ds-link">
                 {contact.email}
+              </a>
+            </p>
+            <p className="mt-3">
+              <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="ds-link text-white/65">
+                Instagram ↗
               </a>
             </p>
           </div>

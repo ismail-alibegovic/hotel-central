@@ -222,7 +222,7 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
               { label: b.office.label, body: b.office.body, link: { href: contact.phone.href, text: contact.phone.display } },
               { label: b.reservations.label, body: b.reservations.body, link: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
               { label: b.write.label, body: contact.email, link: { href: `mailto:${contact.email}`, text: dict.common.email } },
-              { label: b.social.label, body: b.social.body, link: { href: hotel.facebook, text: "Facebook", external: true } },
+              { label: b.social.label, body: b.social.body, link: { href: hotel.instagram, text: "Instagram", external: true }, link2: { href: hotel.facebook, text: "Facebook", external: true } },
             ];
             return (
               <section key={i} className="relative overflow-hidden bg-ivory px-[var(--gutter)] py-16 text-ink md:py-[6vw]">
@@ -241,6 +241,11 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
                           >
                             {c.link.text} <Arrow />
                           </a>
+                          {"link2" in c && c.link2 && (
+                            <a href={c.link2.href} target="_blank" rel="noopener noreferrer" className="label link-line ml-8 inline-flex items-center gap-3">
+                              {c.link2.text} <Arrow />
+                            </a>
+                          )}
                         </FadeIn>
                       ))}
                     </ul>

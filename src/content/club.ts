@@ -8,8 +8,8 @@ import type { Locale } from "@/lib/i18n";
  * Membership prices are not published anywhere, so none are invented: plans show "price on request" until staff add one.
  */
 
-/** The club's Instagram address, once the hotel confirms it (shown in the footer and timetable only when set). */
-export const CLUB_INSTAGRAM: string | undefined = undefined;
+/** The club's Instagram profile (footer, timetable). */
+export const CLUB_INSTAGRAM: string | undefined = "https://www.instagram.com/central.fitness.club/";
 
 export type ClubPlan = { name: string; price?: string; period?: string; features: string[]; highlight?: boolean };
 export type ClubClass = { day: number; time: string; name: string; duration?: string; room?: string; trainer?: string };

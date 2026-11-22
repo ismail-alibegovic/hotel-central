@@ -12,6 +12,9 @@ import type { Locale } from "@/lib/i18n";
 type L = { en: string; bs: string };
 const l = (en: string, bs: string): L => ({ en, bs });
 
+/** The spa's Instagram profile (header menu, booking section, footer). */
+export const DAYSPA_INSTAGRAM = "https://www.instagram.com/central.day.spa/";
+
 export const DAYSPA_BOOKING_URL = "https://form.lime-booking.com/en/HotelCentralSarajevo/service";
 
 export type SpaTreatment = { name: L; duration?: string; price: string; note?: L };

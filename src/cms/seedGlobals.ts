@@ -65,7 +65,7 @@ export async function seedGlobals(payload: Payload): Promise<{ navigation: Seede
       slug: "footer",
       locale: "en",
       overrideAccess: true,
-      data: { ...footData("en"), social: [{ label: "Facebook", link: { kind: "external", value: hotel.facebook } }], _status: "published" } as never,
+      data: { ...footData("en"), social: [{ label: "Instagram", link: { kind: "external", value: hotel.instagram } }, { label: "Facebook", link: { kind: "external", value: hotel.facebook } }], _status: "published" } as never,
     });
     void created;
     await payload.updateGlobal({ slug: "footer", locale: "bs", overrideAccess: true, data: { ...footData("bs"), _status: "published" } as never });

@@ -5,7 +5,10 @@ import type { Footer, Navigation } from "@/payload-types";
 import { resolveLink, validateLink } from "./links";
 
 export type SocialLink = { label: string; href: string };
-export const staticSocial: SocialLink[] = [{ label: "Facebook", href: hotel.facebook }];
+export const staticSocial: SocialLink[] = [
+  { label: "Instagram", href: hotel.instagram },
+  { label: "Facebook", href: hotel.facebook },
+];
 
 const text = (v: string | null | undefined) => (v && v.trim() ? v.trim() : undefined);
 const lines = (v: string | null | undefined) => {
@@ -59,5 +62,7 @@ export function mergeChrome(locale: Locale, dict: Dictionary, nav: Navigation | 
     .filter((s): s is { label: string; link: NonNullable<typeof s.link> } => Boolean(s.label && s.link && s.link.kind === "external"))
     .map((s) => ({ label: s.label, href: s.link.href }));
 
+  // Instagram is always listed, even when the saved footer predates it and only has Facebook.
+  if (social.length && !social.some((x) => x.href.includes("instagram.com"))) social.unshift(staticSocial[0]);
   return { dict: merged, social: social.length ? social : staticSocial };
 }

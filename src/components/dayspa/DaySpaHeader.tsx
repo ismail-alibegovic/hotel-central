@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import type { DaySpaCopy } from "@/content/dayspa";
+import { DAYSPA_INSTAGRAM, type DaySpaCopy } from "@/content/dayspa";
 import { href, type Locale } from "@/lib/i18n";
 
 type Props = { locale: Locale; c: DaySpaCopy["nav"]; bookingUrl: string; phone: { display: string; href: string } };
@@ -115,8 +115,11 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
               {l.label}
             </a>
           ))}
-          <a href={phone.href} className="py-5 text-[15px]">
+          <a href={phone.href} className="pt-5 text-[15px]">
             ✆ {phone.display}
+          </a>
+          <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="py-3 text-[15px]">
+            Instagram ↗
           </a>
           <Link href={href(locale)} onClick={close} className="pb-5 text-[15px] opacity-75">
             ← {c.hotel}
