@@ -1,6 +1,6 @@
 <?php
 /**
- * Central Fitness Club header: a cream bar with the green CFC logo and "Become a member".
+ * Central Fitness Club header: dark, transparent over the hero photograph, white CFC logo and "Become a member".
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <header class="cfc-header" data-hc-header>
 	<div class="cfc-header__bar">
 		<a class="cfc-header__logo" href="<?php echo esc_url( hc_page_url( 'club' ) ); ?>" aria-label="Central Fitness Club">
-			<?php echo hc_logo( 'cfc-green.png', '' ); // phpcs:ignore ?>
+			<?php echo hc_logo( 'cfc-white.png', '' ); // phpcs:ignore ?>
 		</a>
 		<nav class="cfc-header__nav" aria-label="Central Fitness Club">
 			<?php hc_menu( 'club_menu', 'cfc-nav' ); ?>
@@ -24,7 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="hc-menu cfc-menu" id="cfc-menu" hidden data-hc-menu>
 		<div class="hc-menu__inner">
 			<?php hc_menu( 'club_menu', 'hc-menu__list' ); ?>
-			<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
+			<div class="hc-menu__aside">
+				<p><a class="cfc-header__join" href="<?php echo esc_url( hc_page_url( 'club-membership' ) ); ?>"><?php echo esc_html( hc_tr( 'Become a member', 'Postani član' ) ); ?> →</a></p>
+				<?php if ( hc_opt( 'instagram_club' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_club' ) ); ?>" target="_blank" rel="noopener">Instagram ↗</a></p><?php endif; ?>
+				<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
+			</div>
 		</div>
 	</div>
 </header>

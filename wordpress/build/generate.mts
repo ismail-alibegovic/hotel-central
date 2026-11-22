@@ -384,9 +384,9 @@ add({
     const min = (items: { price: string }[]) => Math.min(...items.map((i) => parseFloat(i.price)).filter((n) => !Number.isNaN(n)));
     return [
       box("ds-hero", [
-        box("ds-hero__text", [heading(c.hero.eyebrow, "p", "ds-eyebrow"), heading(lines(c.hero.title), "h1", "ds-hero__title"), box("ds-btns", [dsBtn(c.hero.cta, book, "ds-btn--light"), dsBtn(c.hero.prices, "#prices", "ds-btn--ghost")], { row: true })]),
-        box("ds-glass", [heading(c.hero.perkTitle, "p", "ds-glass__title"), heading(c.hero.perkBig, "p", "ds-glass__big"), text(`<p>${c.hero.perkBody}</p>`, "ds-glass__body")]),
-      ], { row: true, bg: "images/dayspa/guest-robe.jpg" }),
+        box("ds-hero__text", [heading(c.hero.eyebrow, "p", "ds-eyebrow"), heading(`${c.hero.title[0]}<br><em>${c.hero.title[1]}</em>`, "h1", "ds-hero__title"), box("ds-btns", [dsBtn(c.hero.cta, book, "ds-btn--light"), dsBtn(c.hero.prices, "#prices", "ds-btn--ghost")], { row: true })]),
+        box("ds-glass", [heading(c.hero.perkBig, "p", "ds-glass__big"), box("ds-glass__text", [heading(c.hero.perkTitle, "p", "ds-glass__title"), text(`<p>${c.hero.perkBody}</p>`, "ds-glass__body")]), button("Central Fitness Club →", page("club"), "ds-glass__link")], { row: true }),
+      ], { bg: "images/dayspa/guest-robe.jpg" }),
       box("ds-about", [
         box("ds-about__media", [image("images/dayspa/salt-lamp.jpg", "ds-fill"), image("images/dayspa/relax-room.jpg", "ds-fill")]),
         box("ds-about__text", [heading(c.about.label, "p", "ds-eyebrow"), heading(c.about.title, "h2", "ds-title"), text(`<p>${c.about.body}</p>`, "ds-muted"), list(c.about.features.map((f) => ({ text: `<strong>${f.title}</strong> — ${f.body}` })), "ds-features"), dsBtn(c.about.cta, book)]),
@@ -394,8 +394,9 @@ add({
       box("ds-band", [heading(c.services.label, "p", "ds-eyebrow"), heading(lines(c.services.title), "h2", "ds-title")], { anchor: "treatments" }),
       box("ds-services", spaCategories.map((cat) => box("ds-service", [image(img(cat.image), "ds-service__img"), heading(`${c.services.from} ${min(cat.items)} KM`, "p", "ds-price-tag"), heading(cat.name[lang], "h3", "ds-service__title"), text(`<p>${cat.summary[lang]}</p>`, "ds-muted"), dsBtn(c.services.view, "#prices")])), { row: true }),
       box("ds-prices", [
-        heading(c.prices.label, "p", "ds-eyebrow"), heading(c.prices.title, "h2", "ds-title"), text(`<p>${c.prices.intro}</p>`, "ds-muted"),
-        ...spaCategories.map((cat) => box("ds-pricecat", [heading(cat.name[lang], "h3", "ds-pricecat__title"), ...cat.items.map((t) => box("ds-row", [heading(t.name[lang] + (t.note ? `<small>${t.note[lang]}</small>` : ""), "p", "ds-row__name"), heading(t.duration ?? "—", "p", "ds-row__dur"), heading(`${t.price} KM`, "p", "ds-row__price")], { row: true }))])),
+        box("ds-prices__head", [box("ds-prices__intro", [heading(c.prices.label, "p", "ds-eyebrow"), heading(c.prices.title, "h2", "ds-title")]), text(`<p>${c.prices.intro}</p>`, "ds-muted")], { row: true }),
+        text(`<nav class="ds-pricenav" aria-label="${c.prices.label}">${spaCategories.map((cat, i) => `<a href="#prices-${cat.id}"><span>${String(i + 1).padStart(2, "0")}</span>${cat.name[lang]}</a>`).join("")}</nav>`, "ds-pricenav-wrap"),
+        ...spaCategories.map((cat) => box("ds-pricecat", [heading(cat.name[lang], "h3", "ds-pricecat__title"), text(`<p>${cat.summary[lang]}</p>`, "ds-pricecat__summary"), ...cat.items.map((t) => box("ds-row", [heading(t.name[lang] + (t.note ? `<small>${t.note[lang]}</small>` : ""), "p", "ds-row__name"), heading(t.duration ?? "", "p", "ds-row__dur"), heading(`${t.price} KM`, "p", "ds-row__price")], { row: true }))], { anchor: `prices-${cat.id}` })),
       ], { anchor: "prices" }),
       box("ds-packages", [heading(c.packages.label, "p", "ds-eyebrow"), heading(c.packages.title, "h2", "ds-title"), box("ds-packages__grid", spaPackages.map((p, i) => box(`ds-package${i === 1 ? " is-featured" : ""}`, [heading(p.name[lang], "h3", "ds-package__name"), heading(`${p.price} KM <small>/ ${p.duration}</small>`, "p", "ds-package__price"), list(p.includes.map((t) => ({ text: t[lang] })), "ds-ticks"), dsBtn(c.packages.book, book, i === 1 ? "ds-btn--light" : "")])), { row: true })], { anchor: "packages" }),
       box("ds-members", [heading(ig[lang].members.eyebrow, "p", "ds-eyebrow"), heading(ig[lang].members.title, "h2", "ds-title"), text(`<p>${ig[lang].members.body}</p>`, "ds-members__body"), editorNote(ig[lang].members.note),
@@ -438,27 +439,30 @@ add({
     const c = clubCopy(lang);
     const cards = ["images/club/treadmill.jpg", "images/club/studio-stretch.jpg", "images/club/pool-lanes.jpg", "images/club/split.jpg"];
     return [
-      box("cfc-hero", [heading(c.hero.eyebrow, "p", "cfc-eyebrow"), heading(c.hero.title, "h1", "cfc-hero__title"), heading(c.hero.tagline, "p", "cfc-hero__tagline"), text(`<p>${c.hero.body}</p>`, "cfc-hero__body")], { bg: "images/club/split.jpg" }),
-      box("cfc-intro", [heading(c.intro.eyebrow, "p", "cfc-eyebrow"), heading(c.intro.title, "h2", "cfc-title cfc-title--caps"), text(`<p>${c.intro.body}</p>`, "cfc-muted"), box("cfc-stats", c.stats.map((s) => box("cfc-stat", [heading(s.big, "p", "cfc-stat__big"), heading(s.label, "p", "cfc-stat__label")])), { row: true })], { anchor: "club" }),
+      box("cfc-hero", [
+        box("cfc-hero__inner", [heading(c.hero.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(c.hero.title.replace(" ", "<br>"), "h1", "cfc-hero__title"), heading(c.hero.tagline, "p", "cfc-hero__tagline"), text(`<p>${c.hero.body}</p>`, "cfc-hero__body"), box("cfc-btns", [cfcBtn(c.nav.join, page("club-membership"), "cfc-btn--volt"), shortcode("[hc_contact what=club_phone style=button]", "cfc-hero__phone")], { row: true })]),
+        box("cfc-stats", c.stats.map((s) => box("cfc-stat", [heading(s.big, "p", "cfc-stat__big"), heading(s.label, "p", "cfc-stat__label")])), { row: true }),
+      ], { bg: "images/club/split.jpg" }),
+      box("cfc-intro", [box("cfc-intro__head", [heading(c.intro.eyebrow, "p", "cfc-eyebrow"), heading(c.intro.title, "h2", "cfc-title")]), text(`<p>${c.intro.body}</p>`, "cfc-muted")], { row: true, anchor: "club" }),
       box("cfc-green", [
-        box("cfc-green__head", [heading(lines(c.spaces.title), "h2", "cfc-title"), box("cfc-green__aside", [text(`<p>${c.spaces.body}</p>`, "cfc-on-green"), cfcBtn(c.spaces.cta, page("club-membership"), "cfc-btn--cream")])], { row: true }),
-        box("cfc-cards", c.spaces.cards.map((card, i) => box("cfc-card", [image(cards[i], "cfc-card__img"), heading(card.title, "h3", "cfc-card__title"), text(`<p>${card.body}</p>`, "cfc-card__body")])), { row: true }),
+        box("cfc-green__head", [heading(lines(c.spaces.title), "h2", "cfc-title"), box("cfc-green__aside", [text(`<p>${c.spaces.body}</p>`, "cfc-on-green"), cfcBtn(c.spaces.cta, page("club-membership"), "cfc-btn--volt")])], { row: true }),
+        box("cfc-cards", c.spaces.cards.map((card, i) => box("cfc-card", [image(cards[i], "cfc-card__img"), heading(String(i + 1).padStart(2, "0"), "p", "cfc-card__num"), heading(card.title, "h3", "cfc-card__title"), text(`<p>${card.body}</p>`, "cfc-card__body")])), { row: true }),
       ]),
       box("cfc-benefits", [
         box("cfc-benefits__media", [image("images/club/spin-window.jpg", "cfc-fill")]),
         box("cfc-benefits__text", [heading(c.benefits.eyebrow, "p", "cfc-eyebrow"), heading(c.benefits.title, "h2", "cfc-title"), list(c.benefits.items.map((t) => ({ text: t })), "cfc-numbered")]),
       ], { row: true }),
-      box("cfc-run", [box("cfc-run__text", [heading(ig[lang].run.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(ig[lang].run.title, "h2", "cfc-title"), text(`<p>${ig[lang].run.body}</p>`, "cfc-on-green")]), box("cfc-run__side", [facts(ig[lang].run.facts, "cfc-run__facts"), cfcBtn(ig[lang].run.cta, "https://www.instagram.com/central.fitness.club/", "cfc-btn--cream")])], { row: true, anchor: "running" }),
+      box("cfc-run", [box("cfc-run__text", [heading(ig[lang].run.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(ig[lang].run.title, "h2", "cfc-title"), text(`<p>${ig[lang].run.body}</p>`, "cfc-on-green")]), box("cfc-run__side", [facts(ig[lang].run.facts, "cfc-run__facts"), cfcBtn(ig[lang].run.cta, "https://www.instagram.com/central.fitness.club/", "cfc-btn--volt")])], { row: true, anchor: "running" }),
       box("cfc-pool", [
         box("cfc-pool__media", [image("images/club/pool-jets.jpg", "cfc-fill"), image("images/club/sauna.jpg", "cfc-fill")]),
-        box("cfc-pool__text", [heading(c.pool.eyebrow, "p", "cfc-eyebrow"), heading(c.pool.title, "h2", "cfc-title"), text(`<p>${c.pool.body}</p>`, "cfc-muted"), box("cfc-zones", c.pool.zones.map((z) => box("cfc-zone", [heading(z.name, "h3", "cfc-zone__name"), text(`<p>${z.body}</p>`, "cfc-muted")])), { row: true }), cfcBtn(c.pool.spa, page("dayspa"), "cfc-btn--line")]),
+        box("cfc-pool__text", [heading(c.pool.eyebrow, "p", "cfc-eyebrow"), heading(c.pool.title, "h2", "cfc-title"), text(`<p>${c.pool.body}</p>`, "cfc-muted"), box("cfc-zones", c.pool.zones.map((z) => box("cfc-zone", [heading(z.name, "h3", "cfc-zone__name"), text(`<p>${z.body}</p>`, "cfc-muted")])), { row: true }), cfcBtn(c.pool.spa, page("dayspa"), "cfc-btn--line cfc-btn--on-dark")]),
       ], { row: true, anchor: "pool" }),
       box("cfc-classes", [
         box("cfc-classes__text", [heading(c.classes.eyebrow, "p", "cfc-eyebrow"), heading(c.classes.title, "h2", "cfc-title"), text(`<p>${c.classes.body}</p>`, "cfc-ink"), list(classTypes.map((t) => ({ text: t })), "cfc-chips"), box("cfc-btns", [cfcBtn(ig[lang].bookClass, clubBook(lang)), cfcBtn(c.classes.cta, page("club-timetable"), "cfc-btn--line")], { row: true })]),
         image("images/club/kettlebells-rooftops.jpg", "cfc-fill cfc-fill--bleed"),
       ], { row: true, anchor: "classes" }),
       box("cfc-gallery", [gallery(["images/club/running.jpg", "images/club/strength-floor.jpg", "images/club/kettlebells.jpg", "images/club/pool-bench.jpg", "images/club/stairs.jpg", "images/club/dumbbells.jpg", "images/club/foam-roller.jpg", "images/club/feel-your-power.jpg"], "", 4)]),
-      box("cfc-join", [box("cfc-join__text", [heading(c.join.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(c.join.title, "h2", "cfc-title"), text(`<p>${c.join.body}</p>`, "cfc-on-green"), box("cfc-btns", [cfcBtn(c.join.cta, page("club-membership"), "cfc-btn--cream"), shortcode("[hc_contact what=club_phone style=button]", "cfc-join__phone")], { row: true })]), image("images/club/bottles.jpg", "cfc-fill cfc-fill--bleed")], { row: true }),
+      box("cfc-join", [box("cfc-join__text", [heading(c.join.eyebrow, "p", "cfc-eyebrow cfc-eyebrow--sun"), heading(c.join.title, "h2", "cfc-title"), text(`<p>${c.join.body}</p>`, "cfc-on-green"), box("cfc-btns", [cfcBtn(c.join.cta, page("club-membership"), "cfc-btn--volt"), shortcode("[hc_contact what=club_phone style=button]", "cfc-join__phone")], { row: true })]), image("images/club/bottles.jpg", "cfc-fill cfc-fill--bleed")], { row: true }),
     ];
   },
 });
@@ -542,8 +546,8 @@ pages.forEach((p, i) => {
 const menu = (lang: Lang, items: [string, string][]) => items.map(([label, target]) => ({ label, target }));
 const nav = (lang: Lang) => getDictionary(lang).nav;
 out.menus.hotel = {
-  en: menu("en", [["Home", "home"], ["About", "about"], ["Rooms & Suites", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restaurant", "restaurant"], ["Meetings & Events", "conference"], ["Location", "location"], ["Contact", "contact"]]),
-  bs: menu("bs", [["Početna", "home"], ["O nama", "about"], ["Sobe i apartmani", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restoran", "restaurant"], ["Sastanci i događaji", "conference"], ["Lokacija", "location"], ["Kontakt", "contact"]]),
+  en: menu("en", [["Home", "home"], ["About", "about"], ["Rooms & Suites", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restaurant", "restaurant"], ["Central Café", "cafe"], ["Meetings & Events", "conference"], ["Location", "location"], ["Contact", "contact"]]),
+  bs: menu("bs", [["Početna", "home"], ["O nama", "about"], ["Sobe i apartmani", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restoran", "restaurant"], ["Central Café", "cafe"], ["Sastanci i događaji", "conference"], ["Lokacija", "location"], ["Kontakt", "contact"]]),
 };
 void nav;
 out.menus.spa = {

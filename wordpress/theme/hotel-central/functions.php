@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HC_THEME_VERSION', '1.0.0' );
+define( 'HC_THEME_VERSION', '1.1.0' );
 
 add_action(
 	'after_setup_theme',
@@ -81,7 +81,7 @@ add_filter(
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		wp_enqueue_style( 'hc-fonts', 'https://fonts.googleapis.com/css2?family=Gilda+Display&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Jost:wght@300;400;500&display=swap', array(), null );
+		wp_enqueue_style( 'hc-fonts', 'https://fonts.googleapis.com/css2?family=Gilda+Display&family=Inter:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Archivo:wdth,wght@62..125,400..800&display=swap', array(), null );
 		wp_enqueue_style( 'hello-elementor', get_template_directory_uri() . '/style.css', array(), HC_THEME_VERSION );
 		wp_enqueue_style( 'hotel-central', get_stylesheet_uri(), array( 'hello-elementor', 'hc-fonts' ), HC_THEME_VERSION );
 		wp_enqueue_script( 'hotel-central', get_stylesheet_directory_uri() . '/assets/js/site.js', array(), HC_THEME_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );

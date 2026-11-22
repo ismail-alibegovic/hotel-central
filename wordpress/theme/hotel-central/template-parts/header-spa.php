@@ -1,6 +1,7 @@
 <?php
 /**
- * Central Day Spa header: light logo over the photograph, wine logo on cream once scrolled.
+ * Central Day Spa header: links on the left, the logo in the centre, booking on the right;
+ * light logo over the photograph, wine logo on cream once scrolled.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,9 +23,6 @@ $phone = hc_opt( 'spa_phone' );
 		</nav>
 		<div class="ds-header__right">
 			<?php echo hc_languages(); // phpcs:ignore ?>
-			<?php if ( $phone ) : ?>
-				<a class="ds-header__phone" href="<?php echo esc_attr( hc_tel( $phone ) ); ?>">✆ <?php echo esc_html( $phone ); ?></a>
-			<?php endif; ?>
 			<?php if ( $book ) : ?>
 				<a class="ds-header__book" href="<?php echo esc_url( $book ); ?>" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Book a treatment', 'Rezerviši tretman' ) ); ?> <i aria-hidden="true">→</i></a>
 			<?php endif; ?>
@@ -34,7 +32,11 @@ $phone = hc_opt( 'spa_phone' );
 	<div class="hc-menu ds-menu" id="ds-menu" hidden data-hc-menu>
 		<div class="hc-menu__inner">
 			<?php hc_menu( 'spa_menu', 'hc-menu__list' ); ?>
-			<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
+			<div class="hc-menu__aside">
+				<?php if ( $phone ) : ?><p><a href="<?php echo esc_attr( hc_tel( $phone ) ); ?>">✆ <?php echo esc_html( $phone ); ?></a></p><?php endif; ?>
+				<?php if ( hc_opt( 'instagram_spa' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_spa' ) ); ?>" target="_blank" rel="noopener">Instagram ↗</a></p><?php endif; ?>
+				<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
+			</div>
 		</div>
 	</div>
 </header>
