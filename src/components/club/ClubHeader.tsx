@@ -80,8 +80,8 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
             )}
           </nav>
           <div className="col-start-3 flex items-center justify-end gap-4 whitespace-nowrap xl:gap-6">
-            <Link href={href(locale)} className="hidden text-[12px] font-medium tracking-[0.06em] text-white/60 transition-colors hover:text-white 2xl:inline">
-              ← {c.hotel}
+            <Link href={href(locale)} aria-label={c.hotel} className="hidden h-9 items-center rounded-full border border-white/25 px-3 text-[12px] font-medium tracking-[0.06em] text-white/70 transition-colors hover:border-white hover:text-white xl:inline-flex">
+              ←<span className="hidden 2xl:inline">&nbsp;{c.hotel}</span>
             </Link>
             <LanguageSwitcher locale={locale} label={c.language} className="hidden !text-[11px] text-white sm:flex" />
             <Link href={`${base}/membership`} className="cfc-btn cfc-btn--volt hidden !min-h-[42px] !px-5 !text-[12px] md:inline-flex">

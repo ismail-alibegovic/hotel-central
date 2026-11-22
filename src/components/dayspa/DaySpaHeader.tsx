@@ -63,6 +63,15 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
       >
         <div className={`ds-wrap ds-max grid grid-cols-[1fr_auto_1fr] items-center gap-6 transition-[height] duration-500 ${solid ? "h-[72px]" : "h-[76px] md:h-[96px]"}`}>
           <nav aria-label="Central Day Spa" className="hidden items-center gap-8 lg:flex">
+            {/* Way back to the hotel's main site; the label shows from xl, below that the arrow alone */}
+            <Link
+              href={href(locale)}
+              aria-label={c.hotel}
+              className="group inline-flex h-9 items-center gap-2 rounded-full border border-current/30 px-3 text-[11px] font-medium uppercase tracking-[0.14em] opacity-80 transition-[opacity,border-color,background-color] duration-300 hover:border-current hover:opacity-100 xl:px-4"
+            >
+              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-x-0.5">←</span>
+              <span className="hidden whitespace-nowrap xl:inline">{c.hotel}</span>
+            </Link>
             {links.slice(0, 3).map((l) => (
               <a key={l.href} href={l.href} className="ds-nav-link">
                 {l.label}
@@ -90,6 +99,10 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
           </Link>
 
           <div className="flex items-center justify-end gap-7">
+            <Link href={href(locale)} aria-label={c.hotel} className="inline-flex h-9 items-center gap-2 rounded-full border border-current/30 px-3 text-[11px] font-medium uppercase tracking-[0.14em] opacity-85 transition-opacity hover:opacity-100 lg:hidden">
+              <span aria-hidden>←</span>
+              <span className="whitespace-nowrap">Hotel</span>
+            </Link>
             <nav aria-label="Central Day Spa" className="hidden items-center gap-8 lg:flex">
               {links.slice(3).map((l) => (
                 <a key={l.href} href={l.href} className="ds-nav-link">
