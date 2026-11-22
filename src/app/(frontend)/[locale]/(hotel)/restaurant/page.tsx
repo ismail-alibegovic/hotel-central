@@ -25,7 +25,9 @@ export default async function Restaurant({ params }: P) {
   return (
     <>
       {draft && <LivePreviewListener />}
-      <BlockRenderer blocks={blocks} locale={locale} dict={dict} rooms={rooms} />
+      <div className="natural-photos">
+        <BlockRenderer blocks={blocks} locale={locale} dict={dict} rooms={rooms} />
+      </div>
     </>
   );
 }

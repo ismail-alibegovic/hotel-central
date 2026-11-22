@@ -146,7 +146,7 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
         switch (b.type) {
           case "hero":
             if (b.variant === "warm")
-              return <CafeHero key={i} image={b.image} detail={b.detail} eyebrow={b.eyebrow} title={b.title} intro={b.intro} chips={b.chips} link={b.link} meta={b.meta} />;
+              return <CafeHero key={i} image={b.image} eyebrow={b.eyebrow} title={b.title} meta={b.meta} />;
             return (
               <PageHero
                 key={i}

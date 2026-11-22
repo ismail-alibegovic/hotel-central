@@ -4102,13 +4102,13 @@
      "description": "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.",
      "elementor": [
       {
-       "id": "030000d",
+       "id": "0300004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero hc-hero--cafe",
+        "css_classes": "hc-hero hc-hero--natural is-cafe",
         "background_background": "classic",
         "background_image": {
          "url": "hc-media://images/hc26-cafe-corner.jpg",
@@ -4120,129 +4120,34 @@
        },
        "elements": [
         {
-         "id": "030000c",
+         "id": "0300003",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
-          "flex_direction": "row",
-          "css_classes": "hc-cafe-card"
+          "flex_direction": "column",
+          "css_classes": "hc-hero__inner"
          },
          "elements": [
           {
-           "id": "030000a",
-           "elType": "container",
-           "isInner": true,
+           "id": "0300001",
+           "elType": "widget",
+           "widgetType": "heading",
            "settings": {
-            "content_width": "full",
-            "flex_direction": "column",
-            "css_classes": "hc-cafe-card__text"
+            "title": "Hotel Central · Ćumurija 8",
+            "header_size": "p",
+            "_css_classes": "hc-eyebrow"
            },
-           "elements": [
-            {
-             "id": "0300001",
-             "elType": "widget",
-             "widgetType": "heading",
-             "settings": {
-              "title": "Central Café",
-              "header_size": "p",
-              "_css_classes": "hc-eyebrow"
-             },
-             "elements": []
-            },
-            {
-             "id": "0300002",
-             "elType": "widget",
-             "widgetType": "heading",
-             "settings": {
-              "title": "Central<br>Café",
-              "header_size": "h1",
-              "_css_classes": "hc-hero__title"
-             },
-             "elements": []
-            },
-            {
-             "id": "0300003",
-             "elType": "widget",
-             "widgetType": "text-editor",
-             "settings": {
-              "editor": "<p>Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.</p>",
-              "_css_classes": "hc-hero__intro"
-             },
-             "elements": []
-            },
-            {
-             "id": "0300008",
-             "elType": "widget",
-             "widgetType": "icon-list",
-             "settings": {
-              "view": "traditional",
-              "icon_list": [
-               {
-                "_id": "0300004",
-                "text": "Coffee, including Bosnian coffee",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0300005",
-                "text": "Tea",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0300006",
-                "text": "Cold drinks",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0300007",
-                "text": "Cakes and sweet treats",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               }
-              ],
-              "_css_classes": "hc-chips"
-             },
-             "elements": []
-            },
-            {
-             "id": "0300009",
-             "elType": "widget",
-             "widgetType": "button",
-             "settings": {
-              "text": "How to find us →",
-              "link": {
-               "url": "hc-page://location",
-               "is_external": "",
-               "nofollow": ""
-              },
-              "_css_classes": "hc-link"
-             },
-             "elements": []
-            }
-           ]
+           "elements": []
           },
           {
-           "id": "030000b",
+           "id": "0300002",
            "elType": "widget",
-           "widgetType": "image",
+           "widgetType": "heading",
            "settings": {
-            "image": {
-             "url": "hc-media://images/dorucak6.jpg",
-             "id": ""
-            },
-            "image_size": "full",
-            "_css_classes": "hc-cafe-card__detail"
+            "title": "Central<br>Café",
+            "header_size": "h1",
+            "_css_classes": "hc-hero__title"
            },
            "elements": []
           }
@@ -4251,7 +4156,7 @@
        ]
       },
       {
-       "id": "030001b",
+       "id": "0300012",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4261,7 +4166,7 @@
        },
        "elements": [
         {
-         "id": "0300016",
+         "id": "030000d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4271,7 +4176,7 @@
          },
          "elements": [
           {
-           "id": "0300015",
+           "id": "030000c",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -4287,7 +4192,7 @@
          ]
         },
         {
-         "id": "030001a",
+         "id": "0300011",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4297,7 +4202,7 @@
          },
          "elements": [
           {
-           "id": "0300017",
+           "id": "030000e",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4308,7 +4213,7 @@
            "elements": []
           },
           {
-           "id": "0300018",
+           "id": "030000f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4319,7 +4224,7 @@
            "elements": []
           },
           {
-           "id": "0300019",
+           "id": "0300010",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4329,14 +4234,14 @@
            "elements": []
           },
           {
-           "id": "0300012",
+           "id": "0300009",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "030000e",
+              "_id": "0300005",
               "text": "Coffee, including Bosnian coffee",
               "selected_icon": {
                "value": "",
@@ -4344,7 +4249,7 @@
               }
              },
              {
-              "_id": "030000f",
+              "_id": "0300006",
               "text": "Tea",
               "selected_icon": {
                "value": "",
@@ -4352,7 +4257,7 @@
               }
              },
              {
-              "_id": "0300010",
+              "_id": "0300007",
               "text": "Cold drinks",
               "selected_icon": {
                "value": "",
@@ -4360,7 +4265,7 @@
               }
              },
              {
-              "_id": "0300011",
+              "_id": "0300008",
               "text": "Cakes and sweet treats",
               "selected_icon": {
                "value": "",
@@ -4373,7 +4278,7 @@
            "elements": []
           },
           {
-           "id": "0300013",
+           "id": "030000a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4384,7 +4289,7 @@
            "elements": []
           },
           {
-           "id": "0300014",
+           "id": "030000b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -4398,7 +4303,7 @@
        ]
       },
       {
-       "id": "030001d",
+       "id": "0300014",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4408,7 +4313,7 @@
        },
        "elements": [
         {
-         "id": "030001c",
+         "id": "0300013",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -4447,13 +4352,13 @@
      "description": "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.",
      "elementor": [
       {
-       "id": "038000d",
+       "id": "0380004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero hc-hero--cafe",
+        "css_classes": "hc-hero hc-hero--natural is-cafe",
         "background_background": "classic",
         "background_image": {
          "url": "hc-media://images/hc26-cafe-corner.jpg",
@@ -4465,129 +4370,34 @@
        },
        "elements": [
         {
-         "id": "038000c",
+         "id": "0380003",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
-          "flex_direction": "row",
-          "css_classes": "hc-cafe-card"
+          "flex_direction": "column",
+          "css_classes": "hc-hero__inner"
          },
          "elements": [
           {
-           "id": "038000a",
-           "elType": "container",
-           "isInner": true,
+           "id": "0380001",
+           "elType": "widget",
+           "widgetType": "heading",
            "settings": {
-            "content_width": "full",
-            "flex_direction": "column",
-            "css_classes": "hc-cafe-card__text"
+            "title": "Hotel Central · Ćumurija 8",
+            "header_size": "p",
+            "_css_classes": "hc-eyebrow"
            },
-           "elements": [
-            {
-             "id": "0380001",
-             "elType": "widget",
-             "widgetType": "heading",
-             "settings": {
-              "title": "Central Café",
-              "header_size": "p",
-              "_css_classes": "hc-eyebrow"
-             },
-             "elements": []
-            },
-            {
-             "id": "0380002",
-             "elType": "widget",
-             "widgetType": "heading",
-             "settings": {
-              "title": "Central<br>Café",
-              "header_size": "h1",
-              "_css_classes": "hc-hero__title"
-             },
-             "elements": []
-            },
-            {
-             "id": "0380003",
-             "elType": "widget",
-             "widgetType": "text-editor",
-             "settings": {
-              "editor": "<p>Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.</p>",
-              "_css_classes": "hc-hero__intro"
-             },
-             "elements": []
-            },
-            {
-             "id": "0380008",
-             "elType": "widget",
-             "widgetType": "icon-list",
-             "settings": {
-              "view": "traditional",
-              "icon_list": [
-               {
-                "_id": "0380004",
-                "text": "Kafa, uključujući bosansku kafu",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0380005",
-                "text": "Čajevi",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0380006",
-                "text": "Hladni napici",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               },
-               {
-                "_id": "0380007",
-                "text": "Kolači i slatke poslastice",
-                "selected_icon": {
-                 "value": "",
-                 "library": ""
-                }
-               }
-              ],
-              "_css_classes": "hc-chips"
-             },
-             "elements": []
-            },
-            {
-             "id": "0380009",
-             "elType": "widget",
-             "widgetType": "button",
-             "settings": {
-              "text": "Kako do nas →",
-              "link": {
-               "url": "hc-page://location",
-               "is_external": "",
-               "nofollow": ""
-              },
-              "_css_classes": "hc-link"
-             },
-             "elements": []
-            }
-           ]
+           "elements": []
           },
           {
-           "id": "038000b",
+           "id": "0380002",
            "elType": "widget",
-           "widgetType": "image",
+           "widgetType": "heading",
            "settings": {
-            "image": {
-             "url": "hc-media://images/dorucak6.jpg",
-             "id": ""
-            },
-            "image_size": "full",
-            "_css_classes": "hc-cafe-card__detail"
+            "title": "Central<br>Café",
+            "header_size": "h1",
+            "_css_classes": "hc-hero__title"
            },
            "elements": []
           }
@@ -4596,7 +4406,7 @@
        ]
       },
       {
-       "id": "038001b",
+       "id": "0380012",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4606,7 +4416,7 @@
        },
        "elements": [
         {
-         "id": "0380016",
+         "id": "038000d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4616,7 +4426,7 @@
          },
          "elements": [
           {
-           "id": "0380015",
+           "id": "038000c",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -4632,7 +4442,7 @@
          ]
         },
         {
-         "id": "038001a",
+         "id": "0380011",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4642,7 +4452,7 @@
          },
          "elements": [
           {
-           "id": "0380017",
+           "id": "038000e",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4653,7 +4463,7 @@
            "elements": []
           },
           {
-           "id": "0380018",
+           "id": "038000f",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4664,7 +4474,7 @@
            "elements": []
           },
           {
-           "id": "0380019",
+           "id": "0380010",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4674,14 +4484,14 @@
            "elements": []
           },
           {
-           "id": "0380012",
+           "id": "0380009",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "038000e",
+              "_id": "0380005",
               "text": "Kafa, uključujući bosansku kafu",
               "selected_icon": {
                "value": "",
@@ -4689,7 +4499,7 @@
               }
              },
              {
-              "_id": "038000f",
+              "_id": "0380006",
               "text": "Čajevi",
               "selected_icon": {
                "value": "",
@@ -4697,7 +4507,7 @@
               }
              },
              {
-              "_id": "0380010",
+              "_id": "0380007",
               "text": "Hladni napici",
               "selected_icon": {
                "value": "",
@@ -4705,7 +4515,7 @@
               }
              },
              {
-              "_id": "0380011",
+              "_id": "0380008",
               "text": "Kolači i slatke poslastice",
               "selected_icon": {
                "value": "",
@@ -4718,7 +4528,7 @@
            "elements": []
           },
           {
-           "id": "0380013",
+           "id": "038000a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4729,7 +4539,7 @@
            "elements": []
           },
           {
-           "id": "0380014",
+           "id": "038000b",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -4743,7 +4553,7 @@
        ]
       },
       {
-       "id": "038001d",
+       "id": "0380014",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4753,7 +4563,7 @@
        },
        "elements": [
         {
-         "id": "038001c",
+         "id": "0380013",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -16208,13 +16018,13 @@
      "description": "Breakfast with local delicacies and international favourites, Bosnian coffee, and catered lunches for corporate events on request.",
      "elementor": [
       {
-       "id": "0c00005",
+       "id": "0c00004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero",
+        "css_classes": "hc-hero hc-hero--natural",
         "background_background": "classic",
         "background_image": {
          "url": "hc-media://images/hc26-restaurant.jpg",
@@ -16226,7 +16036,7 @@
        },
        "elements": [
         {
-         "id": "0c00004",
+         "id": "0c00003",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16240,7 +16050,7 @@
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
-            "title": "Restaurant Central",
+            "title": "Hotel Central · Ćumurija 8",
             "header_size": "p",
             "_css_classes": "hc-eyebrow"
            },
@@ -16256,23 +16066,13 @@
             "_css_classes": "hc-hero__title"
            },
            "elements": []
-          },
-          {
-           "id": "0c00003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>A tranquil escape where every morning begins with a delightful breakfast.</p>",
-            "_css_classes": "hc-hero__intro"
-           },
-           "elements": []
           }
          ]
         }
        ]
       },
       {
-       "id": "0c0000d",
+       "id": "0c0000c",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16282,7 +16082,7 @@
        },
        "elements": [
         {
-         "id": "0c00008",
+         "id": "0c00007",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16292,7 +16092,7 @@
          },
          "elements": [
           {
-           "id": "0c00006",
+           "id": "0c00005",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16306,7 +16106,7 @@
            "elements": []
           },
           {
-           "id": "0c00007",
+           "id": "0c00006",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16322,7 +16122,7 @@
          ]
         },
         {
-         "id": "0c0000c",
+         "id": "0c0000b",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16332,7 +16132,7 @@
          },
          "elements": [
           {
-           "id": "0c00009",
+           "id": "0c00008",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16343,7 +16143,7 @@
            "elements": []
           },
           {
-           "id": "0c0000a",
+           "id": "0c00009",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16354,7 +16154,7 @@
            "elements": []
           },
           {
-           "id": "0c0000b",
+           "id": "0c0000a",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -16368,7 +16168,7 @@
        ]
       },
       {
-       "id": "0c0000f",
+       "id": "0c0000e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16378,7 +16178,7 @@
        },
        "elements": [
         {
-         "id": "0c0000e",
+         "id": "0c0000d",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -16418,7 +16218,7 @@
        ]
       },
       {
-       "id": "0c00019",
+       "id": "0c00018",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16428,7 +16228,7 @@
        },
        "elements": [
         {
-         "id": "0c00013",
+         "id": "0c00012",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16438,7 +16238,7 @@
          },
          "elements": [
           {
-           "id": "0c00011",
+           "id": "0c00010",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16452,7 +16252,7 @@
            "elements": []
           },
           {
-           "id": "0c00012",
+           "id": "0c00011",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16468,7 +16268,7 @@
          ]
         },
         {
-         "id": "0c00018",
+         "id": "0c00017",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16478,7 +16278,7 @@
          },
          "elements": [
           {
-           "id": "0c00014",
+           "id": "0c00013",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16489,7 +16289,7 @@
            "elements": []
           },
           {
-           "id": "0c00015",
+           "id": "0c00014",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16500,7 +16300,7 @@
            "elements": []
           },
           {
-           "id": "0c00016",
+           "id": "0c00015",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -16510,7 +16310,7 @@
            "elements": []
           },
           {
-           "id": "0c00017",
+           "id": "0c00016",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -16520,7 +16320,7 @@
            },
            "elements": [
             {
-             "id": "0c00010",
+             "id": "0c0000f",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -16541,7 +16341,7 @@
        ]
       },
       {
-       "id": "0c0001f",
+       "id": "0c0001e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16559,7 +16359,7 @@
        },
        "elements": [
         {
-         "id": "0c0001e",
+         "id": "0c0001d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16569,7 +16369,7 @@
          },
          "elements": [
           {
-           "id": "0c0001a",
+           "id": "0c00019",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16580,7 +16380,7 @@
            "elements": []
           },
           {
-           "id": "0c0001b",
+           "id": "0c0001a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16591,7 +16391,7 @@
            "elements": []
           },
           {
-           "id": "0c0001c",
+           "id": "0c0001b",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -16601,7 +16401,7 @@
            "elements": []
           },
           {
-           "id": "0c0001d",
+           "id": "0c0001c",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -16627,13 +16427,13 @@
      "description": "Doručak sa domaćim delicijama i internacionalnim jelima, bosanska kafa i ručak za poslovne događaje na upit.",
      "elementor": [
       {
-       "id": "0c80005",
+       "id": "0c80004",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero",
+        "css_classes": "hc-hero hc-hero--natural",
         "background_background": "classic",
         "background_image": {
          "url": "hc-media://images/hc26-restaurant.jpg",
@@ -16645,7 +16445,7 @@
        },
        "elements": [
         {
-         "id": "0c80004",
+         "id": "0c80003",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16659,7 +16459,7 @@
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
-            "title": "Restoran Central",
+            "title": "Hotel Central · Ćumurija 8",
             "header_size": "p",
             "_css_classes": "hc-eyebrow"
            },
@@ -16675,23 +16475,13 @@
             "_css_classes": "hc-hero__title"
            },
            "elements": []
-          },
-          {
-           "id": "0c80003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Mirna oaza u kojoj svako jutro počinje divnim iskustvom svježe pripremljenog doručka.</p>",
-            "_css_classes": "hc-hero__intro"
-           },
-           "elements": []
           }
          ]
         }
        ]
       },
       {
-       "id": "0c8000d",
+       "id": "0c8000c",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16701,7 +16491,7 @@
        },
        "elements": [
         {
-         "id": "0c80008",
+         "id": "0c80007",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16711,7 +16501,7 @@
          },
          "elements": [
           {
-           "id": "0c80006",
+           "id": "0c80005",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16725,7 +16515,7 @@
            "elements": []
           },
           {
-           "id": "0c80007",
+           "id": "0c80006",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16741,7 +16531,7 @@
          ]
         },
         {
-         "id": "0c8000c",
+         "id": "0c8000b",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16751,7 +16541,7 @@
          },
          "elements": [
           {
-           "id": "0c80009",
+           "id": "0c80008",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16762,7 +16552,7 @@
            "elements": []
           },
           {
-           "id": "0c8000a",
+           "id": "0c80009",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16773,7 +16563,7 @@
            "elements": []
           },
           {
-           "id": "0c8000b",
+           "id": "0c8000a",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -16787,7 +16577,7 @@
        ]
       },
       {
-       "id": "0c8000f",
+       "id": "0c8000e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16797,7 +16587,7 @@
        },
        "elements": [
         {
-         "id": "0c8000e",
+         "id": "0c8000d",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -16837,7 +16627,7 @@
        ]
       },
       {
-       "id": "0c80019",
+       "id": "0c80018",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16847,7 +16637,7 @@
        },
        "elements": [
         {
-         "id": "0c80013",
+         "id": "0c80012",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16857,7 +16647,7 @@
          },
          "elements": [
           {
-           "id": "0c80011",
+           "id": "0c80010",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16871,7 +16661,7 @@
            "elements": []
           },
           {
-           "id": "0c80012",
+           "id": "0c80011",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
@@ -16887,7 +16677,7 @@
          ]
         },
         {
-         "id": "0c80018",
+         "id": "0c80017",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16897,7 +16687,7 @@
          },
          "elements": [
           {
-           "id": "0c80014",
+           "id": "0c80013",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16908,7 +16698,7 @@
            "elements": []
           },
           {
-           "id": "0c80015",
+           "id": "0c80014",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16919,7 +16709,7 @@
            "elements": []
           },
           {
-           "id": "0c80016",
+           "id": "0c80015",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -16929,7 +16719,7 @@
            "elements": []
           },
           {
-           "id": "0c80017",
+           "id": "0c80016",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -16939,7 +16729,7 @@
            },
            "elements": [
             {
-             "id": "0c80010",
+             "id": "0c8000f",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -16960,7 +16750,7 @@
        ]
       },
       {
-       "id": "0c8001f",
+       "id": "0c8001e",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -16978,7 +16768,7 @@
        },
        "elements": [
         {
-         "id": "0c8001e",
+         "id": "0c8001d",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -16988,7 +16778,7 @@
          },
          "elements": [
           {
-           "id": "0c8001a",
+           "id": "0c80019",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -16999,7 +16789,7 @@
            "elements": []
           },
           {
-           "id": "0c8001b",
+           "id": "0c8001a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -17010,7 +16800,7 @@
            "elements": []
           },
           {
-           "id": "0c8001c",
+           "id": "0c8001b",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -17020,7 +16810,7 @@
            "elements": []
           },
           {
-           "id": "0c8001d",
+           "id": "0c8001c",
            "elType": "widget",
            "widgetType": "button",
            "settings": {

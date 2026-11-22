@@ -130,6 +130,11 @@ function hero(bg: string, eyebrow: string, title: string[], intro?: string, ctas
   return box("hc-hero", [box("hc-hero__inner", [heading(eyebrow, "p", "hc-eyebrow"), heading(lines(title), "h1", `hc-hero__title${title.join(" ").length > 28 ? " hc-hero__title--long" : ""}`), ...(intro ? [text(`<p>${intro}</p>`, "hc-hero__intro")] : []), ...(ctas.length ? [box("hc-btns", ctas, { row: true })] : [])])], { bg });
 }
 
+/** The light hero of the café and the restaurant: the photograph in its own colours, only the title over it. */
+function heroNatural(bg: string, eyebrow: string, title: string[], cls = ""): El {
+  return box(`hc-hero hc-hero--natural ${cls}`.trim(), [box("hc-hero__inner", [heading(eyebrow, "p", "hc-eyebrow"), heading(lines(title), "h1", "hc-hero__title")])], { bg });
+}
+
 function split(o: { label: string; title: string[]; body: string[]; images: string[]; tone?: string; reverse?: boolean; ctas?: El[]; extra?: El[]; anchor?: string }): El {
   return box(
     `hc-split hc-tone-${o.tone ?? "ivory"}${o.reverse ? " is-reverse" : ""}`,
@@ -225,13 +230,7 @@ add({
   build: (lang) => {
     const c = x.cafe[lang];
     return [
-      // The café's own hero: the bright photo barely graded, the words on a warm cream card.
-      box("hc-hero hc-hero--cafe", [
-        box("hc-cafe-card", [
-          box("hc-cafe-card__text", [heading(c.title, "p", "hc-eyebrow"), heading(lines(["Central", "Café"]), "h1", "hc-hero__title"), text(`<p>${c.intro}</p>`, "hc-hero__intro"), list(c.offer.map((t) => ({ text: t })), "hc-chips"), button(lang === "en" ? "How to find us →" : "Kako do nas →", page("location"), "hc-link")]),
-          image("images/dorucak6.jpg", "hc-cafe-card__detail"),
-        ], { row: true }),
-      ], { bg: "images/hc26-cafe-corner.jpg" }),
+      heroNatural("images/hc26-cafe-corner.jpg", "Hotel Central · Ćumurija 8", ["Central", "Café"], "is-cafe"),
       split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-guest.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
       box("hc-gallery", [gallery(["images/hc26-cafe-window.jpg", "images/hc26-lobby-lounge.jpg", "images/hc26-lobby-windows.jpg", "images/hc26-lobby.jpg"])]),
     ];
@@ -308,7 +307,7 @@ add({
   build: (lang) => {
     const r = getPages(lang).restaurant;
     return [
-      hero("images/hc26-restaurant.jpg", r.hero.eyebrow, r.hero.title, r.hero.intro),
+      heroNatural("images/hc26-restaurant.jpg", "Hotel Central · Ćumurija 8", r.hero.title),
       split({ label: r.breakfast.label.replace(/^\(\d+\)\s*/, ""), title: r.breakfast.title, body: [...r.breakfast.body, lang === "en" ? "Breakfast is served every morning from 07:00 to 10:00 and is included in every stay." : "Doručak se služi svako jutro od 07:00 do 10:00 i uključen je u svaki boravak."], images: ["images/hc-comfort-2.jpg", "images/dorucak6.jpg"] }),
       box("hc-gallery", [gallery(["images/dorucak4.jpg", "images/dorucak1.jpg", "images/breakfast2.jpg", "images/dorucak2.jpg", "images/breakfast3.jpg", "images/hc26-restaurant.jpg"], "", 3)]),
       split({ label: r.catering.label.replace(/^\(\d+\)\s*/, ""), title: r.catering.title, body: r.catering.body, images: ["images/breakfast1.jpg", "images/dorucak3.jpg"], tone: "olive", reverse: true, ctas: [btn(r.catering.cta, page("contact"), "hc-btn--light")] }),

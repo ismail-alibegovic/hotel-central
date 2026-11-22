@@ -108,7 +108,7 @@ const en = {
   },
   cafe: {
     meta: { title: "Central Café", description: "Central Café at Hotel Central Sarajevo: quality coffee, tea, cold drinks, cakes and sweet treats by the tall windows on Ćumurija street." },
-    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.", find: "How to find us" },
+    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting." },
     cafe: {
       label: "(01) The café",
       title: ["A window", "on the city"],
@@ -319,7 +319,7 @@ const bs: PagesContent = {
   },
   cafe: {
     meta: { title: "Central Café", description: "Central Café u Hotelu Central Sarajevo: kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice uz velike prozore na Ćumuriji." },
-    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.", find: "Kako do nas" },
+    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada." },
     cafe: {
       label: "(01) Kafić",
       title: ["Prozor", "u grad"],

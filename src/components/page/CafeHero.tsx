@@ -1,86 +1,44 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FadeIn, RevealLines } from "../Reveal";
 import type { Img } from "./PageParts";
 
 /**
- * Central Café's own hero: the bright café photograph almost untouched (a light warm grade, a soft shade only
- * under the header), with the words on a warm cream card instead of white type over a darkened picture.
+ * The light hero of Central Café and Restaurant Central: the photograph in its own colours (a touch of warmth,
+ * no darkening, no black-and-white), only the title over it, and a soft shade where the type and header sit.
  */
-export function CafeHero({
-  image,
-  detail,
-  eyebrow,
-  title,
-  intro,
-  chips,
-  link,
-  meta,
-}: {
-  image: Img;
-  detail?: Img;
-  eyebrow: string;
-  title: string[];
-  intro?: string;
-  chips?: string[];
-  link?: { label: string; href: string };
-  meta?: [string, string, string];
-}) {
+export function CafeHero({ image, eyebrow, title, meta }: { image: Img; eyebrow: string; title: string[]; meta?: [string, string, string] }) {
   return (
-    <section className="relative flex min-h-[640px] flex-col justify-end overflow-hidden bg-[#efe3d3] md:h-[92svh] md:min-h-[680px]">
+    <section className="relative flex h-[82svh] min-h-[560px] flex-col overflow-hidden bg-[#3a2a1e] text-white md:h-[92svh] md:min-h-[680px]">
       <Image
         src={image.src}
         alt={image.alt}
         fill
         priority
         sizes="100vw"
-        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(1.06)_brightness(1.04)_sepia(0.12)] motion-reduce:animate-none"
+        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(1.05)_brightness(1.03)_sepia(0.08)] motion-reduce:animate-none"
         style={{ objectPosition: image.position ?? "50% 50%" }}
       />
-      {/* Only enough shade for the white header to read; the photograph itself stays light. */}
-      <div aria-hidden className="absolute inset-x-0 top-0 h-[34%] bg-[linear-gradient(180deg,rgba(40,24,14,0.55)_0%,rgba(40,24,14,0)_100%)]" />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[45%] bg-[linear-gradient(0deg,rgba(60,36,18,0.35)_0%,rgba(60,36,18,0)_100%)]" />
+      {/* Shade only under the header and behind the title; the rest of the photograph stays as it is. */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-[30%] bg-[linear-gradient(180deg,rgba(30,18,10,0.5)_0%,rgba(30,18,10,0)_100%)]" />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[55%] bg-[linear-gradient(0deg,rgba(30,18,10,0.6)_0%,rgba(30,18,10,0.2)_55%,rgba(30,18,10,0)_100%)]" />
 
-      <div className="relative px-[var(--gutter)] pb-[var(--gutter)] pt-[calc(var(--header-h)+40px)] md:pb-[3.2vw]">
-        <FadeIn immediate delay={0.5} className="grid max-w-[760px] gap-6 bg-[#f8f1e7]/95 p-7 text-[#2a1d14] shadow-[0_30px_80px_-40px_rgba(40,24,14,0.6)] backdrop-blur-sm sm:grid-cols-[minmax(0,1fr)_150px] md:p-10">
-          <div>
-            <p className="label flex items-center gap-4 text-[#9a5b32]">
-              <span aria-hidden className="h-px w-8 bg-current" />
-              {eyebrow}
-            </p>
-            <h1 className="font-display mt-5 text-[clamp(52px,7vw,104px)] uppercase leading-[0.9]">
-              <RevealLines immediate delay={0.6} lines={title} />
-            </h1>
-            {intro && <p className="body-copy mt-6 max-w-[44ch] text-[#4a3a2e]">{intro}</p>}
-            {chips && chips.length > 0 && (
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {chips.map((c) => (
-                  <li key={c} className="label rounded-full border border-[#9a5b32]/35 px-4 py-2 text-[#6b4225]">
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {link && (
-              <Link href={link.href} className="label link-line mt-7 inline-block text-[#2a1d14]">
-                {link.label} →
-              </Link>
-            )}
-          </div>
-          {detail && (
-            <div className="relative hidden aspect-[3/4] self-end overflow-hidden sm:block">
-              <Image src={detail.src} alt={detail.alt} fill sizes="150px" className="object-cover" style={{ objectPosition: detail.position ?? "50% 50%" }} />
-            </div>
-          )}
+      <div className="relative flex flex-1 flex-col items-center justify-end px-[var(--gutter)] pb-12 text-center md:pb-[4.5vw]">
+        <FadeIn immediate delay={0.5} className="label mb-6 flex items-center gap-4 [text-shadow:0_1px_10px_rgba(0,0,0,0.35)]">
+          <span aria-hidden className="h-px w-8 bg-white/70" />
+          {eyebrow}
+          <span aria-hidden className="h-px w-8 bg-white/70" />
         </FadeIn>
+        <h1 className="font-display text-[clamp(56px,10vw,160px)] uppercase leading-[0.88] [text-shadow:0_4px_40px_rgba(0,0,0,0.3)]">
+          <RevealLines immediate delay={0.4} lines={title} />
+        </h1>
       </div>
 
       {meta && (
-        <div className="label relative hidden grid-cols-3 gap-4 border-t border-white/30 px-[var(--gutter)] py-4 text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] md:grid">
-          <span>{meta[0]}</span>
-          <span className="text-center">{meta[1]}</span>
-          <span className="text-right">{meta[2]}</span>
-        </div>
+        <FadeIn immediate delay={1.1} className="label relative grid grid-cols-2 gap-4 border-t border-white/30 px-[var(--gutter)] py-4 md:grid-cols-3 md:py-5">
+          <span className="truncate">{meta[0]}</span>
+          <span className="hidden text-center md:block">{meta[1]}</span>
+          <span className="truncate text-right">{meta[2]}</span>
+        </FadeIn>
       )}
     </section>
   );

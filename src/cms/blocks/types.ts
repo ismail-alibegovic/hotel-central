@@ -18,11 +18,8 @@ export type HeroBlock = {
   title: string[];
   intro?: string;
   meta?: [string, string, string];
-  /** "warm": the light café hero (photo barely graded, words on a cream card) instead of the dark cinematic one. */
+  /** "warm": the light hero of the café and the restaurant (photo in its own colours, only the title) instead of the dark cinematic one. */
   variant?: "warm";
-  detail?: Img;
-  chips?: string[];
-  link?: { label: string; href: string };
 };
 export type SplitBlock = {
   type: "split";
