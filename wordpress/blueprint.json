@@ -45,7 +45,7 @@
       "step": "installTheme",
       "themeData": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/wordpress/dist/hotel-central-theme.zip"
+        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/main/wordpress/dist/hotel-central-theme.zip"
       },
       "options": {
         "activate": true
@@ -55,7 +55,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/wordpress/dist/hotel-central-setup.zip"
+        "url": "https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/main/wordpress/dist/hotel-central-setup.zip"
       }
     },
     {

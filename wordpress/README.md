@@ -24,7 +24,7 @@ design, anything under *Central Fitness Club* the club design, the rest the hote
 Open this link; WordPress Playground builds the whole site in the browser (allow 1–2 minutes,
 it downloads Elementor, Polylang and about 23 MB of photos):
 
-https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/wordpress/blueprint.json
+https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/main/wordpress/blueprint.json
 
 You are logged in as admin, so *Edit with Elementor* works on every page. Nothing is saved:
 closing the tab discards the site.

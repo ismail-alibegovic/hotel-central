@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const HC_MEDIA_BASE_DEFAULT = 'https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/claude/intelligent-knuth-34v7le/public/';
+const HC_MEDIA_BASE_DEFAULT = 'https://raw.githubusercontent.com/ismail-alibegovic/hotel-central/refs/heads/main/public/';
 
 function hc_import_log( string $msg ): void {
 	if ( defined( 'WP_CLI' ) && WP_CLI ) {
