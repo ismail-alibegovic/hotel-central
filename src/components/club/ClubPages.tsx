@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/ui";
 import Link from "next/link";
 import { FadeIn } from "@/components/Reveal";
 import type { BrandContact } from "@/components/brands/contact";
@@ -192,7 +193,7 @@ export function ClubTimetable({ locale, c, timetable, img, contact }: { locale: 
               </a>
             ) : (
               <a href={timetable.file.url} target="_blank" rel="noopener noreferrer" className="cfc-btn">
-                {t.download} <span aria-hidden>↗</span>
+                {t.download} <ArrowUpRight />
               </a>
             )}
           </div>
@@ -208,7 +209,7 @@ export function ClubTimetable({ locale, c, timetable, img, contact }: { locale: 
               </a>
               {CLUB_INSTAGRAM && (
                 <a href={CLUB_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="cfc-btn cfc-btn--line on-light">
-                  {t.instagram} ↗
+                  {t.instagram}<ArrowUpRight />
                 </a>
               )}
             </div>
@@ -251,20 +252,20 @@ export function ClubFooter({ locale, c, contact, address }: { locale: Locale; c:
           </a>
         </div>
 
-        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-          <div className="flex items-start gap-5">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div className="col-span-2 flex items-start gap-5 lg:col-span-1">
             <Image src="/brand/cfc-white.png" alt="Central Fitness Club" width={60} height={71} className="h-[71px] w-auto" />
             <p className="max-w-[26ch] text-[14px] text-white/55">{f.rights}</p>
           </div>
-          <div className="text-[15px]">
+          <div className="break-words text-[14px] md:text-[15px]">
             <p className={label}>{f.address}</p>
             <p>{address.street}</p>
             <p>{address.city}</p>
             <a href={address.directions} target="_blank" rel="noopener noreferrer" className="cfc-link mt-2 inline-block text-white/60">
-              Google Maps ↗
+              Google Maps<ArrowUpRight />
             </a>
           </div>
-          <div className="text-[15px]">
+          <div className="break-words text-[14px] md:text-[15px]">
             <p className={label}>{f.contact}</p>
             <p>
               <a href={contact.phone.href} className="cfc-link">
@@ -279,7 +280,7 @@ export function ClubFooter({ locale, c, contact, address }: { locale: Locale; c:
             {CLUB_INSTAGRAM && (
               <p className="mt-2">
                 <a href={CLUB_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="cfc-link text-white/60">
-                  Instagram ↗
+                  Instagram<ArrowUpRight />
                 </a>
               </p>
             )}
@@ -299,7 +300,7 @@ export function ClubFooter({ locale, c, contact, address }: { locale: Locale; c:
               <p className="text-white/60">{f.hoursFallback}</p>
             )}
           </div>
-          <div className="text-[15px]">
+          <div className="break-words text-[14px] md:text-[15px]">
             <p className={label}>{f.also}</p>
             <p>
               <Link href={href(locale, "/dayspa")} className="cfc-link">

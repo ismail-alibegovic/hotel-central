@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -120,7 +121,7 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
             ✆ {phone.display}
           </a>
           <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="py-3 text-[15px]">
-            Instagram ↗
+            Instagram<ArrowUpRight />
           </a>
           <Link href={href(locale)} onClick={close} className="pb-5 text-[15px] opacity-75">
             ← {c.hotel}

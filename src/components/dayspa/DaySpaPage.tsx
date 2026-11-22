@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/ui";
 import Link from "next/link";
 import { FadeIn, RevealLines } from "@/components/Reveal";
 import type { BrandContact } from "@/components/brands/contact";
@@ -300,7 +301,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
               {contact.email}
             </a>
             <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="ds-link">
-              Instagram @central.day.spa ↗
+              Instagram @central.day.spa<ArrowUpRight />
             </a>
           </p>
         </FadeIn>
@@ -320,16 +321,16 @@ export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; 
           <Image src="/brand/dayspa-on-dark.png" alt="Central Day Spa" width={150} height={108} className="h-auto w-[130px] md:w-[150px]" />
           <p className="max-w-[40ch] text-[14px] text-white/60">{f.rights}</p>
         </div>
-        <div className="grid gap-12 py-14 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/10">
-          <div className="text-[15px] leading-[1.75] lg:pr-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/10">
+          <div className="break-words text-[14px] leading-[1.75] md:text-[15px] lg:pr-10">
             <p className={label}>{f.address}</p>
             <p>{address.street}</p>
             <p>{address.city}</p>
             <a href={address.directions} target="_blank" rel="noopener noreferrer" className="ds-link mt-3 inline-block text-white/65">
-              Google Maps ↗
+              Google Maps<ArrowUpRight />
             </a>
           </div>
-          <div className="text-[15px] leading-[1.75] lg:px-10">
+          <div className="break-words text-[14px] leading-[1.75] md:text-[15px] lg:px-10">
             <p className={label}>{f.contact}</p>
             <p>
               <a href={contact.phone.href} className="ds-link">
@@ -343,11 +344,11 @@ export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; 
             </p>
             <p className="mt-3">
               <a href={DAYSPA_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="ds-link text-white/65">
-                Instagram ↗
+                Instagram<ArrowUpRight />
               </a>
             </p>
           </div>
-          <div className="text-[15px] leading-[1.75] lg:px-10">
+          <div className="break-words text-[14px] leading-[1.75] md:text-[15px] lg:px-10">
             <p className={label}>{f.hours}</p>
             {contact.hours.length ? (
               contact.hours.map((h) => (
@@ -364,7 +365,7 @@ export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; 
               <p className="text-white/65">{f.hoursFallback}</p>
             )}
           </div>
-          <div className="text-[15px] leading-[1.75] lg:pl-10">
+          <div className="break-words text-[14px] leading-[1.75] md:text-[15px] lg:pl-10">
             <p className={label}>{f.follow}</p>
             <p>
               <Link href={href(locale)} className="ds-link">

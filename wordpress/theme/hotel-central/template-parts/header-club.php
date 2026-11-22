@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php hc_menu( 'club_menu', 'hc-menu__list' ); ?>
 			<div class="hc-menu__aside">
 				<p><a class="cfc-header__join" href="<?php echo esc_url( hc_page_url( 'club-membership' ) ); ?>"><?php echo esc_html( hc_tr( 'Become a member', 'Postani član' ) ); ?> →</a></p>
-				<?php if ( hc_opt( 'instagram_club' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_club' ) ); ?>" target="_blank" rel="noopener">Instagram ↗</a></p><?php endif; ?>
+				<?php if ( hc_opt( 'instagram_club' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_club' ) ); ?>" target="_blank" rel="noopener">Instagram ↗︎</a></p><?php endif; ?>
 				<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
 			</div>
 		</div>

@@ -21,14 +21,14 @@ $book  = $book ? str_replace( '/en/', '/' . hc_lang() . '/', $book ) : '';
 		<div>
 			<p class="cfc-footer__label"><?php echo esc_html( hc_tr( 'Address', 'Adresa' ) ); ?></p>
 			<p><?php echo esc_html( hc_opt( 'address' ) ); ?></p>
-			<p><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener">Google Maps ↗</a></p>
+			<p><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener">Google Maps ↗︎</a></p>
 		</div>
 		<div>
 			<p class="cfc-footer__label"><?php echo esc_html( hc_tr( 'Contact', 'Kontakt' ) ); ?></p>
 			<?php if ( $phone ) : ?><p><a href="<?php echo esc_attr( hc_tel( $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p><?php endif; ?>
 			<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
-			<?php if ( $book ) : ?><p><a href="<?php echo esc_url( $book ); ?>" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Book a class online', 'Rezervišite čas online' ) ); ?> ↗</a></p><?php endif; ?>
-			<?php if ( $insta ) : ?><p><a href="<?php echo esc_url( $insta ); ?>" target="_blank" rel="noopener">Instagram · @central.fitness.club ↗</a></p><?php endif; ?>
+			<?php if ( $book ) : ?><p><a href="<?php echo esc_url( $book ); ?>" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Book a class online', 'Rezervišite čas online' ) ); ?> ↗︎</a></p><?php endif; ?>
+			<?php if ( $insta ) : ?><p><a href="<?php echo esc_url( $insta ); ?>" target="_blank" rel="noopener">Instagram · @central.fitness.club ↗︎</a></p><?php endif; ?>
 			<p class="cfc-footer__label"><?php echo esc_html( hc_tr( 'Opening hours', 'Radno vrijeme' ) ); ?></p>
 			<?php echo hc_hours_html( 'club' ); // phpcs:ignore ?>
 		</div>

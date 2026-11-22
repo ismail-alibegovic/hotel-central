@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowUpRight } from "@/components/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -115,7 +116,7 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
           </Link>
           {CLUB_INSTAGRAM && (
             <a href={CLUB_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="mt-6 text-[14px] text-white">
-              Instagram ↗
+              Instagram<ArrowUpRight />
             </a>
           )}
           <Link href={href(locale)} onClick={close} className="mt-4 text-[14px] text-white/60">

@@ -34,7 +34,7 @@ $phone = hc_opt( 'spa_phone' );
 			<?php hc_menu( 'spa_menu', 'hc-menu__list' ); ?>
 			<div class="hc-menu__aside">
 				<?php if ( $phone ) : ?><p><a href="<?php echo esc_attr( hc_tel( $phone ) ); ?>">✆ <?php echo esc_html( $phone ); ?></a></p><?php endif; ?>
-				<?php if ( hc_opt( 'instagram_spa' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_spa' ) ); ?>" target="_blank" rel="noopener">Instagram ↗</a></p><?php endif; ?>
+				<?php if ( hc_opt( 'instagram_spa' ) ) : ?><p><a href="<?php echo esc_url( hc_opt( 'instagram_spa' ) ); ?>" target="_blank" rel="noopener">Instagram ↗︎</a></p><?php endif; ?>
 				<p><a href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a></p>
 			</div>
 		</div>

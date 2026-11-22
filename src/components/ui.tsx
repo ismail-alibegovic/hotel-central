@@ -9,6 +9,15 @@ export function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
+/** Small north-east arrow for external links; an SVG so phones never swap it for a coloured emoji. */
+export function ArrowUpRight({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 10 10" fill="none" className={`ml-[0.4em] inline-block h-[0.7em] w-[0.7em] align-[0.02em] ${className}`}>
+      <path d="M1.5 8.5 8.5 1.5M3 1.5h5.5V7" stroke="currentColor" strokeWidth="1.1" />
+    </svg>
+  );
+}
+
 export function ArrowLeft({ className = "" }: { className?: string }) {
   return (
     <svg aria-hidden className={`h-[9px] w-[22px] ${className}`} viewBox="0 0 22 9" fill="none">

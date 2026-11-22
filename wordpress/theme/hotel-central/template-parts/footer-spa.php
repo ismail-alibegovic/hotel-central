@@ -18,13 +18,13 @@ $insta = hc_opt( 'instagram_spa' );
 		<div>
 			<p class="ds-footer__label"><?php echo esc_html( hc_tr( 'Address', 'Adresa' ) ); ?></p>
 			<p><?php echo esc_html( hc_opt( 'address' ) ); ?></p>
-			<p><a class="ds-footer__muted-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener">Google Maps ↗</a></p>
+			<p><a class="ds-footer__muted-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener">Google Maps ↗︎</a></p>
 		</div>
 		<div>
 			<p class="ds-footer__label"><?php echo esc_html( hc_tr( 'Contact', 'Kontakt' ) ); ?></p>
 			<?php if ( $phone ) : ?><p><a href="<?php echo esc_attr( hc_tel( $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p><?php endif; ?>
 			<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
-			<?php if ( $insta ) : ?><p><a class="ds-footer__muted-link" href="<?php echo esc_url( $insta ); ?>" target="_blank" rel="noopener">Instagram · @central.day.spa ↗</a></p><?php endif; ?>
+			<?php if ( $insta ) : ?><p><a class="ds-footer__muted-link" href="<?php echo esc_url( $insta ); ?>" target="_blank" rel="noopener">Instagram · @central.day.spa ↗︎</a></p><?php endif; ?>
 		</div>
 		<div>
 			<p class="ds-footer__label"><?php echo esc_html( hc_tr( 'Opening hours', 'Radno vrijeme' ) ); ?></p>

@@ -22,7 +22,7 @@ $email = antispambot( hc_opt( 'email' ) );
 		<div>
 			<p class="hc-footer__label"><?php echo esc_html( hc_tr( 'Address', 'Adresa' ) ); ?></p>
 			<p>Hotel Central Sarajevo<br><?php echo esc_html( hc_opt( 'address' ) ); ?></p>
-			<p><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Directions', 'Upute' ) ); ?> ↗</a></p>
+			<p><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel+Central,+%C4%86umurija+8,+Sarajevo" target="_blank" rel="noopener"><?php echo esc_html( hc_tr( 'Directions', 'Upute' ) ); ?> ↗︎</a></p>
 		</div>
 		<div>
 			<p class="hc-footer__label"><?php echo esc_html( hc_tr( 'Contact', 'Kontakt' ) ); ?></p>
