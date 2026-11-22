@@ -107,17 +107,17 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
           <div className="flex items-stretch justify-end">
             <Link
               href={href(locale, "/rooms")}
-              className="label hidden items-center px-6 opacity-90 transition-opacity hover:opacity-100 md:flex lg:px-10"
+              className="label hidden items-center px-6 opacity-90 transition-opacity hover:opacity-100 md:flex"
             >
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
-            {/* CH-003: the booking button is solid gold and always visible */}
+            {/* CH-003: the booking button stays solid gold and always visible, kept compact so it sits quietly in the bar */}
             <span className="flex items-center">
               <a
                 href={booking.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="label inline-flex min-h-[40px] items-center rounded-full bg-[#b49a6a] px-5 text-white transition-colors duration-300 hover:bg-[#9c8455] md:min-h-[44px] md:px-6"
+                className="inline-flex h-[32px] items-center whitespace-nowrap rounded-full bg-[#b49a6a] px-4 font-sans text-[9.5px] uppercase leading-none tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#9c8455] md:h-[38px] md:px-6 md:text-[10.5px] md:tracking-[0.16em]"
               >
                 {dict.nav.book}
               </a>

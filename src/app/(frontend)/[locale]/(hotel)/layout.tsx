@@ -3,11 +3,10 @@ import { getHotelContact } from "@/cms/hotelInfo";
 import { contactLinks, followContact } from "@/cms/hotelInfoMerge";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { MobileBookBar } from "@/components/MobileBookBar";
 import { getDictionary } from "@/content/dictionary";
 import type { Locale } from "@/lib/i18n";
 
-/** The hotel's own pages: hotel header, footer and mobile booking bar. */
+/** The hotel's own pages: hotel header, footer. */
 export default async function HotelLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const locale = (await params).locale as Locale;
   const [chrome, contact] = await Promise.all([getChrome(locale, getDictionary(locale)), getHotelContact(locale)]);
@@ -19,7 +18,6 @@ export default async function HotelLayout({ children, params }: { children: Reac
       <Header locale={locale} dict={dict} contact={links} />
       <main id="content">{children}</main>
       <Footer locale={locale} dict={dict} social={chrome.social} contact={contact} />
-      <MobileBookBar dict={dict} contact={links} />
     </>
   );
 }
