@@ -4,7 +4,7 @@ Poštovani,
 
 novi sajt Hotela Central, Central Day Spa i Central Fitness Cluba je spreman za vaš pregled:
 
-**👉 https://hotel-central-git-claude-beauti-6ced3d-ia-production-s-projects.vercel.app/?_vercel_share=YequcARAQ2B2v5ihysHa1PBwUaoo97Mg**
+**👉 https://hotel-central-pi.vercel.app**
 
 Sajt je na engleskom i bosanskom (prekidač EN / BS u meniju). Sve izmjene sa vaše liste su urađene: novi izgled hotela, Day Spa i Fitness Cluba kao zasebnih sajtova, stranica Central Café, sastanci i događaji, lokacija i parking, kontakt bez forme, česta pitanja (FAQ), politika privatnosti, zlatno dugme „Book now", Instagram profili i sobe sa direktnom rezervacijom svake sobe u vašem booking sistemu.
 
