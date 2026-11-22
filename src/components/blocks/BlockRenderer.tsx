@@ -1,7 +1,8 @@
 import { CafeHero } from "../page/CafeHero";
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { ContactForm } from "@/components/ContactForm";
+import { brandContact, spaDefaults, spaLabels } from "@/components/brands/contact";
+import { clientCopy } from "@/content/clientCopy";
 import { DecorativeLine } from "@/components/DecorativeLine";
 import { FinalBooking } from "@/components/home/FinalBooking";
 import { EditorialSplit, FactList, Gallery, PageHero, Statement } from "@/components/page/PageParts";
@@ -221,6 +222,8 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
               </section>
             );
           case "contact": {
+            const cc = clientCopy.contact[locale];
+            const spa = brandContact(contact, spaLabels, ["spa"], spaDefaults(locale));
             const items = [
               { label: b.office.label, body: b.office.body, link: { href: contact.phone.href, text: contact.phone.display } },
               { label: b.reservations.label, body: b.reservations.body, link: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
@@ -264,9 +267,30 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
                       </a>
                     </address>
                   </div>
+                  {/* CH-016 / CH-017: phone and e-mail only, no form */}
                   <div className="md:col-span-7 md:col-start-6">
-                    <h2 className="font-display mb-10 text-[11vw] leading-[0.9] md:text-[4.4vw]">{dict.contact.formTitle}</h2>
-                    <ContactForm locale={locale} dict={dict} />
+                    <h2 className="font-display mb-10 text-[11vw] leading-[0.9] md:text-[4.4vw]">{locale === "en" ? "Call or write to us" : "Pozovite ili pišite"}</h2>
+                    <div className="grid gap-px bg-ink/15 sm:grid-cols-2">
+                      {[
+                        { t: cc.reception, b: cc.receptionBody, lines: [{ href: contact.phone.href, text: contact.phone.display }, { href: `mailto:${contact.email}`, text: contact.email }], more: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
+                        { t: cc.events, b: cc.eventsBody, lines: [{ href: `mailto:${contact.email}`, text: contact.email }, { href: contact.phone.href, text: contact.phone.display }], more: { href: href(locale, "/meetings-events"), text: cc.events } },
+                        { t: cc.spa, b: cc.spaBody, lines: [{ href: spa.phone.href, text: spa.phone.display }], more: { href: href(locale, "/dayspa"), text: "Central Day Spa" } },
+                        { t: cc.club, b: cc.clubBody, lines: [{ href: contact.phone.href, text: contact.phone.display }], more: { href: href(locale, "/centralfitnessclub"), text: "Central Fitness Club" } },
+                      ].map((card) => (
+                        <div key={card.t} className="flex flex-col gap-3 bg-ivory p-6 md:p-8">
+                          <p className="label opacity-60">{card.t}</p>
+                          <p className="body-copy opacity-85">{card.b}</p>
+                          {card.lines.map((l) => (
+                            <a key={l.text} href={l.href} className="text-[17px] link-line self-start">
+                              {l.text}
+                            </a>
+                          ))}
+                          <a href={card.more.href} {...(card.more.external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="label link-line mt-auto inline-flex items-center gap-3 self-start pt-3">
+                            {card.more.text} <Arrow />
+                          </a>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </section>

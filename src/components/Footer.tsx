@@ -1,3 +1,4 @@
+import { clientCopy } from "@/content/clientCopy";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -129,6 +130,12 @@ export function Footer({
       <div className="label-sm relative z-[1] flex flex-col gap-2 border-t border-white/15 px-[var(--gutter)] py-5 opacity-60 md:flex-row md:justify-between">
         <p>
           © {year} {hotel.name}. {f.rights}
+        </p>
+        {/* CH-020: privacy policy, FAQ and the café in the footer */}
+        <p className="flex flex-wrap gap-x-6 gap-y-1">
+          <Link href={href(locale, "/privacy-policy")} className="link-line">{clientCopy.privacy[locale].title}</Link>
+          <Link href={href(locale, "/faq")} className="link-line">{clientCopy.ui[locale].faq}</Link>
+          <Link href={href(locale, "/cafe")} className="link-line">Central Café</Link>
         </p>
         <p>{f.credits}</p>
       </div>

@@ -42,8 +42,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <RoomCarousel locale={locale} dict={dict} rooms={rooms} />
       <SpaShowcase locale={locale} dict={dict} images={images} />
       <RestaurantShowcase locale={locale} dict={dict} images={images} />
-      <LocationSection locale={locale} dict={dict} images={images} contact={contact} />
+      {/* CH-005: meetings & events before location */}
       <EventsSection locale={locale} dict={dict} images={images} />
+      <LocationSection locale={locale} dict={dict} images={images} contact={contact} />
       <FinalBooking dict={dict} phone={contact.phone} {...(images.final ? { image: images.final.src, alt: images.final.alt } : {})} />
       {/* Last on purpose: anything before the hero would shift its position in the React tree and change its generated ids. */}
       {draft && <LivePreviewListener />}

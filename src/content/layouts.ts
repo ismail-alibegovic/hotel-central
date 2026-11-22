@@ -1,6 +1,7 @@
 import type { Block, Img, PageKey, PageLayout, Cta, SplitBlock } from "@/cms/blocks/types";
 import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
+import { clientCopy } from "@/content/clientCopy";
 import { getPages } from "@/content/pages";
 import { href, type Locale } from "@/lib/i18n";
 
@@ -46,6 +47,20 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
           { type: "statement", text: a.statement, label: "(—)", tone: "ivory" },
           split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("hc26-pool-lanes.jpg", "The heated 25-metre pool of Central Fitness Club", "50% 60%"), img("hc26-dayspa-relax.jpg", "The relaxation room of Central Day Spa")], primary: { label: "Central Fitness Club", link: internal(locale, "/centralfitnessclub") }, secondary: { label: "Central Day Spa", link: internal(locale, "/dayspa") } }),
           { type: "gallery", tone: "ivory", images: [img("hc26-lounge-window.jpg", "The lounge under a tall arched window"), img("hc26-reception.jpg", "Checking in at reception"), img("hc26-restaurant.jpg", "Restaurant Central with its arched windows"), img("hc26-stairs.jpg", "The staircase with its magenta carpet"), img("p05.jpg", "Living room of the presidential suite")] },
+          // The café and the FAQ, as on the WordPress About page (CH-007, CH-020)
+          {
+            type: "offers",
+            label: "(—)",
+            title: [locale === "en" ? "Good to know" : "Dobro je znati"],
+            tone: "ivory",
+            sample: false,
+            validityLabel: "",
+            priceLabel: "",
+            items: [
+              { title: "Central Café", description: clientCopy.cafe[locale].intro, image: img("hc26-cafe-corner.jpg", "Armchairs with pink cushions by the café window", "50% 70%"), cta: { label: clientCopy.ui[locale].more, link: internal(locale, "/cafe") } },
+              { title: clientCopy.ui[locale].faq, description: locale === "en" ? "Check-in and check-out, breakfast, parking, the club and the spa: the answers to the questions we hear most." : "Prijava i odjava, doručak, parking, klub i spa: odgovori na pitanja koja najčešće čujemo.", image: img("hc26-reception.jpg", "Checking in at reception", "50% 40%"), cta: { label: clientCopy.ui[locale].more, link: internal(locale, "/faq") } },
+            ],
+          },
           { type: "finalBooking", image: "/images/3075.jpg", alt: "Hotel Central at night" },
         ],
       };
@@ -116,6 +131,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
     }
     case "meetings-events": {
       const e = p.events;
+      const cf = clientCopy.conference[locale];
       return {
         meta: e.meta,
         ogImage: "/images/hc26-conference.jpg",
@@ -134,6 +150,27 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             primary: { label: e.business.cta, link: internal(locale, "/contact") },
             secondary: { label: hotel.email, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
           }),
+          // CH-014: what can be arranged (no prices: fees are agreed per request), and a prominent enquiry.
+          {
+            type: "offers",
+            label: "(03)",
+            title: [cf.offerTitle],
+            intro: cf.offerNote,
+            tone: "ivory",
+            sample: false,
+            validityLabel: "",
+            priceLabel: "",
+            items: cf.offer.map((o) => ({ title: o.t, description: o.d })),
+          },
+          {
+            type: "cta",
+            title: [cf.ctaTitle],
+            body: cf.ctaBody,
+            tone: "deep",
+            sample: false,
+            primary: { label: cf.ctaMail, link: { kind: "email", href: `mailto:${hotel.email}?subject=${encodeURIComponent(locale === "en" ? "Meeting / event enquiry" : "Upit za sastanak / događaj")}`, external: false } },
+            secondary: { label: `${cf.ctaCall} ${hotel.phoneDisplay}`, link: { kind: "phone", href: hotel.phoneHref, external: false } },
+          },
           { type: "finalBooking" },
         ],
       };
@@ -145,7 +182,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         ogImage: "/images/3064.jpg",
         blocks: [
           { type: "hero", image: img("hc26-facade-sky.jpg", "The CENTRAL letters on the hotel's façade under a summer sky", "50% 45%"), eyebrow: l.hero.eyebrow, title: l.hero.title, intro: l.hero.intro, meta: [hotel.street, "(Location)", `${hotel.postalCode} ${hotel.city}`] },
-          { type: "arrival", label: l.arrive, transport: l.transport },
+          { type: "arrival", label: l.arrive, transport: clientCopy.transport[locale] }, // CH-015: approximate wording, parking per the FAQ
           split({ tone: "deep", label: l.walk.label, title: l.walk.title, body: l.walk.body, line: "rooms", images: [img("hc26-street-view.jpg", "The view from the hotel's door: a red Austro-Hungarian building and the cathedral's spire", "50% 60%"), img("hc26-cafe-window.jpg", "A guest working by the café window on Ćumurija street")], bullets: { title: l.nearby, items: l.landmarks } }),
           { type: "finalBooking" },
         ],
@@ -157,7 +194,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         meta: c.meta,
         ogImage: "/images/3075.jpg",
         blocks: [
-          { type: "hero", image: img("hc26-reception.jpg", "A guest at the reception desk of Hotel Central", "50% 40%"), eyebrow: c.hero.eyebrow, title: c.hero.title, intro: c.hero.intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
+          { type: "hero", image: img("hc26-reception.jpg", "A guest at the reception desk of Hotel Central", "50% 40%"), eyebrow: c.hero.eyebrow, title: clientCopy.contact[locale].title, intro: clientCopy.contact[locale].intro, meta: [hotel.phoneDisplay, "(Contact)", hotel.email] },
           { type: "contact", office: { label: c.office, body: c.officeBody }, reservations: { label: c.reservations, body: c.reservationsBody }, write: { label: c.write }, social: { label: c.social, body: c.socialBody } },
         ],
       };

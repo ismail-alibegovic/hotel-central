@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { brandContact, clubLabels, spaLabels, type BrandContact } from "@/components/brands/contact";
+import { brandContact, clubLabels, spaDefaults, spaLabels, type BrandContact } from "@/components/brands/contact";
 import type { ClubImages } from "@/components/club/ClubHome";
 import type { Timetable } from "@/components/club/ClubPages";
 import type { DaySpaData } from "@/components/dayspa/DaySpaPage";
@@ -23,7 +23,7 @@ export const getDaySpa = cache(async (locale: Locale): Promise<DaySpaData & { ad
     packages,
     images: daySpaImages,
     bookingUrl: DAYSPA_BOOKING_URL,
-    contact: brandContact(contact, spaLabels, ["spa"]),
+    contact: brandContact(contact, spaLabels, ["spa"], spaDefaults(locale)),
     address: { street: contact.street, city: `${contact.postalCode} ${contact.city}`, directions: contact.directions },
   };
 });

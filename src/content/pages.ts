@@ -187,14 +187,14 @@ const en = {
       },
       {
         title: "By car",
-        body: "Enter “Hotel Central, Ćumurija, Sarajevo” as your destination. Leave the car in our secure, gated car park and explore on foot.",
+        body: "Enter “Hotel Central, Ćumurija, Sarajevo” as your destination. The hotel has no private parking, but several public and commercial car parks are nearby; reception will help you.",
       },
     ],
     walk: {
       label: "(02) On foot",
       title: ["Leave the car", "and walk"],
       body: [
-        "Sarajevo suits the walkers. Why not leave the car in our secure, gated car park and just walk. We're in the city center and almost all sights are situated in walking distance.",
+        "Sarajevo suits the walker. We're in the city centre and almost all sights are within walking distance. The hotel has no private parking, but several public car parks are nearby; reception will help you.",
         "It's the best way to stumble upon something interesting along the way.",
       ],
     },
@@ -398,14 +398,14 @@ const bs: PagesContent = {
       },
       {
         title: "Autom",
-        body: "Kao destinaciju unesite „Hotel Central, Ćumurija 8, Sarajevo“. Ostavite auto na našem sigurnom, ograđenom parkingu i istražite grad pješice.",
+        body: "Kao destinaciju unesite „Hotel Central, Ćumurija 8, Sarajevo“. Hotel nema vlastiti parking, ali u blizini je nekoliko javnih i komercijalnih parkinga; recepcija će vam pomoći.",
       },
     ],
     walk: {
       label: "(02) Pješice",
       title: ["Ostavite auto", "i prošetajte"],
       body: [
-        "Sarajevo je pogodno za šetanje, a može biti frustrirajuće za vozače. Zašto ne biste ostavili auto na parkingu i jednostavno šetali? Nalazimo se u srcu grada i skoro sve znamenitosti su u blizini.",
+        "Sarajevo je grad za šetnju. Nalazimo se u centru i skoro sve znamenitosti su na pješačkoj udaljenosti. Hotel nema vlastiti parking, ali u blizini je nekoliko javnih parkinga; recepcija će vam pomoći.",
         "To je i najbolji način da „naletite“ na nešto interesantno.",
       ],
     },

@@ -111,16 +111,17 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             >
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
-            <a
-              href={booking.bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`label -mr-2 flex min-h-[44px] items-center pl-5 pr-2 md:mr-0 md:border-l md:pl-8 md:pr-0 lg:pl-11 ${
-                solid ? "border-white/10" : "border-[var(--hairline-light)]"
-              }`}
-            >
-              <span className="link-line">{dict.nav.book}</span>
-            </a>
+            {/* CH-003: the booking button is solid gold and always visible */}
+            <span className="flex items-center">
+              <a
+                href={booking.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="label inline-flex min-h-[40px] items-center rounded-full bg-[#b49a6a] px-5 text-white transition-colors duration-300 hover:bg-[#9c8455] md:min-h-[44px] md:px-6"
+              >
+                {dict.nav.book}
+              </a>
+            </span>
           </div>
         </div>
       </motion.header>

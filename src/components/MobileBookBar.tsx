@@ -36,7 +36,7 @@ export function MobileBookBar({ dict, contact }: { dict: Dictionary; contact: Co
                 <path d="M3.5 1.5h2.6l1.2 3.2-1.7 1.1a8.6 8.6 0 0 0 4.6 4.6l1.1-1.7 3.2 1.2v2.6c0 .6-.5 1-1.1 1C7 13.2 2.8 9 2.5 2.6c0-.6.4-1.1 1-1.1Z" />
               </svg>
             </a>
-            <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="pill flex-1 !h-[46px] border-white bg-white text-deep">
+            <a href={booking.bookingUrl} target="_blank" rel="noopener noreferrer" className="pill flex-1 !h-[46px] border-[#b49a6a] bg-[#b49a6a] text-white">
               <span>{dict.nav.book}</span>
               <Arrow />
             </a>
