@@ -1,9 +1,11 @@
 import type { Dictionary } from "@/content/dictionary";
+import Link from "next/link";
 import { href, type Locale } from "@/lib/i18n";
 import { DecorativeLine } from "../DecorativeLine";
 import { Photo } from "../Photo";
 import { FadeIn, RevealLines } from "../Reveal";
-import { MetaRow, PillLink } from "../ui";
+import Image from "next/image";
+import { MetaRow } from "../ui";
 import { img, type HomeImages } from "./homeImages";
 
 const BIG = "[--x:40%] [--y:15.5%] [--w:57.46%] [--h:64%]";
@@ -18,10 +20,10 @@ function SpaTitle({ lines, className = "" }: { lines: string[]; className?: stri
 
 export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.spa;
-  const main = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool with a wave mosaic", position: "50% 60%" });
-  const mainM = img(images?.spaMain, { src: "/images/3069.jpg", alt: "The heated 25-metre indoor pool", position: "40% 60%" });
-  const second = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "Candle-lit treatment room of the day spa", position: "50% 50%" });
-  const secondM = img(images?.spaSecondary, { src: "/images/final-6202.jpg", alt: "" });
+  const main = img(images?.spaMain, { src: "/images/club/pool-lanes.jpg", alt: "The heated 25-metre pool with its mosaic columns", position: "50% 62%" });
+  const mainM = img(images?.spaMain, { src: "/images/club/pool-lanes.jpg", alt: "The heated 25-metre pool", position: "50% 60%" });
+  const second = img(images?.spaSecondary, { src: "/images/dayspa/guest-robe.jpg", alt: "A guest in a white robe in the corridor of Central Day Spa", position: "50% 35%" });
+  const secondM = img(images?.spaSecondary, { src: "/images/dayspa/guest-robe.jpg", alt: "" });
   return (
     <section aria-labelledby="spa-title" className="relative overflow-hidden bg-olive text-white">
       <h2 id="spa-title" className="sr-only">
@@ -75,9 +77,6 @@ export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Di
               </li>
             ))}
           </ul>
-          <PillLink href={href(locale, "/spa")} tone="light" className="!h-[2.9cqw] !text-[0.8cqw]">
-            {d.cta}
-          </PillLink>
         </div>
       </div>
 
@@ -109,11 +108,43 @@ export function SpaShowcase({ locale, dict, images }: { locale: Locale; dict: Di
               </li>
             ))}
           </ul>
-          <PillLink href={href(locale, "/spa")} tone="light">
-            {d.cta}
-          </PillLink>
         </div>
       </div>
+
+      <BrandDoors locale={locale} d={d} />
     </section>
+  );
+}
+
+/**
+ * The two doors of CH-004: Central Fitness Club and Central Day Spa, each with its own logo and photograph,
+ * in the hotel's typography and olive ground. They lead to the two sites, which carry their own design.
+ */
+function BrandDoors({ locale, d }: { locale: Locale; d: Dictionary["home"]["spa"] }) {
+  const doors = [
+    { href: href(locale, "/centralfitnessclub"), logo: "/brand/cfc-white.png", logoW: 54, logoH: 64, photo: "/images/club/feel-your-power.jpg", position: "50% 35%", ...d.club },
+    { href: href(locale, "/dayspa"), logo: "/brand/dayspa-on-dark.png", logoW: 104, logoH: 75, photo: "/images/dayspa/treatment-room.jpg", position: "50% 50%", ...d.dayspa },
+  ];
+  return (
+    <div className="relative z-[5] grid gap-[var(--gutter)] px-[var(--gutter)] pb-16 md:grid-cols-2 md:pb-[6vw]">
+      {doors.map((door, i) => (
+        <FadeIn key={door.href} delay={0.1 * i}>
+          <Link href={door.href} className="group relative block aspect-[4/5] overflow-hidden text-white sm:aspect-[5/4] md:aspect-[4/3.2]">
+            <Image src={door.photo} alt="" fill sizes="(min-width: 768px) 48vw, 92vw" className="grade-dark object-cover transition-transform duration-[1.4s] ease-[var(--ease-out)] group-hover:scale-[1.04]" style={{ objectPosition: door.position }} />
+            <span aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgb(2_13_16/0.45)_0%,rgb(2_13_16/0.05)_40%,rgb(2_13_16/0.7)_100%)]" />
+            <span className="absolute left-6 top-6 md:left-8 md:top-8">
+              <Image src={door.logo} alt="" width={door.logoW} height={door.logoH} className="h-auto" style={{ width: door.logoW }} />
+            </span>
+            <span className="absolute inset-x-6 bottom-6 flex flex-col gap-4 md:inset-x-8 md:bottom-8">
+              <span className="font-display text-[34px] leading-[0.95] md:text-[2.6vw]">{door.name}</span>
+              <span className="body-copy max-w-[36ch] opacity-85">{door.body}</span>
+              <span className="pill pill-light self-start">
+                <span>{door.cta}</span>
+              </span>
+            </span>
+          </Link>
+        </FadeIn>
+      ))}
+    </div>
   );
 }

@@ -181,7 +181,7 @@ export const rooms: Room[] = [
   },
   {
     slug: "junior-suite",
-    roomTypeId: "18019000000000000010",
+    roomTypeId: "1801900000000000010",
     sizeM2: 37,
     sizeLabel: { en: "Room size 37 m²", bs: "Veličina sobe 37 m²" },
     name: { en: "Junior Suite", bs: "Junior Suite" },

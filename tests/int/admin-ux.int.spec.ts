@@ -13,7 +13,7 @@ const TECHNICAL = /\b(slug|seo|blocks?|globals?|payload|json|api|schema|database
 describe("start page", () => {
   it("offers the eight tasks to an administrator, in plain words", () => {
     const cards = dashboardCards(all, "admin");
-    expect(cards.map((c) => c.title)).toEqual(["Rooms", "Pages", "Photos & Media", "Special Offers", "Homepage", "Hotel Information", "Navigation & Footer", "Website Preview"]);
+    expect(cards.map((c) => c.title)).toEqual(["Rooms", "Pages", "Photos & Media", "Special Offers", "Homepage", "Day Spa & Fitness Club", "Hotel Information", "Navigation & Footer", "Website Preview"]);
   });
 
   it("lists only what the person is allowed to use", () => {

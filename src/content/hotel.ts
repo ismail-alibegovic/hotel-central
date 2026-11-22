@@ -29,11 +29,13 @@ export const hotel = {
  * - The parameterised search is a form POST with the exact field names used by the
  *   hotel's own booking widget (resui_resbookingbox.js on /book-now/):
  *   eZ_chkin, eZ_chkout, eZ_Nights, eZ_adult, eZ_child, eZ_room, calformat, hidBodyLanguage.
- * - Room-specific links are copied from each room page on hotelcentral.ba.
+ * - Room links: eZee moved the engine to letsbook.me (the old live.ipms247.com addresses redirect
+ *   there but drop the room). `?roomtype=<roomTypeUnkid>` opens the engine filtered to that room;
+ *   the ids are the public roomTypeUnkid values the engine itself loads (checked 2026-11-20).
  */
 export const booking = {
   hotelId: "hotelcentralsarajevo",
-  bookingUrl: "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo",
+  bookingUrl: "https://letsbook.me/booking/hotelcentralsarajevo",
   formAction: "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo",
   /** jQuery-UI format used by the hotel's widget config ("dd-mm-yy" = 31-12-2026). */
   calFormat: "dd-mm-yy",
@@ -41,7 +43,7 @@ export const booking = {
   maxChildren: 10,
   maxRooms: 16,
   roomUrl: (roomTypeId: string) =>
-    `https://live.ipms247.com/booking/roomwisedata.php?hid=hotelcentralsarajevo&roomtypeunkid=${roomTypeId}`,
+    `https://letsbook.me/booking/hotelcentralsarajevo?roomtype=${roomTypeId}`,
 } as const;
 
 export const maps = {

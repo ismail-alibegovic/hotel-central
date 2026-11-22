@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const rooms = ["single-room", "standard-twin-double", "superior-double-room", "family-room", "junior-suite", "presidential-suite"];
-const sections = ["", "/rooms", "/about", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
+const sections = ["", "/rooms", "/about", "/centralfitnessclub", "/centralfitnessclub/membership", "/centralfitnessclub/timetable", "/dayspa", "/restaurant", "/meetings-events", "/location", "/contact"];
 
 const paths = ["en", "bs"].flatMap((l) => [...sections.map((s) => `/${l}${s}`), ...rooms.map((r) => `/${l}/rooms/${r}`)]);
 
@@ -28,6 +28,14 @@ test("unknown route returns 404", async ({ request }) => {
 
 test("unknown top-level addresses return 404 in both languages (pages created in the CMS do not exist while it is off)", async ({ request }) => {
   for (const path of ["/en/does-not-exist", "/bs/does-not-exist", "/en/summer-offers", "/en/Bad_Slug"]) expect((await request.get(path)).status(), path).toBe(404);
+});
+
+test("the old Club & Spa address leads to the two new sites", async ({ request }) => {
+  for (const l of ["en", "bs"]) {
+    const res = await request.get(`/${l}/spa`, { maxRedirects: 0 });
+    expect([301, 308]).toContain(res.status());
+    expect(res.headers().location).toBe(`/${l}/centralfitnessclub`);
+  }
 });
 
 test("root redirects to a locale", async ({ request }) => {

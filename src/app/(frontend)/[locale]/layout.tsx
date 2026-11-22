@@ -2,12 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Gilda_Display, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { MotionRoot } from "@/components/MotionRoot";
-import { MobileBookBar } from "@/components/MobileBookBar";
-import { getChrome } from "@/cms/chrome";
 import { getHotelContact } from "@/cms/hotelInfo";
-import { contactLinks, followContact } from "@/cms/hotelInfoMerge";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
 import { isLocale, locales } from "@/lib/i18n";
@@ -59,11 +54,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const [chrome, contact] = await Promise.all([getChrome(locale, getDictionary(locale)), getHotelContact(locale)]);
-  const { social } = chrome;
-  // Built-in sentences that mention the phone number or e-mail (e.g. the contact form's messages) follow Hotel Information.
-  const dict = followContact(chrome.dict, contact);
-  const links = contactLinks(contact);
+  const contact = await getHotelContact(locale);
 
   return (
     <html lang={locale} className={`${gilda.variable} ${inter.variable}`}>
@@ -72,12 +63,9 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd(locale, contact)) }}
         />
-        <MotionRoot>
-          <Header locale={locale} dict={dict} contact={links} />
-          <main id="content">{children}</main>
-          <Footer locale={locale} dict={dict} social={social} contact={contact} />
-          <MobileBookBar dict={dict} contact={links} />
-        </MotionRoot>
+        {/* Hotel pages add the hotel header and footer in (hotel)/layout.tsx; Central Day Spa and Central Fitness Club
+            bring their own in (brands)/…, so each feels like its own site while sharing the hotel's address. */}
+        <MotionRoot>{children}</MotionRoot>
       </body>
     </html>
   );

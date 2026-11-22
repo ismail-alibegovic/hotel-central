@@ -10,7 +10,7 @@ const cms = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
 const reference = process.env.E2E_STATIC_BASE_URL ?? "http://127.0.0.1:3201";
 
 const rooms = ["single-room", "standard-twin-double", "superior-double-room", "family-room", "junior-suite", "presidential-suite"];
-const sections = ["", "/about", "/rooms", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
+const sections = ["", "/about", "/rooms", "/centralfitnessclub", "/dayspa", "/restaurant", "/meetings-events", "/location", "/contact"];
 export const paths = ["en", "bs"].flatMap((l) => [...sections.map((s) => `/${l}${s}`), ...rooms.map((r) => `/${l}/rooms/${r}`)]);
 
 /** Reduce a document to what a visitor/crawler can observe, removing build-specific noise only. */

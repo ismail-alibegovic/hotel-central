@@ -34,7 +34,7 @@ export function dashboardCards(can: Can, role: Role): Card[] {
     cards.push({
       id: "pages",
       title: "Pages",
-      text: "Text and layout of pages such as About, Spa, Restaurant, Location and Contact. Administrators can also add new pages.",
+      text: "Text and layout of pages such as About, Restaurant, Location and Contact. Administrators can also add new pages.",
       links,
     });
   }
@@ -66,6 +66,18 @@ export function dashboardCards(can: Can, role: Role): Card[] {
       title: "Homepage",
       text: "The headline, texts and photos visitors see first.",
       links: [{ label: "Edit homepage", href: "/admin/globals/homepage" }],
+    });
+  }
+
+  if (can.global("day-spa") || can.global("fitness-club")) {
+    const links: CardLink[] = [];
+    if (can.global("day-spa")) links.push({ label: "Day Spa prices & packages", href: "/admin/globals/day-spa" });
+    if (can.global("fitness-club")) links.push({ label: "Club memberships & timetable", href: "/admin/globals/fitness-club" });
+    cards.push({
+      id: "brands",
+      title: "Day Spa & Fitness Club",
+      text: "The spa's treatments, prices and packages, and the club's memberships and weekly class timetable.",
+      links,
     });
   }
 

@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Photographs uploaded through the CMS are served from Vercel Blob (public store).
   images: { remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }] },
+  // The combined "Club & Spa" page became two sites (CH-009): old links land on the club, which has the pool and saunas.
+  async redirects() {
+    return [
+      { source: "/:locale(en|bs)/spa", destination: "/:locale/centralfitnessclub", permanent: true },
+      { source: "/:locale(en|bs)/club-spa", destination: "/:locale/centralfitnessclub", permanent: true },
+      { source: "/:locale(en|bs)/day-spa", destination: "/:locale/dayspa", permanent: true },
+    ];
+  },
   // Belt and braces for non-official deployments (covers non-HTML assets too).
   async headers() {
     // The admin and the CMS API must never be indexed, even on the official domain.

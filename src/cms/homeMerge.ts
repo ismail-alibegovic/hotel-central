@@ -73,6 +73,8 @@ export function mergeHome(dict: Dictionary, doc: Homepage | null): HomeContent {
       body: text(g.spa.body) ?? h.spa.body,
       facts: rows(g.spa.facts) ?? h.spa.facts,
       cta: text(g.spa.cta) ?? h.spa.cta,
+      club: h.spa.club,
+      dayspa: h.spa.dayspa,
     },
     restaurant: {
       metaLeft: text(g.restaurant.metaLeft) ?? h.restaurant.metaLeft,

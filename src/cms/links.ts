@@ -12,7 +12,8 @@ export type ResolvedLink = { kind: LinkKind; href: string; external: boolean };
 export const allowedExternalHosts = [
   "hotelcentral.ba",
   "www.hotelcentral.ba",
-  "live.ipms247.com", // the hotel's booking engine
+  "live.ipms247.com", // the hotel's booking engine (old address, redirects)
+  "letsbook.me", // the hotel's booking engine (eZee, current)
   "www.facebook.com",
   "facebook.com",
   "www.instagram.com",

@@ -52,12 +52,12 @@ test("admin edits the Bosnian menu wording in the browser; the public Bosnian si
   const original = await field.inputValue();
   await field.fill(stamp);
   await saveGlobal(page, "#action-save");
-  expect(await (await request.get("/bs/spa")).text()).toContain(stamp);
-  expect(await (await request.get("/en/spa")).text()).not.toContain(stamp);
+  expect(await (await request.get("/bs/restaurant")).text()).toContain(stamp);
+  expect(await (await request.get("/en/restaurant")).text()).not.toContain(stamp);
 
   await field.fill(original);
   await saveGlobal(page, "#action-save");
-  expect(await (await request.get("/bs/spa")).text()).not.toContain(stamp);
+  expect(await (await request.get("/bs/restaurant")).text()).not.toContain(stamp);
 });
 
 test("editor saves a draft in the browser and is not offered Publish; the public site is untouched", async ({ page, request }) => {
@@ -94,8 +94,8 @@ test.describe("public menu behaviour with the CMS on", () => {
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
     await toggle.click();
-    await menu.locator('nav a[href="/en/spa"]').click();
-    await expect(page).toHaveURL(/\/en\/spa$/);
+    await menu.locator('nav a[href="/en/restaurant"]').click();
+    await expect(page).toHaveURL(/\/en\/restaurant$/);
     await expect(page.locator("#site-menu")).toHaveCount(0);
   });
 
@@ -105,12 +105,12 @@ test.describe("public menu behaviour with the CMS on", () => {
     const api = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { Origin: base, Authorization: `JWT ${token}`, Connection: "close" } });
     const nav = await (await api.get("/api/globals/navigation?locale=en&draft=true&depth=0")).json();
     const stamp = `Wellness${Date.now()}`;
-    const items = nav.items.map((r: { path: string; label: string }) => (r.path === "/spa" ? { ...r, label: stamp } : r));
+    const items = nav.items.map((r: { path: string; label: string }) => (r.path === "/restaurant" ? { ...r, label: stamp } : r));
     expect((await api.post("/api/globals/navigation?locale=en", { data: { items, _status: "published" } })).status()).toBe(200);
     try {
       await page.goto("/en/contact", { waitUntil: "networkidle" });
       await page.locator('header button[aria-controls="site-menu"]').click();
-      await expect(page.locator('#site-menu nav a[href="/en/spa"]')).toContainText(stamp);
+      await expect(page.locator('#site-menu nav a[href="/en/restaurant"]')).toContainText(stamp);
     } finally {
       await api.post("/api/globals/navigation?locale=en", { data: { items: nav.items, _status: "published" } });
     }

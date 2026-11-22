@@ -14,13 +14,14 @@ import { Arrow } from "./ui";
 
 const previews: Record<string, string> = {
   "/": "/images/3075.jpg",
-  "/about": "/images/3064.jpg",
+  "/about": "/images/hc26-facade-entrance.jpg",
   "/rooms": "/images/p05.jpg",
-  "/spa": "/images/3069.jpg",
-  "/restaurant": "/images/dorucak5.jpg",
-  "/meetings-events": "/images/3073.jpg",
-  "/location": "/images/3064.jpg",
-  "/contact": "/images/3075.jpg",
+  "/centralfitnessclub": "/images/hc26-gym.jpg",
+  "/dayspa": "/images/hc26-dayspa-relax.jpg",
+  "/restaurant": "/images/hc26-restaurant.jpg",
+  "/meetings-events": "/images/hc26-conference.jpg",
+  "/location": "/images/hc26-street-view.jpg",
+  "/contact": "/images/hc26-reception.jpg",
 };
 
 const ease = [0.76, 0, 0.24, 1] as const;

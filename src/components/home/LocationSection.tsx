@@ -11,7 +11,7 @@ import { fitStyle } from "@/lib/fit";
 
 export function LocationSection({ locale, dict, images, contact = builtInContact(locale) }: { locale: Locale; dict: Dictionary; images?: HomeImages; contact?: HotelContact }) {
   const d = dict.home.location;
-  const photo = img(images?.location, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower on Ćumurija street", position: "62% 30%" });
+  const photo = img(images?.location, { src: "/images/hc26-street-view.jpg", alt: "The view from the hotel's door: a red Austro-Hungarian building and the cathedral's spire", position: "50% 62%" });
   return (
     <section aria-labelledby="location-title" className="relative overflow-hidden bg-deep pb-16 pt-[30px] text-white md:pb-[6vw] md:pt-[3vw]">
       <DecorativeLine variant="location" tone="light" className="z-0 hidden md:block" />

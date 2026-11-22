@@ -8,7 +8,7 @@ export const SLUG_MAX = 60;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /** Routes and files that already exist (or must never be shadowed). Built-in page keys come from the route table. */
-export const reservedSlugs: readonly string[] = [...pageKeys, "admin", "api", "en", "bs", "sitemap", "robots", "icon", "images", "favicon", "not-found"];
+export const reservedSlugs: readonly string[] = [...pageKeys, "dayspa", "centralfitnessclub", "club-spa", "day-spa", "admin", "api", "en", "bs", "sitemap", "robots", "icon", "images", "favicon", "not-found"];
 
 export const isValidSlug = (v: unknown): v is string => typeof v === "string" && v.length <= SLUG_MAX && SLUG.test(v);
 

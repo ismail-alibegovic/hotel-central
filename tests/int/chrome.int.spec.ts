@@ -49,10 +49,19 @@ describe("merge rules", () => {
   });
 
   it("empty fields keep the built-in text; untranslated entries are left out, never shown empty", () => {
-    const n = { items: [{ label: "", path: "/spa", visible: true }, { label: "Wellness", path: "/spa", visible: true }], menuLabel: "  " } as unknown as Navigation;
+    const n = { items: [{ label: "", path: "/restaurant", visible: true }, { label: "Dining", path: "/restaurant", visible: true }], menuLabel: "  " } as unknown as Navigation;
     const m = mergeChrome("en", base, n, null);
     expect(m.dict.nav.menu).toBe(base.nav.menu);
-    expect(m.dict.nav.items).toEqual([{ href: "/spa", label: "Wellness" }]);
+    expect(m.dict.nav.items).toEqual([{ href: "/restaurant", label: "Dining" }]);
+  });
+
+  it("a saved entry for the old Club & Spa page (/spa) shows the two sites that replaced it", () => {
+    const n = { items: [{ label: "Rooms", path: "/rooms", visible: true }, { label: "Club & Spa", path: "/spa", visible: true }] } as unknown as Navigation;
+    expect(mergeChrome("en", base, n, null).dict.nav.items).toEqual([
+      { href: "/rooms", label: "Rooms" },
+      { href: "/centralfitnessclub", label: "Fitness Club" },
+      { href: "/dayspa", label: "Day Spa" },
+    ]);
   });
 
   it("hidden entries are left out; with no usable entry the built-in menu is used", () => {
@@ -121,10 +130,11 @@ describe("roles and drafts", () => {
     const rows = current.items ?? [];
     await expect(payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 1 ? { ...r, path: "/en/about" } : r)), _status: "published" } as never })).rejects.toThrow();
     await expect(payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 1 ? { ...r, path: "https://evil.example" } : r)), _status: "published" } as never })).rejects.toThrow();
-    await payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === 7 ? { ...r, visible: false } : r)), _status: "published" } as never });
+    const last = rows.length - 1;
+    await payload.updateGlobal({ slug: "navigation", locale: "en", overrideAccess: true, data: { items: rows.map((r, i) => (i === last ? { ...r, visible: false } : r)), _status: "published" } as never });
     const m = mergeChrome("en", getDictionary("en"), await publicNav("en"), null);
     expect(m.dict.nav.items.map((i) => i.href)).not.toContain("/contact");
-    expect(m.dict.nav.items).toHaveLength(7);
+    expect(m.dict.nav.items).toHaveLength(last);
   });
 
   it("footer: social links are administrator-only; wording is draft-only for editors; host allow-list enforced", async () => {

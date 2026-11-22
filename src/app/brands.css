@@ -1,0 +1,171 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Central Day Spa and Central Fitness Club: two sites inside the hotel's site.
+   Each wrapper (.ds / .cfc) defines its own palette and type; nothing here leaks
+   into the hotel pages, which keep globals.css.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@layer components {
+/* ═════════════════════════ Central Day Spa ═════════════════════════
+   Colours from the Day Spa logo: wine ground, lilac flower, sage line, stone.
+   Structure after the "Revo Spa" reference: warm paper, dark bands,
+   full-bleed photography, pill buttons with a circled arrow. */
+.ds {
+  --ds-wine: #401014;
+  --ds-wine-deep: #2b0a0d;
+  --ds-wine-soft: #5c2027;
+  --ds-lilac: #cab2cd;
+  --ds-lilac-soft: #ece2ec;
+  --ds-sage: #92b261;
+  --ds-stone: #888781;
+  --ds-cream: #fbf5ef;
+  --ds-paper: #fffaf4;
+  --ds-ink: #221315;
+  --ds-mute: #6e5b5c;
+  --ds-line: rgb(64 16 20 / 0.13);
+  --ds-gutter: clamp(18px, 4vw, 56px);
+  background: var(--ds-cream);
+  color: var(--ds-ink);
+  font-family: var(--ds-body), "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ds ::selection { background: var(--ds-lilac); color: var(--ds-wine); }
+.ds-display {
+  font-family: var(--ds-display), "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.ds-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.ds-wrap { padding-left: var(--ds-gutter); padding-right: var(--ds-gutter); }
+
+/* Pill with a circled arrow (Revo) */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 6px 6px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--ds-wine);
+  color: #fff;
+  transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.ds-btn > i {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  font-style: normal;
+  transition: transform 0.5s var(--ease-out);
+}
+.ds-btn:hover > i { transform: rotate(-45deg); }
+.ds-btn:hover { background: var(--ds-wine-soft); }
+.ds-btn--light { background: #fff; color: var(--ds-wine); }
+.ds-btn--light:hover { background: var(--ds-lilac-soft); }
+.ds-btn--ghost { background: transparent; color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
+.ds-btn--ghost:hover { background: rgb(255 255 255 / 0.12); }
+
+.ds-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease-out); }
+.ds-link:hover { background-size: 100% 1px; }
+
+.ds-star::before { content: "✦"; color: var(--ds-sage); margin-right: 10px; }
+
+/* Rotating seal */
+@keyframes ds-spin { to { transform: rotate(360deg); } }
+.ds-seal { animation: ds-spin 22s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .ds-seal { animation: none; } }
+
+/* ═════════════════════════ Central Fitness Club ═════════════════════════
+   Colours from the CFC logo (forest green) on cream, with a sunlit yellow.
+   Structure after the "FIJI Sport Club" reference: organic cut-outs,
+   leaf shapes, thin light display type, pebble buttons. */
+.cfc {
+  --cfc-green: #244a35;
+  --cfc-green-deep: #183325;
+  --cfc-leaf: #3a6149;
+  --cfc-moss: #9fb59a;
+  --cfc-cream: #fbf9f2;
+  --cfc-sand: #f0ece1;
+  --cfc-sun: #f6df7c;
+  --cfc-sun-soft: #fbf0bd;
+  --cfc-ink: #1d2721;
+  --cfc-mute: #5f6a63;
+  --cfc-line: rgb(36 74 53 / 0.16);
+  --cfc-gutter: clamp(18px, 4vw, 56px);
+  background: var(--cfc-cream);
+  color: var(--cfc-ink);
+  font-family: var(--cfc-body), "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.cfc ::selection { background: var(--cfc-sun); color: var(--cfc-green-deep); }
+.cfc-display {
+  font-family: var(--cfc-display), "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.cfc-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.cfc-wrap { padding-left: var(--cfc-gutter); padding-right: var(--cfc-gutter); }
+
+.cfc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--cfc-green);
+  color: #fff;
+  transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out);
+}
+.cfc-btn:hover { background: var(--cfc-leaf); }
+.cfc-btn--cream { background: var(--cfc-cream); color: var(--cfc-green); }
+.cfc-btn--cream:hover { background: var(--cfc-sun-soft); }
+.cfc-btn--line { background: transparent; color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
+.cfc-btn--line:hover { background: rgb(36 74 53 / 0.08); }
+.cfc-btn .cfc-arrow { transition: transform 0.5s var(--ease-out); }
+.cfc-btn:hover .cfc-arrow { transform: translateX(4px); }
+
+/* Pebble button (FIJI): an irregular rounded blob with an arrow */
+.cfc-pebble {
+  display: inline-grid;
+  place-items: center;
+  width: 58px;
+  height: 52px;
+  border-radius: 52% 48% 44% 56% / 58% 46% 54% 42%;
+  background: var(--cfc-green);
+  color: #fff;
+  transition: border-radius 0.8s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.cfc-pebble:hover { border-radius: 46% 54% 58% 42% / 44% 58% 42% 56%; transform: rotate(-6deg); }
+.cfc-pebble--cream { background: var(--cfc-cream); color: var(--cfc-green); }
+
+/* Cards whose photograph ends in a wave */
+.cfc-wave { clip-path: url(#cfc-wave); }
+
+.cfc-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease-out); }
+.cfc-link:hover { background-size: 100% 1px; }
+
+} /* @layer components: Tailwind utilities (hidden, md:inline-flex…) still win over these classes */

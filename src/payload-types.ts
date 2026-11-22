@@ -98,12 +98,16 @@ export interface Config {
     footer: Footer;
     homepage: Homepage;
     'hotel-info': HotelInfo;
+    'day-spa': DaySpa;
+    'fitness-club': FitnessClub;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     'hotel-info': HotelInfoSelect<false> | HotelInfoSelect<true>;
+    'day-spa': DaySpaSelect<false> | DaySpaSelect<true>;
+    'fitness-club': FitnessClubSelect<false> | FitnessClubSelect<true>;
   };
   locale: 'en' | 'bs';
   widgets: {
@@ -264,6 +268,32 @@ export interface Page {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -436,6 +466,32 @@ export interface Page {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -576,6 +632,32 @@ export interface Page {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -780,6 +862,32 @@ export interface Page {
                           | 'hc-naslovna-health-club.jpg'
                           | 'hc-spa-naslovna-interior.jpg'
                           | 'hc-spa-naslovna-opustanje.jpg'
+                          | 'hc26-bathroom.jpg'
+                          | 'hc26-bed.jpg'
+                          | 'hc26-cafe-corner.jpg'
+                          | 'hc26-cafe-guest.jpg'
+                          | 'hc26-cafe-window.jpg'
+                          | 'hc26-conference-foyer.jpg'
+                          | 'hc26-conference-u.jpg'
+                          | 'hc26-conference.jpg'
+                          | 'hc26-corridor.jpg'
+                          | 'hc26-doormat.jpg'
+                          | 'hc26-facade-entrance.jpg'
+                          | 'hc26-facade-sky.jpg'
+                          | 'hc26-keycard.jpg'
+                          | 'hc26-lobby-entrance.jpg'
+                          | 'hc26-lobby-lounge.jpg'
+                          | 'hc26-lobby-windows.jpg'
+                          | 'hc26-lobby.jpg'
+                          | 'hc26-lounge-window.jpg'
+                          | 'hc26-reception-2.jpg'
+                          | 'hc26-reception.jpg'
+                          | 'hc26-restaurant.jpg'
+                          | 'hc26-room-desk.jpg'
+                          | 'hc26-room-door.jpg'
+                          | 'hc26-spa-flyer.jpg'
+                          | 'hc26-stairs.jpg'
+                          | 'hc26-street-view.jpg'
                           | 'img_9052.jpg'
                           | 'img_9057.jpg'
                           | 'img_9064.jpg'
@@ -928,6 +1036,32 @@ export interface Page {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -1127,6 +1261,32 @@ export interface Page {
                       | 'hc-naslovna-health-club.jpg'
                       | 'hc-spa-naslovna-interior.jpg'
                       | 'hc-spa-naslovna-opustanje.jpg'
+                      | 'hc26-bathroom.jpg'
+                      | 'hc26-bed.jpg'
+                      | 'hc26-cafe-corner.jpg'
+                      | 'hc26-cafe-guest.jpg'
+                      | 'hc26-cafe-window.jpg'
+                      | 'hc26-conference-foyer.jpg'
+                      | 'hc26-conference-u.jpg'
+                      | 'hc26-conference.jpg'
+                      | 'hc26-corridor.jpg'
+                      | 'hc26-doormat.jpg'
+                      | 'hc26-facade-entrance.jpg'
+                      | 'hc26-facade-sky.jpg'
+                      | 'hc26-keycard.jpg'
+                      | 'hc26-lobby-entrance.jpg'
+                      | 'hc26-lobby-lounge.jpg'
+                      | 'hc26-lobby-windows.jpg'
+                      | 'hc26-lobby.jpg'
+                      | 'hc26-lounge-window.jpg'
+                      | 'hc26-reception-2.jpg'
+                      | 'hc26-reception.jpg'
+                      | 'hc26-restaurant.jpg'
+                      | 'hc26-room-desk.jpg'
+                      | 'hc26-room-door.jpg'
+                      | 'hc26-spa-flyer.jpg'
+                      | 'hc26-stairs.jpg'
+                      | 'hc26-street-view.jpg'
                       | 'img_9052.jpg'
                       | 'img_9057.jpg'
                       | 'img_9064.jpg'
@@ -1375,6 +1535,32 @@ export interface Page {
           | 'hc-naslovna-health-club.jpg'
           | 'hc-spa-naslovna-interior.jpg'
           | 'hc-spa-naslovna-opustanje.jpg'
+          | 'hc26-bathroom.jpg'
+          | 'hc26-bed.jpg'
+          | 'hc26-cafe-corner.jpg'
+          | 'hc26-cafe-guest.jpg'
+          | 'hc26-cafe-window.jpg'
+          | 'hc26-conference-foyer.jpg'
+          | 'hc26-conference-u.jpg'
+          | 'hc26-conference.jpg'
+          | 'hc26-corridor.jpg'
+          | 'hc26-doormat.jpg'
+          | 'hc26-facade-entrance.jpg'
+          | 'hc26-facade-sky.jpg'
+          | 'hc26-keycard.jpg'
+          | 'hc26-lobby-entrance.jpg'
+          | 'hc26-lobby-lounge.jpg'
+          | 'hc26-lobby-windows.jpg'
+          | 'hc26-lobby.jpg'
+          | 'hc26-lounge-window.jpg'
+          | 'hc26-reception-2.jpg'
+          | 'hc26-reception.jpg'
+          | 'hc26-restaurant.jpg'
+          | 'hc26-room-desk.jpg'
+          | 'hc26-room-door.jpg'
+          | 'hc26-spa-flyer.jpg'
+          | 'hc26-stairs.jpg'
+          | 'hc26-street-view.jpg'
           | 'img_9052.jpg'
           | 'img_9057.jpg'
           | 'img_9064.jpg'
@@ -1545,6 +1731,32 @@ export interface CustomPage {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -1717,6 +1929,32 @@ export interface CustomPage {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -1857,6 +2095,32 @@ export interface CustomPage {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -2061,6 +2325,32 @@ export interface CustomPage {
                           | 'hc-naslovna-health-club.jpg'
                           | 'hc-spa-naslovna-interior.jpg'
                           | 'hc-spa-naslovna-opustanje.jpg'
+                          | 'hc26-bathroom.jpg'
+                          | 'hc26-bed.jpg'
+                          | 'hc26-cafe-corner.jpg'
+                          | 'hc26-cafe-guest.jpg'
+                          | 'hc26-cafe-window.jpg'
+                          | 'hc26-conference-foyer.jpg'
+                          | 'hc26-conference-u.jpg'
+                          | 'hc26-conference.jpg'
+                          | 'hc26-corridor.jpg'
+                          | 'hc26-doormat.jpg'
+                          | 'hc26-facade-entrance.jpg'
+                          | 'hc26-facade-sky.jpg'
+                          | 'hc26-keycard.jpg'
+                          | 'hc26-lobby-entrance.jpg'
+                          | 'hc26-lobby-lounge.jpg'
+                          | 'hc26-lobby-windows.jpg'
+                          | 'hc26-lobby.jpg'
+                          | 'hc26-lounge-window.jpg'
+                          | 'hc26-reception-2.jpg'
+                          | 'hc26-reception.jpg'
+                          | 'hc26-restaurant.jpg'
+                          | 'hc26-room-desk.jpg'
+                          | 'hc26-room-door.jpg'
+                          | 'hc26-spa-flyer.jpg'
+                          | 'hc26-stairs.jpg'
+                          | 'hc26-street-view.jpg'
                           | 'img_9052.jpg'
                           | 'img_9057.jpg'
                           | 'img_9064.jpg'
@@ -2209,6 +2499,32 @@ export interface CustomPage {
                     | 'hc-naslovna-health-club.jpg'
                     | 'hc-spa-naslovna-interior.jpg'
                     | 'hc-spa-naslovna-opustanje.jpg'
+                    | 'hc26-bathroom.jpg'
+                    | 'hc26-bed.jpg'
+                    | 'hc26-cafe-corner.jpg'
+                    | 'hc26-cafe-guest.jpg'
+                    | 'hc26-cafe-window.jpg'
+                    | 'hc26-conference-foyer.jpg'
+                    | 'hc26-conference-u.jpg'
+                    | 'hc26-conference.jpg'
+                    | 'hc26-corridor.jpg'
+                    | 'hc26-doormat.jpg'
+                    | 'hc26-facade-entrance.jpg'
+                    | 'hc26-facade-sky.jpg'
+                    | 'hc26-keycard.jpg'
+                    | 'hc26-lobby-entrance.jpg'
+                    | 'hc26-lobby-lounge.jpg'
+                    | 'hc26-lobby-windows.jpg'
+                    | 'hc26-lobby.jpg'
+                    | 'hc26-lounge-window.jpg'
+                    | 'hc26-reception-2.jpg'
+                    | 'hc26-reception.jpg'
+                    | 'hc26-restaurant.jpg'
+                    | 'hc26-room-desk.jpg'
+                    | 'hc26-room-door.jpg'
+                    | 'hc26-spa-flyer.jpg'
+                    | 'hc26-stairs.jpg'
+                    | 'hc26-street-view.jpg'
                     | 'img_9052.jpg'
                     | 'img_9057.jpg'
                     | 'img_9064.jpg'
@@ -2408,6 +2724,32 @@ export interface CustomPage {
                       | 'hc-naslovna-health-club.jpg'
                       | 'hc-spa-naslovna-interior.jpg'
                       | 'hc-spa-naslovna-opustanje.jpg'
+                      | 'hc26-bathroom.jpg'
+                      | 'hc26-bed.jpg'
+                      | 'hc26-cafe-corner.jpg'
+                      | 'hc26-cafe-guest.jpg'
+                      | 'hc26-cafe-window.jpg'
+                      | 'hc26-conference-foyer.jpg'
+                      | 'hc26-conference-u.jpg'
+                      | 'hc26-conference.jpg'
+                      | 'hc26-corridor.jpg'
+                      | 'hc26-doormat.jpg'
+                      | 'hc26-facade-entrance.jpg'
+                      | 'hc26-facade-sky.jpg'
+                      | 'hc26-keycard.jpg'
+                      | 'hc26-lobby-entrance.jpg'
+                      | 'hc26-lobby-lounge.jpg'
+                      | 'hc26-lobby-windows.jpg'
+                      | 'hc26-lobby.jpg'
+                      | 'hc26-lounge-window.jpg'
+                      | 'hc26-reception-2.jpg'
+                      | 'hc26-reception.jpg'
+                      | 'hc26-restaurant.jpg'
+                      | 'hc26-room-desk.jpg'
+                      | 'hc26-room-door.jpg'
+                      | 'hc26-spa-flyer.jpg'
+                      | 'hc26-stairs.jpg'
+                      | 'hc26-street-view.jpg'
                       | 'img_9052.jpg'
                       | 'img_9057.jpg'
                       | 'img_9064.jpg'
@@ -2656,6 +2998,32 @@ export interface CustomPage {
           | 'hc-naslovna-health-club.jpg'
           | 'hc-spa-naslovna-interior.jpg'
           | 'hc-spa-naslovna-opustanje.jpg'
+          | 'hc26-bathroom.jpg'
+          | 'hc26-bed.jpg'
+          | 'hc26-cafe-corner.jpg'
+          | 'hc26-cafe-guest.jpg'
+          | 'hc26-cafe-window.jpg'
+          | 'hc26-conference-foyer.jpg'
+          | 'hc26-conference-u.jpg'
+          | 'hc26-conference.jpg'
+          | 'hc26-corridor.jpg'
+          | 'hc26-doormat.jpg'
+          | 'hc26-facade-entrance.jpg'
+          | 'hc26-facade-sky.jpg'
+          | 'hc26-keycard.jpg'
+          | 'hc26-lobby-entrance.jpg'
+          | 'hc26-lobby-lounge.jpg'
+          | 'hc26-lobby-windows.jpg'
+          | 'hc26-lobby.jpg'
+          | 'hc26-lounge-window.jpg'
+          | 'hc26-reception-2.jpg'
+          | 'hc26-reception.jpg'
+          | 'hc26-restaurant.jpg'
+          | 'hc26-room-desk.jpg'
+          | 'hc26-room-door.jpg'
+          | 'hc26-spa-flyer.jpg'
+          | 'hc26-stairs.jpg'
+          | 'hc26-street-view.jpg'
           | 'img_9052.jpg'
           | 'img_9057.jpg'
           | 'img_9064.jpg'
@@ -3820,6 +4188,32 @@ export interface Homepage {
           | 'hc-naslovna-health-club.jpg'
           | 'hc-spa-naslovna-interior.jpg'
           | 'hc-spa-naslovna-opustanje.jpg'
+          | 'hc26-bathroom.jpg'
+          | 'hc26-bed.jpg'
+          | 'hc26-cafe-corner.jpg'
+          | 'hc26-cafe-guest.jpg'
+          | 'hc26-cafe-window.jpg'
+          | 'hc26-conference-foyer.jpg'
+          | 'hc26-conference-u.jpg'
+          | 'hc26-conference.jpg'
+          | 'hc26-corridor.jpg'
+          | 'hc26-doormat.jpg'
+          | 'hc26-facade-entrance.jpg'
+          | 'hc26-facade-sky.jpg'
+          | 'hc26-keycard.jpg'
+          | 'hc26-lobby-entrance.jpg'
+          | 'hc26-lobby-lounge.jpg'
+          | 'hc26-lobby-windows.jpg'
+          | 'hc26-lobby.jpg'
+          | 'hc26-lounge-window.jpg'
+          | 'hc26-reception-2.jpg'
+          | 'hc26-reception.jpg'
+          | 'hc26-restaurant.jpg'
+          | 'hc26-room-desk.jpg'
+          | 'hc26-room-door.jpg'
+          | 'hc26-spa-flyer.jpg'
+          | 'hc26-stairs.jpg'
+          | 'hc26-street-view.jpg'
           | 'img_9052.jpg'
           | 'img_9057.jpg'
           | 'img_9064.jpg'
@@ -3971,6 +4365,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4127,6 +4547,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4270,6 +4716,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4413,6 +4885,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4586,6 +5084,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4729,6 +5253,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -4884,6 +5434,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5027,6 +5603,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5170,6 +5772,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5331,6 +5959,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5485,6 +6139,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5628,6 +6308,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5783,6 +6489,32 @@ export interface Homepage {
             | 'hc-naslovna-health-club.jpg'
             | 'hc-spa-naslovna-interior.jpg'
             | 'hc-spa-naslovna-opustanje.jpg'
+            | 'hc26-bathroom.jpg'
+            | 'hc26-bed.jpg'
+            | 'hc26-cafe-corner.jpg'
+            | 'hc26-cafe-guest.jpg'
+            | 'hc26-cafe-window.jpg'
+            | 'hc26-conference-foyer.jpg'
+            | 'hc26-conference-u.jpg'
+            | 'hc26-conference.jpg'
+            | 'hc26-corridor.jpg'
+            | 'hc26-doormat.jpg'
+            | 'hc26-facade-entrance.jpg'
+            | 'hc26-facade-sky.jpg'
+            | 'hc26-keycard.jpg'
+            | 'hc26-lobby-entrance.jpg'
+            | 'hc26-lobby-lounge.jpg'
+            | 'hc26-lobby-windows.jpg'
+            | 'hc26-lobby.jpg'
+            | 'hc26-lounge-window.jpg'
+            | 'hc26-reception-2.jpg'
+            | 'hc26-reception.jpg'
+            | 'hc26-restaurant.jpg'
+            | 'hc26-room-desk.jpg'
+            | 'hc26-room-door.jpg'
+            | 'hc26-spa-flyer.jpg'
+            | 'hc26-stairs.jpg'
+            | 'hc26-street-view.jpg'
             | 'img_9052.jpg'
             | 'img_9057.jpg'
             | 'img_9064.jpg'
@@ -5952,6 +6684,143 @@ export interface HotelInfo {
         id?: string | null;
       }[]
     | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The treatments, prices and packages shown on the Central Day Spa page. Leave a list empty to keep the current one.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "day-spa".
+ */
+export interface DaySpa {
+  id: string;
+  /**
+   * Drag to change the order. If the list is empty, the current price list is shown.
+   */
+  categories?:
+    | {
+        /**
+         * For example “Massage” / “Masaže”.
+         */
+        name: string;
+        summary?: string | null;
+        /**
+         * Shown next to the price list. If empty, a spa photo is used.
+         */
+        photo?: (string | null) | Media;
+        treatments?:
+          | {
+              name: string;
+              /**
+               * For example “30 min” or “2 × 45 min”.
+               */
+              duration?: string | null;
+              /**
+               * Only the number, e.g. “45” or “50–80”.
+               */
+              price: string;
+              /**
+               * A short line under the name, e.g. “for hotel guests and club members”.
+               */
+              note?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * If the list is empty, the current packages (Detox, Face & Body Glow, Slim & Shape) are shown.
+   */
+  packages?:
+    | {
+        name: string;
+        /**
+         * For example “75 min”.
+         */
+        duration?: string | null;
+        price: string;
+        includes?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Memberships and the class timetable of Central Fitness Club. Leave a list empty to keep what the website shows now.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fitness-club".
+ */
+export interface FitnessClub {
+  id: string;
+  /**
+   * Drag to change the order. If the list is empty, the annual membership with “Price on request” is shown.
+   */
+  plans?:
+    | {
+        /**
+         * For example “Monthly membership” / “Mjesečna članarina”.
+         */
+        name: string;
+        price?: string | null;
+        /**
+         * For example “month” / “mjesec”.
+         */
+        period?: string | null;
+        highlight?: boolean | null;
+        features?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * For example “Timetable for December” or holiday changes.
+   */
+  timetableNote?: string | null;
+  /**
+   * One row per class and day. The website sorts them by day and time.
+   */
+  classes?:
+    | {
+        day: '0' | '1' | '2' | '3' | '4' | '5' | '6';
+        /**
+         * 24-hour clock, e.g. “18:00”.
+         */
+        time: string;
+        /**
+         * For example “Pilates” or “Aqua aerobic”.
+         */
+        name: string;
+        /**
+         * For example “45 min”.
+         */
+        duration?: string | null;
+        /**
+         * For example “Studio” / “Sala” or “Pool” / “Bazen”.
+         */
+        room?: string | null;
+        trainer?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * If you already make the monthly timetable as a picture, upload it here. It is shown under the classes, or on its own.
+   */
+  timetableImage?: (string | null) | Media;
   _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -6269,6 +7138,85 @@ export interface HotelInfoSelect<T extends boolean = true> {
         note?: T;
         id?: T;
       };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "day-spa_select".
+ */
+export interface DaySpaSelect<T extends boolean = true> {
+  categories?:
+    | T
+    | {
+        name?: T;
+        summary?: T;
+        photo?: T;
+        treatments?:
+          | T
+          | {
+              name?: T;
+              duration?: T;
+              price?: T;
+              note?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  packages?:
+    | T
+    | {
+        name?: T;
+        duration?: T;
+        price?: T;
+        includes?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fitness-club_select".
+ */
+export interface FitnessClubSelect<T extends boolean = true> {
+  plans?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        period?: T;
+        highlight?: T;
+        features?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  timetableNote?: T;
+  classes?:
+    | T
+    | {
+        day?: T;
+        time?: T;
+        name?: T;
+        duration?: T;
+        room?: T;
+        trainer?: T;
+        id?: T;
+      };
+  timetableImage?: T;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
