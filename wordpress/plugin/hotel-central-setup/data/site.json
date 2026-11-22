@@ -4102,16 +4102,16 @@
      "description": "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.",
      "elementor": [
       {
-       "id": "0300005",
+       "id": "030000d",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero",
+        "css_classes": "hc-hero hc-hero--cafe",
         "background_background": "classic",
         "background_image": {
-         "url": "hc-media://images/hc26-lounge-window.jpg",
+         "url": "hc-media://images/hc26-cafe-corner.jpg",
          "id": ""
         },
         "background_position": "center center",
@@ -4120,44 +4120,129 @@
        },
        "elements": [
         {
-         "id": "0300004",
+         "id": "030000c",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "hc-hero__inner"
+          "flex_direction": "row",
+          "css_classes": "hc-cafe-card"
          },
          "elements": [
           {
-           "id": "0300001",
-           "elType": "widget",
-           "widgetType": "heading",
+           "id": "030000a",
+           "elType": "container",
+           "isInner": true,
            "settings": {
-            "title": "On the ground floor of Hotel Central",
-            "header_size": "p",
-            "_css_classes": "hc-eyebrow"
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "hc-cafe-card__text"
            },
-           "elements": []
+           "elements": [
+            {
+             "id": "0300001",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central Café",
+              "header_size": "p",
+              "_css_classes": "hc-eyebrow"
+             },
+             "elements": []
+            },
+            {
+             "id": "0300002",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central<br>Café",
+              "header_size": "h1",
+              "_css_classes": "hc-hero__title"
+             },
+             "elements": []
+            },
+            {
+             "id": "0300003",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.</p>",
+              "_css_classes": "hc-hero__intro"
+             },
+             "elements": []
+            },
+            {
+             "id": "0300008",
+             "elType": "widget",
+             "widgetType": "icon-list",
+             "settings": {
+              "view": "traditional",
+              "icon_list": [
+               {
+                "_id": "0300004",
+                "text": "Coffee, including Bosnian coffee",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0300005",
+                "text": "Tea",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0300006",
+                "text": "Cold drinks",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0300007",
+                "text": "Cakes and sweet treats",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               }
+              ],
+              "_css_classes": "hc-chips"
+             },
+             "elements": []
+            },
+            {
+             "id": "0300009",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "How to find us →",
+              "link": {
+               "url": "hc-page://location",
+               "is_external": "",
+               "nofollow": ""
+              },
+              "_css_classes": "hc-link"
+             },
+             "elements": []
+            }
+           ]
           },
           {
-           "id": "0300002",
+           "id": "030000b",
            "elType": "widget",
-           "widgetType": "heading",
+           "widgetType": "image",
            "settings": {
-            "title": "Central Café",
-            "header_size": "h1",
-            "_css_classes": "hc-hero__title"
-           },
-           "elements": []
-          },
-          {
-           "id": "0300003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.</p>",
-            "_css_classes": "hc-hero__intro"
+            "image": {
+             "url": "hc-media://images/dorucak6.jpg",
+             "id": ""
+            },
+            "image_size": "full",
+            "_css_classes": "hc-cafe-card__detail"
            },
            "elements": []
           }
@@ -4166,7 +4251,7 @@
        ]
       },
       {
-       "id": "0300013",
+       "id": "030001b",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4176,7 +4261,7 @@
        },
        "elements": [
         {
-         "id": "030000e",
+         "id": "0300016",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4186,12 +4271,12 @@
          },
          "elements": [
           {
-           "id": "030000d",
+           "id": "0300015",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
             "image": {
-             "url": "hc-media://images/hc26-cafe-corner.jpg",
+             "url": "hc-media://images/hc26-cafe-guest.jpg",
              "id": ""
             },
             "image_size": "full",
@@ -4202,7 +4287,7 @@
          ]
         },
         {
-         "id": "0300012",
+         "id": "030001a",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4212,7 +4297,7 @@
          },
          "elements": [
           {
-           "id": "030000f",
+           "id": "0300017",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4223,7 +4308,7 @@
            "elements": []
           },
           {
-           "id": "0300010",
+           "id": "0300018",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4234,7 +4319,7 @@
            "elements": []
           },
           {
-           "id": "0300011",
+           "id": "0300019",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4244,14 +4329,14 @@
            "elements": []
           },
           {
-           "id": "030000a",
+           "id": "0300012",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "0300006",
+              "_id": "030000e",
               "text": "Coffee, including Bosnian coffee",
               "selected_icon": {
                "value": "",
@@ -4259,7 +4344,7 @@
               }
              },
              {
-              "_id": "0300007",
+              "_id": "030000f",
               "text": "Tea",
               "selected_icon": {
                "value": "",
@@ -4267,7 +4352,7 @@
               }
              },
              {
-              "_id": "0300008",
+              "_id": "0300010",
               "text": "Cold drinks",
               "selected_icon": {
                "value": "",
@@ -4275,7 +4360,7 @@
               }
              },
              {
-              "_id": "0300009",
+              "_id": "0300011",
               "text": "Cakes and sweet treats",
               "selected_icon": {
                "value": "",
@@ -4288,7 +4373,7 @@
            "elements": []
           },
           {
-           "id": "030000b",
+           "id": "0300013",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4299,7 +4384,7 @@
            "elements": []
           },
           {
-           "id": "030000c",
+           "id": "0300014",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -4313,7 +4398,7 @@
        ]
       },
       {
-       "id": "0300015",
+       "id": "030001d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4323,7 +4408,7 @@
        },
        "elements": [
         {
-         "id": "0300014",
+         "id": "030001c",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -4362,16 +4447,16 @@
      "description": "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.",
      "elementor": [
       {
-       "id": "0380005",
+       "id": "038000d",
        "elType": "container",
        "isInner": false,
        "settings": {
         "content_width": "full",
         "flex_direction": "column",
-        "css_classes": "hc-hero",
+        "css_classes": "hc-hero hc-hero--cafe",
         "background_background": "classic",
         "background_image": {
-         "url": "hc-media://images/hc26-lounge-window.jpg",
+         "url": "hc-media://images/hc26-cafe-corner.jpg",
          "id": ""
         },
         "background_position": "center center",
@@ -4380,44 +4465,129 @@
        },
        "elements": [
         {
-         "id": "0380004",
+         "id": "038000c",
          "elType": "container",
          "isInner": true,
          "settings": {
           "content_width": "full",
-          "flex_direction": "column",
-          "css_classes": "hc-hero__inner"
+          "flex_direction": "row",
+          "css_classes": "hc-cafe-card"
          },
          "elements": [
           {
-           "id": "0380001",
-           "elType": "widget",
-           "widgetType": "heading",
+           "id": "038000a",
+           "elType": "container",
+           "isInner": true,
            "settings": {
-            "title": "U prizemlju Hotela Central",
-            "header_size": "p",
-            "_css_classes": "hc-eyebrow"
+            "content_width": "full",
+            "flex_direction": "column",
+            "css_classes": "hc-cafe-card__text"
            },
-           "elements": []
+           "elements": [
+            {
+             "id": "0380001",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central Café",
+              "header_size": "p",
+              "_css_classes": "hc-eyebrow"
+             },
+             "elements": []
+            },
+            {
+             "id": "0380002",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "Central<br>Café",
+              "header_size": "h1",
+              "_css_classes": "hc-hero__title"
+             },
+             "elements": []
+            },
+            {
+             "id": "0380003",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "<p>Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.</p>",
+              "_css_classes": "hc-hero__intro"
+             },
+             "elements": []
+            },
+            {
+             "id": "0380008",
+             "elType": "widget",
+             "widgetType": "icon-list",
+             "settings": {
+              "view": "traditional",
+              "icon_list": [
+               {
+                "_id": "0380004",
+                "text": "Kafa, uključujući bosansku kafu",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0380005",
+                "text": "Čajevi",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0380006",
+                "text": "Hladni napici",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               },
+               {
+                "_id": "0380007",
+                "text": "Kolači i slatke poslastice",
+                "selected_icon": {
+                 "value": "",
+                 "library": ""
+                }
+               }
+              ],
+              "_css_classes": "hc-chips"
+             },
+             "elements": []
+            },
+            {
+             "id": "0380009",
+             "elType": "widget",
+             "widgetType": "button",
+             "settings": {
+              "text": "Kako do nas →",
+              "link": {
+               "url": "hc-page://location",
+               "is_external": "",
+               "nofollow": ""
+              },
+              "_css_classes": "hc-link"
+             },
+             "elements": []
+            }
+           ]
           },
           {
-           "id": "0380002",
+           "id": "038000b",
            "elType": "widget",
-           "widgetType": "heading",
+           "widgetType": "image",
            "settings": {
-            "title": "Central Café",
-            "header_size": "h1",
-            "_css_classes": "hc-hero__title"
-           },
-           "elements": []
-          },
-          {
-           "id": "0380003",
-           "elType": "widget",
-           "widgetType": "text-editor",
-           "settings": {
-            "editor": "<p>Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.</p>",
-            "_css_classes": "hc-hero__intro"
+            "image": {
+             "url": "hc-media://images/dorucak6.jpg",
+             "id": ""
+            },
+            "image_size": "full",
+            "_css_classes": "hc-cafe-card__detail"
            },
            "elements": []
           }
@@ -4426,7 +4596,7 @@
        ]
       },
       {
-       "id": "0380013",
+       "id": "038001b",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4436,7 +4606,7 @@
        },
        "elements": [
         {
-         "id": "038000e",
+         "id": "0380016",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4446,12 +4616,12 @@
          },
          "elements": [
           {
-           "id": "038000d",
+           "id": "0380015",
            "elType": "widget",
            "widgetType": "image",
            "settings": {
             "image": {
-             "url": "hc-media://images/hc26-cafe-corner.jpg",
+             "url": "hc-media://images/hc26-cafe-guest.jpg",
              "id": ""
             },
             "image_size": "full",
@@ -4462,7 +4632,7 @@
          ]
         },
         {
-         "id": "0380012",
+         "id": "038001a",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -4472,7 +4642,7 @@
          },
          "elements": [
           {
-           "id": "038000f",
+           "id": "0380017",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4483,7 +4653,7 @@
            "elements": []
           },
           {
-           "id": "0380010",
+           "id": "0380018",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4494,7 +4664,7 @@
            "elements": []
           },
           {
-           "id": "0380011",
+           "id": "0380019",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -4504,14 +4674,14 @@
            "elements": []
           },
           {
-           "id": "038000a",
+           "id": "0380012",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
             "view": "traditional",
             "icon_list": [
              {
-              "_id": "0380006",
+              "_id": "038000e",
               "text": "Kafa, uključujući bosansku kafu",
               "selected_icon": {
                "value": "",
@@ -4519,7 +4689,7 @@
               }
              },
              {
-              "_id": "0380007",
+              "_id": "038000f",
               "text": "Čajevi",
               "selected_icon": {
                "value": "",
@@ -4527,7 +4697,7 @@
               }
              },
              {
-              "_id": "0380008",
+              "_id": "0380010",
               "text": "Hladni napici",
               "selected_icon": {
                "value": "",
@@ -4535,7 +4705,7 @@
               }
              },
              {
-              "_id": "0380009",
+              "_id": "0380011",
               "text": "Kolači i slatke poslastice",
               "selected_icon": {
                "value": "",
@@ -4548,7 +4718,7 @@
            "elements": []
           },
           {
-           "id": "038000b",
+           "id": "0380013",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -4559,7 +4729,7 @@
            "elements": []
           },
           {
-           "id": "038000c",
+           "id": "0380014",
            "elType": "widget",
            "widgetType": "shortcode",
            "settings": {
@@ -4573,7 +4743,7 @@
        ]
       },
       {
-       "id": "0380015",
+       "id": "038001d",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -4583,7 +4753,7 @@
        },
        "elements": [
         {
-         "id": "0380014",
+         "id": "038001c",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -34096,6 +34266,10 @@
   },
   {
    "path": "images/hc26-cafe-corner.jpg",
+   "alt": ""
+  },
+  {
+   "path": "images/hc26-cafe-guest.jpg",
    "alt": ""
   },
   {

@@ -225,8 +225,14 @@ add({
   build: (lang) => {
     const c = x.cafe[lang];
     return [
-      hero("images/hc26-lounge-window.jpg", c.eyebrow, [c.title], c.intro),
-      split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-corner.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
+      // The café's own hero: the bright photo barely graded, the words on a warm cream card.
+      box("hc-hero hc-hero--cafe", [
+        box("hc-cafe-card", [
+          box("hc-cafe-card__text", [heading(c.title, "p", "hc-eyebrow"), heading(lines(["Central", "Café"]), "h1", "hc-hero__title"), text(`<p>${c.intro}</p>`, "hc-hero__intro"), list(c.offer.map((t) => ({ text: t })), "hc-chips"), button(lang === "en" ? "How to find us →" : "Kako do nas →", page("location"), "hc-link")]),
+          image("images/dorucak6.jpg", "hc-cafe-card__detail"),
+        ], { row: true }),
+      ], { bg: "images/hc26-cafe-corner.jpg" }),
+      split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-guest.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
       box("hc-gallery", [gallery(["images/hc26-cafe-window.jpg", "images/hc26-lobby-lounge.jpg", "images/hc26-lobby-windows.jpg", "images/hc26-lobby.jpg"])]),
     ];
   },

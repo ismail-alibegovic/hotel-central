@@ -11,7 +11,19 @@ export type Img = { src: string; alt: string; position?: string };
 export type Cta = { label: string; link: ResolvedLink };
 export type LineVariant = keyof typeof linePaths;
 
-export type HeroBlock = { type: "hero"; image: Img; eyebrow: string; title: string[]; intro?: string; meta?: [string, string, string] };
+export type HeroBlock = {
+  type: "hero";
+  image: Img;
+  eyebrow: string;
+  title: string[];
+  intro?: string;
+  meta?: [string, string, string];
+  /** "warm": the light café hero (photo barely graded, words on a cream card) instead of the dark cinematic one. */
+  variant?: "warm";
+  detail?: Img;
+  chips?: string[];
+  link?: { label: string; href: string };
+};
 export type SplitBlock = {
   type: "split";
   label: string;

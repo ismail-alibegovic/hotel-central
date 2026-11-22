@@ -1,3 +1,4 @@
+import { CafeHero } from "../page/CafeHero";
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 import { ContactForm } from "@/components/ContactForm";
@@ -144,6 +145,8 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
       {blocks.map((b, i) => {
         switch (b.type) {
           case "hero":
+            if (b.variant === "warm")
+              return <CafeHero key={i} image={b.image} detail={b.detail} eyebrow={b.eyebrow} title={b.title} intro={b.intro} chips={b.chips} link={b.link} meta={b.meta} />;
             return (
               <PageHero
                 key={i}
