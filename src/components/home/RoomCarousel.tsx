@@ -38,7 +38,9 @@ function TitleLayer({ room, locale, idx, dir }: { room: Room; locale: Locale; id
   return (
     <div className="absolute inset-0" style={vars}>
       {/* Grotesk line — the room's defining feature */}
-      <p className="absolute left-[var(--gutter-pct)] top-[61.5%] overflow-hidden whitespace-nowrap text-[7cqw] font-light uppercase leading-[1] tracking-[-0.01em] md:left-auto md:right-[25.4%] md:top-[31.6%] md:text-[5.75cqw]">
+      {/* Sits beside the photograph (never across it), above the room name */}
+      <p className="absolute left-[var(--gutter-pct)] top-[61.5%] flex items-center gap-[0.8em] overflow-hidden whitespace-nowrap text-[4.2cqw] font-light uppercase leading-[1.2] tracking-[0.18em] text-sage md:left-[53.76%] md:top-[33.8%] md:text-[1.15cqw] md:tracking-[0.32em]">
+        <span aria-hidden className="block h-px w-[2.4em] shrink-0 bg-current opacity-70" />
         <motion.span key={`f-${idx}`} className="block" {...lineAnim(0)}>
           {room.feature[locale]}
         </motion.span>
@@ -178,7 +180,7 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
           </AnimatePresence>
         </div>
 
-        {/* Base title (white on olive), beneath the photograph */}
+        {/* Title (white on olive), to the right of the photograph */}
         <div className="pointer-events-none absolute inset-0 z-[1]">
           <AnimatePresence initial={false}>
             <TitleLayer key={index} room={room} locale={locale} idx={index} dir={dir} />
@@ -220,13 +222,6 @@ export function RoomCarousel({ locale, dict, rooms }: { locale: Locale; dict: Di
             </motion.div>
           </AnimatePresence>
           <div className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(180deg,rgba(2,13,16,0)_55%,rgba(2,13,16,0.35)_100%)]" />
-        </div>
-
-        {/* Overprint: title re-coloured over the photograph */}
-        <div aria-hidden className={`clip-rect pointer-events-none absolute inset-0 z-[3] blend-diff ${IMG}`}>
-          <AnimatePresence initial={false}>
-            <TitleLayer key={index} room={room} locale={locale} idx={index} dir={dir} />
-          </AnimatePresence>
         </div>
 
         {nextButton}

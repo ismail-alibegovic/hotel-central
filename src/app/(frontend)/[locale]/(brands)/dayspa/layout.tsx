@@ -1,11 +1,11 @@
-import { DM_Sans, Familjen_Grotesk } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { DaySpaHeader } from "@/components/dayspa/DaySpaHeader";
 import { DaySpaFooter } from "@/components/dayspa/DaySpaPage";
 import { getDaySpa } from "@/cms/brands";
 import type { Locale } from "@/lib/i18n";
 import "../../../../brands.css";
 
-const display = Familjen_Grotesk({ subsets: ["latin", "latin-ext"], variable: "--ds-display", display: "swap" });
+const display = Cormorant_Garamond({ subsets: ["latin", "latin-ext"], weight: ["300", "400", "500"], style: ["normal", "italic"], variable: "--ds-display", display: "swap" });
 const body = DM_Sans({ subsets: ["latin", "latin-ext"], variable: "--ds-body", display: "swap" });
 
 /** Central Day Spa: its own header, footer, palette and type, inside the hotel's site. */

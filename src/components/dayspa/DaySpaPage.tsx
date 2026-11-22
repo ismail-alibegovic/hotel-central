@@ -54,36 +54,42 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
   return (
     <>
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-[var(--ds-wine-deep)] text-white md:min-h-[min(860px,100svh)]">
+      <section className="relative isolate flex min-h-[680px] flex-col overflow-hidden bg-[var(--ds-wine-deep)] text-white md:h-[100svh] md:max-h-[960px] md:min-h-[720px]">
         <Image src={images.hero.src} alt={images.hero.alt} fill priority sizes="100vw" className="-z-10 object-cover" style={{ objectPosition: images.hero.position }} />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(30_7_10/0.62)_0%,rgb(30_7_10/0.12)_38%,rgb(30_7_10/0.78)_100%)]" />
-        <div className="ds-wrap grid w-full gap-8 pb-12 pt-[130px] md:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] md:items-end md:pb-16">
-          <div>
-            <FadeIn immediate delay={0.2}>
-              <p className="ds-eyebrow text-white/85">{c.hero.eyebrow}</p>
-            </FadeIn>
-            <h1 className="ds-display mt-5 text-[44px] sm:text-[56px] md:text-[clamp(56px,6.2vw,92px)]">
-              <RevealLines lines={c.hero.title} immediate delay={0.35} />
-            </h1>
-            <FadeIn immediate delay={0.8} className="mt-9 flex flex-wrap items-center gap-4">
-              <Btn href={bookingUrl} variant="ds-btn--light" external>
-                {c.hero.cta}
-              </Btn>
-              <a href="#prices" className="ds-btn ds-btn--ghost">
-                {c.hero.prices}
-                <i aria-hidden>↓</i>
-              </a>
-            </FadeIn>
-          </div>
-          <FadeIn immediate delay={1} className="max-w-[340px] rounded-[20px] border border-white/20 bg-[rgb(43_10_13/0.42)] p-6 backdrop-blur-md md:justify-self-end">
-            <p className="ds-display text-[19px] leading-[1.25]">{c.hero.perkTitle}</p>
-            <p className="ds-display mt-4 text-[44px] leading-none">{c.hero.perkBig}</p>
-            <p className="mt-3 text-[14px] text-white/80">{c.hero.perkBody}</p>
-            <Link href={href(locale, "/centralfitnessclub")} className="ds-link mt-3 inline-block text-[13px] text-white">
-              Central Fitness Club →
-            </Link>
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(30_7_10/0.5)_0%,rgb(30_7_10/0.2)_35%,rgb(30_7_10/0.55)_70%,rgb(30_7_10/0.85)_100%)]" />
+
+        <div className="ds-wrap ds-max flex w-full flex-1 flex-col items-center justify-center pb-10 pt-[120px] text-center">
+          <FadeIn immediate delay={0.2}>
+            <p className="ds-eyebrow text-white/85">{c.hero.eyebrow}</p>
+          </FadeIn>
+          <h1 className="ds-display mt-6 text-[52px] !leading-[0.98] sm:text-[72px] md:text-[clamp(80px,8.4vw,132px)]">
+            <RevealLines lines={c.hero.title.map((l, i) => (i === 1 ? <em key={i}>{l}</em> : l))} immediate delay={0.35} />
+          </h1>
+          <FadeIn immediate delay={0.8} className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Btn href={bookingUrl} variant="ds-btn--light" external>
+              {c.hero.cta}
+            </Btn>
+            <a href="#prices" className="ds-btn ds-btn--ghost">
+              {c.hero.prices}
+              <i aria-hidden>↓</i>
+            </a>
           </FadeIn>
         </div>
+
+        {/* The perk, as a quiet bar along the bottom of the photograph */}
+        <FadeIn immediate delay={1} className="border-t border-white/15 bg-[rgb(30_7_10/0.35)] backdrop-blur-md">
+          <div className="ds-wrap ds-max flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:gap-8">
+            <p className="ds-display shrink-0 text-[44px] leading-none text-[var(--ds-lilac)]">{c.hero.perkBig}</p>
+            <span aria-hidden className="hidden h-10 w-px bg-white/20 sm:block" />
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-medium">{c.hero.perkTitle}</p>
+              <p className="mt-0.5 text-[13px] text-white/70">{c.hero.perkBody}</p>
+            </div>
+            <Link href={href(locale, "/centralfitnessclub")} className="ds-link shrink-0 self-start text-[12px] uppercase tracking-[0.16em] text-white sm:self-center">
+              Central Fitness Club →
+            </Link>
+          </div>
+        </FadeIn>
       </section>
 
       {/* ───────────── About ───────────── */}
@@ -110,14 +116,14 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
         <div>
           <FadeIn>
             <p className="ds-eyebrow text-[var(--ds-wine)]">{c.about.label}</p>
-            <h2 className="ds-display mt-4 text-[34px] text-[var(--ds-wine)] md:text-[44px]">{c.about.title}</h2>
+            <h2 className="ds-display mt-4 text-[40px] text-[var(--ds-wine)] md:text-[58px]">{c.about.title}</h2>
             <p className="mt-5 max-w-[54ch] text-[var(--ds-mute)]">{c.about.body}</p>
           </FadeIn>
           <div className="mt-9 grid gap-6 border-y border-[var(--ds-line)] py-7">
             {c.about.features.map((f, i) => (
               <FadeIn key={f.title} delay={0.1 * i} className="grid grid-cols-[44px_minmax(0,1fr)] gap-x-5 gap-y-1 sm:grid-cols-[44px_minmax(0,0.9fr)_minmax(0,1.1fr)]">
                 <span className="text-[var(--ds-wine)]">{i === 0 ? Icon.lotus : Icon.drop}</span>
-                <p className="ds-display text-[18px] text-[var(--ds-ink)]">{f.title}</p>
+                <p className="ds-display text-[24px] leading-[1.15] text-[var(--ds-ink)]">{f.title}</p>
                 <p className="col-start-2 text-[14px] text-[var(--ds-mute)] sm:col-start-3 sm:border-l sm:border-[var(--ds-line)] sm:pl-5">{f.body}</p>
               </FadeIn>
             ))}
@@ -134,7 +140,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
       <section id="treatments" className="scroll-mt-20">
         <div className="bg-[var(--ds-wine)] px-5 py-16 text-center text-white md:py-20">
           <p className="ds-eyebrow text-[var(--ds-lilac)]">{c.services.label}</p>
-          <h2 className="ds-display mx-auto mt-4 text-[34px] md:text-[48px]">
+          <h2 className="ds-display mx-auto mt-4 text-[42px] md:text-[64px]">
             <RevealLines lines={c.services.title} className="block" />
           </h2>
         </div>
@@ -156,12 +162,12 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
             const text = (
               <div key="t" className="flex flex-col items-center justify-center gap-4 bg-[var(--ds-paper)] px-7 py-12 text-center">
                 <span className="text-[var(--ds-wine)]">{i % 2 ? Icon.drop : Icon.lotus}</span>
-                <h3 className="ds-display text-[22px] text-[var(--ds-ink)]">{cat.name}</h3>
+                <h3 className="ds-display text-[30px] text-[var(--ds-ink)]">{cat.name}</h3>
                 <p className="max-w-[28ch] text-[14px] text-[var(--ds-mute)]">{cat.summary}</p>
                 <span className="my-1 h-px w-full max-w-[200px] bg-[var(--ds-line)]" />
-                <a href="#prices" className="ds-btn !min-h-[42px] !text-[13px]">
+                <a href="#prices" className="ds-btn ds-btn--outline !min-h-[42px] !px-5 !text-[12px]">
                   {c.services.view}
-                  <i aria-hidden className="!h-[30px] !w-[30px]">→</i>
+                  <i aria-hidden>→</i>
                 </a>
               </div>
             );
@@ -171,13 +177,17 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
       </section>
 
       {/* ───────────── Price list ───────────── */}
-      <section id="prices" className="ds-wrap scroll-mt-24 py-20 md:py-28">
-        <FadeIn className="mb-12 max-w-[62ch]">
-          <p className="ds-eyebrow text-[var(--ds-wine)]">{c.prices.label}</p>
-          <h2 className="ds-display mt-4 text-[34px] text-[var(--ds-wine)] md:text-[46px]">{c.prices.title}</h2>
-          <p className="mt-4 text-[var(--ds-mute)]">{c.prices.intro}</p>
-        </FadeIn>
-        <PriceList categories={categories} labels={{ duration: c.prices.duration, price: c.prices.price }} />
+      <section id="prices" className="scroll-mt-16 py-20 md:py-28">
+        <div className="ds-wrap ds-max">
+          <FadeIn className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-end">
+            <div>
+              <p className="ds-eyebrow ds-eyebrow--line text-[var(--ds-wine)]">{c.prices.label}</p>
+              <h2 className="ds-display mt-4 text-[44px] text-[var(--ds-wine)] md:text-[72px]">{c.prices.title}</h2>
+            </div>
+            <p className="max-w-[48ch] text-[var(--ds-mute)] md:justify-self-end">{c.prices.intro}</p>
+          </FadeIn>
+          <PriceList categories={categories} labels={{ duration: c.prices.duration, price: c.prices.price }} />
+        </div>
       </section>
 
       {/* ───────────── Packages ───────────── */}
@@ -186,7 +196,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
           <div className="ds-wrap">
             <FadeIn className="mx-auto mb-12 max-w-[40ch] text-center">
               <p className="ds-eyebrow text-[var(--ds-wine)]">{c.packages.label}</p>
-              <h2 className="ds-display mt-4 text-[34px] text-[var(--ds-wine)] md:text-[46px]">{c.packages.title}</h2>
+              <h2 className="ds-display mt-4 text-[40px] text-[var(--ds-wine)] md:text-[58px]">{c.packages.title}</h2>
             </FadeIn>
             <div className={`mx-auto grid max-w-[1180px] gap-5 ${packages.length >= 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
               {packages.map((p, i) => {
@@ -194,10 +204,10 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
                 return (
                   <FadeIn key={p.name} delay={0.08 * i} className={`flex flex-col gap-5 rounded-[22px] p-7 md:p-8 ${hl ? "bg-[var(--ds-wine)] text-white md:-translate-y-4" : "bg-[var(--ds-paper)]"}`}>
                     <div className="flex items-center justify-between gap-3">
-                      <h3 className="ds-display text-[22px]">{p.name}</h3>
+                      <h3 className="ds-display text-[30px]">{p.name}</h3>
                       {hl && <span className="rounded-full bg-[var(--ds-lilac)] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[var(--ds-wine)]">{c.packages.popular}</span>}
                     </div>
-                    <p className="ds-display text-[46px] leading-none [font-variant-numeric:tabular-nums]">
+                    <p className="ds-display text-[56px] leading-none [font-variant-numeric:tabular-nums]">
                       {p.price} KM <span className={`text-[15px] font-normal ${hl ? "text-white/70" : "text-[var(--ds-mute)]"}`}>/ {p.duration}</span>
                     </p>
                     <ul className="grid gap-2.5 text-[14px]">
@@ -224,7 +234,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
       <section className="ds-wrap grid gap-14 py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-center md:gap-[6vw] md:py-28">
         <FadeIn>
           <p className="ds-eyebrow text-[var(--ds-wine)]">{c.why.label}</p>
-          <h2 className="ds-display mt-4 text-[34px] text-[var(--ds-wine)] md:text-[44px]">{c.why.title}</h2>
+          <h2 className="ds-display mt-4 text-[40px] text-[var(--ds-wine)] md:text-[58px]">{c.why.title}</h2>
           <p className="mt-5 max-w-[52ch] text-[var(--ds-mute)]">{c.why.body}</p>
           <ul className="mt-8 grid gap-x-6 gap-y-4 text-[15px] sm:grid-cols-2">
             {c.why.ticks.map((x) => (
@@ -251,7 +261,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
             <Image src={images.whyC.src} alt={images.whyC.alt} fill sizes="(min-width: 768px) 48vw, 92vw" className="object-cover" style={{ objectPosition: images.whyC.position }} />
           </div>
           <div className="absolute -left-3 bottom-[22%] rounded-[16px] bg-[var(--ds-wine)] px-6 py-5 text-center text-white shadow-[0_18px_40px_-18px_rgb(43_10_13/0.6)] md:-left-8">
-            <p className="ds-display text-[40px] leading-none">6</p>
+            <p className="ds-display text-[52px] leading-none">6</p>
             <p className="mt-1 text-[13px] text-white/80">{c.why.stat}</p>
           </div>
         </div>
@@ -276,7 +286,7 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
         <div aria-hidden className="absolute inset-0 -z-10 bg-[rgb(36_8_11/0.66)]" />
         <FadeIn className="mx-auto flex max-w-[760px] flex-col items-center gap-6">
           <p className="ds-eyebrow text-[var(--ds-lilac)]">{c.cta.eyebrow}</p>
-          <h2 className="ds-display text-[34px] md:text-[54px]">{c.cta.title}</h2>
+          <h2 className="ds-display text-[42px] md:text-[72px]">{c.cta.title}</h2>
           <div className="mt-2 flex flex-wrap justify-center gap-4">
             <Btn href={bookingUrl} variant="ds-btn--light" external>
               {c.cta.book}
@@ -294,69 +304,76 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
   );
 }
 
-/** Day Spa footer: wine ground, logo, address, contact, hours, links to the hotel and the club. */
+/** Day Spa footer: wine ground, centred logo over a line, then address, contact, hours and the sister sites. */
 export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; c: DaySpaCopy; contact: BrandContact; address: { street: string; city: string; directions: string } }) {
   const f = c.footer;
+  const label = "ds-eyebrow mb-5 !text-[10.5px] text-[var(--ds-lilac)]";
   return (
     <footer id="contact" className="scroll-mt-20 bg-[var(--ds-wine-deep)] text-white">
-      <div className="ds-wrap grid gap-12 py-16 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:py-20">
-        <div>
-          <Image src="/brand/dayspa-on-dark.png" alt="Central Day Spa" width={150} height={108} className="h-auto w-[130px]" />
-          <p className="mt-6 max-w-[30ch] text-[14px] text-white/65">{f.rights}</p>
+      <div className="ds-wrap ds-max">
+        <div className="flex flex-col items-center gap-6 border-b border-white/10 py-14 text-center md:py-20">
+          <Image src="/brand/dayspa-on-dark.png" alt="Central Day Spa" width={150} height={108} className="h-auto w-[130px] md:w-[150px]" />
+          <p className="max-w-[40ch] text-[14px] text-white/60">{f.rights}</p>
         </div>
-        <div className="text-[14px]">
-          <p className="ds-eyebrow mb-4 text-[var(--ds-lilac)]">{f.address}</p>
-          <p>{address.street}</p>
-          <p>{address.city}</p>
-          <a href={address.directions} target="_blank" rel="noopener noreferrer" className="ds-link mt-3 inline-block text-white/75">
-            Google Maps ↗
-          </a>
-        </div>
-        <div className="text-[14px]">
-          <p className="ds-eyebrow mb-4 text-[var(--ds-lilac)]">{f.contact}</p>
-          <p>
-            <a href={contact.phone.href} className="ds-link">
-              {contact.phone.display}
+        <div className="grid gap-12 py-14 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/10">
+          <div className="text-[15px] leading-[1.75] lg:pr-10">
+            <p className={label}>{f.address}</p>
+            <p>{address.street}</p>
+            <p>{address.city}</p>
+            <a href={address.directions} target="_blank" rel="noopener noreferrer" className="ds-link mt-3 inline-block text-white/65">
+              Google Maps ↗
             </a>
-          </p>
-          <p>
-            <a href={`mailto:${contact.email}`} className="ds-link">
-              {contact.email}
-            </a>
-          </p>
-          <p className="ds-eyebrow mb-3 mt-7 text-[var(--ds-lilac)]">{f.hours}</p>
-          {contact.hours.length ? (
-            contact.hours.map((h) => (
-              <div key={h.name} className="mb-3">
-                {contact.hours.length > 1 && <p className="text-white/60">{h.name}</p>}
-                {h.rows.map((r) => (
-                  <p key={r.days}>
-                    {r.days}: {r.closed ? "—" : r.time}
-                  </p>
-                ))}
-              </div>
-            ))
-          ) : (
-            <p className="text-white/70">{f.hoursFallback}</p>
-          )}
-        </div>
-        <div className="text-[14px]">
-          <p className="ds-eyebrow mb-4 text-[var(--ds-lilac)]">{f.follow}</p>
-          <p>
-            <Link href={href(locale)} className="ds-link">
-              {f.hotel}
-            </Link>
-          </p>
-          <p>
-            <Link href={href(locale, "/centralfitnessclub")} className="ds-link">
-              {f.club}
-            </Link>
-          </p>
+          </div>
+          <div className="text-[15px] leading-[1.75] lg:px-10">
+            <p className={label}>{f.contact}</p>
+            <p>
+              <a href={contact.phone.href} className="ds-link">
+                {contact.phone.display}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${contact.email}`} className="ds-link">
+                {contact.email}
+              </a>
+            </p>
+          </div>
+          <div className="text-[15px] leading-[1.75] lg:px-10">
+            <p className={label}>{f.hours}</p>
+            {contact.hours.length ? (
+              contact.hours.map((h) => (
+                <div key={h.name} className="mb-3">
+                  {contact.hours.length > 1 && <p className="text-white/55">{h.name}</p>}
+                  {h.rows.map((r) => (
+                    <p key={r.days}>
+                      {r.days}: {r.closed ? "—" : r.time}
+                    </p>
+                  ))}
+                </div>
+              ))
+            ) : (
+              <p className="text-white/65">{f.hoursFallback}</p>
+            )}
+          </div>
+          <div className="text-[15px] leading-[1.75] lg:pl-10">
+            <p className={label}>{f.follow}</p>
+            <p>
+              <Link href={href(locale)} className="ds-link">
+                {f.hotel}
+              </Link>
+            </p>
+            <p>
+              <Link href={href(locale, "/centralfitnessclub")} className="ds-link">
+                {f.club}
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-      <div className="ds-wrap flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-6 text-[12px] text-white/50">
-        <span>© {new Date().getFullYear()} Hotel Central Sarajevo</span>
-        <span className="h-[2px] w-16 bg-[var(--ds-sage)]" aria-hidden />
+      <div className="border-t border-white/10">
+        <div className="ds-wrap ds-max flex flex-wrap items-center justify-center gap-4 py-6 text-[12px] text-white/45 sm:justify-between">
+          <span>© {new Date().getFullYear()} Hotel Central Sarajevo</span>
+          <span className="ds-display text-[16px] italic text-white/60">{c.hero.eyebrow}</span>
+        </div>
       </div>
     </footer>
   );

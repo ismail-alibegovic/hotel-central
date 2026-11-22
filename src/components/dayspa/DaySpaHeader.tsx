@@ -10,7 +10,7 @@ import { href, type Locale } from "@/lib/i18n";
 
 type Props = { locale: Locale; c: DaySpaCopy["nav"]; bookingUrl: string; phone: { display: string; href: string } };
 
-/** Day Spa header: transparent over the hero with the light logo, cream and the wine logo once the page scrolls. */
+/** Day Spa header: links either side of a centred logo; transparent over the hero, cream with the wine logo once the page scrolls. */
 export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -57,48 +57,49 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
       </a>
       <header
         className={`fixed inset-x-0 top-0 z-[80] transition-[background-color,box-shadow,color] duration-500 ${
-          solid ? "bg-[var(--ds-cream)]/95 text-[var(--ds-wine)] shadow-[0_1px_0_var(--ds-line)] backdrop-blur-md" : "bg-transparent text-white"
+          solid ? "bg-[var(--ds-cream)]/95 text-[var(--ds-wine)] shadow-[0_1px_0_var(--ds-line)] backdrop-blur-md" : "bg-gradient-to-b from-[rgb(30_7_10/0.55)] to-transparent text-white"
         }`}
       >
-        <div className="ds-wrap flex h-[74px] items-center justify-between gap-6 md:h-[86px]">
-          <Link href={base} className="relative block h-[58px] w-[81px] shrink-0 md:h-[72px] md:w-[100px]" aria-label="Central Day Spa">
+        <div className={`ds-wrap ds-max grid grid-cols-[1fr_auto_1fr] items-center gap-6 transition-[height] duration-500 ${solid ? "h-[72px]" : "h-[76px] md:h-[96px]"}`}>
+          <nav aria-label="Central Day Spa" className="hidden items-center gap-8 lg:flex">
+            {links.slice(0, 3).map((l) => (
+              <a key={l.href} href={l.href} className="ds-nav-link">
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="ds-menu"
+            className="flex h-11 items-center gap-3 justify-self-start text-[12px] font-medium uppercase tracking-[0.16em] lg:hidden"
+          >
+            <span aria-hidden className="relative block h-[9px] w-6">
+              <span className={`absolute left-0 h-px w-full bg-current transition-transform duration-500 ${open ? "top-1/2 rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 h-px w-full bg-current transition-transform duration-500 ${open ? "top-1/2 -rotate-45" : "bottom-0"}`} />
+            </span>
+            {open ? c.close : c.menu}
+          </button>
+
+          <Link href={base} className={`relative block shrink-0 transition-[height,width] duration-500 ${solid ? "h-[52px] w-[72px]" : "h-[56px] w-[78px] md:h-[72px] md:w-[100px]"}`} aria-label="Central Day Spa">
             <Image src="/brand/dayspa-on-dark.png" alt="" fill sizes="110px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
             <Image src="/brand/dayspa-on-light.png" alt="" fill sizes="110px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
           </Link>
 
-          <nav aria-label="Central Day Spa" className="hidden items-center gap-7 text-[14px] lg:flex">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} className="ds-link py-1">
-                {l.label}
-              </a>
-            ))}
-            <Link href={href(locale)} className="ds-link py-1 opacity-75">
-              ← {c.hotel}
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher locale={locale} label={c.language} className="hidden !text-[11px] sm:flex" />
-            <a href={phone.href} className={`hidden rounded-full px-4 py-2.5 text-[13px] xl:inline-flex ${solid ? "bg-[var(--ds-lilac-soft)]" : "bg-white/10 ring-1 ring-white/30 backdrop-blur-sm"}`}>
-              ✆ {phone.display}
-            </a>
-            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className={`ds-btn hidden !min-h-[44px] md:inline-flex ${solid ? "" : "ds-btn--light"}`}>
+          <div className="flex items-center justify-end gap-7">
+            <nav aria-label="Central Day Spa" className="hidden items-center gap-8 lg:flex">
+              {links.slice(3).map((l) => (
+                <a key={l.href} href={l.href} className="ds-nav-link">
+                  {l.label}
+                </a>
+              ))}
+            </nav>
+            <LanguageSwitcher locale={locale} label={c.language} className="hidden !text-[11px] lg:flex" />
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className={`ds-btn hidden !min-h-[44px] !px-5 md:inline-flex ${solid ? "" : "ds-btn--light"}`}>
               {c.book}
-              <i aria-hidden className="!h-8 !w-8">→</i>
+              <i aria-hidden>→</i>
             </a>
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="ds-menu"
-              className="flex h-11 items-center gap-2 rounded-full px-3 text-[14px] lg:hidden"
-            >
-              <span aria-hidden className="relative block h-[10px] w-5">
-                <span className={`absolute left-0 h-px w-full bg-current transition-transform duration-500 ${open ? "top-1/2 rotate-45" : "top-0"}`} />
-                <span className={`absolute left-0 h-px w-full bg-current transition-transform duration-500 ${open ? "top-1/2 -rotate-45" : "bottom-0"}`} />
-              </span>
-              {open ? c.close : c.menu}
-            </button>
           </div>
         </div>
       </header>
@@ -110,20 +111,20 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
       >
         <nav aria-label="Central Day Spa" className="ds-wrap flex flex-col gap-1 pb-10">
           {links.map((l) => (
-            <a key={l.href} href={l.href} onClick={close} className="ds-display border-b border-[var(--ds-line)] py-4 text-[30px]">
+            <a key={l.href} href={l.href} onClick={close} className="ds-display border-b border-[var(--ds-line)] py-4 text-[38px]">
               {l.label}
             </a>
           ))}
-          <Link href={href(locale)} onClick={close} className="py-5 text-[15px] opacity-75">
+          <a href={phone.href} className="py-5 text-[15px]">
+            ✆ {phone.display}
+          </a>
+          <Link href={href(locale)} onClick={close} className="pb-5 text-[15px] opacity-75">
             ← {c.hotel}
           </Link>
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="ds-btn">
               {c.book}
               <i aria-hidden>→</i>
-            </a>
-            <a href={phone.href} className="text-[15px]">
-              ✆ {phone.display}
             </a>
           </div>
           <LanguageSwitcher locale={locale} label={c.language} className="mt-8" />

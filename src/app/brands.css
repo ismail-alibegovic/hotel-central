@@ -31,54 +31,64 @@
 }
 .ds ::selection { background: var(--ds-lilac); color: var(--ds-wine); }
 .ds-display {
-  font-family: var(--ds-display), "Helvetica Neue", Arial, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.06;
+  font-family: var(--ds-display), "Cormorant Garamond", Georgia, serif;
+  font-variant-numeric: lining-nums;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
   text-wrap: balance;
 }
+.ds-display em, .ds-italic { font-style: italic; font-weight: 300; }
 .ds-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-.ds-wrap { padding-left: var(--ds-gutter); padding-right: var(--ds-gutter); }
-
-/* Pill with a circled arrow (Revo) */
-.ds-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  min-height: 48px;
-  padding: 6px 6px 6px 22px;
-  border-radius: 999px;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+.ds-eyebrow--line::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: 0.7; }
+.ds-wrap { padding-left: var(--ds-gutter); padding-right: var(--ds-gutter); }
+.ds-max { max-width: 1400px; margin-left: auto; margin-right: auto; }
+
+/* Pill: text and a small arrow */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   white-space: nowrap;
   background: var(--ds-wine);
   color: #fff;
-  transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
 }
 .ds-btn > i {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
   font-style: normal;
+  line-height: 1;
   transition: transform 0.5s var(--ease-out);
 }
-.ds-btn:hover > i { transform: rotate(-45deg); }
+.ds-btn:hover > i { transform: translateX(4px); }
 .ds-btn:hover { background: var(--ds-wine-soft); }
 .ds-btn--light { background: #fff; color: var(--ds-wine); }
 .ds-btn--light:hover { background: var(--ds-lilac-soft); }
 .ds-btn--ghost { background: transparent; color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
 .ds-btn--ghost:hover { background: rgb(255 255 255 / 0.12); }
+.ds-btn--outline { background: transparent; color: var(--ds-wine); box-shadow: inset 0 0 0 1px var(--ds-wine); }
+.ds-btn--outline:hover { background: var(--ds-wine); color: #fff; }
 
 .ds-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease-out); }
 .ds-link:hover { background-size: 100% 1px; }
+
+.ds-nav-link { position: relative; padding: 6px 0; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+.ds-nav-link::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; border-radius: 50%; background: currentColor; transform: translate(-50%, 6px) scale(0); transition: transform 0.4s var(--ease-out); }
+.ds-nav-link:hover::after { transform: translate(-50%, 6px) scale(1); }
 
 .ds-star::before { content: "✦"; color: var(--ds-sage); margin-right: 10px; }
 
@@ -88,84 +98,103 @@
 @media (prefers-reduced-motion: reduce) { .ds-seal { animation: none; } }
 
 /* ═════════════════════════ Central Fitness Club ═════════════════════════
-   Colours from the CFC logo (forest green) on cream, with a sunlit yellow.
-   Structure after the "FIJI Sport Club" reference: organic cut-outs,
-   leaf shapes, thin light display type, pebble buttons. */
+   Athletic and premium: a near-black forest ground, the logo's green, warm
+   stone paper and one bright "volt" accent. One type family (Archivo) in two
+   widths: condensed, heavy capitals for display, normal width for reading. */
 .cfc {
+  --cfc-night: #0e1712;
+  --cfc-night-2: #15221a;
   --cfc-green: #244a35;
   --cfc-green-deep: #183325;
   --cfc-leaf: #3a6149;
-  --cfc-moss: #9fb59a;
-  --cfc-cream: #fbf9f2;
-  --cfc-sand: #f0ece1;
-  --cfc-sun: #f6df7c;
-  --cfc-sun-soft: #fbf0bd;
-  --cfc-ink: #1d2721;
-  --cfc-mute: #5f6a63;
-  --cfc-line: rgb(36 74 53 / 0.16);
-  --cfc-gutter: clamp(18px, 4vw, 56px);
+  --cfc-moss: #8fa694;
+  --cfc-cream: #f4f2ec;
+  --cfc-sand: #e9e6dd;
+  --cfc-volt: #e2f163;
+  --cfc-volt-soft: #f1f7b9;
+  /* kept as aliases for older markup */
+  --cfc-sun: var(--cfc-volt);
+  --cfc-sun-soft: var(--cfc-volt-soft);
+  --cfc-ink: #121a15;
+  --cfc-mute: #5d6660;
+  --cfc-line: rgb(18 26 21 / 0.13);
+  --cfc-line-dark: rgb(255 255 255 / 0.12);
+  --cfc-gutter: clamp(20px, 4.2vw, 64px);
   background: var(--cfc-cream);
   color: var(--cfc-ink);
   font-family: var(--cfc-body), "Helvetica Neue", Arial, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
+  font-stretch: 100%;
 }
-.cfc ::selection { background: var(--cfc-sun); color: var(--cfc-green-deep); }
+.cfc ::selection { background: var(--cfc-volt); color: var(--cfc-night); }
 .cfc-display {
   font-family: var(--cfc-display), "Helvetica Neue", Arial, sans-serif;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1.02;
+  font-weight: 800;
+  font-stretch: 72%;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 0.9;
   text-wrap: balance;
 }
+.cfc-title {
+  font-family: var(--cfc-display), "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-stretch: 85%;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
 .cfc-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+.cfc-eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; }
+.cfc-num { font-variant-numeric: tabular-nums; }
 .cfc-wrap { padding-left: var(--cfc-gutter); padding-right: var(--cfc-gutter); }
+.cfc-max { max-width: 1440px; margin-left: auto; margin-right: auto; }
 
 .cfc-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-height: 46px;
-  padding: 0 22px;
+  justify-content: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 0 26px;
   border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   white-space: nowrap;
-  background: var(--cfc-green);
+  background: var(--cfc-night);
   color: #fff;
-  transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out);
+  transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
 }
-.cfc-btn:hover { background: var(--cfc-leaf); }
-.cfc-btn--cream { background: var(--cfc-cream); color: var(--cfc-green); }
-.cfc-btn--cream:hover { background: var(--cfc-sun-soft); }
-.cfc-btn--line { background: transparent; color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
-.cfc-btn--line:hover { background: rgb(36 74 53 / 0.08); }
-.cfc-btn .cfc-arrow { transition: transform 0.5s var(--ease-out); }
+.cfc-btn:hover { background: var(--cfc-green); }
+.cfc-btn--volt { background: var(--cfc-volt); color: var(--cfc-night); }
+.cfc-btn--volt:hover { background: #fff; color: var(--cfc-night); }
+.cfc-btn--cream { background: #fff; color: var(--cfc-night); }
+.cfc-btn--cream:hover { background: var(--cfc-volt); }
+.cfc-btn--line { background: transparent; color: currentColor; box-shadow: inset 0 0 0 1.5px currentColor; }
+.cfc-btn--line:hover { background: var(--cfc-night); color: #fff; box-shadow: inset 0 0 0 1.5px var(--cfc-night); }
+.cfc-btn--line.on-dark:hover { background: #fff; color: var(--cfc-night); box-shadow: inset 0 0 0 1.5px #fff; }
+.cfc-btn .cfc-arrow { transition: transform 0.4s var(--ease-out); }
 .cfc-btn:hover .cfc-arrow { transform: translateX(4px); }
-
-/* Pebble button (FIJI): an irregular rounded blob with an arrow */
-.cfc-pebble {
-  display: inline-grid;
-  place-items: center;
-  width: 58px;
-  height: 52px;
-  border-radius: 52% 48% 44% 56% / 58% 46% 54% 42%;
-  background: var(--cfc-green);
-  color: #fff;
-  transition: border-radius 0.8s var(--ease-out), transform 0.6s var(--ease-out);
-}
-.cfc-pebble:hover { border-radius: 46% 54% 58% 42% / 44% 58% 42% 56%; transform: rotate(-6deg); }
-.cfc-pebble--cream { background: var(--cfc-cream); color: var(--cfc-green); }
-
-/* Cards whose photograph ends in a wave */
-.cfc-wave { clip-path: url(#cfc-wave); }
 
 .cfc-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease-out); }
 .cfc-link:hover { background-size: 100% 1px; }
+
+.cfc-nav-link { position: relative; padding: 6px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.82; transition: opacity 0.3s; }
+.cfc-nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--cfc-volt); transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease-out); }
+.cfc-nav-link:hover, .cfc-nav-link[aria-current="page"] { opacity: 1; }
+.cfc-nav-link:hover::after, .cfc-nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+.cfc-zoom img { transition: transform 1.2s var(--ease-out); }
+.cfc-zoom:hover img { transform: scale(1.05); }
 
 } /* @layer components: Tailwind utilities (hidden, md:inline-flex…) still win over these classes */
