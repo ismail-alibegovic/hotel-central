@@ -54,6 +54,6 @@ export type Block = HeroBlock | SplitBlock | FactsBlock | StatementBlock | Galle
 export type BlockType = Block["type"];
 export const blockTypes: BlockType[] = ["hero", "split", "facts", "statement", "gallery", "finalBooking", "arrival", "contact", "roomList", "offers", "faq", "cta"];
 
-export type PageKey = "about" | "rooms" | "spa" | "restaurant" | "meetings-events" | "location" | "contact";
-export const pageKeys: PageKey[] = ["about", "rooms", "spa", "restaurant", "meetings-events", "location", "contact"];
+export type PageKey = "about" | "rooms" | "spa" | "restaurant" | "cafe" | "meetings-events" | "location" | "contact";
+export const pageKeys: PageKey[] = ["about", "rooms", "spa", "restaurant", "cafe", "meetings-events", "location", "contact"];
 export type PageLayout = { blocks: Block[]; meta: { title: string; description: string }; ogImage: string };
