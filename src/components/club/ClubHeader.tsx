@@ -60,8 +60,10 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
         }`}
       >
         <div className="cfc-wrap cfc-max grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[84px]">
-          <Link href={base} aria-label="Central Fitness Club" className="relative block h-[46px] w-[40px] shrink-0 md:h-[56px] md:w-[48px]">
-            <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className="object-contain" />
+          {/* The full logo over the hero; once scrolled (and on the inner pages), only the "CENTRAL FITNESS CLUB" wordmark, larger */}
+          <Link href={base} aria-label="Central Fitness Club" className={`relative block shrink-0 transition-[height,width] duration-500 ${solid ? "h-[36px] w-[108px] md:h-[42px] md:w-[126px]" : "h-[46px] w-[40px] md:h-[56px] md:w-[48px]"}`}>
+            <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
+            <Image src="/brand/cfc-white-wordmark.png" alt="" fill sizes="130px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
           </Link>
           <nav aria-label="Central Fitness Club" className="hidden items-center justify-center gap-8 lg:flex xl:gap-10">
             {links.map((l) =>

@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <header class="cfc-header" data-hc-header>
 	<div class="cfc-header__bar">
 		<a class="cfc-header__logo" href="<?php echo esc_url( hc_page_url( 'club' ) ); ?>" aria-label="Central Fitness Club">
-			<?php echo hc_logo( 'cfc-white.png', '' ); // phpcs:ignore ?>
+			<?php echo hc_logo( 'cfc-white.png', '', 'is-full' ); // phpcs:ignore ?>
+			<?php echo hc_logo( 'cfc-white-wordmark.png', '', 'is-wordmark' ); // phpcs:ignore ?>
 		</a>
 		<nav class="cfc-header__nav" aria-label="Central Fitness Club">
 			<?php hc_menu( 'club_menu', 'cfc-nav' ); ?>

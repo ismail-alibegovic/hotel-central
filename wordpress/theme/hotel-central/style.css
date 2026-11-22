@@ -328,7 +328,8 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .ds-header__bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; height: 96px; padding: 0 var(--gutter); max-width: 1400px; margin: 0 auto; transition: height 0.5s; }
 .ds-header.is-scrolled .ds-header__bar { height: 72px; }
 .ds-header__logo { position: relative; display: block; width: 100px; height: 72px; grid-column: 2; transition: width 0.5s, height 0.5s; }
-.ds-header.is-scrolled .ds-header__logo { width: 72px; height: 52px; }
+/* Once scrolled, only the "DAY SPA" wordmark, larger (the is-dark image is the wordmark). */
+.ds-header.is-scrolled .ds-header__logo { width: 172px; height: 40px; }
 .ds-header__logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.5s; }
 .ds-header__logo .is-dark, .ds-header.is-scrolled .ds-header__logo .is-light, .ds-header.is-open .ds-header__logo .is-light { opacity: 0; }
 .ds-header.is-scrolled .ds-header__logo .is-dark, .ds-header.is-open .ds-header__logo .is-dark { opacity: 1; }
@@ -349,7 +350,7 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .ds-menu { background: var(--ds-cream); color: var(--ds-wine); }
 .ds-menu .hc-menu__list a { font-family: var(--ds-display); font-weight: 400; }
 @media (max-width: 1080px) { .ds-header__nav { display: none; } .ds-toggle { display: inline-flex; grid-column: 1; grid-row: 1; justify-self: start; } }
-@media (max-width: 600px) { .ds-header__book, .ds-header__right .hc-langs { display: none; } .ds-header__bar { height: 76px; } .ds-header__logo { width: 78px; height: 56px; } }
+@media (max-width: 600px) { .ds-header__book, .ds-header__right .hc-langs { display: none; } .ds-header__bar { height: 76px; } .ds-header__logo { width: 78px; height: 56px; } .ds-header.is-scrolled .ds-header__logo { width: 146px; height: 34px; } }
 
 .brand-spa .ds-eyebrow .elementor-heading-title { display: inline-flex; align-items: center; gap: 12px; font: 500 11px/1.4 var(--ds-body); letter-spacing: 0.26em; text-transform: uppercase; }
 .brand-spa .ds-title .elementor-heading-title { font: 400 clamp(40px, 4.6vw, 64px)/1.02 var(--ds-display); letter-spacing: -0.01em; color: var(--ds-wine); text-wrap: balance; font-variant-numeric: lining-nums; }
@@ -488,7 +489,12 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .cfc-header { position: fixed; inset: 0 0 auto; z-index: 100; color: #fff; background: linear-gradient(180deg, rgb(0 0 0 / 0.45), transparent); border-bottom: 1px solid transparent; transition: background-color 0.5s, border-color 0.5s; }
 .cfc-header.is-scrolled, .cfc-header.is-open { background: rgb(14 23 18 / 0.96); border-color: var(--cfc-line-dark); backdrop-filter: blur(8px); }
 .cfc-header__bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; height: 84px; padding: 0 var(--gutter); max-width: 1440px; margin: 0 auto; }
-.cfc-header__logo img { display: block; height: 56px; width: auto; }
+.cfc-header__logo { position: relative; display: block; height: 56px; width: 48px; transition: width 0.5s, height 0.5s; }
+.cfc-header__logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left center; transition: opacity 0.5s; }
+/* Once scrolled, only the "CENTRAL FITNESS CLUB" wordmark, larger. */
+.cfc-header__logo .is-wordmark, .cfc-header.is-scrolled .cfc-header__logo .is-full, .cfc-header.is-open .cfc-header__logo .is-full { opacity: 0; }
+.cfc-header.is-scrolled .cfc-header__logo .is-wordmark, .cfc-header.is-open .cfc-header__logo .is-wordmark { opacity: 1; }
+.cfc-header.is-scrolled .cfc-header__logo, .cfc-header.is-open .cfc-header__logo { width: 126px; height: 42px; }
 .cfc-header__nav { display: flex; justify-content: center; align-items: center; }
 .cfc-nav { display: flex; gap: clamp(22px, 2.6vw, 40px); list-style: none; margin: 0; padding: 0; }
 .cfc-header a { text-decoration: none; color: inherit; }
@@ -507,7 +513,7 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .cfc-menu .hc-menu__list a { font: 800 clamp(38px, 6vw, 60px)/1 var(--cfc-font); font-stretch: 72%; text-transform: uppercase; padding: 14px 0; border-bottom: 1px solid var(--cfc-line-dark); }
 .cfc-menu .hc-menu__list a::before { counter-increment: m; content: counter(m, decimal-leading-zero); display: inline-block; width: 44px; font: 500 12px var(--cfc-font); color: var(--cfc-volt); vertical-align: middle; }
 @media (max-width: 1100px) { .cfc-header__nav { display: none; } .cfc-toggle { display: inline-flex; } .cfc-header__bar { grid-template-columns: auto 1fr; } .cfc-header__right { justify-content: flex-end; } }
-@media (max-width: 600px) { .cfc-header__join, .cfc-header__right .hc-langs { display: none; } .cfc-header__bar { height: 72px; } .cfc-header__logo img { height: 46px; } }
+@media (max-width: 600px) { .cfc-header__join, .cfc-header__right .hc-langs { display: none; } .cfc-header__bar { height: 72px; } .cfc-header__logo { height: 46px; width: 40px; } .cfc-header.is-scrolled .cfc-header__logo { width: 108px; height: 36px; } }
 
 .brand-club .cfc-eyebrow .elementor-heading-title { display: inline-flex; align-items: center; gap: 12px; font: 600 12px/1.4 var(--cfc-font); letter-spacing: 0.2em; text-transform: uppercase; color: var(--cfc-green); }
 .brand-club .cfc-eyebrow .elementor-heading-title::before { content: ""; width: 22px; height: 2px; background: currentColor; }

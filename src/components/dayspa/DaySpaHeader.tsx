@@ -82,9 +82,10 @@ export function DaySpaHeader({ locale, c, bookingUrl, phone }: Props) {
             {open ? c.close : c.menu}
           </button>
 
-          <Link href={base} className={`relative block shrink-0 transition-[height,width] duration-500 ${solid ? "h-[52px] w-[72px]" : "h-[56px] w-[78px] md:h-[72px] md:w-[100px]"}`} aria-label="Central Day Spa">
+          {/* The full logo over the hero; once scrolled, only the "DAY SPA" wordmark, larger */}
+          <Link href={base} className={`relative block shrink-0 transition-[height,width] duration-500 ${solid ? "h-[34px] w-[146px] md:h-[40px] md:w-[172px]" : "h-[56px] w-[78px] md:h-[72px] md:w-[100px]"}`} aria-label="Central Day Spa">
             <Image src="/brand/dayspa-on-dark.png" alt="" fill sizes="110px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
-            <Image src="/brand/dayspa-on-light.png" alt="" fill sizes="110px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
+            <Image src="/brand/dayspa-on-light-wordmark.png" alt="" fill sizes="180px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
           </Link>
 
           <div className="flex items-center justify-end gap-7">

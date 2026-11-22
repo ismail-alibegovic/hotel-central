@@ -15,7 +15,7 @@ $phone = hc_opt( 'spa_phone' );
 	<div class="ds-header__bar">
 		<a class="ds-header__logo" href="<?php echo esc_url( hc_page_url( 'dayspa' ) ); ?>" aria-label="Central Day Spa">
 			<?php echo hc_logo( 'dayspa-on-dark.png', '', 'is-light' ); // phpcs:ignore ?>
-			<?php echo hc_logo( 'dayspa-on-light.png', '', 'is-dark' ); // phpcs:ignore ?>
+			<?php echo hc_logo( 'dayspa-on-light-wordmark.png', '', 'is-dark' ); // phpcs:ignore ?>
 		</a>
 		<nav class="ds-header__nav" aria-label="Central Day Spa">
 			<?php hc_menu( 'spa_menu', 'ds-nav' ); ?>

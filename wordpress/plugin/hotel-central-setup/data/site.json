@@ -10141,7 +10141,7 @@
        ]
       },
       {
-       "id": "080001f",
+       "id": "0800020",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -10165,7 +10165,7 @@
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
-            "editor": "<p>Superior room is carefully equipped and decorated with well chosen materials and colours, with comfortable armchairs and sofas, flat-screen TV, a spacious bathroom with shower and various amenities which would make you feel like at home.</p>",
+            "editor": "<p>Superior room is carefully equipped and decorated with well chosen materials and colours, with comfortable armchairs and sofas, flat-screen TV, a spacious bathroom with shower and various amenities which would make you feel like at home.</p><p>With a double bed or two separate beds.</p>",
             "_css_classes": "hc-body hc-body--lg"
            },
            "elements": []
@@ -10173,7 +10173,7 @@
          ]
         },
         {
-         "id": "080001e",
+         "id": "080001f",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -10194,7 +10194,7 @@
            "elements": []
           },
           {
-           "id": "080001d",
+           "id": "080001e",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
@@ -10338,6 +10338,14 @@
              },
              {
               "_id": "080001c",
+              "text": "Toilet paper",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "080001d",
               "text": "Free WiFi",
               "selected_icon": {
                "value": "",
@@ -10354,7 +10362,7 @@
        ]
       },
       {
-       "id": "0800021",
+       "id": "0800022",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -10364,7 +10372,7 @@
        },
        "elements": [
         {
-         "id": "0800020",
+         "id": "0800021",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -10400,7 +10408,7 @@
        ]
       },
       {
-       "id": "0800038",
+       "id": "0800039",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -10410,7 +10418,7 @@
        },
        "elements": [
         {
-         "id": "0800022",
+         "id": "0800023",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -10421,7 +10429,7 @@
          "elements": []
         },
         {
-         "id": "0800037",
+         "id": "0800038",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -10431,7 +10439,7 @@
          },
          "elements": [
           {
-           "id": "0800026",
+           "id": "0800027",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -10441,7 +10449,7 @@
            },
            "elements": [
             {
-             "id": "0800023",
+             "id": "0800024",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -10455,7 +10463,7 @@
              "elements": []
             },
             {
-             "id": "0800024",
+             "id": "0800025",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -10466,7 +10474,7 @@
              "elements": []
             },
             {
-             "id": "0800025",
+             "id": "0800026",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -10483,7 +10491,7 @@
            ]
           },
           {
-           "id": "080002a",
+           "id": "080002b",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -10493,7 +10501,7 @@
            },
            "elements": [
             {
-             "id": "0800027",
+             "id": "0800028",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -10507,7 +10515,7 @@
              "elements": []
             },
             {
-             "id": "0800028",
+             "id": "0800029",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -10518,7 +10526,7 @@
              "elements": []
             },
             {
-             "id": "0800029",
+             "id": "080002a",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -10535,7 +10543,7 @@
            ]
           },
           {
-           "id": "080002e",
+           "id": "080002f",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -10545,7 +10553,7 @@
            },
            "elements": [
             {
-             "id": "080002b",
+             "id": "080002c",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -10559,7 +10567,7 @@
              "elements": []
             },
             {
-             "id": "080002c",
+             "id": "080002d",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -10570,7 +10578,7 @@
              "elements": []
             },
             {
-             "id": "080002d",
+             "id": "080002e",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -10587,7 +10595,7 @@
            ]
           },
           {
-           "id": "0800032",
+           "id": "0800033",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -10597,7 +10605,7 @@
            },
            "elements": [
             {
-             "id": "080002f",
+             "id": "0800030",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -10611,7 +10619,7 @@
              "elements": []
             },
             {
-             "id": "0800030",
+             "id": "0800031",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -10622,7 +10630,7 @@
              "elements": []
             },
             {
-             "id": "0800031",
+             "id": "0800032",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -10639,7 +10647,7 @@
            ]
           },
           {
-           "id": "0800036",
+           "id": "0800037",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -10649,7 +10657,7 @@
            },
            "elements": [
             {
-             "id": "0800033",
+             "id": "0800034",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -10663,7 +10671,7 @@
              "elements": []
             },
             {
-             "id": "0800034",
+             "id": "0800035",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -10674,7 +10682,7 @@
              "elements": []
             },
             {
-             "id": "0800035",
+             "id": "0800036",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -10695,7 +10703,7 @@
        ]
       },
       {
-       "id": "080003e",
+       "id": "080003f",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -10713,7 +10721,7 @@
        },
        "elements": [
         {
-         "id": "080003d",
+         "id": "080003e",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -10723,7 +10731,7 @@
          },
          "elements": [
           {
-           "id": "0800039",
+           "id": "080003a",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -10734,7 +10742,7 @@
            "elements": []
           },
           {
-           "id": "080003a",
+           "id": "080003b",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -10745,7 +10753,7 @@
            "elements": []
           },
           {
-           "id": "080003b",
+           "id": "080003c",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -10755,7 +10763,7 @@
            "elements": []
           },
           {
-           "id": "080003c",
+           "id": "080003d",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
@@ -10896,7 +10904,7 @@
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
-            "editor": "<p>Superior sobe su pažljivo uređene i dekorisane odabranim materijalima i bojama, sa udobnim naslonjačima, LCD TV, prostranom kupaonicom sa tuš kabinom, te raznim dodacima koji će vam omogućiti da se osjećate kao kod kuće.</p>",
+            "editor": "<p>Superior sobe su pažljivo uređene i dekorisane odabranim materijalima i bojama, sa udobnim naslonjačima, LCD TV, prostranom kupaonicom sa tuš kabinom, te raznim dodacima koji će vam omogućiti da se osjećate kao kod kuće.</p><p>S bračnim krevetom ili sa 2 odvojena kreveta.</p>",
             "_css_classes": "hc-body hc-body--lg"
            },
            "elements": []
@@ -14591,7 +14599,7 @@
        ]
       },
       {
-       "id": "0b00021",
+       "id": "0b00022",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -14623,7 +14631,7 @@
          ]
         },
         {
-         "id": "0b00020",
+         "id": "0b00021",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -14644,7 +14652,7 @@
            "elements": []
           },
           {
-           "id": "0b0001f",
+           "id": "0b00020",
            "elType": "widget",
            "widgetType": "icon-list",
            "settings": {
@@ -14804,6 +14812,14 @@
              },
              {
               "_id": "0b0001e",
+              "text": "Toilet paper",
+              "selected_icon": {
+               "value": "",
+               "library": ""
+              }
+             },
+             {
+              "_id": "0b0001f",
               "text": "Free WiFi",
               "selected_icon": {
                "value": "",
@@ -14820,7 +14836,7 @@
        ]
       },
       {
-       "id": "0b00023",
+       "id": "0b00024",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -14830,7 +14846,7 @@
        },
        "elements": [
         {
-         "id": "0b00022",
+         "id": "0b00023",
          "elType": "widget",
          "widgetType": "image-gallery",
          "settings": {
@@ -14870,7 +14886,7 @@
        ]
       },
       {
-       "id": "0b0003a",
+       "id": "0b0003b",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -14880,7 +14896,7 @@
        },
        "elements": [
         {
-         "id": "0b00024",
+         "id": "0b00025",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -14891,7 +14907,7 @@
          "elements": []
         },
         {
-         "id": "0b00039",
+         "id": "0b0003a",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -14901,7 +14917,7 @@
          },
          "elements": [
           {
-           "id": "0b00028",
+           "id": "0b00029",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -14911,7 +14927,7 @@
            },
            "elements": [
             {
-             "id": "0b00025",
+             "id": "0b00026",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -14925,7 +14941,7 @@
              "elements": []
             },
             {
-             "id": "0b00026",
+             "id": "0b00027",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -14936,7 +14952,7 @@
              "elements": []
             },
             {
-             "id": "0b00027",
+             "id": "0b00028",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -14953,7 +14969,7 @@
            ]
           },
           {
-           "id": "0b0002c",
+           "id": "0b0002d",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -14963,7 +14979,7 @@
            },
            "elements": [
             {
-             "id": "0b00029",
+             "id": "0b0002a",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -14977,7 +14993,7 @@
              "elements": []
             },
             {
-             "id": "0b0002a",
+             "id": "0b0002b",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -14988,7 +15004,7 @@
              "elements": []
             },
             {
-             "id": "0b0002b",
+             "id": "0b0002c",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -15005,7 +15021,7 @@
            ]
           },
           {
-           "id": "0b00030",
+           "id": "0b00031",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -15015,7 +15031,7 @@
            },
            "elements": [
             {
-             "id": "0b0002d",
+             "id": "0b0002e",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -15029,7 +15045,7 @@
              "elements": []
             },
             {
-             "id": "0b0002e",
+             "id": "0b0002f",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -15040,7 +15056,7 @@
              "elements": []
             },
             {
-             "id": "0b0002f",
+             "id": "0b00030",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -15057,7 +15073,7 @@
            ]
           },
           {
-           "id": "0b00034",
+           "id": "0b00035",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -15067,7 +15083,7 @@
            },
            "elements": [
             {
-             "id": "0b00031",
+             "id": "0b00032",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -15081,7 +15097,7 @@
              "elements": []
             },
             {
-             "id": "0b00032",
+             "id": "0b00033",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -15092,7 +15108,7 @@
              "elements": []
             },
             {
-             "id": "0b00033",
+             "id": "0b00034",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -15109,7 +15125,7 @@
            ]
           },
           {
-           "id": "0b00038",
+           "id": "0b00039",
            "elType": "container",
            "isInner": true,
            "settings": {
@@ -15119,7 +15135,7 @@
            },
            "elements": [
             {
-             "id": "0b00035",
+             "id": "0b00036",
              "elType": "widget",
              "widgetType": "image",
              "settings": {
@@ -15133,7 +15149,7 @@
              "elements": []
             },
             {
-             "id": "0b00036",
+             "id": "0b00037",
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
@@ -15144,7 +15160,7 @@
              "elements": []
             },
             {
-             "id": "0b00037",
+             "id": "0b00038",
              "elType": "widget",
              "widgetType": "button",
              "settings": {
@@ -15165,7 +15181,7 @@
        ]
       },
       {
-       "id": "0b00040",
+       "id": "0b00041",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -15183,7 +15199,7 @@
        },
        "elements": [
         {
-         "id": "0b0003f",
+         "id": "0b00040",
          "elType": "container",
          "isInner": true,
          "settings": {
@@ -15193,7 +15209,7 @@
          },
          "elements": [
           {
-           "id": "0b0003b",
+           "id": "0b0003c",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -15204,7 +15220,7 @@
            "elements": []
           },
           {
-           "id": "0b0003c",
+           "id": "0b0003d",
            "elType": "widget",
            "widgetType": "heading",
            "settings": {
@@ -15215,7 +15231,7 @@
            "elements": []
           },
           {
-           "id": "0b0003d",
+           "id": "0b0003e",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -15225,7 +15241,7 @@
            "elements": []
           },
           {
-           "id": "0b0003e",
+           "id": "0b0003f",
            "elType": "widget",
            "widgetType": "button",
            "settings": {
