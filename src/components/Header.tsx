@@ -81,8 +81,8 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             </button>
           </div>
 
-          {/* Centre: wordmark */}
-          <Link href={href(locale)} className="flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
+          {/* Centre: the full logo at the top of the page; once scrolled, only the "HOTEL CENTRAL" wordmark, larger */}
+          <Link href={href(locale)} className="relative flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
             <Image
               src="/brand/hotel-central-white.png"
               alt=""
@@ -90,7 +90,16 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               height={809}
               priority
               sizes="64px"
-              className={`h-auto w-auto transition-[max-height] duration-700 ${solid ? "max-h-[40px] md:max-h-[48px]" : "max-h-[46px] md:max-h-[56px]"}`}
+              className={`h-auto w-auto max-h-[46px] transition-opacity duration-500 md:max-h-[56px] ${solid ? "opacity-0" : "opacity-100"}`}
+            />
+            <Image
+              src="/brand/hotel-central-white-wordmark.png"
+              alt=""
+              width={793}
+              height={123}
+              priority
+              sizes="200px"
+              className={`absolute left-1/2 top-1/2 h-[20px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[26px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
             />
           </Link>
 

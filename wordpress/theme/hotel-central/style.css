@@ -112,7 +112,13 @@ body.brand-club { background: var(--cfc-cream); color: var(--cfc-ink); font: 400
 .hc-header.is-scrolled .hc-header__bar { height: 66px; border-color: transparent; }
 .hc-header__left { display: flex; align-items: center; gap: 22px; }
 .hc-header__logo img { display: block; height: 58px; width: auto; transition: height 0.5s; }
-.hc-header.is-scrolled .hc-header__logo img { height: 44px; }
+/* Once scrolled, only the "HOTEL CENTRAL" wordmark, larger, instead of a tiny full logo. */
+.hc-header__logo { position: relative; display: block; }
+.hc-header__logo img { transition: opacity 0.5s, height 0.5s; }
+.hc-header .hc-header__logo img.hc-header__wordmark { position: absolute; left: 50%; top: 50%; height: 26px; width: auto; max-width: none; transform: translate(-50%, -50%); opacity: 0; pointer-events: none; }
+.hc-header.is-scrolled .hc-header__logo img:not(.hc-header__wordmark) { opacity: 0; }
+.hc-header.is-scrolled .hc-header__logo img.hc-header__wordmark { opacity: 1; }
+@media (max-width: 600px) { .hc-header .hc-header__logo img.hc-header__wordmark { height: 20px; } }
 .hc-header__right { display: flex; justify-content: flex-end; align-items: center; gap: 22px; }
 .hc-header__link { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; }
 /* CH-003: the booking button is solid and always visible. */

@@ -19,6 +19,7 @@ $phone = hc_opt( 'phone' );
 		</div>
 		<a class="hc-header__logo" href="<?php echo esc_url( hc_home_url() ); ?>" aria-label="Hotel Central Sarajevo">
 			<?php echo hc_logo( 'hotel-central-white.png', '' ); // phpcs:ignore ?>
+			<?php echo hc_logo( 'hotel-central-white-wordmark.png', '', 'hc-header__wordmark' ); // phpcs:ignore ?>
 		</a>
 		<div class="hc-header__right">
 			<a class="hc-header__link" href="<?php echo esc_url( hc_page_url( 'rooms' ) ); ?>"><?php echo esc_html( hc_tr( 'Rooms', 'Sobe' ) ); ?></a>
