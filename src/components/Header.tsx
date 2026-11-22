@@ -111,13 +111,15 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             >
               <span className="link-line">{dict.nav.rooms}</span>
             </Link>
-            {/* CH-003: the booking button stays solid gold and always visible, kept compact so it sits quietly in the bar */}
+            {/* CH-003: over the hero the booking link is plain text with no box; once the page scrolls it turns into the solid gold pill */}
             <span className="flex items-center">
               <a
                 href={booking.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-[32px] items-center whitespace-nowrap rounded-full bg-[#b49a6a] px-4 font-sans text-[9.5px] uppercase leading-none tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#9c8455] md:h-[38px] md:px-6 md:text-[10.5px] md:tracking-[0.16em]"
+                className={`inline-flex h-[32px] items-center whitespace-nowrap rounded-full px-4 font-sans text-[9.5px] uppercase leading-none tracking-[0.14em] text-white transition-[background-color,color] duration-500 md:h-[38px] md:px-6 md:text-[10.5px] md:tracking-[0.16em] ${
+                  solid ? "bg-[#b49a6a] hover:bg-[#9c8455]" : "bg-transparent hover:text-[#d9c48f]"
+                }`}
               >
                 {dict.nav.book}
               </a>
