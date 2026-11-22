@@ -59,13 +59,13 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
           solid ? "border-b border-[var(--cfc-line-dark)] bg-[var(--cfc-night)]/95 backdrop-blur-md" : "border-b border-transparent bg-gradient-to-b from-black/45 to-transparent"
         }`}
       >
-        <div className="cfc-wrap cfc-max grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[84px]">
+        <div className="cfc-wrap cfc-max grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[80px] xl:gap-10">
           {/* The full logo over the hero; once scrolled (and on the inner pages), only the "CENTRAL FITNESS CLUB" wordmark, larger */}
-          <Link href={base} aria-label="Central Fitness Club" className={`relative block shrink-0 transition-[height,width] duration-500 ${solid ? "h-[36px] w-[108px] md:h-[42px] md:w-[126px]" : "h-[46px] w-[40px] md:h-[56px] md:w-[48px]"}`}>
-            <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className={`object-contain transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
+          <Link href={base} aria-label="Central Fitness Club" className="relative block h-[46px] w-[132px] shrink-0 md:h-[48px] md:w-[144px]">
+            <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
             <Image src="/brand/cfc-white-wordmark.png" alt="" fill sizes="130px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
           </Link>
-          <nav aria-label="Central Fitness Club" className="hidden items-center justify-center gap-8 lg:flex xl:gap-10">
+          <nav aria-label="Central Fitness Club" className="hidden items-center justify-center gap-7 whitespace-nowrap xl:flex 2xl:gap-10">
             {links.map((l) =>
               l.page ? (
                 <Link key={l.href} href={l.href} aria-current={pathname === l.href ? "page" : undefined} className="cfc-nav-link">
@@ -78,12 +78,12 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
               ),
             )}
           </nav>
-          <div className="col-start-3 flex items-center justify-end gap-5">
-            <Link href={href(locale)} className="hidden text-[12px] font-medium tracking-[0.06em] text-white/60 transition-colors hover:text-white xl:inline">
+          <div className="col-start-3 flex items-center justify-end gap-4 whitespace-nowrap xl:gap-6">
+            <Link href={href(locale)} className="hidden text-[12px] font-medium tracking-[0.06em] text-white/60 transition-colors hover:text-white 2xl:inline">
               ← {c.hotel}
             </Link>
             <LanguageSwitcher locale={locale} label={c.language} className="hidden !text-[11px] text-white sm:flex" />
-            <Link href={`${base}/membership`} className="cfc-btn cfc-btn--volt hidden !min-h-[44px] !px-5 md:inline-flex">
+            <Link href={`${base}/membership`} className="cfc-btn cfc-btn--volt hidden !min-h-[42px] !px-5 !text-[12px] md:inline-flex">
               {c.join} <span className="cfc-arrow" aria-hidden>→</span>
             </Link>
             <button
@@ -91,7 +91,7 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="cfc-menu"
-              className="flex h-11 items-center gap-3 rounded-full text-[12px] font-semibold uppercase tracking-[0.16em] lg:hidden"
+              className="flex h-11 items-center gap-3 rounded-full text-[12px] font-semibold uppercase tracking-[0.16em] xl:hidden"
             >
               {open ? c.close : c.menu}
               <span aria-hidden className="relative block h-[10px] w-6">
@@ -102,7 +102,7 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
           </div>
         </div>
       </header>
-      <div id="cfc-menu" hidden={!open} className="fixed inset-0 z-[70] overflow-y-auto bg-[var(--cfc-night)] pt-[92px] text-white lg:hidden">
+      <div id="cfc-menu" hidden={!open} className="fixed inset-0 z-[70] overflow-y-auto bg-[var(--cfc-night)] pt-[92px] text-white xl:hidden">
         <nav aria-label="Central Fitness Club" className="cfc-wrap flex flex-col pb-10">
           {links.map((l, i) => (
             <Link key={l.href} href={l.href} onClick={close} className="flex items-baseline gap-4 border-b border-[var(--cfc-line-dark)] py-4">
