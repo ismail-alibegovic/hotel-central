@@ -81,25 +81,25 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             </button>
           </div>
 
-          {/* Centre: the full logo at the top of the page; once scrolled, only the "HOTEL CENTRAL" wordmark, larger */}
+          {/* Centre: the full logo (building + wordmark) at the top of the page; once scrolled, only the building image remains */}
           <Link href={href(locale)} className="relative flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
             <Image
-              src="/brand/hotel-central-white.png"
+              src="/brand/hotel-central-logo-white.png"
               alt=""
-              width={900}
-              height={809}
+              width={556}
+              height={551}
               priority
               sizes="88px"
               className={`h-auto w-auto max-h-[54px] transition-opacity duration-500 md:max-h-[78px] ${solid ? "opacity-0" : "opacity-100"}`}
             />
             <Image
-              src="/brand/hotel-central-white-wordmark.png"
+              src="/brand/hotel-central-mark-white.png"
               alt=""
-              width={793}
-              height={123}
+              width={254}
+              height={411}
               priority
-              sizes="200px"
-              className={`absolute left-1/2 top-1/2 h-[20px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[26px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              sizes="40px"
+              className={`absolute left-1/2 top-1/2 h-[40px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[48px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
             />
           </Link>
 

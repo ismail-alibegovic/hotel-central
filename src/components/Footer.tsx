@@ -49,7 +49,7 @@ export function Footer({
 
       {/* The hotel's logo (CH-018: the logo instead of the large typographic statement) */}
       <div className="relative z-[1] flex justify-center px-[var(--gutter)] pb-10 pt-14 md:pb-[3vw] md:pt-[4.5vw]">
-        <Image src="/brand/hotel-central-white.png" alt={hotel.name} width={900} height={809} sizes="(min-width: 768px) 200px, 150px" className="h-auto w-[150px] md:w-[200px]" />
+        <Image src="/brand/hotel-central-logo-white.png" alt={hotel.name} width={556} height={551} sizes="(min-width: 768px) 200px, 150px" className="h-auto w-[150px] md:w-[200px]" />
       </div>
 
       {/* Information */}
