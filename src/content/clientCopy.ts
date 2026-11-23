@@ -51,7 +51,7 @@ export const clientCopy = {
     {
       label: "(04)", title: ["Request", "a proposal"], intro: "Tell us about your event and we will reply by email with a proposal, usually within one working day.",
       subject: "Meetings & events", details: "Your event", contactTitle: "Your details",
-      type: "Type of event", types: ["Meeting or conference", "Seminar or workshop", "Presentation", "Wedding or celebration", "Business lunch or dinner", "Other"],
+      type: "Type of event", types: ["Meeting or conference", "Seminar or workshop", "Presentation", "Celebration", "Business lunch or dinner", "Other"],
       date: "Preferred date", guests: "Number of guests", setup: "Room set-up", setups: ["Not sure yet", "Theatre", "Classroom", "U-shape", "Boardroom", "Banquet"],
       services: "What else do you need?", servicesList: ["Coffee breaks", "Lunch or dinner", "Rooms for guests", "Technical support"],
       notes: "Anything else we should know (optional)",
@@ -59,7 +59,7 @@ export const clientCopy = {
     {
       label: "(04)", title: ["Zatražite", "ponudu"], intro: "Recite nam nešto o vašem događaju, a mi ćemo vam odgovoriti e-poštom s ponudom, obično u roku od jednog radnog dana.",
       subject: "Sastanci i događaji", details: "Vaš događaj", contactTitle: "Vaši podaci",
-      type: "Vrsta događaja", types: ["Sastanak ili konferencija", "Seminar ili radionica", "Prezentacija", "Vjenčanje ili proslava", "Poslovni ručak ili večera", "Ostalo"],
+      type: "Vrsta događaja", types: ["Sastanak ili konferencija", "Seminar ili radionica", "Prezentacija", "Slavlje", "Poslovni ručak ili večera", "Ostalo"],
       date: "Željeni datum", guests: "Broj gostiju", setup: "Postavka sale", setups: ["Još nisam siguran/na", "Teatarska", "Učionička", "U-oblik", "Za sastanke (boardroom)", "Banket"],
       services: "Šta vam još treba?", servicesList: ["Pauze za kafu", "Ručak ili večera", "Sobe za goste", "Tehnička podrška"],
       notes: "Još nešto što bismo trebali znati (nije obavezno)",

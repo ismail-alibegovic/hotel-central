@@ -137,8 +137,8 @@ const en = {
     },
   },
   events: {
-    meta: { title: "Meetings & Events", description: "A fully equipped conference room on the third floor of Hotel Central Sarajevo for seminars, conferences, workshops, presentations, weddings and business lunches." },
-    hero: { eyebrow: "Meetings & events", title: ["The space", "to connect"], intro: "Seminars, conferences, workshops, presentations, weddings and business lunches in the heart of old town Sarajevo." },
+    meta: { title: "Meetings & Events", description: "A fully equipped conference room on the third floor of Hotel Central Sarajevo for seminars, conferences, workshops, presentations, celebrations and business lunches." },
+    hero: { eyebrow: "Meetings & events", title: ["The space", "to connect"], intro: "Seminars, conferences, workshops, presentations, celebrations and business lunches in the heart of old town Sarajevo." },
     room: {
       label: "(01) Conference room",
       title: ["Peace", "& privacy"],
@@ -348,8 +348,8 @@ const bs: PagesContent = {
     },
   },
   events: {
-    meta: { title: "Sastanci i događaji", description: "Potpuno opremljena konferencijska sala na trećem spratu Hotela Central Sarajevo za seminare, konferencije, radionice, prezentacije, vjenčanja i poslovne ručkove." },
-    hero: { eyebrow: "Sastanci · Događaji · Slavlja", title: ["Prostor", "za susrete"], intro: "Seminari, konferencije, radionice, prezentacije, vjenčanja i poslovni ručkovi u samom centru Sarajeva." },
+    meta: { title: "Sastanci i događaji", description: "Potpuno opremljena konferencijska sala na trećem spratu Hotela Central Sarajevo za seminare, konferencije, radionice, prezentacije, slavlja i poslovne ručkove." },
+    hero: { eyebrow: "Sastanci · Događaji · Slavlja", title: ["Prostor", "za susrete"], intro: "Seminari, konferencije, radionice, prezentacije, slavlja i poslovni ručkovi u samom centru Sarajeva." },
     room: {
       label: "(01) Konferencijska sala",
       title: ["Mir", "i privatnost"],
