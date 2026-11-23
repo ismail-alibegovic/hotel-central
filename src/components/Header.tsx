@@ -89,8 +89,8 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               width={556}
               height={551}
               priority
-              sizes="88px"
-              className={`h-auto w-auto max-h-[60px] transition-opacity duration-500 md:max-h-[84px] ${solid ? "opacity-0" : "opacity-100"}`}
+              sizes="(min-width: 1024px) 120px, 80px"
+              className={`h-auto w-auto max-h-[80px] transition-opacity duration-500 md:max-h-[118px] ${solid ? "opacity-0" : "opacity-100"}`}
             />
             <Image
               src="/brand/hotel-central-text-white.png"
