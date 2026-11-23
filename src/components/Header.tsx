@@ -52,7 +52,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
         }`}
       >
         <div
-          className={`relative grid grid-cols-[1fr_auto_1fr] items-stretch border-b px-[var(--gutter)] transition-[height,border-color] duration-700 ${
+          className={`relative grid grid-cols-[1fr_auto_1fr] items-stretch border-b px-[max(var(--gutter),calc((100%-1200px)/2))] transition-[height,border-color] duration-700 ${
             solid ? "h-[56px] border-white/10 md:h-[64px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
           } ${open ? "border-transparent" : ""}`}
         >
