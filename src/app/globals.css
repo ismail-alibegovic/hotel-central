@@ -17,10 +17,10 @@
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
 
   --gutter: clamp(16px, 2.5vw, 36px);
-  --header-h: 64px;
+  --header-h: 96px;
 }
 @media (min-width: 1024px) {
-  :root { --header-h: 88px; }
+  :root { --header-h: 140px; }
 }
 
 @theme {
