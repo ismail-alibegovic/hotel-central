@@ -99,7 +99,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               height={117}
               priority
               sizes="200px"
-              className={`absolute left-1/2 top-1/2 h-[34px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[40px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              className={`absolute left-1/2 top-1/2 h-[26px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[40px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
             />
           </Link>
 
@@ -117,7 +117,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
                 href={booking.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex h-[32px] items-center whitespace-nowrap rounded-full px-4 font-sans text-[9.5px] uppercase leading-none tracking-[0.14em] text-white transition-[background-color,color] duration-500 md:h-[38px] md:px-6 md:text-[10.5px] md:tracking-[0.16em] ${
+                className={`inline-flex h-[26px] items-center whitespace-nowrap rounded-full px-3 font-sans text-[8.5px] uppercase leading-none tracking-[0.12em] text-white transition-[background-color,color] duration-500 md:h-[38px] md:px-6 md:text-[10.5px] md:tracking-[0.16em] ${
                   solid ? "bg-[#b49a6a] hover:bg-[#9c8455]" : "bg-transparent hover:text-[#d9c48f]"
                 }`}
               >
