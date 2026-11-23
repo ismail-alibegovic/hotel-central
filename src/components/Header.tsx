@@ -81,8 +81,8 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             </button>
           </div>
 
-          {/* Centre: the full logo (building + "Hotel Central Club & Spa"), large over the hero; it shrinks but stays complete once scrolled */}
-          <Link href={href(locale)} className="relative flex items-start justify-center" aria-label="Hotel Central Club & Spa Sarajevo — home">
+          {/* Centre: the full logo (building + "Hotel Central Club & Spa"), sits fully inside the header bar; it shrinks but stays complete once scrolled */}
+          <Link href={href(locale)} className="relative flex items-center justify-center" aria-label="Hotel Central Club & Spa Sarajevo — home">
             <Image
               src="/brand/hotel-central-logo-white.png"
               alt=""
@@ -90,8 +90,8 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
               height={551}
               priority
               sizes="(min-width: 768px) 190px, 130px"
-              className={`mt-2 h-auto w-auto max-w-none transition-all duration-500 ${
-                solid ? "max-h-[78px] md:max-h-[92px]" : "max-h-[124px] md:max-h-[180px]"
+              className={`h-auto w-auto max-w-none transition-all duration-500 ${
+                solid ? "max-h-[78px] md:max-h-[92px]" : "max-h-[100px] md:max-h-[126px]"
               }`}
             />
           </Link>
