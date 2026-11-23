@@ -53,7 +53,7 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
       >
         <div
           className={`relative grid grid-cols-[1fr_auto_1fr] items-stretch border-b px-[var(--gutter)] transition-[height,border-color] duration-700 ${
-            solid ? "h-[56px] border-white/10 md:h-[64px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
+            solid ? "h-[92px] border-white/10 md:h-[108px]" : "h-[var(--header-h)] border-[var(--hairline-light)]"
           } ${open ? "border-transparent" : ""}`}
         >
           {/* Left: menu */}
@@ -81,25 +81,18 @@ export function Header({ locale, dict, contact }: { locale: Locale; dict: Dictio
             </button>
           </div>
 
-          {/* Centre: the full logo (building + wordmark) at the top of the page; once scrolled, only the building image remains */}
-          <Link href={href(locale)} className="relative flex items-center justify-center" aria-label="Hotel Central Sarajevo — home">
+          {/* Centre: the full logo (building + "Hotel Central Club & Spa"), large over the hero; it shrinks but stays complete once scrolled */}
+          <Link href={href(locale)} className="relative flex items-start justify-center" aria-label="Hotel Central Club & Spa Sarajevo — home">
             <Image
               src="/brand/hotel-central-logo-white.png"
               alt=""
               width={556}
               height={551}
               priority
-              sizes="88px"
-              className={`h-auto w-auto max-h-[54px] transition-opacity duration-500 md:max-h-[78px] ${solid ? "opacity-0" : "opacity-100"}`}
-            />
-            <Image
-              src="/brand/hotel-central-mark-white.png"
-              alt=""
-              width={254}
-              height={411}
-              priority
-              sizes="40px"
-              className={`absolute left-1/2 top-1/2 h-[40px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 md:h-[48px] ${solid ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              sizes="(min-width: 768px) 190px, 130px"
+              className={`mt-2 h-auto w-auto max-w-none transition-all duration-500 ${
+                solid ? "max-h-[78px] md:max-h-[92px]" : "max-h-[124px] md:max-h-[180px]"
+              }`}
             />
           </Link>
 
