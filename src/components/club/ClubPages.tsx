@@ -3,7 +3,7 @@ import { ArrowUpRight } from "@/components/ui";
 import Link from "next/link";
 import { FadeIn } from "@/components/Reveal";
 import type { BrandContact } from "@/components/brands/contact";
-import { CLUB_INSTAGRAM, classTypes, type ClubClass, type ClubCopy, type ClubPlan } from "@/content/club";
+import { CLUB_INSTAGRAM, classInfo, type ClubClass, type ClubCopy, type ClubPlan } from "@/content/club";
 import { href, type Locale } from "@/lib/i18n";
 import type { ClubImg } from "./ClubHome";
 
@@ -216,15 +216,30 @@ export function ClubTimetable({ locale, c, timetable, img, contact }: { locale: 
           </div>
         )}
 
-        <div className="mt-14">
-          <h2 className="cfc-display text-[40px] text-[var(--cfc-night)]">{t.typesTitle}</h2>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {classTypes.map((x) => (
-              <li key={x} className="rounded-full border border-[var(--cfc-line)] px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.06em]">
-                {x}
+        {/* CH-043: what each class is, in the club's own words */}
+        <div id="classes" className="mt-16 scroll-mt-24 md:mt-24">
+          <h2 className="cfc-display text-[44px] text-[var(--cfc-night)] md:text-[64px]">{t.typesTitle}</h2>
+          <p className="mt-3 max-w-[60ch] text-[16px] text-[var(--cfc-mute)]">{t.typesBody}</p>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {classInfo.filter((x) => x.about).map((x) => (
+              <li key={x.name} className="flex flex-col rounded-[8px] bg-white p-6 ring-1 ring-[var(--cfc-line)]">
+                <div className="flex items-baseline justify-between gap-4 border-b border-[var(--cfc-line)] pb-3">
+                  <h3 className="cfc-title text-[20px] uppercase text-[var(--cfc-night)]">{x.name}</h3>
+                  {x.minutes && <span className="cfc-num shrink-0 rounded-full bg-[var(--cfc-volt)] px-3 py-1 text-[12px] font-semibold text-[var(--cfc-night)]">{x.minutes} min</span>}
+                </div>
+                <p className="mt-3 text-[15px] leading-[1.6] text-[var(--cfc-ink)]/80">{x.about![locale]}</p>
               </li>
             ))}
           </ul>
+          {classInfo.some((x) => !x.about) && (
+            <ul className="mt-5 flex flex-wrap gap-2" aria-label={t.typesTitle}>
+              {classInfo.filter((x) => !x.about).map((x) => (
+                <li key={x.name} className="rounded-full border border-[var(--cfc-line)] px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.06em]">
+                  {x.name}
+                </li>
+              ))}
+            </ul>
+          )}
           <Link href={href(locale, "/centralfitnessclub/membership")} className="cfc-btn mt-10">
             {c.nav.membership} <span className="cfc-arrow" aria-hidden>→</span>
           </Link>
@@ -291,7 +306,7 @@ export function ClubFooter({ locale, c, contact, address }: { locale: Locale; c:
                   <p className="text-white/55">{h.name}</p>
                   {h.rows.map((r) => (
                     <p key={r.days}>
-                      {r.days}: {r.closed ? "—" : r.time}
+                      {r.days}: {r.closed ? f.closed : r.time}
                     </p>
                   ))}
                 </div>

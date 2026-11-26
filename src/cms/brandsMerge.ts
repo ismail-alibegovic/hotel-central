@@ -2,7 +2,7 @@ import type { PriceCategory } from "@/components/dayspa/PriceList";
 import type { DaySpaPackage } from "@/components/dayspa/DaySpaPage";
 import type { Timetable } from "@/components/club/ClubPages";
 import { spaCategories, spaPackages } from "@/content/dayspa";
-import type { ClubPlan } from "@/content/club";
+import type { ClubClass, ClubPlan } from "@/content/club";
 import type { Locale } from "@/lib/i18n";
 import type { DaySpa, FitnessClub, Media } from "@/payload-types";
 import { priceProblem, timeProblem } from "./globals/Brands";
@@ -57,8 +57,8 @@ export function mergeSpa(locale: Locale, doc: DaySpa | null): { categories: Pric
   return { categories: categories.length ? categories : base.categories, packages: packages.length ? packages : base.packages };
 }
 
-export function mergeClub(doc: FitnessClub | null, defaultPlans: ClubPlan[]): { plans: ClubPlan[]; timetable: Timetable } {
-  if (!doc) return { plans: defaultPlans, timetable: { classes: [] } };
+export function mergeClub(doc: FitnessClub | null, defaultPlans: ClubPlan[], defaultClasses: ClubClass[] = []): { plans: ClubPlan[]; timetable: Timetable } {
+  if (!doc) return { plans: defaultPlans, timetable: { classes: defaultClasses } };
 
   const plans: ClubPlan[] = (doc.plans ?? []).flatMap((p) => {
     const name = text(p.name);
@@ -79,6 +79,7 @@ export function mergeClub(doc: FitnessClub | null, defaultPlans: ClubPlan[]): { 
 
   return {
     plans: plans.length ? plans : defaultPlans,
-    timetable: { classes, ...(image ? { file: { url: image.url, isImage: true, alt: image.alt } } : {}), ...(text(doc.timetableNote) ? { note: text(doc.timetableNote)! } : {}) },
+    // The built-in timetable stays until staff enter classes or upload a timetable picture of their own.
+    timetable: { classes: classes.length || image ? classes : defaultClasses, ...(image ? { file: { url: image.url, isImage: true, alt: image.alt } } : {}), ...(text(doc.timetableNote) ? { note: text(doc.timetableNote)! } : {}) },
   };
 }

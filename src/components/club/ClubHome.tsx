@@ -35,15 +35,16 @@ export function ClubHome({ locale, c, images, contact }: { locale: Locale; c: Cl
   return (
     <>
       {/* ───────────── Hero ───────────── */}
-      <section className="relative isolate flex min-h-[640px] flex-col overflow-hidden bg-[var(--cfc-night)] text-white md:h-[100svh] md:max-h-[980px] md:min-h-[720px]">
-        <Image src={images.hero.src} alt={images.hero.alt} fill priority sizes="100vw" className="-z-10 object-cover" style={{ objectPosition: images.hero.position, filter: "saturate(0.8) contrast(1.05)" }} />
+      {/* CH-041: the hero grows with its content instead of a fixed height, so the stats bar below the title is never cut off on laptop screens. */}
+      <section className="relative isolate flex min-h-[640px] flex-col overflow-hidden bg-[var(--cfc-night)] text-white md:min-h-[100svh]">
+        <Image src={images.hero.src} alt={images.hero.alt} fill priority sizes="100vw" className="-z-10 object-cover" style={{ objectPosition: images.hero.position, filter: "saturate(1.05) contrast(1.04)" }} />
         <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(14_23_18/0.92)_0%,rgb(14_23_18/0.7)_38%,rgb(14_23_18/0.15)_75%),linear-gradient(0deg,rgb(14_23_18/0.95)_0%,rgb(14_23_18/0)_40%)]" />
 
         <div className="cfc-wrap cfc-max flex w-full flex-1 flex-col justify-end pb-10 pt-[120px] md:pb-14">
           <FadeIn immediate delay={0.2}>
             <p className="cfc-eyebrow text-[var(--cfc-volt)]">{c.hero.eyebrow}</p>
           </FadeIn>
-          <h1 className="cfc-display mt-6 text-[clamp(52px,13vw,190px)] !leading-[0.84]">
+          <h1 className="cfc-display mt-6 text-[clamp(52px,min(13vw,19svh),190px)] !leading-[0.84]">
             <RevealLines lines={[first, rest.join(" ")]} immediate delay={0.3} className="block" />
           </h1>
           <FadeIn immediate delay={0.8} className="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
@@ -77,13 +78,14 @@ export function ClubHome({ locale, c, images, contact }: { locale: Locale; c: Cl
 
       {/* ───────────── Our club ───────────── */}
       <section id="club" className="cfc-wrap cfc-max scroll-mt-24 py-20 md:py-32">
-        <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-end md:gap-[6vw]">
+        {/* CH-042: the text sits level with the title (no empty band above it). */}
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-start md:gap-[6vw]">
           <FadeIn>
             <p className="cfc-eyebrow text-[var(--cfc-green)]">{c.intro.eyebrow}</p>
             <h2 className="cfc-display mt-5 text-[52px] text-[var(--cfc-night)] md:text-[clamp(64px,7vw,112px)]">{c.intro.title}</h2>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <p className="max-w-[52ch] text-[17px] leading-[1.7] text-[var(--cfc-mute)]">{c.intro.body}</p>
+            <p className="max-w-[52ch] text-[17px] leading-[1.7] text-[var(--cfc-mute)] md:mt-[46px]">{c.intro.body}</p>
           </FadeIn>
         </div>
       </section>
@@ -93,7 +95,7 @@ export function ClubHome({ locale, c, images, contact }: { locale: Locale; c: Cl
         <div className="cfc-wrap cfc-max">
           <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-end">
             <h2 className="cfc-display text-[52px] md:text-[clamp(64px,6.4vw,104px)]">
-              <RevealLines lines={c.spaces.title} className="block" lineClassName="!whitespace-normal" />
+              <RevealLines lines={c.spaces.title} className="block" lineClassName="[&>span]:!whitespace-normal" />
             </h2>
             <FadeIn className="md:justify-self-end">
               <p className="max-w-[46ch] text-[17px] text-white/70">{c.spaces.body}</p>
