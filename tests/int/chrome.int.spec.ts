@@ -3,7 +3,6 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { mergeChrome, staticSocial } from "@/cms/chromeMerge";
 import { seedGlobals } from "@/cms/seedGlobals";
 import { getDictionary } from "@/content/dictionary";
-import { hotel } from "@/content/hotel";
 import type { Footer, Navigation } from "@/payload-types";
 import { boot, rand, type Harness } from "./helpers";
 
