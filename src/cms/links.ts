@@ -25,6 +25,8 @@ export const allowedExternalHosts = [
 ] as const;
 
 const INTERNAL = /^\/(?:[a-z0-9]+(?:-[a-z0-9]+)*)(?:\/[a-z0-9]+(?:-[a-z0-9]+)*){0,2}$/;
+/** A section on the same page, e.g. #enquiry (the Meetings & events "Request a proposal" button). */
+const ANCHOR = /^#[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PHONE = /^\+?[0-9][0-9 ()/-]{5,22}[0-9]$/;
 const EMAIL = /^[^\s@<>()"',;:]+@[^\s@<>()"',;:]+\.[^\s@<>()"',;:]{2,}$/;
 
@@ -34,9 +36,9 @@ export function validateLink(kind: string | null | undefined, value: string | nu
   if (!kind || !v) return "Choose a link type and enter the destination.";
   switch (kind) {
     case "internal":
-      if (v === "/") return true;
+      if (v === "/" || ANCHOR.test(v)) return true;
       if (/^\/(en|bs)(\/|$)/.test(v)) return "Do not include the language: write /rooms, not /en/rooms.";
-      return INTERNAL.test(v) ? true : "Use a site path such as /rooms or /rooms/junior-suite (lowercase letters, digits, hyphens).";
+      return INTERNAL.test(v) ? true : "Use a site path such as /rooms or /rooms/junior-suite, or #section for a part of the same page (lowercase letters, digits, hyphens).";
     case "external": {
       let u: URL;
       try {
@@ -64,7 +66,7 @@ export function resolveLink(link: LinkValue | null | undefined, locale: Locale):
   if (!kind || !value || validateLink(kind, value) !== true) return null;
   switch (kind) {
     case "internal":
-      return { kind, href: localeHref(locale, value), external: false };
+      return { kind, href: value.startsWith("#") ? value : localeHref(locale, value), external: false };
     case "external":
       return { kind, href: new URL(value).toString(), external: true };
     case "phone":

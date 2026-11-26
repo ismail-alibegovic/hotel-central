@@ -67,7 +67,7 @@ export function resolveLayout(layout: Page["layout"], locale: Locale): { blocks:
         const eyebrow = text(raw.eyebrow);
         if (!image || !title || !eyebrow) return skip("needs photograph, eyebrow and title");
         const meta = [raw.metaLeft, raw.metaCenter, raw.metaRight].map((m) => text(m) ?? "");
-        blocks.push({ type: "hero", image, eyebrow, title, intro: text(raw.intro), meta: meta.some(Boolean) ? (meta as [string, string, string]) : undefined });
+        blocks.push({ type: "hero", ...(raw.variant === "warm" ? { variant: "warm" as const } : {}), image, eyebrow, title, intro: text(raw.intro), meta: meta.some(Boolean) ? (meta as [string, string, string]) : undefined });
         return;
       }
       case "split": {

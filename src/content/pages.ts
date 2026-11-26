@@ -107,7 +107,7 @@ const en = {
     },
   },
   cafe: {
-    meta: { title: "Central Café", description: "Central Café at Hotel Central Sarajevo: coffee, tea and hot chocolate, cold drinks, fresh juices, smoothies and sweet treats on Ćumurija street, with catering for guests and corporate events on request." },
+    meta: { title: "Central Café", description: "Central Café at Hotel Central Sarajevo: coffee, tea, hot chocolate, cold drinks, fresh juices, smoothies and sweet treats, with catering for guests and corporate events on request." },
     hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Coffee, tea and hot chocolate, fresh juices, smoothies and sweet treats, in a welcoming city-centre setting." },
     cafe: {
       label: "(01) The café",

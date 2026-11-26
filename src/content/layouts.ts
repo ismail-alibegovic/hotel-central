@@ -129,7 +129,7 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             body: k.catering.body,
             line: "spa",
             images: [img("dorucak4.jpg", "A buffet laid out for guests"), img("dorucak6.jpg", "Bosnian coffee in a copper džezva")],
-            primary: { label: k.catering.cta, link: { kind: "email", href: `mailto:${hotel.email}?subject=${encodeURIComponent(k.catering.cta)}`, external: false } },
+            primary: { label: k.catering.cta, link: { kind: "email", href: `mailto:${hotel.email}`, external: false } },
             secondary: { label: k.catering.events, link: internal(locale, "/meetings-events") },
           }),
           { type: "statement", text: k.statement, label: "(—)", tone: "ivory" },
@@ -167,8 +167,9 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
             intro: cf.offerNote,
             tone: "ivory",
             sample: false,
-            validityLabel: "",
-            priceLabel: "",
+            // The CMS's defaults for the row labels (not shown: these items have no validity or price).
+            validityLabel: locale === "en" ? "Valid" : "Važi",
+            priceLabel: locale === "en" ? "Price" : "Cijena",
             items: cf.offer.map((o) => ({ title: o.t, description: o.d })),
           },
           {

@@ -1,6 +1,6 @@
 import type { Payload } from "payload";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { mergeChrome } from "@/cms/chromeMerge";
+import { mergeChrome, staticSocial } from "@/cms/chromeMerge";
 import { seedGlobals } from "@/cms/seedGlobals";
 import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
@@ -36,7 +36,7 @@ describe("seeding", () => {
       const merged = mergeChrome(l, base, await publicNav(l), (await payload.findGlobal({ slug: "footer", locale: l, fallbackLocale: false, depth: 0, overrideAccess: false })) as Footer);
       expect(merged.dict.nav).toEqual(base.nav);
       expect(merged.dict.footer).toEqual(base.footer);
-      expect(merged.social).toEqual([{ label: "Facebook", href: hotel.facebook }]);
+      expect(merged.social).toEqual(staticSocial); // the seeded links are the built-in ones
     }
   });
 });
@@ -83,7 +83,7 @@ describe("merge rules", () => {
     const ok = { social: [{ label: "Instagram", link: { kind: "external", value: "https://www.instagram.com/hotelcentral" } }] } as unknown as Footer;
     expect(mergeChrome("en", base, null, ok).social).toEqual([{ label: "Instagram", href: "https://www.instagram.com/hotelcentral" }]);
     const bad = { social: [{ label: "Evil", link: { kind: "external", value: "https://evil.example/x" } }, { label: "Tel", link: { kind: "phone", value: "+387 33 561 800" } }] } as unknown as Footer;
-    expect(mergeChrome("en", base, null, bad).social).toEqual([{ label: "Facebook", href: hotel.facebook }]);
+    expect(mergeChrome("en", base, null, bad).social).toEqual(staticSocial);
   });
 
   it("the footer statement is split into lines", () => {
@@ -145,8 +145,7 @@ describe("roles and drafts", () => {
   it("footer: social links are administrator-only; wording is draft-only for editors; host allow-list enforced", async () => {
     await expect(payload.updateGlobal({ slug: "footer", locale: "en", user: editor, overrideAccess: false, draft: true, data: { social: [{ label: "X", link: { kind: "external", value: "https://www.facebook.com/x" } }] } as never })).resolves.toBeDefined();
     // the field access dropped it: still exactly the seeded link, in draft and published
-    expect((await foot("en", true)).social).toHaveLength(1);
-    expect((await foot("en", true)).social?.[0].label).toBe("Facebook");
+    expect((await foot("en", true)).social?.map((s) => s.label)).toEqual(staticSocial.map((s) => s.label));
     await expect(payload.updateGlobal({ slug: "footer", locale: "en", overrideAccess: true, data: { social: [{ label: "Evil", link: { kind: "external", value: "https://evil.example/" } }], _status: "published" } as never })).rejects.toThrow();
     await payload.updateGlobal({ slug: "footer", locale: "en", user: editor, overrideAccess: false, draft: true, data: { rights: "Draft rights" } as never });
     expect((await payload.findGlobal({ slug: "footer", locale: "en", depth: 0, overrideAccess: false })).rights).toBe(getDictionary("en").footer.rights);
