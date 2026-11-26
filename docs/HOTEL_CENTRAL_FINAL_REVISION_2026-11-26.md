@@ -23,7 +23,7 @@ Polazno stanje: grana `claude/elegant-knuth-6rrpar` = `main` @ `5675801`, što j
 | --- | --- |
 | Novi zahtjevi (bijeli redovi CH‑021 – CH‑055) | **35** |
 | Implementirano u potpunosti | **33** |
-| Djelimično (implementirano, čeka materijal klijenta) | **2** (CH‑024, CH‑043) |
+| Implementirano s dostupnim materijalom, čeka dopunu klijenta | **2** (CH‑024: postojeće fotografije posvijetljene do dostave novih; CH‑043: raspored + 11 dostavljenih opisa, 6 časova bez opisa — ništa nije izmišljeno) |
 | Blokirano | **0** |
 | Ranije završeni (zeleni, CH‑001 – CH‑020) | 20 — nisu mijenjani, osim gdje novi zahtjev to izričito traži (CH‑022 mijenja CH‑007) |
 
@@ -95,57 +95,63 @@ CH‑001 – CH‑020 (Website Changes!A2:A21): **COMPLETED**. Provjereno da su 
 - **Boje i fotografije (globalno):** nove zelene vrijednosti, grade bez desaturacije.
 - **WordPress:** sve gore navedeno u generatoru stranica, temi i pluginu (vidi §5).
 
-## 4. Testovi i provjere
+## 4. Testovi i provjere (drugi krug, 26.11.2026 navečer)
+
+Sheet je ponovo pročitan (vrijednosti, boje, bilješke) — identičan prvom čitanju; na Driveu nema novijih materijala.
 
 | Provjera | Rezultat |
 | --- | --- |
-| `npm run lint` | 0 grešaka |
-| `npm run typecheck` | prolazi |
-| `npm run build` (produkcija) | prolazi |
-| Playwright smoke (`tests/e2e/smoke*`, EN/BS × 390/768/1440, 144 testa) | **144/144** lokalno (nakon jedne popravke preliva na BS klubu) |
-| Vlastiti QA prolaz: 19 ruta × 2 jezika × 375, 390, 768, 1280, 1440, 1920 px (228 provjera) | **0 problema**: HTTP 200, bez horizontalnog preliva, bez slomljenih slika, tačno jedan H1, meta opis, canonical, alt na svakoj slici, bez grešaka u konzoli |
-| Vizuelno (Playwright screenshoti) | naslovna, O nama, kafić, kontakt, klub (hero 1280×720, raspored, članarine), spa (krug, paketi), mobilni meniji hotela i kluba |
-| Vitest (CMS integracija, lokalni PostgreSQL 16) | 282 prolazi, **16 pada — svi već padaju i na `main`** (na `main` 17; ovaj PR jedan popravlja, nijedan novi). Padovi: seed/round‑trip statičnih stranica u CMS‑u, footer social linkovi, ID rezervacije junior suite u testu. Nisu dio ovog kruga — preporuka zaseban zadatak. |
-| PHP lint (`php -l`) svih fajlova teme i plugina | bez grešaka |
-| WordPress paket | `generate.mts` → 19 stranica × 2 jezika, 95 fotografija; zipovi obnovljeni |
-| WordPress Playground (lokalno: WP latest, PHP 8.3, Elementor, Polylang, tema + plugin iz ove grane, puni uvoz) | uvoz bez greške; 10 provjerenih stranica (EN/BS) 200, bez preliva; meni hotela s „Central Café“ ispod „O nama“, novi nazivi; meni kluba bez „Timetable“; raspored i opisi časova, 135 KM, spa e‑mail i „Closed“ prikazani |
-| Vercel Preview (stvarni deployment) | 24 stranice (EN/BS) 200, bez preliva, slomljenih slika i grešaka u konzoli; `/en/restaurant` i `/bs/cafe` preusmjeravaju na `/…/about/cafe` |
-| SEO / sitemap | `/about/cafe` u sitemapu, `/restaurant` i `/cafe` uklonjeni + 308 redirect; meta opisi ažurirani (kafić, klub, članarine, raspored) |
+| Automatska provjera svih 35 zahtjeva (`verify.cjs`: 64 tvrdnje, EN + BS, uključujući izmjerene pozicije — naslov u visini fotografije, centriran „Most popular“, traka sa statistikom vidljiva na 1280×720 / 1366×768 / 1440×800, krug spa s tekstom jednom) | **64/64** |
+| QA prolaz: 19 ruta × 2 jezika × 375, 390, 768, 1280, 1440, 1920 px (228 provjera) | **0 problema** (HTTP 200, bez horizontalnog preliva, slike, jedan H1, meta opis, canonical, alt, konzola) |
+| Crawler linkova (sve stranice dostupne iz menija/footera, oba jezika) | 36 stranica, 138 slika, sva sidra (#…) — **0 neispravnih**; 13 vanjskih linkova (letsbook.me, Lime Booking, Instagram, Facebook, Google Maps) — svi **200** |
+| `npm run lint` / `typecheck` / `build` | prolaze (Next.js **16.4.6**) |
+| Playwright smoke (144) | **144/144** (lokalno i CI) |
+| Vitest — CMS integracija (lokalni PostgreSQL 16) | **302/302** (prije: 16 padova, svi i na `main`) |
+| CMS end‑to‑end (Payload admin, API, uloge, nacrti, parity CMS↔statično, outage baze) | **206 prošlo, 0 palo** (+ outage faza 3/3, sken tajni u klijentskom bundleu i runtime trace — čisto); 18 CMS‑only screenshotova renderuje CI |
+| Backup + restore drill | prolazi (5,7 s) |
+| Vizuelne bazne slike | pregledane ručno (sve stranice, desktop/tablet/mobile, meni, footer, CMS sekcije), zatim regenerisane na CI runneru (72 slike, workflow „Update visual baselines“); zastarjele `en-restaurant.png` uklonjene |
+| WordPress | `site.json` provjeren za svaki zahtjev (sadrži nove tekstove, ne sadrži uklonjene); PHP lint čist; Playground uvoz (WP latest, PHP 8.3, Elementor, Polylang) radi |
+| Vercel Preview | 24 stranice EN/BS 200, redirecti `/restaurant` i `/cafe` → `/about/cafe` |
 
-**CI:** na `main` su sva tri testna joba padala na instalaciji Playwrighta jer je `ubuntu-latest` prešao na Ubuntu 26.04 (Playwright 1.56 nema Chromium za tu verziju). Jobovi su vraćeni na `ubuntu-24.04`. Vizuelne bazne slike (`tests/e2e/__screenshots__`) će se razlikovati jer su boje i fotografije namjerno promijenjene — treba pokrenuti workflow „Update visual baselines“ na ovoj grani prije spajanja.
+### Popravke u drugom krugu
+
+- **CI:** runneri na `ubuntu-24.04` (Playwright 1.56 nema Chromium za 26.04); baseline workflow dobio PostgreSQL servis kao CI.
+- **16 CMS integracionih testova:** zastarjela očekivanja (ID junior suite iz #34, Instagram u footeru) sada se čitaju iz koda; **stvarne greške ispravljene:** CMS je gubio „svijetli“ stil hero sekcije kafića (novo polje `variant` + migracija `20261126_164036_hero_variant`), stranica Sastanci i događaji nije se mogla seedati jer link `#enquiry` nije bio dozvoljen (sidra na istoj stranici sada su validna), meta opis kafića skraćen na ≤200 znakova, mailto bez `?subject=`.
+- **CMS end‑to‑end:** suite nije radio na CI‑u od kvara runnera, pa je opisivao sajt prije #34; ažuriran (kafić pod O nama, letsbook.me linkovi, stranice umjesto uklonjenog `/spa`, nove stavke admin menija). **Stvarna greška:** rezervna rečenica forme za upit (Sastanci i događaji) nije pratila telefon iz „Hotel Information“ — ispravljeno.
+- **Next.js 16.4.2 → 16.4.6:** zatvara objavljene ranjivosti (use‑cache otkrivanje podataka, SVG zaobilaženje u optimizeru slika). Preostala upozorenja `npm audit` odnose se na tranzitivne pakete Payloada 3.92 (lexical, drizzle‑kit, esbuild‑kit) bez kompatibilne ispravke — build/dev ili admin editor, ne javni sajt; preporuka: nadogradnja Payloada u zasebnom PR‑u.
 
 ## 5. WordPress / CMS
 
-- **WordPress (finalna verzija za klijenta):** iste izmjene; importer sada podržava stavku menija ispod roditelja (kafić pod O nama); nova postavka *Customize → Hotel Central → Central Day Spa e‑mail*; shortcode `[hc_contact what=spa_email]`; spa radno vrijeme s „Closed“; klub header s pillom „← Hotel Central“; raspored časova unaprijed popunjen (uređuje se u Elementoru); opisi časova; nove zelene boje. Elementor, Polylang (BS/EN), uloge i uređivanje teksta/fotografija ostaju kako su bili.
-- **Payload CMS (opcionalni, isključen na demo stranici):** statički sadržaj je izvor kad CMS nije uključen. Ako je na *hotel-central-cms-demo* već spremljen sadržaj stranica/soba/kluba, on ima prednost — te zapise treba ažurirati u adminu (ili ponovo seedati) da bi se vidjele izmjene. Spremljene stavke menija `/restaurant` i `/cafe` automatski vode na `/about/cafe`. Nova fotografija naslovne je u `public/images/home/`, pa nije trebala migracija baze.
-- **Migracija:** ništa nije migrirano; produkcijska domena i hosting Hotela Central nisu dirani.
+- **WordPress (finalna verzija za klijenta):** iste izmjene kao Next.js; importer podržava stavku menija ispod roditelja; postavka *Central Day Spa e‑mail*; `[hc_contact what=spa_email]`; spa radno vrijeme s „Closed“; pill „← Hotel Central“ uz logo kluba; raspored i opisi časova (uređivi u Elementoru); nove zelene boje. Elementor, Polylang, uloge i uređivanje sadržaja nepromijenjeni.
+- **CMS baza i „override“ sadržaj:** javni Vercel projekt (`hotel-central`, uključujući Preview) nema nijednu varijablu okruženja → CMS je isključen i baza ne može poništiti nove izmjene. Hostovani CMS demo (`hotel-central-cms-demo`) ima CMS uključen, ali je njegova Supabase baza **pauzirana** (stranice padaju na statični sadržaj); nije je moguće pročitati bez ponovnog pokretanja, što nisam radio. Novi alat **`npm run cms:check-overrides`** (samo čitanje) navodi svaku spremljenu stranicu, sobu, meni, naslovnu, članarine/raspored i spa cjenovnik koji se razlikuje od koda; na svježe seedanoj bazi daje „0 razlika“. Pokrenuti ga nakon buđenja baze, prije uključivanja CMS‑a za klijenta, pa razlike ažurirati u adminu. Migracija `hero_variant` mora se primijeniti (`npm run cms:migrate`) na toj bazi.
+- **Sigurnosna napomena:** u `hotel-central-cms-demo` i dalje postoje (prazne) varijable `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` — runbook kaže da ih treba obrisati u Vercel dashboardu.
+- **Migracija na hotelski hosting:** nije rađena; domena i hosting Hotela Central nisu dirani.
 
 ## 6. Šta treba pitati Daru / Nerinu
 
-1. **Članarine (CH‑044):** 135 KM i 90 KM — mjesečno? Trenutno je prikazano bez perioda.
-2. **Opisi časova (CH‑043):** u rasporedu su i *Pilates, Full Body Sculpt, Total Body Sculpt, Body Attack, Full Body Burn, Kettlebells*, ali za njih nema opisa u „class description“. Također: *Body Balance* ima opis, ali nije u rasporedu — da li se još održava?
-3. **Hero kluba (CH‑040):** odobrenje izabrane fotografije (strength floor) ili prijedlog druge.
-4. **Fotografije (CH‑024 / CH‑019):** poboljšane / nove fotografije visoke rezolucije koje je Dara spomenula; brošurna fotografija ima 1086 px i preslaba je za hero.
-5. **Radno vrijeme Central Caféa** (i kluba) — još nije objavljeno nigdje, pa ga stranica ne prikazuje.
-6. **Članska specijalna ponuda u Day Spa (CH‑047):** WP stranica spa ima blok „Members' treatments“ s cijenama s Instagrama (30/45/60 KM) označen za provjeru — potvrditi prije objave.
-7. **Statistika kluba:** „20 group classes a week“ zamijenjeno s „7 days a week of group classes“ (raspored ima 19 časova); potvrditi formulaciju.
+1. **Članarine (CH‑044):** 135 KM i 90 KM — mjesečno? Trenutno prikazano bez perioda.
+2. **Opisi časova (CH‑043):** nedostaju za *Pilates, Full Body Sculpt, Total Body Sculpt, Body Attack, Full Body Burn, Kettlebells*. *Body Balance* ima opis, ali nije u rasporedu — održava li se još?
+3. **Hero kluba (CH‑040):** odobrenje izabrane fotografije (strength floor).
+4. **Fotografije (CH‑024 / CH‑019):** poboljšane / nove fotografije visoke rezolucije (do tada ostaju trenutno posvijetljene).
+5. **Radno vrijeme Central Caféa i kluba** — nije objavljeno nigdje.
+6. **Tretmani za članove u Day Spa** (WP blok s cijenama 30/45/60 KM s Instagrama) — potvrditi.
+7. **Statistika kluba:** „20 group classes a week“ → „7 days a week of group classes“ (raspored ima 19 časova) — potvrditi formulaciju.
 
 ## 7. Linkovi
 
 - Pull request: https://github.com/ismail-alibegovic/hotel-central/pull/42
-- Vercel Preview (zaštićen Vercel prijavom): https://hotel-central-git-claude-elegan-2f1a59-ia-production-s-projects.vercel.app (deployment `hotel-central-4cs0lngua-ia-production-s-projects.vercel.app`, commit `aef8788`). Za klijenta napraviti share link u Vercelu.
+- Vercel Preview (grana): https://hotel-central-git-claude-elegan-2f1a59-ia-production-s-projects.vercel.app — za pristup bez prijave koristi se share link iz završne poruke (vrijedi 23 h; novi se pravi u Vercelu → Share).
 
-## 8. Spremnost za isporuku i migraciju
+## 8. Spremnost
 
-- **Next.js demo:** spremno za pregled klijenta na Preview linku. Spajanje u `main` tek nakon regeneracije vizuelnih baznih slika i odobrenja klijenta.
-- **WordPress paket:** spreman za ponovni uvoz (Playground / staging). Finalna migracija na hosting Hotela Central nije izvršena i čeka posebno odobrenje.
-- **Otvoreno:** pitanja iz §6 (nijedno ne blokira pregled), pre‑postojeći CMS integracioni testovi.
+- **Tehnički spremno za finalno odobrenje klijenta:** svih 35 zahtjeva implementirano i automatski provjereno, testovi zeleni, Next.js i WordPress usklađeni.
+- **Ne spajati u `main`** prije odobrenja klijenta; nije rađena migracija na hosting Hotela Central.
+- Otvoreno (ne blokira pregled): pitanja iz §6; pregled CMS baze alatom `cms:check-overrides` kad se demo baza probudi.
 
-## 9. Prijedlog narednih koraka
+## 9. Naredni koraci
 
-1. Poslati Preview Dari i Nerini zajedno s pitanjima iz §6.
-2. Pokrenuti „Update visual baselines“ na ovoj grani, provjeriti CI, zatim spojiti PR.
-3. Zaseban zadatak: popraviti 16 pre‑postojećih CMS integracionih testova (seed statičnih stranica, social linkovi, ID rezervacije).
-4. Zaseban zadatak: Next.js prijavljuje sigurnosnu ranjivost u verziji 16.4.2 — nadograditi Next.js (i `eslint-config-next`) u posebnom PR‑u.
-5. Nakon dostave fotografija: zamijeniti fotografije (CH‑019/CH‑024) i dopuniti opise preostalih časova.
-6. Dogovoriti termin migracije WordPress verzije na produkcijski hosting.
+1. Poslati Preview share link i pitanja iz §6 Dari i Nerini.
+2. Nakon odobrenja: spojiti PR #42; za CMS demo — probuditi Supabase, `pg_dump`, `npm run cms:migrate`, `npm run cms:check-overrides`, ažurirati razlike u adminu, obrisati `SEED_ADMIN_*` varijable.
+3. Kad stignu fotografije i opisi časova: zamijeniti fotografije (CH‑019/024), dopuniti opise (CH‑043).
+4. Zaseban PR: nadogradnja Payloada (tranzitivna `npm audit` upozorenja).
+5. Dogovoriti termin migracije WordPress verzije na hotelski hosting.
