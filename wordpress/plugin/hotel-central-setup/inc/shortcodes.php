@@ -1,7 +1,7 @@
 <?php
 /**
  * Shortcodes used inside Elementor's free "Shortcode" widget, so phone numbers and opening hours come from one place.
- *   [hc_contact what="phone|email|spa_phone|club_phone" style="button"]
+ *   [hc_contact what="phone|email|spa_phone|spa_email|club_phone" style="button"]
  *   [hc_hours place="spa|club|cafe|breakfast|checkin"]
  *   [hc_social]
  */
@@ -22,10 +22,13 @@ add_shortcode(
 		if ( '' === $value && 'club_phone' === $a['what'] ) {
 			$value = hc_setting( 'phone' );
 		}
+		if ( '' === $value && 'spa_email' === $a['what'] ) {
+			$value = hc_setting( 'email' );
+		}
 		if ( '' === $value ) {
 			return '';
 		}
-		$is_mail = 'email' === $a['what'];
+		$is_mail = in_array( $a['what'], array( 'email', 'spa_email' ), true );
 		$href    = $is_mail ? 'mailto:' . antispambot( $value ) : hc_tel( $value );
 		$label   = $is_mail ? antispambot( $value ) : $value;
 		if ( 'button' === $a['style'] ) {

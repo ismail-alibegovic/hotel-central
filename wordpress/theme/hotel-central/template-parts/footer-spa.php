@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $phone = hc_opt( 'spa_phone' );
-$email = antispambot( hc_opt( 'email' ) );
+$email = antispambot( hc_opt( 'spa_email' ) ? hc_opt( 'spa_email' ) : hc_opt( 'email' ) ); // CH-054: the spa's own address
 $insta = hc_opt( 'instagram_spa' );
 ?>
 <footer class="ds-footer" id="contact">

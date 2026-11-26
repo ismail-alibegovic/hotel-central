@@ -8,13 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <header class="cfc-header" data-hc-header>
 	<div class="cfc-header__bar">
-		<a class="cfc-header__logo" href="<?php echo esc_url( hc_page_url( 'club' ) ); ?>" aria-label="Central Fitness Club">
-			<?php echo hc_logo( 'cfc-white.png', '', 'is-full' ); // phpcs:ignore ?>
-			<?php echo hc_logo( 'cfc-white-wordmark.png', '', 'is-wordmark' ); // phpcs:ignore ?>
-		</a>
+		<div class="cfc-header__brand">
+			<a class="cfc-header__logo" href="<?php echo esc_url( hc_page_url( 'club' ) ); ?>" aria-label="Central Fitness Club">
+				<?php echo hc_logo( 'cfc-white.png', '', 'is-full' ); // phpcs:ignore ?>
+				<?php echo hc_logo( 'cfc-white-wordmark.png', '', 'is-wordmark' ); // phpcs:ignore ?>
+			</a>
+			<?php /* CH-049: a clear way back to the hotel's main site, beside the logo (as on the Day Spa header) */ ?>
+			<a class="cfc-header__hotel" href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a>
+		</div>
 		<nav class="cfc-header__nav" aria-label="Central Fitness Club">
 			<?php hc_menu( 'club_menu', 'cfc-nav' ); ?>
-			<a class="cfc-header__hotel" href="<?php echo esc_url( hc_home_url() ); ?>">← Hotel Central</a>
 		</nav>
 		<div class="cfc-header__right">
 			<?php echo hc_languages(); // phpcs:ignore ?>
