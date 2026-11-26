@@ -57,21 +57,15 @@ function SplitExtras({ b }: { b: SplitBlock }): ReactNode {
         </ul>
       </div>,
     );
-  if (b.primary && b.secondary) {
-    const s = b.secondary;
+  // CH-028: both buttons share the same outlined pill with an arrow.
+  if (b.primary && b.secondary)
     parts.push(
-      <div key="cta" className="flex flex-wrap items-center gap-x-8 gap-y-4">
+      <div key="cta" className="flex flex-wrap items-center gap-4">
         <Pill cta={b.primary} dark={dark} />
-        <a
-          href={s.link.href}
-          {...(s.link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className={`label link-line${s.link.kind === "email" ? " normal-case tracking-[0.06em]" : ""}`}
-        >
-          {s.label}
-        </a>
+        <Pill cta={b.secondary} dark={dark} />
       </div>,
     );
-  } else if (b.primary) parts.push(<Pill key="cta" cta={b.primary} dark={dark} />);
+  else if (b.primary) parts.push(<Pill key="cta" cta={b.primary} dark={dark} />);
   return parts.length ? <>{parts}</> : undefined;
 }
 
@@ -102,10 +96,10 @@ function RoomList({ rooms, locale, dict }: { rooms: Room[]; locale: Locale; dict
                 <span>{room.sizeLabel[locale]}</span>
               </div>
               <div className="my-10 md:my-0">
-                <p className="text-[7vw] font-light uppercase leading-none tracking-[-0.01em] md:text-[2.6vw]">{room.feature[locale]}</p>
+                {/* CH-031: no feature line ("High large bed", "Seating area") above the room name */}
                 <h2
                   style={fitStyle(room.titleLines[locale], 84, 13)}
-                  className={`font-display relative z-[2] mt-3 text-[length:var(--fs-m)] leading-[0.9] md:text-[5.4vw] ${flip ? "" : "md:-ml-[9vw]"}`}
+                  className={`font-display relative z-[2] text-[length:var(--fs-m)] leading-[0.9] md:text-[5.4vw] ${flip ? "" : "md:-ml-[9vw]"}`}
                 >
                   <Link href={roomHref} className="hover:opacity-80 transition-opacity">
                     <RevealLines lines={room.titleLines[locale]} lineClassName={["", "pl-[6vw] md:pl-[3vw]"]} />
@@ -274,7 +268,7 @@ export async function BlockRenderer({ blocks: stored, locale, dict: storedDict, 
                       {[
                         { t: cc.reception, b: cc.receptionBody, lines: [{ href: contact.phone.href, text: contact.phone.display }, { href: `mailto:${contact.email}`, text: contact.email }], more: { href: booking.bookingUrl, text: dict.nav.book, external: true } },
                         { t: cc.events, b: cc.eventsBody, lines: [{ href: `mailto:${contact.email}`, text: contact.email }, { href: contact.phone.href, text: contact.phone.display }], more: { href: href(locale, "/meetings-events"), text: cc.events } },
-                        { t: cc.spa, b: cc.spaBody, lines: [{ href: spa.phone.href, text: spa.phone.display }], more: { href: href(locale, "/dayspa"), text: "Central Day Spa" } },
+                        { t: cc.spa, b: cc.spaBody, lines: [{ href: spa.phone.href, text: spa.phone.display }, { href: `mailto:${spa.email}`, text: spa.email }], more: { href: href(locale, "/dayspa"), text: "Central Day Spa" } },
                         { t: cc.club, b: cc.clubBody, lines: [{ href: contact.phone.href, text: contact.phone.display }], more: { href: href(locale, "/centralfitnessclub"), text: "Central Fitness Club" } },
                       ].map((card) => (
                         <div key={card.t} className="flex flex-col gap-3 bg-ivory p-6 md:p-8">

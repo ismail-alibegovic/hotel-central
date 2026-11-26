@@ -11,7 +11,7 @@ import { img, type HomeImages } from "./homeImages";
 import { FadeIn, RevealLines } from "../Reveal";
 
 export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
-  const photo = img(images?.hero, { src: "/images/3064.jpg", alt: "Hotel Central's corner tower and white façade on Ćumurija street under a bright sky" });
+  const photo = img(images?.hero, { src: "/images/home/facade-warm.jpg", alt: "Hotel Central's corner tower and white façade on Ćumurija street under a bright sky" });
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -38,13 +38,14 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[50%_42%] [filter:saturate(0.6)_contrast(1.04)_brightness(0.86)_sepia(0.1)]"
+            className="object-cover object-[50%_42%] [filter:saturate(1.05)_contrast(1.02)]"
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />
         </motion.div>
-        {/* Restrained veil: darker crown for the navigation, darker floor for the caption */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55)_0%,rgba(2,13,16,0.3)_30%,rgba(2,13,16,0.3)_62%,rgba(2,13,16,0.68)_100%)]" />
-        <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
+        {/* CH-023: a bright, warm façade (as in the hotel's brochure). Only a light veil: a shade under the navigation,
+            a soft pool of shade behind the title and a darker floor for the booking bar, so the white type stays legible. */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.34)_0%,rgba(2,13,16,0.04)_24%,rgba(2,13,16,0.02)_58%,rgba(2,13,16,0.5)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_26%_at_50%_45%,rgba(2,13,16,0.26),rgba(2,13,16,0)_100%)]" />
       </motion.div>
       </div>
 

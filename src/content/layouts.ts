@@ -2,6 +2,7 @@ import type { Block, Img, PageKey, PageLayout, Cta, SplitBlock } from "@/cms/blo
 import { getDictionary } from "@/content/dictionary";
 import { hotel } from "@/content/hotel";
 import { clientCopy } from "@/content/clientCopy";
+import { faqSections } from "@/content/faq";
 import { getPages } from "@/content/pages";
 import { href, type Locale } from "@/lib/i18n";
 
@@ -22,8 +23,8 @@ export const pagePaths: Record<PageKey, string> = {
   about: "/about",
   rooms: "/rooms",
   spa: "/spa",
-  restaurant: "/restaurant",
-  cafe: "/cafe",
+  restaurant: "/about/cafe", // CH-022: no restaurant page any more; /restaurant redirects to the café
+  cafe: "/about/cafe",
   "meetings-events": "/meetings-events",
   location: "/location",
   contact: "/contact",
@@ -47,21 +48,17 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
           { type: "statement", text: a.statement, label: "(—)", tone: "ivory" },
           split({ tone: "olive", label: a.wellness.label, title: a.wellness.title, body: a.wellness.body, line: "spa", images: [img("hc26-pool-lanes.jpg", "The heated 25-metre pool of Central Fitness Club", "50% 60%"), img("hc26-dayspa-relax.jpg", "The relaxation room of Central Day Spa")], primary: { label: "Central Fitness Club", link: internal(locale, "/centralfitnessclub") }, secondary: { label: "Central Day Spa", link: internal(locale, "/dayspa") } }),
           { type: "gallery", tone: "ivory", images: [img("hc26-lounge-window.jpg", "The lounge under a tall arched window"), img("hc26-reception.jpg", "Checking in at reception"), img("hc26-restaurant.jpg", "Restaurant Central with its arched windows"), img("hc26-stairs.jpg", "The staircase with its magenta carpet"), img("p05.jpg", "Living room of the presidential suite")] },
-          // The café and the FAQ, as on the WordPress About page (CH-007, CH-020)
+          // CH-029: "Good to know" is the FAQ itself, opened in place (no café teaser, no separate page to open).
           {
-            type: "offers",
-            label: "(—)",
+            type: "faq",
+            label: "(—) FAQ",
             title: [locale === "en" ? "Good to know" : "Dobro je znati"],
             tone: "ivory",
             sample: false,
-            validityLabel: "",
-            priceLabel: "",
-            items: [
-              { title: "Central Café", description: clientCopy.cafe[locale].intro, image: img("hc26-cafe-corner.jpg", "Armchairs with pink cushions by the café window", "50% 70%"), cta: { label: clientCopy.ui[locale].more, link: internal(locale, "/cafe") } },
-              { title: clientCopy.ui[locale].faq, description: locale === "en" ? "Check-in and check-out, breakfast, parking, the club and the spa: the answers to the questions we hear most." : "Prijava i odjava, doručak, parking, klub i spa: odgovori na pitanja koja najčešće čujemo.", image: img("hc26-reception.jpg", "Checking in at reception", "50% 40%"), cta: { label: clientCopy.ui[locale].more, link: internal(locale, "/faq") } },
-            ],
+            items: faqSections[locale].flatMap((sec) => sec.items),
           },
-          { type: "finalBooking", image: "/images/3075.jpg", alt: "Hotel Central at night" },
+          // CH-030: a brighter, more welcoming photograph than the night façade.
+          { type: "finalBooking", image: "/images/hc26-lobby-windows.jpg", alt: "The sunlit lounge with its tall arched windows and plants" },
         ],
       };
     }
@@ -123,9 +120,21 @@ export function staticLayout(page: PageKey, locale: Locale): PageLayout {
         blocks: [
           { type: "hero", variant: "warm", image: img("hc26-cafe-corner.jpg", "Armchairs with pink cushions by the café's tall windows on Ćumurija street", "50% 78%"), eyebrow: "Hotel Central · Ćumurija 8", title: k.hero.title, intro: k.hero.intro, meta: ["Hotel Central", "(Café)", "Ćumurija 8"] },
           split({ label: k.cafe.label, title: k.cafe.title, body: k.cafe.body, bullets: { title: k.cafe.offerTitle, items: k.cafe.offer }, line: "restaurant", images: [img("hc26-cafe-guest.jpg", "A guest with a laptop at a café table with orange chairs", "50% 55%")] }),
-          { type: "statement", text: k.statement, label: "(—)", tone: "deep" },
-          split({ tone: "olive", reverse: true, label: k.lounge.label, title: k.lounge.title, body: k.lounge.body, line: "hotel", images: [img("hc26-lobby-windows.jpg", "The lounge with its arched windows and plants", "50% 50%")] }),
-          { type: "cta", label: k.menu.label, title: k.menu.title, body: k.menu.body, tone: "deep", sample: false, primary: { label: k.menu.call, link: { kind: "phone", href: hotel.phoneHref, external: false } }, secondary: { label: k.menu.contact, link: internal(locale, "/contact") } },
+          // CH-022: the hotel runs the café, not a restaurant; catering for guests and corporate events is on request.
+          split({
+            tone: "olive",
+            reverse: true,
+            label: k.catering.label,
+            title: k.catering.title,
+            body: k.catering.body,
+            line: "spa",
+            images: [img("dorucak4.jpg", "A buffet laid out for guests"), img("dorucak6.jpg", "Bosnian coffee in a copper džezva")],
+            primary: { label: k.catering.cta, link: { kind: "email", href: `mailto:${hotel.email}?subject=${encodeURIComponent(k.catering.cta)}`, external: false } },
+            secondary: { label: k.catering.events, link: internal(locale, "/meetings-events") },
+          }),
+          { type: "statement", text: k.statement, label: "(—)", tone: "ivory" },
+          split({ tone: "deep", label: k.lounge.label, title: k.lounge.title, body: k.lounge.body, line: "hotel", images: [img("hc26-lobby-windows.jpg", "The lounge with its arched windows and plants", "50% 50%")] }),
+          { type: "finalBooking" },
         ],
       };
     }

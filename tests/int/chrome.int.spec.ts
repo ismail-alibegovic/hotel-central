@@ -49,18 +49,23 @@ describe("merge rules", () => {
   });
 
   it("empty fields keep the built-in text; untranslated entries are left out, never shown empty", () => {
-    const n = { items: [{ label: "", path: "/restaurant", visible: true }, { label: "Dining", path: "/restaurant", visible: true }], menuLabel: "  " } as unknown as Navigation;
+    const n = { items: [{ label: "", path: "/location", visible: true }, { label: "Getting here", path: "/location", visible: true }], menuLabel: "  " } as unknown as Navigation;
     const m = mergeChrome("en", base, n, null);
     expect(m.dict.nav.menu).toBe(base.nav.menu);
-    expect(m.dict.nav.items).toEqual([{ href: "/restaurant", label: "Dining" }]);
+    expect(m.dict.nav.items).toEqual([{ href: "/location", label: "Getting here" }]);
+  });
+
+  it("saved entries for the old restaurant and café pages point to the café under About, once", () => {
+    const n = { items: [{ label: "Restaurant", path: "/restaurant", visible: true }, { label: "Café", path: "/cafe", visible: true }] } as unknown as Navigation;
+    expect(mergeChrome("en", base, n, null).dict.nav.items).toEqual([{ href: "/about/cafe", label: "Restaurant" }]);
   });
 
   it("a saved entry for the old Club & Spa page (/spa) shows the two sites that replaced it", () => {
     const n = { items: [{ label: "Rooms", path: "/rooms", visible: true }, { label: "Club & Spa", path: "/spa", visible: true }] } as unknown as Navigation;
     expect(mergeChrome("en", base, n, null).dict.nav.items).toEqual([
       { href: "/rooms", label: "Rooms" },
-      { href: "/centralfitnessclub", label: "Fitness Club" },
-      { href: "/dayspa", label: "Day Spa" },
+      { href: "/centralfitnessclub", label: "Central Fitness Club" },
+      { href: "/dayspa", label: "Central Day Spa" },
     ]);
   });
 

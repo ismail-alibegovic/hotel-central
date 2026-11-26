@@ -41,26 +41,26 @@ export const rooms: Room[] = [
     titleLines: { en: ["Single", "Room"], bs: ["Jednokrevetna", "soba"] },
     feature: { en: "High large bed", bs: "Visoki krevet" },
     summary: {
-      en: "An air-conditioned room with a high large bed (200×140 cm), writing desk and free Wi-Fi. Free upgrade upon availability.",
-      bs: "Klimatizirana soba sa visokim krevetom veličine 200×140, radnim stolom i besplatnim WI-FI-jem. Besplatan upgrade prema raspoloživosti.",
+      en: "An air-conditioned room with a high large bed (200×140 cm), writing desk and free Wi-Fi. Upgrade available upon request.",
+      bs: "Klimatizirana soba sa visokim krevetom veličine 200×140, radnim stolom i besplatnim WI-FI-jem. Upgrade je dostupan na upit.",
     },
     description: {
       en: [
         "This air conditioned room features a high large bed (200×140 cm), writing desk, cable LCD TV, bathrobe/slippers, free Wi-Fi.",
-        "Free upgrade upon availability.",
+        "Upgrade available upon request.",
       ],
       bs: [
         "Ova klimatizirana soba, sa visokim krevetom veličine 200×140, sa radnim stolom, TV kablovskim programima, ogrtač/papuče, besplatan WI-FI, pruža ugodan boravak.",
-        "Dostupan je besplatni prijelaz/upgrade u višu kategoriju, prema raspoloživosti.",
+        "Prelazak (upgrade) u višu kategoriju dostupan je na upit.",
       ],
     },
     highlights: {
-      en: ["Bed 200×140 cm", "Writing desk", "Cable LCD TV", "Mini bar", "Tea/coffee maker", "Bathrobe & slippers", "Free WiFi"],
-      bs: ["Krevet 200×140", "Radni stol", "TV ravnog ekrana", "Minibar", "Kuhalo za vodu – kafa/čaj", "Ogrtač i papuče", "Besplatan WiFi"],
+      en: ["Bed 200×140 cm", "Writing desk", "Cable LCD TV", "Tea/coffee maker", "Bathrobe & slippers", "Free WiFi"],
+      bs: ["Krevet 200×140", "Radni stol", "TV ravnog ekrana", "Kuhalo za vodu – kafa/čaj", "Ogrtač i papuče", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Mini bar", "Safety deposit box", "Tea/coffee maker", "TV flat screen", "Cable channels", "Telephone", "Air conditioning", "Hairdryer", "Iron & ironing board", "Bathrobe and slippers", "Desk and chair", "Free toiletries", "Toilet", "Private bathroom with shower/tub", "Closet", "Wake-up service", "Towels", "Linen", "Free WiFi"],
-      bs: ["Minibar", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Posteljina", "Besplatan WiFi"],
+      en: ["Safety deposit box", "Tea/coffee maker", "TV flat screen", "Cable channels", "Air conditioning", "Hairdryer", "Iron & ironing board", "Bathrobe and slippers", "Desk and chair", "Free toiletries", "Private bathroom with shower/tub", "Wake-up service", "Free WiFi"],
+      bs: ["Sef", "TV ravnog ekrana", "Kablovski kanali", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Besplatan WiFi"],
     },
     images: [
       img("single-room.jpg", "Single room with a high bed and textured headboard", "Jednokrevetna soba sa visokim krevetom", "50% 60%"),
@@ -76,26 +76,26 @@ export const rooms: Room[] = [
     titleLines: { en: ["Standard", "Twin/Double"], bs: ["Standardna", "dvokrevetna"] },
     feature: { en: "Seating area", bs: "Prostor za sjedenje" },
     summary: {
-      en: "Room with a flat-screen & cable TV, tea and coffee making facilities, a mini bar, safe and a spacious bathroom.",
-      bs: "Soba ima TV ravnog ekrana sa kablovskim programima, kuhalo za pripremu kave/čaja, mini bar, sef i prostranu kupaonicu.",
+      en: "Room with a flat-screen & cable TV, tea and coffee making facilities, a safe and a spacious bathroom.",
+      bs: "Soba ima TV ravnog ekrana sa kablovskim programima, kuhalo za pripremu kave/čaja, sef i prostranu kupaonicu.",
     },
     description: {
       en: [
-        "Room with a flat-screen & cable TV, tea and coffee making facilities, a mini bar, safe and a spacious bathroom.",
+        "Room with a flat-screen & cable TV, tea and coffee making facilities, a safe and a spacious bathroom.",
         "Free Wi-Fi is available in the room.",
       ],
       bs: [
-        "Soba ima TV ravnog ekrana sa kablovskim programima, kuhalo za pripremu kave/čaja, mini bar, sef i prostranu kupaonicu.",
+        "Soba ima TV ravnog ekrana sa kablovskim programima, kuhalo za pripremu kave/čaja, sef i prostranu kupaonicu.",
         "U sobi je dostupan besplatni bežični pristup internetu.",
       ],
     },
     highlights: {
-      en: ["Seating area", "LCD flat screen TV", "Tea/coffee maker", "Minibar", "Safety deposit box", "Spacious bathroom", "Free WiFi"],
-      bs: ["Prostor za sjedenje", "TV ravnog ekrana", "Kuhalo za kafu/čaj", "Minibar", "Sef", "Prostrana kupaonica", "Besplatan WiFi"],
+      en: ["Seating area", "LCD flat screen TV", "Tea/coffee maker", "Safety deposit box", "Spacious bathroom", "Free WiFi"],
+      bs: ["Prostor za sjedenje", "TV ravnog ekrana", "Kuhalo za kafu/čaj", "Sef", "Prostrana kupaonica", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Tea/Coffee maker", "Minibar", "Safety deposit box", "LCD flat screen TV", "Cable channels", "Telephone", "Air conditioning", "Hairdryer", "Iron", "Bathrobe & slippers", "Desk", "Seating area", "Free toiletries", "Toilet", "Private bathroom – shower/bath tub", "Closet", "Wake-up service", "Wardrobe or closet", "Towels", "Linen", "Free WiFi"],
-      bs: ["Kuhalo za pripremu kafe/čaja", "Minibar", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Prostor za sjedenje", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Ormar", "Ručnici", "Posteljina", "Besplatan WiFi"],
+      en: ["Tea/Coffee maker", "Safety deposit box", "LCD flat screen TV", "Cable channels", "Air conditioning", "Hairdryer", "Iron", "Bathrobe & slippers", "Desk", "Seating area", "Free toiletries", "Private bathroom – shower/bath tub", "Wake-up service", "Free WiFi"],
+      bs: ["Kuhalo za pripremu kafe/čaja", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Prostor za sjedenje", "Besplatan toaletni pribor", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Besplatan WiFi"],
     },
     images: [
       img("st-dvo-05.jpg", "Standard double room with patterned wallpaper", "Standardna dvokrevetna soba", "50% 55%"),
@@ -128,12 +128,12 @@ export const rooms: Room[] = [
       ],
     },
     highlights: {
-      en: ["Armchairs & sofa", "Flat TV screen", "Spacious shower room", "Minibar / refrigerator", "Tea/coffee maker", "Writing desk", "Free WiFi"],
-      bs: ["Udobni naslonjači", "LCD TV", "Prostrana kupaonica s tušem", "Minibar", "Kuhalo za kafu/čaj", "Radni stol", "Besplatan WiFi"],
+      en: ["Armchairs & sofa", "Flat TV screen", "Spacious shower room", "Tea/coffee maker", "Writing desk", "Free WiFi"],
+      bs: ["Udobni naslonjači", "LCD TV", "Prostrana kupaonica s tušem", "Kuhalo za kafu/čaj", "Radni stol", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Minibar / Refrigerator", "Tea/coffee maker", "Safety deposit box", "Flat TV screen", "Telephone", "Air conditioning", "Hairdryer", "Iron and ironing board", "Bathrobe/Slippers", "Writing desk", "Free toiletries", "Toilet", "Private bathroom with shower", "Wake-up service", "Closet", "Towels", "Linen", "Toilet paper", "Free WiFi"],
-      bs: ["Minibar", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Posteljina", "Besplatan WiFi"],
+      en: ["Tea/coffee maker", "Safety deposit box", "Flat TV screen", "Air conditioning", "Hairdryer", "Iron and ironing board", "Bathrobe/Slippers", "Writing desk", "Free toiletries", "Private bathroom with shower", "Wake-up service", "Free WiFi"],
+      bs: ["Sef", "TV ravnog ekrana", "Kablovski kanali", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Besplatan toaletni pribor", "Vlastita kupaonica – tuš/kada", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Besplatan WiFi"],
     },
     images: [
       img("img_9067.jpg", "Superior double room with damask wallpaper", "Superior dvokrevetna soba", "50% 60%"),
@@ -170,8 +170,8 @@ export const rooms: Room[] = [
       bs: ["Preko 50 m²", "2 bračna ili 4 odvojena kreveta", "Dva kupatila", "TV ravnog ekrana", "Kuhalo za kafu/čaj", "Ogrtač i papuče", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Safety deposit box", "LCD flat screen TV", "Tea/coffee maker", "Telephone", "Air conditioning", "Hairdryer", "Iron and ironing board", "Desk", "Toilet", "Free toiletries", "Private bathroom", "Bathrobe & slippers", "Wake-up service", "Wardrobe or closet", "Towels", "Sofa bed", "Free WiFi"],
-      bs: ["Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Radni stol", "WC", "Vlastita kupaonica – tuš/kada", "Ogrtač i papuče", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Besplatan WiFi"],
+      en: ["Safety deposit box", "LCD flat screen TV", "Tea/coffee maker", "Telephone", "Air conditioning", "Hairdryer", "Iron and ironing board", "Desk", "Free toiletries", "Private bathroom", "Bathrobe & slippers", "Wake-up service", "Sofa bed", "Free WiFi"],
+      bs: ["Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Radni stol", "Vlastita kupaonica – tuš/kada", "Ogrtač i papuče", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Besplatan WiFi"],
     },
     images: [
       img("family1-new.jpg", "Family room with geometric wallpaper", "Obiteljska soba", "50% 60%"),
@@ -190,26 +190,26 @@ export const rooms: Room[] = [
     titleLines: { en: ["Junior", "Suite"], bs: ["Junior", "Suite"] },
     feature: { en: "King-size bed", bs: "King size krevet" },
     summary: {
-      en: "Spacious suite with a flat-screen cable TV, a seating area, tea and coffee making facilities, a mini bar and a spacious bathroom.",
-      bs: "Prostrani polu-apartman sa TV ravnog ekrana, udobnim prostorom za sjedenje, minibarom i prostranom kupaonicom.",
+      en: "Spacious suite with a flat-screen cable TV, a seating area, tea and coffee making facilities and a spacious bathroom.",
+      bs: "Prostrani polu-apartman sa TV ravnog ekrana, udobnim prostorom za sjedenje i prostranom kupaonicom.",
     },
     description: {
       en: [
-        "Spacious suite with a flat-screen cable TV, a seating area, tea and coffee making facilities, a mini bar and a spacious bathroom.",
+        "Spacious suite with a flat-screen cable TV, a seating area, tea and coffee making facilities and a spacious bathroom.",
         "Free Wi-Fi is available in the room.",
       ],
       bs: [
-        "Ovaj prostrani polu-apartman ima TV ravnog ekrana sa kablovskim programima, udoban prostor za sjedenje, kuhalo za pripremu čaja/kafe, mini bar i prostranu kupaonicu.",
+        "Ovaj prostrani polu-apartman ima TV ravnog ekrana sa kablovskim programima, udoban prostor za sjedenje, kuhalo za pripremu čaja/kafe i prostranu kupaonicu.",
         "U sobi je dostupan besplatni bežični pristup internetu.",
       ],
     },
     highlights: {
-      en: ["Queen/King size bed", "Seating area", "Sofa", "Bath tub / shower", "Tea/coffee maker", "Mini bar", "Free WiFi"],
-      bs: ["Visoki queen/king size krevet", "Prostor za sjedenje", "Sofa na rasklapanje", "Kada/tuš", "Kuhalo za kafu/čaj", "Minibar", "Besplatan WiFi"],
+      en: ["Queen/King size bed", "Seating area", "Sofa", "Bath tub / shower", "Tea/coffee maker", "Free WiFi"],
+      bs: ["Visoki queen/king size krevet", "Prostor za sjedenje", "Sofa na rasklapanje", "Kada/tuš", "Kuhalo za kafu/čaj", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Tea/Coffee maker", "Mini bar", "Safety deposit box", "TV flat screen", "Cable channels", "Telephone", "Air conditioning", "Hairdryer", "Iron & ironing board", "Bathrobe & slippers", "Desk", "Seating area", "Free toiletries", "Toilet", "Private bathroom – shower/bath tub", "Queen/King size beds (> 2 metres)", "Closet", "Sofa", "Wake-up service", "Towels", "Linen", "Free WiFi"],
-      bs: ["Kuhalo za pripremu kafe/čaja", "Minibar", "Kada/tuš", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Prostor za sjedenje", "Besplatan toaletni pribor", "WC", "Vlastita kupaonica – tuš/kada", "Visoki queen/king size krevet", "Usluga buđenja", "Ormar", "Ručnici", "Posteljina", "Sofa/kauč na rasklapanje", "Besplatan WiFi"],
+      en: ["Tea/Coffee maker", "Safety deposit box", "TV flat screen", "Cable channels", "Air conditioning", "Hairdryer", "Iron & ironing board", "Bathrobe & slippers", "Desk", "Seating area", "Free toiletries", "Private bathroom – shower/bath tub", "Queen/King size beds (> 2 metres)", "Sofa", "Wake-up service", "Free WiFi"],
+      bs: ["Kuhalo za pripremu kafe/čaja", "Kada/tuš", "Sef", "TV ravnog ekrana", "Kablovski kanali", "Klima uređaj – grijanje/hlađenje", "Sušilo za kosu", "Pegla i daska za peglanje", "Ogrtač i papuče", "Radni stol", "Prostor za sjedenje", "Besplatan toaletni pribor", "Vlastita kupaonica – tuš/kada", "Visoki queen/king size krevet", "Usluga buđenja", "Sofa/kauč na rasklapanje", "Besplatan WiFi"],
     },
     images: [
       img("junior02.jpg", "Junior suite bedroom", "Spavaći dio Junior suite", "50% 55%"),
@@ -246,8 +246,8 @@ export const rooms: Room[] = [
       bs: ["Odvojeni dnevni boravak", "Visoki king size krevet", "Potpuno opremljena kuhinja", "Terasa", "Dva odvojena toaleta", "Kada", "Besplatan WiFi"],
     },
     amenities: {
-      en: ["Fully equipped kitchen", "Dining table", "LCD flat screen TV", "Telephone", "Air conditioning", "Safety deposit box", "Hairdryer", "Free toiletries", "Iron and ironing board", "Bathrobe and slippers", "Writing desk", "Toilets", "Private bathroom with bathtub", "Sofa – open couch (2 persons)", "Wake-up service", "Electric kettle and coffee machine", "Wardrobe – 2 closets", "Terrace", "Towels", "Toilet paper", "Free WiFi"],
-      bs: ["Sef", "Potpuno opremljena kuhinja", "TV ravnog ekrana", "Kablovski kanali", "Telefon", "Klima uređaj – grijanje/hlađenje", "Kafe mašina za espresso kafu", "Stol za ručak", "Sušilo za kosu", "Pegla i daska za peglanje", "Radni stol", "Dva odvojena toaleta", "Kauč/sofa (za 2 osobe)", "Vlastita kupaonica – kada", "Terasa", "Ogrtač i papuče", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Ručnici", "Besplatan WiFi"],
+      en: ["Fully equipped kitchen", "Dining table", "LCD flat screen TV", "Air conditioning", "Safety deposit box", "Hairdryer", "Free toiletries", "Iron and ironing board", "Bathrobe and slippers", "Writing desk", "Private bathroom with bathtub", "Sofa – open couch (2 persons)", "Wake-up service", "Electric kettle and coffee machine", "Wardrobe – 2 closets", "Terrace", "Free WiFi"],
+      bs: ["Sef", "Potpuno opremljena kuhinja", "TV ravnog ekrana", "Kablovski kanali", "Klima uređaj – grijanje/hlađenje", "Kafe mašina za espresso kafu", "Stol za ručak", "Sušilo za kosu", "Pegla i daska za peglanje", "Radni stol", "Kauč/sofa (za 2 osobe)", "Vlastita kupaonica – kada", "Terasa", "Ogrtač i papuče", "Usluga buđenja", "Kuhalo za vodu – kafa/čaj", "Ormar", "Besplatan WiFi"],
     },
     images: [
       img("p05.jpg", "Living room of the presidential suite", "Dnevni boravak predsjedničkog apartmana", "50% 55%"),

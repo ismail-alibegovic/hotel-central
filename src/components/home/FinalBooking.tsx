@@ -26,10 +26,10 @@ export function FinalBooking({
         alt={alt}
         fill
         sizes="100vw"
-        className="object-cover [filter:saturate(0.22)_contrast(1.1)_brightness(0.55)_sepia(0.3)_hue-rotate(28deg)]"
+        className="object-cover [filter:saturate(1.12)_contrast(1.04)_brightness(1)_sepia(0.14)]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55),rgba(2,13,16,0.25)_45%,rgba(2,13,16,0.6))]" />
-      <div className="absolute inset-0 bg-deep/25 mix-blend-multiply" />
+      {/* CH-030: a bright, welcoming photograph; a light veil keeps the white type legible. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.38),rgba(2,13,16,0.3)_45%,rgba(2,13,16,0.5))]" />
 
       <div className="relative flex flex-col items-center px-[var(--gutter)] py-28 text-center">
         <FadeIn className="label mb-8 flex items-center gap-4">

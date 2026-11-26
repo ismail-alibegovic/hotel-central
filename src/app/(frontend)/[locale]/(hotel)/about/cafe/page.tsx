@@ -12,7 +12,7 @@ type P = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { locale } = await params;
   const { meta, ogImage, noindex } = await getPageLayout("cafe", locale);
-  return pageMetadata(locale, "/cafe", meta.title, meta.description, ogImage, noindex);
+  return pageMetadata(locale, "/about/cafe", meta.title, meta.description, ogImage, noindex);
 }
 
 export default async function Cafe({ params }: P) {

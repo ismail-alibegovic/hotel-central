@@ -13,12 +13,12 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Arrow } from "./ui";
 
 const previews: Record<string, string> = {
-  "/": "/images/3075.jpg",
+  "/": "/images/3064.jpg",
   "/about": "/images/hc26-facade-entrance.jpg",
   "/rooms": "/images/p05.jpg",
   "/centralfitnessclub": "/images/hc26-gym.jpg",
   "/dayspa": "/images/hc26-dayspa-relax.jpg",
-  "/restaurant": "/images/hc26-restaurant.jpg",
+  "/about/cafe": "/images/hc26-cafe-corner.jpg",
   "/meetings-events": "/images/hc26-conference.jpg",
   "/location": "/images/hc26-street-view.jpg",
   "/contact": "/images/hc26-reception.jpg",
@@ -99,6 +99,9 @@ export function FullscreenMenu({
               <ol className="space-y-[0.6vh]">
                 {dict.nav.items.map((item, i) => {
                   const active = current === item.href;
+                  // A page inside a section (e.g. /about/cafe) is shown as a smaller, indented entry under its parent.
+                  const sub = item.href.split("/").length > 2;
+                  const number = dict.nav.items.slice(0, i + 1).filter((x) => x.href.split("/").length <= 2).length;
                   return (
                     <li key={item.href} className="overflow-hidden">
                       <motion.div
@@ -115,12 +118,15 @@ export function FullscreenMenu({
                           aria-current={active ? "page" : undefined}
                           className="group flex items-baseline gap-5 py-[0.6vh] md:gap-8 md:py-[0.4vh]"
                         >
-                          <span className="label-sm hidden w-7 shrink-0 opacity-50 sm:inline">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="label-sm hidden w-7 shrink-0 opacity-50 sm:inline">{sub ? "" : String(number).padStart(2, "0")}</span>
                           <span
-                            className={`font-display text-[min(9vw,6vh)] leading-[1.02] transition md:text-[clamp(34px,6.4vh,76px)] md:leading-[0.92]-[opacity,transform] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
-                              active ? "opacity-100" : "opacity-70 group-hover:opacity-100"
-                            }`}
+                            className={`font-display transition-[opacity,transform] duration-700 ease-[var(--ease-out)] group-hover:translate-x-3 ${
+                              sub
+                                ? "flex items-baseline gap-3 pl-6 text-[min(6vw,4vh)] leading-[1.1] md:pl-10 md:text-[clamp(22px,3.6vh,40px)]"
+                                : "text-[min(9vw,6vh)] leading-[1.02] md:text-[clamp(34px,6.4vh,76px)] md:leading-[0.92]"
+                            } ${active ? "opacity-100" : "opacity-70 group-hover:opacity-100"}`}
                           >
+                            {sub && <span aria-hidden className="inline-block h-px w-5 translate-y-[-0.3em] bg-current opacity-60" />}
                             {item.label}
                           </span>
                         </Link>
