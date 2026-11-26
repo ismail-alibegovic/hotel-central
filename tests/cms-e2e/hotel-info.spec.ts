@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { expect, request as pwRequest, test, type APIRequestContext, type Page } from "@playwright/test";
 import { clickSave } from "./clickSave";
+import { booking } from "../../src/content/hotel";
 
 /**
  * Hotel Information end to end, at 390 px and 1440 px: an administrator changes the main phone number and e-mail in the admin,
@@ -105,7 +106,7 @@ test("administrator changes the main phone and e-mail; every page in both langua
   const res = await publish(page);
   expect(res.status()).toBe(200);
 
-  const pages = ["", "/about", "/rooms", "/rooms/junior-suite", "/spa", "/restaurant", "/meetings-events", "/location", "/contact"];
+  const pages = ["", "/about", "/rooms", "/rooms/junior-suite", "/about/cafe", "/meetings-events", "/location", "/contact"];
   for (const l of ["en", "bs"]) {
     for (const p of pages.map((x) => `/${l}${x}`)) {
       const html = await (await request.get(p)).text();
@@ -115,7 +116,7 @@ test("administrator changes the main phone and e-mail; every page in both langua
       expect(html, p).not.toContain("+387 33 561 800");
       expect(html, p).not.toContain("info@hotelcentral.ba");
       // the booking engine and the contact form are untouched
-      expect(html, p).toContain("https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo");
+      expect(html, p).toContain(booking.bookingUrl);
     }
     const ld = await (await request.get(`/${l}`)).text();
     expect(ld).toContain(`"telephone":"${phone}"`);

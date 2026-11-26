@@ -171,17 +171,17 @@ test("a page can be linked from the menu and footer; the existing entries are un
   expect((await admin.post("/api/globals/navigation?locale=bs", { data: { items: bsRows, _status: "published" } })).status()).toBe(200);
 
   const footer = (html: string) => /<footer[\s\S]*<\/footer>/.exec(html)?.[0] ?? "";
-  const en = footer(await (await request.get("/en/spa")).text());
-  const bs = footer(await (await request.get("/bs/spa")).text());
+  const en = footer(await (await request.get("/en/location")).text());
+  const bs = footer(await (await request.get("/bs/location")).text());
   expect(en).toContain(`href="/en/${EN}"`);
   expect(bs).toContain(`href="/bs/${BS}"`);
-  for (const p of ["about", "rooms", "spa", "restaurant", "meetings-events", "location", "contact"]) expect(en).toContain(`href="/en/${p}"`);
+  for (const p of ["about", "about/cafe", "rooms", "centralfitnessclub", "dayspa", "meetings-events", "location", "contact"]) expect(en).toContain(`href="/en/${p}"`);
 
   // restore the menu
   expect((await admin.post("/api/globals/navigation?locale=en", { data: { items: nav.items, _status: "published" } })).status()).toBe(200);
   const restored = await (await admin.get("/api/globals/navigation?locale=bs&draft=true&depth=0")).json();
   expect((await admin.post("/api/globals/navigation?locale=bs", { data: { items: restored.items.slice(0, nav.items.length), _status: "published" } })).status()).toBe(200);
-  expect(footer(await (await request.get("/en/spa")).text())).not.toContain(`href="/en/${EN}"`);
+  expect(footer(await (await request.get("/en/location")).text())).not.toContain(`href="/en/${EN}"`);
 });
 
 test("renaming an address: the old one stops working at once, the new one works", async ({ request }) => {

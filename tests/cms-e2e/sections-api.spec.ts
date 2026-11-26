@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type APIRequestContext } from "@playwright/test";
+import { booking } from "../../src/content/hotel";
 
 /**
  * Offers / FAQ / CTA sections over HTTP, on the "rooms" page (no other spec touches it). Example content is flagged
@@ -8,7 +9,7 @@ import { expect, request as pwRequest, test, type APIRequestContext } from "@pla
 const ADMIN = { email: process.env.SEED_ADMIN_EMAIL!, password: process.env.SEED_ADMIN_PASSWORD! };
 const EDITOR = { email: `sections-editor-${Date.now()}@example.test`, password: process.env.E2E_EDITOR_PASSWORD! };
 const base = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
-const BOOKING = "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo";
+const BOOKING = booking.bookingUrl;
 
 async function login(creds: { email: string; password: string }): Promise<APIRequestContext> {
   const anon = await pwRequest.newContext({ baseURL: base });
