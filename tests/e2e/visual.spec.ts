@@ -6,7 +6,7 @@ import { expect, test } from "@playwright/test";
  * and the viewport (not full page) is captured so parallax/lazy sections cannot cause drift.
  * Update baselines deliberately: npm run test:visual:update
  */
-const pages = ["/en", "/bs", "/en/about", "/bs/about", "/en/rooms", "/en/rooms/junior-suite", "/bs/rooms/junior-suite", "/en/dayspa", "/bs/dayspa", "/en/centralfitnessclub", "/bs/centralfitnessclub/membership", "/en/centralfitnessclub/timetable", "/en/restaurant", "/en/meetings-events", "/en/location", "/en/contact", "/bs/contact"];
+const pages = ["/en", "/bs", "/en/about", "/bs/about", "/en/rooms", "/en/rooms/junior-suite", "/bs/rooms/junior-suite", "/en/dayspa", "/bs/dayspa", "/en/centralfitnessclub", "/bs/centralfitnessclub/membership", "/en/centralfitnessclub/timetable", "/en/about/cafe", "/en/meetings-events", "/en/location", "/en/contact", "/bs/contact"];
 
 for (const path of pages) {
   test(`visual ${path}`, async ({ page }) => {

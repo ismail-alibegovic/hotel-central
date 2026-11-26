@@ -19,7 +19,8 @@
     "test:cms-e2e": "tsx scripts/cms/e2e.mts",
     "cms:restore-drill": "tsx scripts/cms/restore-drill.mts",
     "cms:backup-media": "tsx scripts/cms/backup-media.mts",
-    "cms:preflight": "tsx scripts/cms/preflight.mts"
+    "cms:preflight": "tsx scripts/cms/preflight.mts",
+    "cms:check-overrides": "tsx scripts/cms/check-overrides.mts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",
