@@ -62,7 +62,7 @@ const copy = {
   en: {
     meta: {
       title: "Central Fitness Club",
-      description: "A gym over three floors, a heated 25-metre pool with hydrotherapy jets, a sauna, a steam room and a plunge pool, and group classes every day at Central Fitness Club, Hotel Central Sarajevo.",
+      description: "A gym over three floors, a heated 25-metre pool with hydrotherapy jets, a sauna, a steam room and a plunge pool, and about 20 group classes a week at Central Fitness Club, Hotel Central Sarajevo.",
       membershipTitle: "Membership — Central Fitness Club",
       membershipDescription: "Membership at Central Fitness Club, Hotel Central Sarajevo: full membership 135 KM, student membership 90 KM. Gym, all group classes, pool, sauna and steam room, with free personal programmes.",
       timetableTitle: "Classes & timetable — Central Fitness Club",
@@ -74,7 +74,7 @@ const copy = {
     stats: [
       { big: "3", label: "floors of gym" },
       { big: "25 m", label: "heated pool" },
-      { big: "7", label: "days a week of group classes" },
+      { big: "20", label: "group classes a week" },
       { big: "4", label: "pool, sauna, steam & plunge" },
     ],
     spaces: {
@@ -83,7 +83,7 @@ const copy = {
       cta: "See membership",
       cards: [
         { title: "Gym", body: "True treadmills, StairMaster, Matrix machines and free weights over three floors." },
-        { title: "Group classes", body: "Functional strength, HIIT, pilates, yoga, kettlebells, aqua aerobic and more, every day of the week." },
+        { title: "Group classes", body: "Yoga, pilates, HIIT, kettlebell, spinning and more, about 20 a week." },
         { title: "25 m pool", body: "A heated pool with hydrotherapy jets and benches." },
         { title: "Personal training", body: "A free personal programme, results tracking every 10 visits." },
       ],
@@ -151,7 +151,7 @@ const copy = {
   bs: {
     meta: {
       title: "Central Fitness Club",
-      description: "Teretana na tri sprata, grijani bazen od 25 metara s hidromasažnim mlazovima, sauna, parno kupatilo i bazen za hlađenje te grupni časovi svaki dan u Central Fitness Clubu, Hotel Central Sarajevo.",
+      description: "Teretana na tri sprata, grijani bazen od 25 metara s hidromasažnim mlazovima, sauna, parno kupatilo i bazen za hlađenje te oko 20 grupnih časova sedmično u Central Fitness Clubu, Hotel Central Sarajevo.",
       membershipTitle: "Članarine — Central Fitness Club",
       membershipDescription: "Članarine u Central Fitness Clubu, Hotel Central Sarajevo: puna članarina 135 KM, studentska 90 KM. Teretana, svi grupni časovi, bazen, sauna i parno kupatilo, uz besplatne personalizirane programe.",
       timetableTitle: "Časovi i raspored — Central Fitness Club",
@@ -163,7 +163,7 @@ const copy = {
     stats: [
       { big: "3", label: "sprata teretane" },
       { big: "25 m", label: "grijani bazen" },
-      { big: "7", label: "dana u sedmici grupni časovi" },
+      { big: "20", label: "grupnih časova sedmično" },
       { big: "4", label: "bazen, sauna, parno i hlađenje" },
     ],
     spaces: {
@@ -172,7 +172,7 @@ const copy = {
       cta: "Pogledaj članarine",
       cards: [
         { title: "Teretana", body: "True trake, StairMaster, Matrix sprave i slobodni tegovi na tri sprata." },
-        { title: "Grupni časovi", body: "Functional strength, HIIT, pilates, yoga, kettlebells, aqua aerobik i drugi, svaki dan u sedmici." },
+        { title: "Grupni časovi", body: "Yoga, pilates, HIIT, kettlebell, spinning i drugi, oko 20 sedmično." },
         { title: "Bazen 25 m", body: "Grijani bazen s hidromasažnim mlazovima i klupama." },
         { title: "Personalni trening", body: "Besplatan personalizirani program i praćenje rezultata svakih 10 dolazaka." },
       ],

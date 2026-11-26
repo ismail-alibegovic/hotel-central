@@ -135,7 +135,7 @@ Sheet je ponovo pročitan (vrijednosti, boje, bilješke) — identičan prvom č
 4. **Fotografije (CH‑024 / CH‑019):** poboljšane / nove fotografije visoke rezolucije (do tada ostaju trenutno posvijetljene).
 5. **Radno vrijeme Central Caféa i kluba** — nije objavljeno nigdje.
 6. **Tretmani za članove u Day Spa** (WP blok s cijenama 30/45/60 KM s Instagrama) — potvrditi.
-7. **Statistika kluba:** „20 group classes a week“ → „7 days a week of group classes“ (raspored ima 19 časova) — potvrditi formulaciju.
+7. **Statistika kluba:** „20 group classes a week“ ostaje kao prije (klijent nije tražio izmjenu; vraćeno i u opisu kartice i u meta opisu). Jedino je „5 zona“ postalo „4“ jer klijent navodi samo bazen, saunu, parno kupatilo i bazen za hlađenje (CH‑048) — potvrditi.
 
 ## 7. Linkovi
 

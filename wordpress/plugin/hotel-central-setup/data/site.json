@@ -27497,7 +27497,7 @@
     "en": {
      "slug": "centralfitnessclub",
      "title": "Central Fitness Club",
-     "description": "A gym over three floors, a heated 25-metre pool with hydrotherapy jets, a sauna, a steam room and a plunge pool, and group classes every day at Central Fitness Club, Hotel Central Sarajevo.",
+     "description": "A gym over three floors, a heated 25-metre pool with hydrotherapy jets, a sauna, a steam room and a plunge pool, and about 20 group classes a week at Central Fitness Club, Hotel Central Sarajevo.",
      "elementor": [
       {
        "id": "1100016",
@@ -27702,7 +27702,7 @@
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
-              "title": "7",
+              "title": "20",
               "header_size": "p",
               "_css_classes": "cfc-stat__big"
              },
@@ -27713,7 +27713,7 @@
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
-              "title": "days a week of group classes",
+              "title": "group classes a week",
               "header_size": "p",
               "_css_classes": "cfc-stat__label"
              },
@@ -28005,7 +28005,7 @@
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
-              "editor": "<p>Functional strength, HIIT, pilates, yoga, kettlebells, aqua aerobic and more, every day of the week.</p>",
+              "editor": "<p>Yoga, pilates, HIIT, kettlebell, spinning and more, about 20 a week.</p>",
               "_css_classes": "cfc-card__body"
              },
              "elements": []
@@ -29086,7 +29086,7 @@
     "bs": {
      "slug": "central-fitness-club",
      "title": "Central Fitness Club",
-     "description": "Teretana na tri sprata, grijani bazen od 25 metara s hidromasažnim mlazovima, sauna, parno kupatilo i bazen za hlađenje te grupni časovi svaki dan u Central Fitness Clubu, Hotel Central Sarajevo.",
+     "description": "Teretana na tri sprata, grijani bazen od 25 metara s hidromasažnim mlazovima, sauna, parno kupatilo i bazen za hlađenje te oko 20 grupnih časova sedmično u Central Fitness Clubu, Hotel Central Sarajevo.",
      "elementor": [
       {
        "id": "1180016",
@@ -29291,7 +29291,7 @@
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
-              "title": "7",
+              "title": "20",
               "header_size": "p",
               "_css_classes": "cfc-stat__big"
              },
@@ -29302,7 +29302,7 @@
              "elType": "widget",
              "widgetType": "heading",
              "settings": {
-              "title": "dana u sedmici grupni časovi",
+              "title": "grupnih časova sedmično",
               "header_size": "p",
               "_css_classes": "cfc-stat__label"
              },
@@ -29594,7 +29594,7 @@
              "elType": "widget",
              "widgetType": "text-editor",
              "settings": {
-              "editor": "<p>Functional strength, HIIT, pilates, yoga, kettlebells, aqua aerobik i drugi, svaki dan u sedmici.</p>",
+              "editor": "<p>Yoga, pilates, HIIT, kettlebell, spinning i drugi, oko 20 sedmično.</p>",
               "_css_classes": "cfc-card__body"
              },
              "elements": []
