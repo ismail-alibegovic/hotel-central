@@ -29,7 +29,10 @@ export function mergeChrome(locale: Locale, dict: Dictionary, nav: Navigation | 
   const brands = dict.nav.items.filter((i) => i.href === "/centralfitnessclub" || i.href === "/dayspa");
   const items = (nav?.items ?? [])
     .filter((r) => r.visible !== false && text(r.label) && text(r.path) && validateLink("internal", r.path) === true)
-    .flatMap((r) => (r.path!.trim() === "/spa" ? brands : [{ href: r.path!.trim(), label: r.label.trim() }]));
+    .flatMap((r) => (r.path!.trim() === "/spa" ? brands : [{ href: r.path!.trim(), label: r.label.trim() }]))
+    // The restaurant and the café became one page under About (CH-022): saved entries for either point there, once.
+    .map((i) => (i.href === "/restaurant" || i.href === "/cafe" ? { ...i, href: "/about/cafe" } : i))
+    .filter((i, n, all) => all.findIndex((o) => o.href === i.href) === n);
 
   const merged: Dictionary = {
     ...dict,

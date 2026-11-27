@@ -14,6 +14,7 @@ describe("editor links", () => {
     ["internal", "/rooms"],
     ["internal", "/rooms/junior-suite"],
     ["internal", "/"],
+    ["internal", "#enquiry"],
     ["external", "https://www.hotelcentral.ba/facilities/wellness-day-spa/"],
     ["external", "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo"],
     ["phone", "+387 33 561 800"],
@@ -32,6 +33,9 @@ describe("editor links", () => {
     ["internal", "/../admin"],
     ["internal", "/Rooms"],
     ["internal", "/a/b/c/d"],
+    ["internal", "#Enquiry"],
+    ["internal", "#a b"],
+    ["internal", "#"],
     ["internal", "javascript:alert(1)"],
     ["phone", "tel:+38733561800; rm"],
     ["phone", "javascript:1"],
@@ -44,6 +48,7 @@ describe("editor links", () => {
 
   it("resolves per locale and never returns an invalid link", () => {
     expect(resolveLink({ kind: "internal", value: "/rooms" }, "bs")).toEqual({ kind: "internal", href: "/bs/rooms", external: false });
+    expect(resolveLink({ kind: "internal", value: "#enquiry" }, "bs")).toEqual({ kind: "internal", href: "#enquiry", external: false });
     expect(resolveLink({ kind: "phone", value: "+387 33 561 800" }, "en")?.href).toBe("tel:+38733561800");
     expect(resolveLink({ kind: "external", value: "https://evil.example" }, "en")).toBeNull();
     expect(resolveLink({ kind: "internal", value: "javascript:alert(1)" }, "en")).toBeNull();

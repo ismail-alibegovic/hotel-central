@@ -1,5 +1,7 @@
 import { expect, request as pwRequest, test, type APIRequestContext, type Page } from "@playwright/test";
 import { clickSave } from "./clickSave";
+import { booking } from "../../src/content/hotel";
+import { rooms } from "../../src/content/rooms";
 
 /**
  * Browser-driven administration (the way hotel staff will actually use it), at 390 px and 1440 px.
@@ -161,7 +163,7 @@ test("room editing persists and leaves the booking link intact", async ({ page, 
   await clickAndWaitForSave(page, "#action-save");
   const html = await (await request.get("/en/rooms/junior-suite")).text();
   expect(html).toContain(name);
-  expect(html).toContain("roomtypeunkid=18019000000000000010");
+  expect(html).toContain(booking.roomUrl(rooms.find((r) => r.slug === "junior-suite")!.roomTypeId));
 });
 
 test("the only administrator cannot change their own role to Editor or delete their account in the admin", async ({ page }) => {

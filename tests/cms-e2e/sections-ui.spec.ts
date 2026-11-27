@@ -1,5 +1,6 @@
 import { expect, request as pwRequest, test, type Page } from "@playwright/test";
 import { sampleLayoutRows } from "./sample-rows";
+import { booking } from "../../src/content/hotel";
 
 /**
  * Offers / FAQ / CTA in a real browser (390 px and 1440 px), through staff preview of DEMO / SAMPLE content on the "rooms" page.
@@ -7,7 +8,7 @@ import { sampleLayoutRows } from "./sample-rows";
  */
 const base = process.env.E2E_BASE_URL ?? "http://127.0.0.1:3200";
 const ADMIN = { email: process.env.SEED_ADMIN_EMAIL!, password: process.env.SEED_ADMIN_PASSWORD! };
-const BOOKING = "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo";
+const BOOKING = booking.bookingUrl;
 
 let roomsId: string;
 let publishedLayout: unknown[];

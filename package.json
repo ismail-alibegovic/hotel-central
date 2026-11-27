@@ -19,7 +19,8 @@
     "test:cms-e2e": "tsx scripts/cms/e2e.mts",
     "cms:restore-drill": "tsx scripts/cms/restore-drill.mts",
     "cms:backup-media": "tsx scripts/cms/backup-media.mts",
-    "cms:preflight": "tsx scripts/cms/preflight.mts"
+    "cms:preflight": "tsx scripts/cms/preflight.mts",
+    "cms:check-overrides": "tsx scripts/cms/check-overrides.mts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",
@@ -30,7 +31,7 @@
     "@payloadcms/ui": "3.92.0",
     "graphql": "16.14.2",
     "motion": "^14.2.0",
-    "next": "16.4.2",
+    "next": "16.4.6",
     "payload": "3.92.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -45,7 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.4.2",
+    "eslint-config-next": "16.4.6",
     "pg": "8.20.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",

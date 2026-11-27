@@ -9,20 +9,20 @@ const L = <T,>(en: T, bs: T): Record<Locale, T> => ({ en, bs });
 export const clientCopy = {
   // CH-006: "completely refurbished" is reworded.
   aboutRooms: L(
-    { title: ["Comfort,", "thoughtfully designed"], body: ["Our 32 rooms and suites are designed with your comfort in mind, with modern amenities, quality beds and stylish decor.", "Start your day with a breakfast buffet and Bosnian coffee in our restaurant."] },
-    { title: ["Udobnost", "do detalja"], body: ["Naše 32 sobe i apartmana uređeni su s mišlju na vašu udobnost, s modernim sadržajima, kvalitetnim krevetima i elegantnim enterijerom.", "Započnite dan doručkom na bazi švedskog stola i bosanskom kafom u našem restoranu."] },
+    { title: ["Comfort,", "thoughtfully designed"], body: ["Our 32 rooms and suites are designed with your comfort in mind, with modern amenities, quality beds and stylish decor.", "Start your day with a breakfast buffet and Bosnian coffee."] },
+    { title: ["Udobnost", "do detalja"], body: ["Naše 32 sobe i apartmana uređeni su s mišlju na vašu udobnost, s modernim sadržajima, kvalitetnim krevetima i elegantnim enterijerom.", "Započnite dan doručkom na bazi švedskog stola i bosanskom kafom."] },
   ),
   roomsIntro: L("Six room categories, from the single room to the presidential suite with its terrace.", "Šest kategorija soba, od jednokrevetne sobe do predsjedničkog apartmana s terasom."),
   // CH-007: Central Café (facts from the hotel's FAQ).
   cafe: L(
     {
-      title: "Central Café", eyebrow: "On the ground floor of Hotel Central", intro: "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting.",
-      offerTitle: "What we offer", offer: ["Coffee, including Bosnian coffee", "Tea", "Cold drinks", "Cakes and sweet treats"],
+      title: "Central Café", eyebrow: "On the ground floor of Hotel Central", intro: "Coffee, tea and hot chocolate, fresh juices, smoothies and sweet treats, in a welcoming city-centre setting.",
+      offerTitle: "What we offer", offer: ["Hot drinks: coffee (including Bosnian coffee), tea and hot chocolate", "Cold drinks", "Fresh juices from our juice bar", "Smoothies", "Cakes and sweet treats"],
       hoursTitle: "Opening hours", body: ["Meet a friend, read the paper by the tall arched windows or take a break between meetings. The café is open to hotel guests and to everyone passing by on Ćumurija street."],
     },
     {
-      title: "Central Café", eyebrow: "U prizemlju Hotela Central", intro: "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada.",
-      offerTitle: "Šta nudimo", offer: ["Kafa, uključujući bosansku kafu", "Čajevi", "Hladni napici", "Kolači i slatke poslastice"],
+      title: "Central Café", eyebrow: "U prizemlju Hotela Central", intro: "Kafa, čaj i topla čokolada, svježi sokovi, smoothieji i slatke poslastice, u ugodnom ambijentu u samom centru grada.",
+      offerTitle: "Šta nudimo", offer: ["Topli napici: kafa (uključujući bosansku kafu), čaj i topla čokolada", "Hladni napici", "Svježi sokovi iz našeg juice bara", "Smoothieji", "Kolači i slatke poslastice"],
       hoursTitle: "Radno vrijeme", body: ["Sretnite se s prijateljem, pročitajte novine uz visoke lučne prozore ili napravite pauzu između sastanaka. Kafić je otvoren za goste hotela i za sve prolaznike u Ćumuriji."],
     },
   ),
@@ -31,16 +31,16 @@ export const clientCopy = {
   conference: L(
     {
       offerTitle: "What we can arrange", offer: [
-        { t: "Meeting room", d: "The conference room on the third floor, set up for your number of guests: theatre, classroom, U-shape or boardroom. Up to 60–70 seats, full IT equipment." },
-        { t: "Coffee breaks & lunch", d: "Coffee breaks and catered lunches from Restaurant Central, with a menu made for your event." },
+        { t: "Meeting room", d: "The conference room on the first floor, set up for your number of guests: theatre, classroom, U-shape or boardroom. Up to 60–70 seats, full IT equipment." },
+        { t: "Coffee breaks & catering", d: "Coffee breaks, refreshments and catered lunches, available upon request and planned around your event." },
         { t: "Rooms for your guests", d: "32 rooms and suites in the same building, for speakers and delegates." },
       ], offerNote: "Every event is priced on request, depending on the room set-up, food and drinks and the rooms you need.",
       ctaTitle: "Plan your event with us", ctaBody: "Tell us the date, the number of guests and what you need. We will send you a proposal.", ctaMail: "Request a proposal", ctaCall: "Call us",
     },
     {
       offerTitle: "Šta možemo organizovati", offer: [
-        { t: "Sala za sastanke", d: "Konferencijska sala na trećem spratu, postavljena prema broju gostiju: teatarski, učionički, U-oblik ili za sastanke. Do 60–70 mjesta, kompletna IT oprema." },
-        { t: "Pauze za kafu i ručak", d: "Pauze za kafu i ručak iz Restorana Central, s menijem napravljenim za vaš događaj." },
+        { t: "Sala za sastanke", d: "Konferencijska sala na prvom spratu, postavljena prema broju gostiju: teatarski, učionički, U-oblik ili za sastanke. Do 60–70 mjesta, kompletna IT oprema." },
+        { t: "Pauze za kafu i ketering", d: "Pauze za kafu, osvježenje i ručak, dostupno na upit i prilagođeno vašem događaju." },
         { t: "Sobe za vaše goste", d: "32 sobe i apartmana u istoj zgradi, za predavače i učesnike." },
       ], offerNote: "Cijena svakog događaja dogovara se na upit, prema postavci sale, hrani i pićima te sobama koje su vam potrebne.",
       ctaTitle: "Organizujte svoj događaj kod nas", ctaBody: "Javite nam datum, broj gostiju i šta vam je potrebno. Poslat ćemo vam ponudu.", ctaMail: "Zatražite ponudu", ctaCall: "Pozovite nas",

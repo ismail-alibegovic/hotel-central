@@ -4,7 +4,7 @@ import { groupRows } from "@/components/dayspa/PriceList";
 import { builtInSpa, mergeClub, mergeSpa } from "@/cms/brandsMerge";
 import { priceProblem, timeProblem } from "@/cms/globals/Brands";
 import { builtInContact } from "@/cms/hotelInfoMerge";
-import { clubCopy } from "@/content/club";
+import { clubCopy, defaultClasses } from "@/content/club";
 import { spaCategories } from "@/content/dayspa";
 import type { DaySpa, FitnessClub } from "@/payload-types";
 
@@ -50,9 +50,15 @@ describe("Central Day Spa price list", () => {
 describe("Central Fitness Club memberships and timetable", () => {
   const defaults = clubCopy("en").membership.defaultPlans;
 
-  it("never invents a price: the built-in plan says “price on request”", () => {
-    for (const l of ["en", "bs"] as const) for (const p of clubCopy(l).membership.defaultPlans) expect(p.price).toBeUndefined();
+  it("shows the prices the hotel gave (CH-044: full 135 KM, student 90 KM) and nothing else", () => {
+    for (const l of ["en", "bs"] as const) expect(clubCopy(l).membership.defaultPlans.map((p) => p.price)).toEqual(["135", "90"]);
     expect(mergeClub(null, defaults).plans).toBe(defaults);
+  });
+
+  it("keeps the club's own timetable until staff enter classes or a timetable picture", () => {
+    expect(mergeClub(null, defaults, defaultClasses).timetable.classes).toBe(defaultClasses);
+    expect(mergeClub({ classes: [] } as unknown as FitnessClub, defaults, defaultClasses).timetable.classes).toBe(defaultClasses);
+    expect(defaultClasses).toHaveLength(19);
   });
 
   it("keeps valid plans and classes, drops broken ones, sorts nothing away", () => {

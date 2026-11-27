@@ -61,23 +61,23 @@ test("admin publishes Bosnian text and a list: Bosnian home changes, English doe
 
 test("a photograph can be swapped; alt text is required; the focus point is validated; restore brings the original back", async ({ request }) => {
   const before = await (await request.get("/en")).text();
-  expect(before).toContain("%2Fimages%2F3075.jpg");
+  expect(before).toContain("%2Fimages%2Fhome%2Ffacade-warm.jpg"); // the built-in hero (CH-023)
   // missing alt text, malformed focus point and unknown files are refused
-  expect((await publish({ hero: { image: { staticPath: "3064.jpg" } } })).status()).toBe(400);
-  expect((await publish({ hero: { image: { staticPath: "3064.jpg", alt: "x", position: "url(javascript:1)" } } })).status()).toBe(400);
+  expect((await publish({ hero: { image: { staticPath: "3075.jpg" } } })).status()).toBe(400);
+  expect((await publish({ hero: { image: { staticPath: "3075.jpg", alt: "x", position: "url(javascript:1)" } } })).status()).toBe(400);
   expect((await publish({ hero: { image: { staticPath: "not-on-the-site.jpg", alt: "x" } } })).status()).toBe(400);
 
-  expect((await publish({ hero: { image: { staticPath: "3064.jpg", alt: `New hero ${stamp}`, position: "30% 40%" } } })).status()).toBe(200);
+  expect((await publish({ hero: { image: { staticPath: "3075.jpg", alt: `New hero ${stamp}`, position: "30% 40%" } } })).status()).toBe(200);
   const after = await (await request.get("/en")).text();
-  expect(after).toContain("%2Fimages%2F3064.jpg");
+  expect(after).toContain("%2Fimages%2F3075.jpg");
   expect(after).toContain(`alt="New hero ${stamp}"`);
   expect(after).toContain("object-position:30% 40%");
-  expect(after).not.toContain("lit at night"); // the old description does not stay with the new photograph
+  expect(after).not.toContain("under a bright sky"); // the old description does not stay with the new photograph
 
   expect((await publish({ hero: { image: { staticPath: null, upload: null, alt: "", position: "" } } })).status()).toBe(200);
   const restored = await (await request.get("/en")).text();
-  expect(restored).toContain("%2Fimages%2F3075.jpg");
-  expect(restored).toContain("lit at night");
+  expect(restored).toContain("%2Fimages%2Fhome%2Ffacade-warm.jpg");
+  expect(restored).toContain("under a bright sky");
   expect(restored).not.toContain("object-position:30% 40%");
 });
 
@@ -120,6 +120,6 @@ test("the booking form, links and section structure are the same after edits", a
   const form = page.locator('form[action*="ipms247"]').first();
   await expect(form).toHaveAttribute("action", "https://live.ipms247.com/booking/book-rooms-hotelcentralsarajevo");
   for (const name of ["eZ_chkin", "eZ_chkout", "eZ_Nights", "eZ_adult", "eZ_child", "eZ_room", "hidBodyLanguage"]) await expect(form.locator(`input[name="${name}"]`)).toHaveCount(1);
-  for (const href of ["/en/about", "/en/spa", "/en/restaurant", "/en/location", "/en/meetings-events"]) await expect(page.locator(`main a[href="${href}"]`).first()).toBeAttached();
+  for (const href of ["/en/about", "/en/centralfitnessclub", "/en/dayspa", "/en/about/cafe", "/en/location", "/en/meetings-events"]) await expect(page.locator(`main a[href="${href}"]`).first()).toBeAttached();
   expect((await publish({ hero: { tagline: "A distinctive stay in the heart of Sarajevo." } })).status()).toBe(200);
 });

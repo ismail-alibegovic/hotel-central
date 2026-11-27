@@ -5,7 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { CLUB_BOOKING_URL, clubCopy, classTypes } from "../../src/content/club";
+import { CLUB_BOOKING_URL, classInfo, classTypes, clubCopy, defaultClasses } from "../../src/content/club";
 import { clientCopy } from "../../src/content/clientCopy";
 import { faqSections } from "../../src/content/faq";
 import { DAYSPA_BOOKING_URL, daySpaCopy, spaCategories, spaPackages } from "../../src/content/dayspa";
@@ -52,12 +52,15 @@ function split(o: { label: string; title: string[]; body: string[]; images: stri
 
 const facts = (items: { k: string; v: string }[], cls = "") => text(`<dl class="hc-facts">${items.map((f) => `<div><dt>${f.k}</dt><dd>${f.v}</dd></div>`).join("")}</dl>`, cls);
 
-function finalBooking(lang: Lang, bg = "images/3075.jpg"): El {
+/** CH-030: a bright, welcoming photograph by default (it used to be the façade at night). */
+function finalBooking(lang: Lang, bg = "images/home/facade-warm.jpg"): El {
   const f = getDictionary(lang).home.final;
   return box("hc-final", [box("hc-final__inner", [heading(f.label, "p", "hc-eyebrow"), heading(lines(f.title), "h2", "hc-display"), text(`<p>${f.body}</p>`, "hc-body"), btn(f.cta, booking.bookingUrl, "hc-btn--solid")])], { bg });
 }
 
 /* ─────────────────────────── Pages ─────────────────────────── */
+
+const parseFaq = (lang: Lang) => faqSections[lang].map((sec) => ({ title: sec.title, items: sec.items.map((i) => ({ q: i.q, a: i.a.join("</p><p>") })) }));
 
 type PageDef = { key: string; brand: "hotel" | "spa" | "club"; parent?: string; slug: Record<Lang, string>; title: Record<Lang, string>; description: Record<Lang, string>; build: (lang: Lang) => El[]; front?: boolean };
 const pages: PageDef[] = [];
@@ -75,10 +78,10 @@ add({
     const u = x.ui[lang];
     const b = x.homeBrands[lang];
     return [
-      box("hc-hero hc-hero--home", [box("hc-hero__inner", [heading(d.heroLabel, "p", "hc-eyebrow"), heading(lines(d.heroTitle), "h1", "hc-hero__title"), text(`<p>${d.heroTagline}</p><p class="hc-small">${d.heroNote}</p>`, "hc-hero__intro"), box("hc-btns", [btn(u.bookStay, booking.bookingUrl, "hc-btn--solid"), btn(u.rooms, page("rooms"), "hc-btn--light")], { row: true })])], { bg: "images/3075.jpg" }),
+      box("hc-hero hc-hero--home", [box("hc-hero__inner", [heading(d.heroLabel, "p", "hc-eyebrow"), heading(lines(d.heroTitle), "h1", "hc-hero__title"), text(`<p>${d.heroTagline}</p><p class="hc-small">${d.heroNote}</p>`, "hc-hero__intro"), box("hc-btns", [btn(u.bookStay, booking.bookingUrl, "hc-btn--solid"), btn(u.rooms, page("rooms"), "hc-btn--light")], { row: true })])], { bg: "images/home/facade-warm.jpg" }), // CH-023: the bright, warm façade
       box("hc-intro", [
         box("hc-intro__head", [heading(d.hotel.metaRightSub, "p", "hc-eyebrow"), heading(lines(d.hotel.title), "h2", "hc-display hc-display--xl")]),
-        box("hc-intro__photos", [image("images/hc26-lobby-windows.jpg"), image("images/hc26-facade-entrance.jpg"), image("images/hc26-restaurant.jpg")], { row: true }),
+        box("hc-intro__photos", [image("images/hc26-lobby-windows.jpg"), image("images/hc26-facade-entrance.jpg"), image("images/hc26-cafe-corner.jpg")], { row: true }),
         box("hc-intro__foot", [text(`<p>${d.hotel.body}</p>`, "hc-body"), btn(d.hotel.cta, page("about"))], { row: true }),
       ]),
       box("hc-roomgrid", [
@@ -92,7 +95,8 @@ add({
           box("hc-door hc-door--spa", [image("brand/dayspa-on-dark.png", "hc-door__logo"), heading(d.spa.dayspa.name, "h3", "hc-door__title"), text(`<p>${d.spa.dayspa.body}</p>`, "hc-door__body"), btn(d.spa.dayspa.cta, page("dayspa"), "hc-btn--light")], { bg: "images/dayspa/treatment-room.jpg" }),
         ], { row: true }),
       ]),
-      split({ label: d.restaurant.metaLeft, title: d.restaurant.title, body: [d.restaurant.body, d.restaurant.body2], images: ["images/hc26-restaurant.jpg", "images/dorucak6.jpg"], ctas: [btn(d.restaurant.cta, page("restaurant"))] }),
+      // CH-022: Central Café (no restaurant), with catering on request.
+      split({ label: d.restaurant.metaLeft, title: d.restaurant.title, body: [d.restaurant.body, d.restaurant.body2], images: ["images/hc26-cafe-corner.jpg", "images/dorucak6.jpg"], ctas: [btn(d.restaurant.cta, page("cafe"))] }),
       // CH-005: meetings & events before location.
       split({ label: d.events.metaLeft, title: d.events.title, body: [d.events.body], images: ["images/hc26-conference.jpg", "images/hc26-conference-foyer.jpg"], tone: "sage", reverse: true, ctas: [btn(d.events.cta, page("conference"))] }),
       box("hc-location", [
@@ -110,39 +114,38 @@ add({
   description: L(getPages("en").about.meta.description, getPages("bs").about.meta.description),
   build: (lang) => {
     const a = getPages(lang).about;
-    const u = x.ui[lang];
     const r = x.aboutRooms[lang];
     return [
       hero("images/hc26-facade-sky.jpg", a.hero.eyebrow, a.hero.title, a.hero.intro),
       split({ label: a.story.label.replace(/^\(\d+\)\s*/, ""), title: a.story.title, body: a.story.body, images: ["images/hc26-facade-entrance.jpg", "images/hc26-lobby.jpg"], extra: [facts(a.facts)] }),
       split({ label: a.rooms.label.replace(/^\(\d+\)\s*/, ""), title: r.title, body: r.body, images: ["images/hc26-bed.jpg", "images/hc26-room-door.jpg"], tone: "sage", reverse: true, ctas: [btn(a.rooms.cta, page("rooms"))] }),
       split({ label: a.wellness.label.replace(/^\(\d+\)\s*/, ""), title: a.wellness.title, body: a.wellness.body, images: ["images/hc26-pool-lanes.jpg", "images/hc26-dayspa-relax.jpg"], tone: "olive", ctas: [btn("Central Fitness Club", page("club"), "hc-btn--light"), btn("Central Day Spa", page("dayspa"), "hc-btn--light")] }),
-      box("hc-teasers", [
-        box("hc-teaser", [image("images/hc26-cafe-corner.jpg", "hc-teaser__img"), heading(u.cafe, "h3", "hc-teaser__title"), text(`<p>${x.cafe[lang].intro}</p>`, "hc-body"), btn(u.more, page("cafe"))]),
-        box("hc-teaser", [image("images/hc26-reception.jpg", "hc-teaser__img"), heading(u.faq, "h3", "hc-teaser__title"), text(`<p>${lang === "en" ? "Check-in and check-out, breakfast, parking, the club and the spa: the answers to the questions we hear most." : "Prijava i odjava, doručak, parking, klub i spa: odgovori na pitanja koja najčešće čujemo."}</p>`, "hc-body"), btn(u.more, page("faq"))]),
-      ], { row: true }),
+      // CH-029: "Good to know" is the FAQ itself, opened in place (no café teaser).
+      box("hc-faq hc-faq--about", [heading("FAQ", "p", "hc-eyebrow"), heading(lang === "en" ? "Good to know" : "Dobro je znati", "h2", "hc-display"), accordion(parseFaq(lang).flatMap((sec) => sec.items), "hc-accordion")], { anchor: "faq" }),
       box("hc-gallery", [gallery(["images/hc26-lounge-window.jpg", "images/hc26-lobby-entrance.jpg", "images/hc26-stairs.jpg", "images/hc26-corridor.jpg", "images/p05.jpg", "images/hc26-keycard.jpg", "images/hc26-room-desk.jpg", "images/hc26-doormat.jpg"])]),
       finalBooking(lang, "images/hc26-lobby.jpg"),
     ];
   },
 });
 
-// Central Café (CH-007)
+// Central Café (CH-007), with the restaurant folded in: drinks, sweet treats and catering on request (CH-022)
 add({
   key: "cafe", brand: "hotel", parent: "about", slug: L("cafe", "central-cafe"), title: L("Central Café", "Central Café"),
-  description: L(x.cafe.en.intro, x.cafe.bs.intro),
+  description: L(getPages("en").cafe.meta.description, getPages("bs").cafe.meta.description),
   build: (lang) => {
     const c = x.cafe[lang];
+    const k = getPages(lang).cafe.catering;
     return [
       heroNatural("images/hc26-cafe-corner.jpg", "Hotel Central · Ćumurija 8", ["Central", "Café"], "is-cafe"),
       split({ label: c.title, title: [c.offerTitle], body: c.body, images: ["images/hc26-cafe-guest.jpg"], extra: [list(c.offer.map((t) => ({ text: t })), "hc-list"), heading(c.hoursTitle, "h3", "hc-subhead"), shortcode('[hc_hours place="cafe"]', "hc-hours")] }),
+      split({ label: k.label.replace(/^\(\d+\)\s*/, ""), title: k.title, body: k.body, images: ["images/dorucak4.jpg", "images/dorucak6.jpg"], tone: "olive", reverse: true, ctas: [btn(k.cta, `mailto:${hotel.email}?subject=${encodeURIComponent(k.cta)}`, "hc-btn--light"), btn(k.events, page("conference"), "hc-btn--light")] }),
       box("hc-gallery", [gallery(["images/hc26-cafe-window.jpg", "images/hc26-lobby-lounge.jpg", "images/hc26-lobby-windows.jpg", "images/hc26-lobby.jpg"])]),
+      finalBooking(lang, "images/hc26-lobby-windows.jpg"),
     ];
   },
 });
 
 // FAQ (from the hotel's own FAQ page)
-const parseFaq = (lang: Lang) => faqSections[lang].map((sec) => ({ title: sec.title, items: sec.items.map((i) => ({ q: i.q, a: i.a.join("</p><p>") })) }));
 add({
   key: "faq", brand: "hotel", parent: "about", slug: L("faq", "cesta-pitanja"), title: L("FAQ", "Česta pitanja"),
   description: L("Answers about Hotel Central Sarajevo: check-in, breakfast, parking, Central Fitness Club, Central Day Spa and the café.", "Odgovori o Hotelu Central Sarajevo: prijava, doručak, parking, Central Fitness Club, Central Day Spa i kafić."),
@@ -189,21 +192,7 @@ for (const room of rooms) {
   });
 }
 
-// Restaurant
-add({
-  key: "restaurant", brand: "hotel", slug: L("restaurant", "restoran"), title: L("Restaurant Central", "Restoran Central"),
-  description: L(getPages("en").restaurant.meta.description, getPages("bs").restaurant.meta.description),
-  build: (lang) => {
-    const r = getPages(lang).restaurant;
-    return [
-      heroNatural("images/hc26-restaurant.jpg", "Hotel Central · Ćumurija 8", r.hero.title),
-      split({ label: r.breakfast.label.replace(/^\(\d+\)\s*/, ""), title: r.breakfast.title, body: [...r.breakfast.body, lang === "en" ? "Breakfast is served every morning from 07:00 to 10:00 and is included in every stay." : "Doručak se služi svako jutro od 07:00 do 10:00 i uključen je u svaki boravak."], images: ["images/hc-comfort-2.jpg", "images/dorucak6.jpg"] }),
-      box("hc-gallery", [gallery(["images/dorucak4.jpg", "images/dorucak1.jpg", "images/breakfast2.jpg", "images/dorucak2.jpg", "images/breakfast3.jpg", "images/hc26-restaurant.jpg"], "", 3)]),
-      split({ label: r.catering.label.replace(/^\(\d+\)\s*/, ""), title: r.catering.title, body: r.catering.body, images: ["images/breakfast1.jpg", "images/dorucak3.jpg"], tone: "olive", reverse: true, ctas: [btn(r.catering.cta, page("contact"), "hc-btn--light")] }),
-      finalBooking(lang),
-    ];
-  },
-});
+// Restaurant: no page of its own any more (CH-022); the café page under About covers drinks and catering.
 
 // Meetings & events (CH-014)
 add({
@@ -250,7 +239,7 @@ add({
       box("hc-contact", [
         card(c.reception, c.receptionBody, [shortcode("[hc_contact what=phone]", "hc-contact__line"), shortcode("[hc_contact what=email]", "hc-contact__line"), btn(u.book, booking.bookingUrl, "hc-btn--solid")]),
         card(c.events, c.eventsBody, [shortcode("[hc_contact what=email]", "hc-contact__line"), btn(lang === "en" ? "Meetings & events" : "Sastanci i događaji", page("conference"))]),
-        card(c.spa, c.spaBody, [shortcode("[hc_contact what=spa_phone]", "hc-contact__line"), shortcode('[hc_hours place="spa"]', "hc-contact__line"), btn("Central Day Spa", page("dayspa"))]),
+        card(c.spa, c.spaBody, [shortcode("[hc_contact what=spa_phone]", "hc-contact__line"), shortcode("[hc_contact what=spa_email]", "hc-contact__line"), shortcode('[hc_hours place="spa"]', "hc-contact__line"), btn("Central Day Spa", page("dayspa"))]),
         card(c.club, c.clubBody, [shortcode("[hc_contact what=club_phone]", "hc-contact__line"), btn("Central Fitness Club", page("club"))]),
         card(c.social, "", [shortcode("[hc_social]", "hc-contact__line")]),
       ], { row: true }),
@@ -292,7 +281,7 @@ add({
         text(`<nav class="ds-pricenav" aria-label="${c.prices.label}">${spaCategories.map((cat, i) => `<a href="#prices-${cat.id}"><span>${String(i + 1).padStart(2, "0")}</span>${cat.name[lang]}</a>`).join("")}</nav>`, "ds-pricenav-wrap"),
         ...spaCategories.map((cat) => box("ds-pricecat", [heading(cat.name[lang], "h3", "ds-pricecat__title"), text(`<p>${cat.summary[lang]}</p>`, "ds-pricecat__summary"), ...cat.items.map((t) => box("ds-row", [heading(t.name[lang] + (t.note ? `<small>${t.note[lang]}</small>` : ""), "p", "ds-row__name"), heading(t.duration ?? "", "p", "ds-row__dur"), heading(`${t.price} KM`, "p", "ds-row__price")], { row: true }))], { anchor: `prices-${cat.id}` })),
       ], { anchor: "prices" }),
-      box("ds-packages", [heading(c.packages.label, "p", "ds-eyebrow"), heading(c.packages.title, "h2", "ds-title"), box("ds-packages__grid", spaPackages.map((p, i) => box(`ds-package${i === 1 ? " is-featured" : ""}`, [heading(p.name[lang], "h3", "ds-package__name"), heading(`${p.price} KM <small>/ ${p.duration}</small>`, "p", "ds-package__price"), list(p.includes.map((t) => ({ text: t[lang] })), "ds-ticks"), dsBtn(c.packages.book, book, i === 1 ? "ds-btn--light" : "")])), { row: true })], { anchor: "packages" }),
+      box("ds-packages", [heading(c.packages.label, "p", "ds-eyebrow"), heading(c.packages.title, "h2", "ds-title"), box("ds-packages__grid", spaPackages.map((p, i) => box(`ds-package${i === 1 ? " is-featured" : ""}`, [...(i === 1 ? [heading(c.packages.popular, "p", "ds-package__badge")] : []), heading(p.name[lang], "h3", "ds-package__name"), heading(`${p.price} KM <small>/ ${p.duration}</small>`, "p", "ds-package__price"), list(p.includes.map((t) => ({ text: t[lang] })), "ds-ticks"), dsBtn(c.packages.book, book, i === 1 ? "ds-btn--light" : "")])), { row: true })], { anchor: "packages" }),
       box("ds-members", [heading(ig[lang].members.eyebrow, "p", "ds-eyebrow"), heading(ig[lang].members.title, "h2", "ds-title"), text(`<p>${ig[lang].members.body}</p>`, "ds-members__body"), editorNote(ig[lang].members.note),
         box("ds-members__grid", ig[lang].members.items.map((m) => box("ds-member", [heading(m.name, "h3", "ds-member__name"), text(`<p>${m.what}</p>`, "ds-member__what"), heading(`${m.price} KM`, "p", "ds-member__price")])), { row: true }),
         dsBtn(c.hero.cta, book, "ds-btn--light")], { anchor: "members" }),
@@ -301,7 +290,7 @@ add({
         box("ds-why__media", [image("images/dayspa/serum-drop.jpg", "ds-fill"), image("images/dayspa/maderotherapy-tools.jpg", "ds-fill"), image("images/dayspa/corridor.jpg", "ds-fill ds-why__wide")], { row: true }),
       ], { row: true }),
       box("ds-gallery", [gallery(["images/dayspa/treatment-room.jpg", "images/dayspa/relax-lounger.jpg", "images/dayspa/candle.jpg", "images/dayspa/relax-lamp.jpg", "images/dayspa/facial-room.jpg", "images/dayspa/balneo-room.jpg", "images/dayspa/yin-yang.jpg", "images/dayspa/products.jpg"], "", 4)]),
-      box("ds-cta", [heading(c.cta.eyebrow, "p", "ds-eyebrow"), heading(c.cta.title, "h2", "ds-title"), box("ds-btns", [dsBtn(c.cta.book, book, "ds-btn--light"), shortcode("[hc_contact what=spa_phone style=button]", "ds-cta__phone")], { row: true })], { bg: "images/dayspa/massage-room-oil.jpg", anchor: "book" }),
+      box("ds-cta", [heading(c.cta.eyebrow, "p", "ds-eyebrow"), heading(c.cta.title, "h2", "ds-title"), box("ds-btns", [dsBtn(c.cta.book, book, "ds-btn--light"), shortcode("[hc_contact what=spa_phone style=button]", "ds-cta__phone"), shortcode("[hc_contact what=spa_email style=button]", "ds-cta__phone")], { row: true })], { bg: "images/dayspa/massage-room-oil.jpg", anchor: "book" }),
     ];
   },
 });
@@ -370,25 +359,30 @@ add({
     const mail = `mailto:${hotel.email}?subject=${encodeURIComponent("Central Fitness Club")}`;
     return [
       box("cfc-hero cfc-hero--page", [heading(m.eyebrow, "p", "cfc-eyebrow"), heading(m.title, "h1", "cfc-hero__title"), text(`<p>${m.body}</p>`, "cfc-hero__body")], { bg: "images/club/member-tshirt.jpg" }),
-      box("cfc-green", [heading(m.plansTitle, "h2", "cfc-title"), box("cfc-plans", m.defaultPlans.map((p) => box(`cfc-plan${p.highlight ? " is-featured" : ""}`, [heading(p.name, "h3", "cfc-plan__name"), heading(p.price ? `${p.price} KM` : m.onRequest, "p", "cfc-plan__price"), list(p.features.map((t) => ({ text: t })), "cfc-dashes"), box("cfc-btns", [shortcode("[hc_contact what=club_phone style=button]", ""), cfcBtn(m.ask, mail, "cfc-btn--line")], { row: true })])), { row: true }), text(`<p>${lang === "en" ? "Monthly and other memberships: ask at reception or call the club." : "Mjesečne i druge članarine: pitajte na recepciji ili pozovite klub."}</p>`, "cfc-on-green cfc-small"), editorNote(lang === "en" ? "Add each plan and its price here in Elementor: duplicate the yellow card, change the name, price and what it includes." : "Svaku članarinu i cijenu dodajte ovdje u Elementoru: duplicirajte žutu karticu i promijenite naziv, cijenu i šta uključuje.")]),
-      box("cfc-benefits", [box("cfc-benefits__text", [heading(m.benefitsTitle, "h2", "cfc-title"), list([...c.benefits.items, ig[lang].members.club].map((t) => ({ text: t })), "cfc-numbered"), cfcBtn(ig[lang].members.title, page("dayspa", "#members"), "cfc-btn--line")]), box("cfc-tour", [heading(m.tourTitle, "h3", "cfc-title"), text(`<p>${m.tourBody}</p>`, "cfc-on-green"), shortcode("[hc_contact what=club_phone style=button]", "")], { bg: "images/club/spin-window.jpg" })], { row: true }),
+      box("cfc-green", [heading(m.plansTitle, "h2", "cfc-title"), box("cfc-plans", m.defaultPlans.map((p) => box(`cfc-plan${p.highlight ? " is-featured" : ""}`, [heading(p.name, "h3", "cfc-plan__name"), heading(p.price ? `${p.price} KM` : m.onRequest, "p", "cfc-plan__price"), list(p.features.map((t) => ({ text: t })), "cfc-dashes"), box("cfc-btns", [shortcode("[hc_contact what=club_phone style=button]", ""), cfcBtn(m.ask, mail, "cfc-btn--line")], { row: true })])), { row: true }), editorNote(lang === "en" ? "Add each plan and its price here in Elementor: duplicate the yellow card, change the name, price and what it includes." : "Svaku članarinu i cijenu dodajte ovdje u Elementoru: duplicirajte žutu karticu i promijenite naziv, cijenu i šta uključuje.")]),
+      box("cfc-benefits", [box("cfc-benefits__text", [heading(m.benefitsTitle, "h2", "cfc-title"), list(c.benefits.items.map((t) => ({ text: t })), "cfc-numbered"), cfcBtn(ig[lang].members.title, page("dayspa", "#members"), "cfc-btn--line")]), box("cfc-tour", [heading(m.tourTitle, "h3", "cfc-title"), text(`<p>${m.tourBody}</p>`, "cfc-on-green"), shortcode("[hc_contact what=club_phone style=button]", "")], { bg: "images/club/spin-window.jpg" })], { row: true }),
     ];
   },
 });
 
 add({
-  key: "club-timetable", brand: "club", parent: "club", slug: L("timetable", "raspored"), title: L("Class timetable", "Raspored časova"),
+  key: "club-timetable", brand: "club", parent: "club", slug: L("timetable", "raspored"), title: L("Classes & timetable", "Časovi i raspored"),
   description: L(clubCopy("en").meta.timetableDescription, clubCopy("bs").meta.timetableDescription),
   build: (lang) => {
     const t = clubCopy(lang).timetable;
-    const day = (d: number) => box("cfc-day", [heading(t.days[d], "h3", "cfc-day__name"), text(`<p>${t.noClasses}</p>`, "cfc-muted cfc-small")]);
+    // CH-043: the club's own weekly timetable and class descriptions; staff edit both in Elementor.
+    const day = (d: number) => {
+      const items = defaultClasses.filter((k) => k.day === d).sort((a, b) => a.time.localeCompare(b.time));
+      return box("cfc-day", [heading(t.days[d], "h3", "cfc-day__name"), items.length ? list(items.map((k) => ({ text: `<strong>${k.time}</strong> ${k.name}${k.duration ? ` <small>· ${k.duration}</small>` : ""}` })), "cfc-day__list") : text(`<p>${t.noClasses}</p>`, "cfc-muted cfc-small")]);
+    };
     return [
       box("cfc-hero cfc-hero--page", [heading(t.eyebrow, "p", "cfc-eyebrow"), heading(t.title, "h1", "cfc-hero__title"), text(`<p>${t.body}</p>`, "cfc-hero__body")], { bg: "images/club/studio.jpg" }),
       box("cfc-sunblock", [heading(ig[lang].timetable.title, "h2", "cfc-title"), text(`<p>${ig[lang].timetable.body}</p>`, "cfc-ink"), box("cfc-btns", [cfcBtn(ig[lang].bookClass, clubBook(lang)), shortcode("[hc_contact what=club_phone style=button]", "")], { row: true }), heading(t.typesTitle, "h3", "cfc-subhead"), list(classTypes.map((x) => ({ text: x })), "cfc-chips")]),
       box("cfc-week", [
-        editorNote(lang === "en" ? "Fill in each day below in Elementor (one line per class: time, class, trainer), or replace this block with a picture of the monthly timetable." : "Upišite svaki dan ispod u Elementoru (jedan red po času: vrijeme, čas, trener) ili ovaj blok zamijenite slikom mjesečnog rasporeda."),
+        editorNote(lang === "en" ? "When the timetable changes, edit the days below in Elementor (one line per class: time, class, duration)." : "Kada se raspored promijeni, uredite dane ispod u Elementoru (jedan red po času: vrijeme, čas, trajanje)."),
         box("cfc-week__grid", [0, 1, 2, 3, 4, 5, 6].map(day), { row: true }),
       ]),
+      box("cfc-classinfo", [heading(t.typesTitle, "h2", "cfc-title"), text(`<p>${t.typesBody}</p>`, "cfc-muted"), box("cfc-classinfo__grid", classInfo.filter((k) => k.about).map((k) => box("cfc-classcard", [heading(`${k.name}${k.minutes ? ` <small>${k.minutes} min</small>` : ""}`, "h3", "cfc-classcard__name"), text(`<p>${k.about![lang]}</p>`, "cfc-muted")])), { row: true })], { anchor: "classes" }),
     ];
   },
 });
@@ -402,11 +396,12 @@ const out = {
     { slug: "bs", name: "Bosanski", locale: "bs_BA" },
   ],
   pages: [] as unknown[],
-  menus: {} as Record<string, Record<Lang, { label: string; target: string }[]>>,
+  menus: {} as Record<string, Record<Lang, { label: string; target: string; parent?: string }[]>>,
   settings: {
     phone: hotel.phoneDisplay,
     email: hotel.email,
     spa_phone: "+387 33 561 830",
+    spa_email: "dayspa@hotelcentral.ba", // CH-054
     club_phone: hotel.phoneDisplay,
     booking_url: booking.bookingUrl,
     spa_booking_url: DAYSPA_BOOKING_URL,
@@ -418,7 +413,7 @@ const out = {
     address: `${hotel.street}, ${hotel.postalCode} ${hotel.city}`,
     // Hours from the hotel's FAQ (Day Spa, breakfast, check-in). Café and club hours are filled in by the hotel.
     hours: {
-      spa: L("Tuesday – Saturday: 11:00 – 20:00", "Utorak – subota: 11:00 – 20:00"),
+      spa: L("Tuesday – Saturday: 11:00 – 20:00\nSunday, Monday: Closed", "Utorak – subota: 11:00 – 20:00\nNedjelja, ponedjeljak: Zatvoreno"), // CH-055
       breakfast: L("Every day: 07:00 – 10:00", "Svaki dan: 07:00 – 10:00"),
       checkin: L("Check-in from 15:00 · check-out until 11:00", "Prijava od 15:00 · odjava do 11:00"),
       cafe: L("", ""),
@@ -437,11 +432,12 @@ pages.forEach((p, i) => {
   });
 });
 
-const menu = (lang: Lang, items: [string, string][]) => items.map(([label, target]) => ({ label, target }));
+const menu = (lang: Lang, items: ([string, string] | [string, string, string])[]) => items.map(([label, target, parent]) => ({ label, target, ...(parent ? { parent } : {}) }));
 const nav = (lang: Lang) => getDictionary(lang).nav;
 out.menus.hotel = {
-  en: menu("en", [["Home", "home"], ["About", "about"], ["Rooms & Suites", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restaurant", "restaurant"], ["Central Café", "cafe"], ["Meetings & Events", "conference"], ["Location", "location"], ["Contact", "contact"]]),
-  bs: menu("bs", [["Početna", "home"], ["O nama", "about"], ["Sobe i apartmani", "rooms"], ["Fitness Club", "club"], ["Day Spa", "dayspa"], ["Restoran", "restaurant"], ["Central Café", "cafe"], ["Sastanci i događaji", "conference"], ["Lokacija", "location"], ["Kontakt", "contact"]]),
+  // CH-021: full brand names; CH-022: the café (with catering) sits under About, no restaurant entry.
+  en: menu("en", [["Home", "home"], ["About", "about"], ["Central Café", "cafe", "about"], ["Rooms & Suites", "rooms"], ["Central Fitness Club", "club"], ["Central Day Spa", "dayspa"], ["Meetings & Events", "conference"], ["Location", "location"], ["Contact", "contact"]]),
+  bs: menu("bs", [["Početna", "home"], ["O nama", "about"], ["Central Café", "cafe", "about"], ["Sobe i apartmani", "rooms"], ["Central Fitness Club", "club"], ["Central Day Spa", "dayspa"], ["Sastanci i događaji", "conference"], ["Lokacija", "location"], ["Kontakt", "contact"]]),
 };
 void nav;
 out.menus.spa = {
@@ -449,10 +445,11 @@ out.menus.spa = {
   bs: menu("bs", [["Tretmani", "dayspa#treatments"], ["Cjenovnik", "dayspa#prices"], ["Paketi", "dayspa#packages"], ["O nama", "dayspa#about"], ["Kontakt", "dayspa#contact"]]),
 };
 out.menus.club = {
-  en: menu("en", [["The club", "club#club"], ["Pool & saunas", "club#pool"], ["Classes", "club#classes"], ["Membership", "club-membership"], ["Timetable", "club-timetable"], ["Contact", "club#contact"]]),
-  bs: menu("bs", [["Klub", "club#club"], ["Bazen i saune", "club#pool"], ["Časovi", "club#classes"], ["Članarine", "club-membership"], ["Raspored", "club-timetable"], ["Kontakt", "club#contact"]]),
+  // CH-043: the timetable is under "Classes" (one entry), not a separate option.
+  en: menu("en", [["The club", "club#club"], ["Pool & sauna", "club#pool"], ["Classes", "club-timetable"], ["Membership", "club-membership"], ["Contact", "club#contact"]]),
+  bs: menu("bs", [["Klub", "club#club"], ["Bazen i sauna", "club#pool"], ["Časovi", "club-timetable"], ["Članarine", "club-membership"], ["Kontakt", "club#contact"]]),
 };
-out.menus.legal = { en: menu("en", [["Privacy policy", "privacy"], ["FAQ", "faq"], ["Central Café", "cafe"]]), bs: menu("bs", [["Politika privatnosti", "privacy"], ["Česta pitanja", "faq"], ["Central Café", "cafe"]]) };
+out.menus.legal = { en: menu("en", [["Privacy policy", "privacy"], ["FAQ", "about#faq"]]), bs: menu("bs", [["Politika privatnosti", "privacy"], ["Česta pitanja", "about#faq"]]) };
 
 // Every photograph the pages use, with a description (the importer imports each once).
 const used = new Set<string>();

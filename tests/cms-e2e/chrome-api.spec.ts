@@ -1,4 +1,5 @@
 import { expect, request as pwRequest, test, type APIRequestContext } from "@playwright/test";
+import { booking, hotel } from "../../src/content/hotel";
 
 /**
  * Navigation and Footer globals over HTTP: publishing per language, draft isolation, roles, link safety.
@@ -42,7 +43,7 @@ test.beforeAll(async () => {
 
 test("the seeded globals render the same menu and footer as the built-in site", async ({ request }) => {
   const en = await (await request.get("/en")).text();
-  expect(exploreLinks(en)).toEqual(["/en/about", "/en/rooms", "/en/centralfitnessclub", "/en/dayspa", "/en/restaurant", "/en/meetings-events", "/en/location", "/en/contact"]);
+  expect(exploreLinks(en)).toEqual(["/en/about", "/en/about/cafe", "/en/rooms", "/en/centralfitnessclub", "/en/dayspa", "/en/meetings-events", "/en/location", "/en/contact"]);
   expect(en).toContain("Skip to content");
   expect(await (await request.get("/bs")).text()).toContain("Sobe i apartmani");
 });
@@ -52,11 +53,11 @@ test("admin publishes Bosnian wording: it shows on every Bosnian page and never 
   const nav = await getGlobal(admin, "navigation", "bs");
   const items = nav.items.map((r: any, i: number) => (i === 2 ? { ...r, label: `Sobe ${stamp}` } : r));
   expect((await publishNav({ menuLabel: stamp, items }, "bs")).status()).toBe(200);
-  for (const p of ["/bs", "/bs/restaurant", "/bs/rooms/junior-suite"]) {
+  for (const p of ["/bs", "/bs/about/cafe", "/bs/rooms/junior-suite"]) {
     const html = await (await request.get(p)).text();
     expect(html, p).toContain(stamp);
   }
-  for (const p of ["/en", "/en/restaurant"]) expect(await (await request.get(p)).text(), p).not.toContain(stamp);
+  for (const p of ["/en", "/en/about/cafe"]) expect(await (await request.get(p)).text(), p).not.toContain(stamp);
   // restore
   const restore = nav.items.map((r: any) => r);
   expect((await publishNav({ menuLabel: nav.menuLabel, items: restore }, "bs")).status()).toBe(200);
@@ -65,31 +66,31 @@ test("admin publishes Bosnian wording: it shows on every Bosnian page and never 
 
 test("hiding an entry removes it from the menu and the footer; the booking link is untouched; restore brings it back", async ({ request }) => {
   const nav = await getGlobal(admin, "navigation", "en");
-  const hide = nav.items.map((r: any) => (r.path === "/restaurant" ? { ...r, visible: false } : r));
+  const hide = nav.items.map((r: any) => (r.path === "/about/cafe" ? { ...r, visible: false } : r));
   expect((await publishNav({ items: hide })).status()).toBe(200);
-  const html = await (await request.get("/en/restaurant")).text();
-  expect(exploreLinks(html)).not.toContain("/en/restaurant");
-  expect(html).toContain("live.ipms247.com");
+  const html = await (await request.get("/en/about/cafe")).text();
+  expect(exploreLinks(html)).not.toContain("/en/about/cafe");
+  expect(html).toContain(booking.bookingUrl);
   expect((await publishNav({ items: nav.items })).status()).toBe(200);
-  expect(exploreLinks(await (await request.get("/en/restaurant")).text())).toContain("/en/restaurant");
+  expect(exploreLinks(await (await request.get("/en/about/cafe")).text())).toContain("/en/about/cafe");
 });
 
 test("an editor's changes are drafts: invisible to the public and to a stolen draft cookie, visible in staff preview", async ({ request }) => {
   const secret = `EDITOR-MENU-${Date.now()}`;
   expect((await setGlobal(editor, "navigation", "en", { menuLabel: secret }, true)).status()).toBe(200);
   expect((await setGlobal(editor, "footer", "en", { rights: secret }, true)).status()).toBe(200);
-  expect(await (await request.get("/en/restaurant")).text()).not.toContain(secret);
+  expect(await (await request.get("/en/about/cafe")).text()).not.toContain(secret);
 
-  const bypass = await previewCookie(editor, "/en/restaurant");
-  const preview = await (await editor.get("/en/restaurant", { headers: { cookie: bypass } })).text();
+  const bypass = await previewCookie(editor, "/en/about/cafe");
+  const preview = await (await editor.get("/en/about/cafe", { headers: { cookie: bypass } })).text();
   expect(preview).toContain(secret);
   const thief = await pwRequest.newContext({ baseURL: base, extraHTTPHeaders: { cookie: bypass } });
-  expect(await (await thief.get("/en/restaurant")).text()).not.toContain(secret);
+  expect(await (await thief.get("/en/about/cafe")).text()).not.toContain(secret);
 
   // the editor cannot publish it; an administrator who discards it by publishing other wording makes it vanish for good
   expect((await setGlobal(editor, "navigation", "en", { menuLabel: secret, _status: "published" })).status()).toBe(403);
   expect((await setGlobal(editor, "navigation", "en", { menuLabel: secret })).status()).toBe(403); // not even without the draft flag
-  expect(await (await request.get("/en/restaurant")).text()).not.toContain(secret);
+  expect(await (await request.get("/en/about/cafe")).text()).not.toContain(secret);
   expect((await publishNav({ menuLabel: "Menu" })).status()).toBe(200);
   expect((await setGlobal(admin, "footer", "en", { rights: "All rights reserved.", _status: "published" })).status()).toBe(200);
 });
@@ -108,14 +109,14 @@ test("editors cannot restructure the menu or change destinations or social links
 
   await setGlobal(editor, "footer", "en", { social: [{ label: "X", link: { kind: "external", value: "https://www.facebook.com/x" } }] }, true);
   const foot = await getGlobal(admin, "footer", "en");
-  expect(foot.social).toHaveLength(1);
-  expect(foot.social[0].link.value).toMatch(/facebook\.com/);
+  // field access dropped the editor's change: still exactly the seeded Instagram and Facebook links
+  expect(foot.social.map((x: any) => x.link.value)).toEqual([hotel.instagram, hotel.facebook]);
   expect(await (await request.get("/en")).text()).not.toContain("/elsewhere");
 });
 
 test("unsafe destinations are refused when saving, for administrators too", async ({ request }) => {
   const nav = await getGlobal(admin, "navigation", "en");
-  for (const path of ["https://evil.example", "javascript:alert(1)", "//evil.example", "/en/restaurant", "spa", "/a/../b"]) {
+  for (const path of ["https://evil.example", "javascript:alert(1)", "//evil.example", "/en/about/cafe", "spa", "/a/../b"]) {
     const res = await publishNav({ items: nav.items.map((r: any, i: number) => (i === 1 ? { ...r, path } : r)) });
     expect(res.status(), path).toBe(400);
   }

@@ -43,7 +43,7 @@ function toRows(blocks: Block[], locale: Locale): Record<string, unknown>[] {
   return blocks.map((b) => {
     switch (b.type) {
       case "hero":
-        return { blockType: "hero", image: image(b.image), eyebrow: b.eyebrow, title: b.title.join("\n"), intro: b.intro, metaLeft: b.meta?.[0], metaCenter: b.meta?.[1], metaRight: b.meta?.[2] };
+        return { blockType: "hero", image: image(b.image), eyebrow: b.eyebrow, title: b.title.join("\n"), intro: b.intro, metaLeft: b.meta?.[0], metaCenter: b.meta?.[1], metaRight: b.meta?.[2], ...(b.variant ? { variant: b.variant } : {}) };
       case "split":
         return {
           blockType: "split",

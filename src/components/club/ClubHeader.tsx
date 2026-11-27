@@ -42,9 +42,9 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
   const links = [
     { href: `${base}#club`, label: c.club },
     { href: `${base}#pool`, label: c.pool },
-    { href: `${base}#classes`, label: c.classes },
+    // CH-043: the timetable lives under "Classes" (one menu entry: the classes and their timetable).
+    { href: `${base}/timetable`, label: c.classes, page: true },
     { href: `${base}/membership`, label: c.membership, page: true },
-    { href: `${base}/timetable`, label: c.timetable, page: true },
     { href: "#contact", label: c.contact },
   ];
 
@@ -60,13 +60,24 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
           solid ? "border-b border-[var(--cfc-line-dark)] bg-[var(--cfc-night)]/95 backdrop-blur-md" : "border-b border-transparent bg-gradient-to-b from-black/45 to-transparent"
         }`}
       >
-        <div className="cfc-wrap cfc-max grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[80px] xl:gap-10">
+        <div className="cfc-wrap cfc-max grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[80px] xl:gap-5 2xl:gap-10">
           {/* The full logo over the hero; once scrolled (and on the inner pages), only the "CENTRAL FITNESS CLUB" wordmark, larger */}
-          <Link href={base} aria-label="Central Fitness Club" className="relative block h-[46px] w-[132px] shrink-0 md:h-[48px] md:w-[144px]">
-            <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
-            <Image src="/brand/cfc-white-wordmark.png" alt="" fill sizes="130px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
-          </Link>
-          <nav aria-label="Central Fitness Club" className="hidden items-center justify-center gap-7 whitespace-nowrap xl:flex 2xl:gap-10">
+          <div className="flex items-center gap-4 2xl:gap-6">
+            <Link href={base} aria-label="Central Fitness Club" className="relative block h-[46px] w-[132px] shrink-0 md:h-[48px] md:w-[144px]">
+              <Image src="/brand/cfc-white.png" alt="" fill sizes="48px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-0" : "opacity-100"}`} />
+              <Image src="/brand/cfc-white-wordmark.png" alt="" fill sizes="130px" priority className={`object-contain object-left transition-opacity duration-500 ${solid ? "opacity-100" : "opacity-0"}`} />
+            </Link>
+            {/* CH-049: a clear way back to the hotel's main site, beside the logo (as on the Day Spa header) */}
+            <Link
+              href={href(locale)}
+              aria-label={c.hotel}
+              className="group hidden h-9 items-center gap-2 whitespace-nowrap rounded-full border border-white/40 px-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white hover:text-[var(--cfc-night)] sm:inline-flex"
+            >
+              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-x-0.5">←</span>
+              {c.hotel}
+            </Link>
+          </div>
+          <nav aria-label="Central Fitness Club" className="hidden items-center justify-center gap-5 whitespace-nowrap xl:flex 2xl:gap-10 [&_.cfc-nav-link]:xl:tracking-[0.1em] 2xl:[&_.cfc-nav-link]:tracking-[0.16em]">
             {links.map((l) =>
               l.page ? (
                 <Link key={l.href} href={l.href} aria-current={pathname === l.href ? "page" : undefined} className="cfc-nav-link">
@@ -79,10 +90,7 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
               ),
             )}
           </nav>
-          <div className="col-start-3 flex items-center justify-end gap-4 whitespace-nowrap xl:gap-6">
-            <Link href={href(locale)} aria-label={c.hotel} className="hidden h-9 items-center rounded-full border border-white/25 px-3 text-[12px] font-medium tracking-[0.06em] text-white/70 transition-colors hover:border-white hover:text-white xl:inline-flex">
-              ←<span className="hidden 2xl:inline">&nbsp;{c.hotel}</span>
-            </Link>
+          <div className="col-start-3 flex items-center justify-end gap-4 whitespace-nowrap 2xl:gap-6">
             <LanguageSwitcher locale={locale} label={c.language} className="hidden !text-[11px] text-white sm:flex" />
             <Link href={`${base}/membership`} className="cfc-btn cfc-btn--volt hidden !min-h-[42px] !px-5 !text-[12px] md:inline-flex">
               {c.join} <span className="cfc-arrow" aria-hidden>→</span>
@@ -119,7 +127,7 @@ export function ClubHeader({ locale, c }: { locale: Locale; c: ClubCopy["nav"] }
               Instagram<ArrowUpRight />
             </a>
           )}
-          <Link href={href(locale)} onClick={close} className="mt-4 text-[14px] text-white/60">
+          <Link href={href(locale)} onClick={close} className="cfc-btn cfc-btn--line on-dark mt-4 self-start">
             ← {c.hotel}
           </Link>
           <LanguageSwitcher locale={locale} label={c.language} className="mt-8 text-white" />

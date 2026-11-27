@@ -4,7 +4,7 @@ import { brandContact, clubLabels, spaDefaults, spaLabels, type BrandContact } f
 import type { ClubImages } from "@/components/club/ClubHome";
 import type { Timetable } from "@/components/club/ClubPages";
 import type { DaySpaData } from "@/components/dayspa/DaySpaPage";
-import { clubCopy, clubImages, type ClubCopy, type ClubPlan } from "@/content/club";
+import { clubCopy, clubImages, defaultClasses, type ClubCopy, type ClubPlan } from "@/content/club";
 import { DAYSPA_BOOKING_URL, daySpaCopy, daySpaImages } from "@/content/dayspa";
 import type { Locale } from "@/lib/i18n";
 import { mergeClub, mergeSpa } from "./brandsMerge";
@@ -32,7 +32,7 @@ export const getDaySpa = cache(async (locale: Locale): Promise<DaySpaData & { ad
 export const getClub = cache(async (locale: Locale): Promise<{ c: ClubCopy; images: ClubImages; plans: ClubPlan[]; timetable: Timetable; contact: BrandContact; address: Address }> => {
   const [contact, doc] = await Promise.all([getHotelContact(locale), getCmsGlobal("fitness-club", locale, 1)]);
   const c = clubCopy(locale);
-  const { plans, timetable } = mergeClub(doc, c.membership.defaultPlans);
+  const { plans, timetable } = mergeClub(doc, c.membership.defaultPlans, defaultClasses);
   return {
     c,
     images: clubImages,

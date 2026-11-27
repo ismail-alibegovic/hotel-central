@@ -82,7 +82,7 @@ export const faqSections: Record<Locale, FaqSection[]> = {
     {
      "q": "How can I book a spa treatment?",
      "a": [
-      "You can contact our Day Spa team directly on +387 33 561 830 or enquire through hotel reception for treatment information, availability and reservations."
+      "You can contact our Day Spa team directly on +387 33 561 830 or at dayspa@hotelcentral.ba, or enquire through hotel reception for treatment information, availability and reservations."
      ]
     }
    ]
@@ -195,7 +195,7 @@ export const faqSections: Record<Locale, FaqSection[]> = {
     {
      "q": "Kako mogu rezervisati spa tretman?",
      "a": [
-      "Za informacije o tretmanima, slobodnim terminima i rezervacijama možete direktno kontaktirati naš Day Spa tim (+387 33 561 830) ili se obratiti recepciji hotela."
+      "Za informacije o tretmanima, slobodnim terminima i rezervacijama možete direktno kontaktirati naš Day Spa tim (+387 33 561 830, dayspa@hotelcentral.ba) ili se obratiti recepciji hotela."
      ]
     }
    ]

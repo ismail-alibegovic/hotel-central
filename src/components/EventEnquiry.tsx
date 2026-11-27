@@ -121,7 +121,7 @@ export function EventEnquiry({ locale, dict }: { locale: Locale; dict: Dictionar
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3">
               {f.servicesList.map((s) => (
                 <label key={s} className="flex cursor-pointer items-center gap-3 text-[14px]">
-                  <input type="checkbox" name="services" value={s} className="h-3.5 w-3.5 accent-[#363a2a]" />
+                  <input type="checkbox" name="services" value={s} className="h-3.5 w-3.5 accent-[var(--deep)]" />
                   {s}
                 </label>
               ))}
@@ -156,7 +156,7 @@ export function EventEnquiry({ locale, dict }: { locale: Locale; dict: Dictionar
 
           <div className="sm:col-span-2">
             <label className="flex cursor-pointer items-start gap-3 text-[12px] leading-[1.5]">
-              <input name="consent" type="checkbox" className="mt-[3px] h-3.5 w-3.5 accent-[#363a2a]" aria-invalid={!!errors.consent} aria-describedby={errors.consent ? "ee-err-consent" : undefined} />
+              <input name="consent" type="checkbox" className="mt-[3px] h-3.5 w-3.5 accent-[var(--deep)]" aria-invalid={!!errors.consent} aria-describedby={errors.consent ? "ee-err-consent" : undefined} />
               <span>{c.consent}</span>
             </label>
             {err("consent")}

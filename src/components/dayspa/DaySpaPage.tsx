@@ -107,8 +107,11 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
               <defs>
                 <path id="ds-seal-path" d="M62,62 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0" />
               </defs>
-              <text fontSize="10.5" letterSpacing="3.1" fill="var(--ds-wine)" style={{ textTransform: "uppercase" }}>
-                <textPath href="#ds-seal-path">{c.about.seal} {c.about.seal}</textPath>
+              {/* CH-051: the words go round the circle exactly once (they used to overlap: "centrcentral day spa") */}
+              <text fontSize="10.5" fill="var(--ds-wine)" style={{ textTransform: "uppercase" }}>
+                <textPath href="#ds-seal-path" textLength="293" lengthAdjust="spacing">
+                  {c.about.seal}
+                </textPath>
               </text>
             </svg>
             <span className="relative grid h-[58px] w-[58px] place-items-center rounded-full bg-[var(--ds-wine)] text-white">→</span>
@@ -203,11 +206,14 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
               {packages.map((p, i) => {
                 const hl = packages.length >= 3 && i === 1;
                 return (
-                  <FadeIn key={p.name} delay={0.08 * i} className={`flex flex-col gap-5 rounded-[22px] p-7 md:p-8 ${hl ? "bg-[var(--ds-wine)] text-white md:-translate-y-4" : "bg-[var(--ds-paper)]"}`}>
-                    <div className="flex items-center justify-between gap-3">
-                      <h3 className="ds-display text-[30px]">{p.name}</h3>
-                      {hl && <span className="rounded-full bg-[var(--ds-lilac)] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[var(--ds-wine)]">{c.packages.popular}</span>}
-                    </div>
+                  <FadeIn key={p.name} delay={0.08 * i} className={`relative flex flex-col gap-5 rounded-[22px] p-7 md:p-8 ${hl ? "bg-[var(--ds-wine)] text-white md:-translate-y-4" : "bg-[var(--ds-paper)]"}`}>
+                    {/* CH-053: "Most popular", centred on the card */}
+                    {hl && (
+                      <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[var(--ds-lilac)] px-4 py-1.5 text-center text-[11px] uppercase tracking-[0.14em] text-[var(--ds-wine)] shadow-[0_2px_10px_rgb(0_0_0/0.12)]">
+                        {c.packages.popular}
+                      </span>
+                    )}
+                    <h3 className={`ds-display text-[30px] ${hl ? "pt-2" : ""}`}>{p.name}</h3>
                     <p className="ds-display text-[56px] leading-none [font-variant-numeric:tabular-nums]">
                       {p.price} KM <span className={`text-[15px] font-normal ${hl ? "text-white/70" : "text-[var(--ds-mute)]"}`}>/ {p.duration}</span>
                     </p>
@@ -232,7 +238,8 @@ export function DaySpaPage({ locale, data }: { locale: Locale; data: DaySpaData 
       )}
 
       {/* ───────────── Why us ───────────── */}
-      <section className="ds-wrap grid gap-14 py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-center md:gap-[6vw] md:py-28">
+      {/* CH-053: the text starts at the top of the photographs, no empty band above "Why Central Day Spa" */}
+      <section className="ds-wrap grid gap-14 py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:items-start md:gap-[6vw] md:py-28">
         <FadeIn>
           <p className="ds-eyebrow text-[var(--ds-wine)]">{c.why.label}</p>
           <h2 className="ds-display mt-4 text-[40px] text-[var(--ds-wine)] md:text-[58px]">{c.why.title}</h2>
@@ -356,7 +363,7 @@ export function DaySpaFooter({ locale, c, contact, address }: { locale: Locale; 
                   {contact.hours.length > 1 && <p className="text-white/55">{h.name}</p>}
                   {h.rows.map((r) => (
                     <p key={r.days}>
-                      {r.days}: {r.closed ? "—" : r.time}
+                      {r.days}: {r.closed ? f.closed : r.time}
                     </p>
                   ))}
                 </div>

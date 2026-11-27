@@ -131,11 +131,10 @@ export function Footer({
         <p>
           © {year} {hotel.name}. {f.rights}
         </p>
-        {/* CH-020: privacy policy, FAQ and the café in the footer */}
+        {/* CH-020: privacy policy and FAQ in the footer (the café is in the menu list above, CH-022) */}
         <p className="flex flex-wrap gap-x-6 gap-y-1">
           <Link href={href(locale, "/privacy-policy")} className="link-line">{clientCopy.privacy[locale].title}</Link>
-          <Link href={href(locale, "/faq")} className="link-line">{clientCopy.ui[locale].faq}</Link>
-          <Link href={href(locale, "/cafe")} className="link-line">Central Café</Link>
+          <Link href={href(locale, "/about#faq")} className="link-line">{clientCopy.ui[locale].faq}</Link>
         </p>
         <p>{f.credits}</p>
       </div>

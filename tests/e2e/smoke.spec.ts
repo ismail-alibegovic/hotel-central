@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const rooms = ["single-room", "standard-twin-double", "superior-double-room", "family-room", "junior-suite", "presidential-suite"];
-const sections = ["", "/rooms", "/about", "/centralfitnessclub", "/centralfitnessclub/membership", "/centralfitnessclub/timetable", "/dayspa", "/restaurant", "/meetings-events", "/location", "/contact"];
+const sections = ["", "/rooms", "/about", "/centralfitnessclub", "/centralfitnessclub/membership", "/centralfitnessclub/timetable", "/dayspa", "/about/cafe", "/faq", "/meetings-events", "/location", "/contact"];
 
 const paths = ["en", "bs"].flatMap((l) => [...sections.map((s) => `/${l}${s}`), ...rooms.map((r) => `/${l}/rooms/${r}`)]);
 

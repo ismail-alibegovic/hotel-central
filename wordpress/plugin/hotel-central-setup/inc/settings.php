@@ -14,6 +14,7 @@ function hc_setting_fields(): array {
 		'phone'           => array( 'Main phone (reception)', false ),
 		'email'           => array( 'Main e-mail', false ),
 		'spa_phone'       => array( 'Central Day Spa phone', false ),
+		'spa_email'       => array( 'Central Day Spa e-mail', false ),
 		'club_phone'      => array( 'Central Fitness Club phone', false ),
 		'address'         => array( 'Address (one line)', false ),
 		'booking_url'     => array( 'Room booking address (eZee)', false ),

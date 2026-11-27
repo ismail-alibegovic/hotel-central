@@ -179,13 +179,15 @@ function hc_site_import( string $media_base = '' ): array {
 			if ( is_wp_error( $menu_id ) ) {
 				continue;
 			}
+			$item_ids = array(); // target => menu item id, so an entry can sit under its parent (CH-022: the café under About)
 			foreach ( $by_lang[ $lang ] as $i => $item ) {
 				list( $key, $hash ) = array_pad( explode( '#', $item['target'], 2 ), 2, '' );
 				$post_id            = $ids[ $key ][ $lang ] ?? 0;
 				$args               = $hash || ! $post_id
 					? array( 'menu-item-title' => $item['label'], 'menu-item-url' => ( $post_id ? get_permalink( $post_id ) : home_url( '/' ) ) . ( $hash ? "#$hash" : '' ), 'menu-item-type' => 'custom' )
 					: array( 'menu-item-title' => $item['label'], 'menu-item-object' => 'page', 'menu-item-object-id' => $post_id, 'menu-item-type' => 'post_type' );
-				wp_update_nav_menu_item( $menu_id, 0, $args + array( 'menu-item-status' => 'publish', 'menu-item-position' => $i + 1 ) );
+				$parent_id                   = ! empty( $item['parent'] ) ? ( $item_ids[ $item['parent'] ] ?? 0 ) : 0;
+				$item_ids[ $item['target'] ] = wp_update_nav_menu_item( $menu_id, 0, $args + array( 'menu-item-status' => 'publish', 'menu-item-position' => $i + 1, 'menu-item-parent-id' => $parent_id ) );
 			}
 			$by_loc[ $locations[ $brand ] ][ $lang ] = $menu_id;
 		}

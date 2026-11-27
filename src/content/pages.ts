@@ -22,7 +22,7 @@ const en = {
       title: ["Comfort,", "thoughtfully designed"],
       body: [
         "Our 32 rooms and suites are designed with your comfort in mind, with modern amenities, quality beds and stylish decor.",
-        "Start your day with a delicious breakfast buffet and Bosnian coffee at our on-site restaurant.",
+        "Start your day with a delicious breakfast buffet and Bosnian coffee.",
       ],
       cta: "View rooms & suites",
     },
@@ -107,8 +107,8 @@ const en = {
     },
   },
   cafe: {
-    meta: { title: "Central Café", description: "Central Café at Hotel Central Sarajevo: quality coffee, tea, cold drinks, cakes and sweet treats by the tall windows on Ćumurija street." },
-    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Quality coffee, tea, cold drinks, cakes and sweet treats, in a welcoming city-centre setting." },
+    meta: { title: "Central Café", description: "Central Café at Hotel Central Sarajevo: coffee, tea, hot chocolate, cold drinks, fresh juices, smoothies and sweet treats, with catering for guests and corporate events on request." },
+    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Coffee, tea and hot chocolate, fresh juices, smoothies and sweet treats, in a welcoming city-centre setting." },
     cafe: {
       label: "(01) The café",
       title: ["A window", "on the city"],
@@ -117,33 +117,36 @@ const en = {
         "The café is open to hotel guests and to everyone passing by on Ćumurija street.",
       ],
       offerTitle: "What we offer",
-      offer: ["Coffee, including Bosnian coffee", "Tea", "Cold drinks", "Cakes and sweet treats"],
+      offer: ["Hot drinks: coffee (including Bosnian coffee), tea and hot chocolate", "Cold drinks", "Fresh juices from our juice bar", "Smoothies", "Cakes and sweet treats"],
+    },
+    catering: {
+      label: "(02) Catering",
+      title: ["Catering", "on request"],
+      body: [
+        "We don't run a restaurant, but we are happy to cater for our hotel guests and for corporate events on request: coffee breaks, refreshments and catered lunches for meetings, seminars and celebrations.",
+        "Tell us the date, the number of guests and what you need, and we will prepare a proposal for you.",
+      ],
+      cta: "Enquire about catering",
+      events: "Meetings & events",
     },
     statement: "A coffee in Sarajevo is never just a coffee: it is time taken slowly, with company.",
     lounge: {
-      label: "(02) The lounge",
+      label: "(03) The lounge",
       title: ["Under the", "arched windows"],
       body: [
         "Deep leather armchairs, high ceilings and arched windows: the lounge is the place to meet a friend, wait for a meeting or end the day quietly.",
         "Free Wi-Fi throughout the hotel.",
       ],
     },
-    menu: {
-      label: "(03) Menu",
-      title: ["The menu"],
-      body: "Our menu with prices will be published here soon. Until then, ask at the bar or call reception.",
-      call: "Call reception",
-      contact: "Contact",
-    },
   },
   events: {
-    meta: { title: "Meetings & Events", description: "A fully equipped conference room on the third floor of Hotel Central Sarajevo for seminars, conferences, workshops, presentations, celebrations and business lunches." },
+    meta: { title: "Meetings & Events", description: "A fully equipped conference room on the first floor of Hotel Central Sarajevo for seminars, conferences, workshops, presentations, celebrations and business lunches." },
     hero: { eyebrow: "Meetings & events", title: ["The space", "to connect"], intro: "Seminars, conferences, workshops, presentations, celebrations and business lunches in the heart of old town Sarajevo." },
     room: {
       label: "(01) Conference room",
       title: ["Peace", "& privacy"],
       body: [
-        "The conference room is located on the third floor, in a new and separate part of our premises, which guarantees peace and privacy. It is fully equipped with all necessary IT equipment and meets the needs for organizing all types of meetings, events and celebrations.",
+        "The conference room is located on the first floor, in a new and separate part of our premises, which guarantees peace and privacy. It is fully equipped with all necessary IT equipment and meets the needs for organizing all types of meetings, events and celebrations.",
         "Modern and nicely decorated with all accompanying amenities, the conference room can change its setup and seating arrangement depending on the number of participants and the type of event.",
       ],
     },
@@ -157,9 +160,10 @@ const en = {
       cta: "Request a proposal",
     },
     facts: [
-      { k: "Location", v: "Third floor, separate wing" },
+      { k: "Location", v: "First floor, separate wing" },
       { k: "Equipment", v: "Full IT equipment" },
       { k: "Seating", v: "Maximum 60–70 seats" },
+      { k: "Catering", v: "Available upon request" },
       { k: "Hotel", v: "32 rooms · 65–70 guests" },
       { k: "Pricing", v: "On individual request" },
     ],
@@ -233,7 +237,7 @@ const bs: PagesContent = {
       title: ["Udobnost", "do detalja"],
       body: [
         "Naše 32 sobe i apartmana uređeni su za vašu udobnost, s modernim sadržajima, kvalitetnim krevetima i elegantnim enterijerom.",
-        "Započnite dan ukusnim doručkom na bazi švedskog stola i bosanskom kafom u našem hotelskom restoranu.",
+        "Započnite dan ukusnim doručkom na bazi švedskog stola i bosanskom kafom.",
       ],
       cta: "Pogledajte sobe i apartmane",
     },
@@ -318,8 +322,8 @@ const bs: PagesContent = {
     },
   },
   cafe: {
-    meta: { title: "Central Café", description: "Central Café u Hotelu Central Sarajevo: kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice uz velike prozore na Ćumuriji." },
-    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Kvalitetna kafa, čajevi, hladni napici, kolači i slatke poslastice, u ugodnom ambijentu u samom centru grada." },
+    meta: { title: "Central Café", description: "Central Café u Hotelu Central Sarajevo: kafa, čaj i topla čokolada, hladni napici, svježi sokovi, smoothieji i slatke poslastice na Ćumuriji, uz ketering za goste i poslovne događaje na upit." },
+    hero: { eyebrow: "Central Café", title: ["Central", "Café"], intro: "Kafa, čaj i topla čokolada, svježi sokovi, smoothieji i slatke poslastice, u ugodnom ambijentu u samom centru grada." },
     cafe: {
       label: "(01) Kafić",
       title: ["Prozor", "u grad"],
@@ -328,33 +332,36 @@ const bs: PagesContent = {
         "Kafić je otvoren za goste hotela i za sve prolaznike u Ćumuriji.",
       ],
       offerTitle: "Šta nudimo",
-      offer: ["Kafa, uključujući bosansku kafu", "Čajevi", "Hladni napici", "Kolači i slatke poslastice"],
+      offer: ["Topli napici: kafa (uključujući bosansku kafu), čaj i topla čokolada", "Hladni napici", "Svježi sokovi iz našeg juice bara", "Smoothieji", "Kolači i slatke poslastice"],
+    },
+    catering: {
+      label: "(02) Ketering",
+      title: ["Ketering", "na upit"],
+      body: [
+        "Nemamo restoran, ali na upit rado pripremamo ketering za naše goste i za poslovne događaje: pauze za kafu, osvježenje i ručak za sastanke, seminare i proslave.",
+        "Javite nam datum, broj gostiju i šta vam je potrebno, a mi ćemo vam pripremiti ponudu.",
+      ],
+      cta: "Upit za ketering",
+      events: "Sastanci i događaji",
     },
     statement: "Kafa u Sarajevu nikad nije samo kafa: to je vrijeme koje se uzima polako, u društvu.",
     lounge: {
-      label: "(02) Lounge",
+      label: "(03) Lounge",
       title: ["Pod lučnim", "prozorima"],
       body: [
         "Duboke kožne fotelje, visoki stropovi i lučni prozori: lounge je mjesto za susret s prijateljem, čekanje sastanka ili miran kraj dana.",
         "Besplatan Wi-Fi u cijelom hotelu.",
       ],
     },
-    menu: {
-      label: "(03) Meni",
-      title: ["Meni"],
-      body: "Naš meni sa cijenama uskoro će biti objavljen ovdje. Do tada pitajte za šankom ili pozovite recepciju.",
-      call: "Pozovite recepciju",
-      contact: "Kontakt",
-    },
   },
   events: {
-    meta: { title: "Sastanci i događaji", description: "Potpuno opremljena konferencijska sala na trećem spratu Hotela Central Sarajevo za seminare, konferencije, radionice, prezentacije, slavlja i poslovne ručkove." },
+    meta: { title: "Sastanci i događaji", description: "Potpuno opremljena konferencijska sala na prvom spratu Hotela Central Sarajevo za seminare, konferencije, radionice, prezentacije, slavlja i poslovne ručkove." },
     hero: { eyebrow: "Sastanci · Događaji · Slavlja", title: ["Prostor", "za susrete"], intro: "Seminari, konferencije, radionice, prezentacije, slavlja i poslovni ručkovi u samom centru Sarajeva." },
     room: {
       label: "(01) Konferencijska sala",
       title: ["Mir", "i privatnost"],
       body: [
-        "Konferencijska sala smještena je na trećem spratu, u dijelu odvojenom od smještajnih jedinica, što garantira mir i privatnost. U potpunosti je opremljena svom potrebnom informatičkom opremom te udovoljava potrebama za organizacijom svih vrsta skupova.",
+        "Konferencijska sala smještena je na prvom spratu, u dijelu odvojenom od smještajnih jedinica, što garantira mir i privatnost. U potpunosti je opremljena svom potrebnom informatičkom opremom te udovoljava potrebama za organizacijom svih vrsta skupova.",
         "Moderno i lijepo uređena sala sa svim pratećim sadržajima ima mogućnost promjene postava ovisno o broju sudionika i vrsti samog događaja.",
       ],
     },
@@ -368,9 +375,10 @@ const bs: PagesContent = {
       cta: "Zatražite ponudu",
     },
     facts: [
-      { k: "Lokacija", v: "Treći sprat, odvojeni dio" },
+      { k: "Lokacija", v: "Prvi sprat, odvojeni dio" },
       { k: "Oprema", v: "Kompletna informatička oprema" },
       { k: "Kapacitet", v: "Maksimalno 60–70 sjedećih mjesta" },
+      { k: "Ketering", v: "Dostupan na upit" },
       { k: "Hotel", v: "32 sobe · 65–70 osoba" },
       { k: "Cijene", v: "Prema individualnom upitu" },
     ],

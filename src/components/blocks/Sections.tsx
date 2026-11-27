@@ -94,7 +94,7 @@ export function Faq({ b }: { b: FaqBlock }) {
   const dark = isDark(b.tone);
   const line = dark ? "border-white/20" : "border-ink/20";
   return (
-    <section data-block="faq" className={`${grounds[b.tone]} px-[var(--gutter)] py-16 md:py-[7vw]`}>
+    <section id="faq" data-block="faq" className={`${grounds[b.tone]} scroll-mt-24 px-[var(--gutter)] py-16 md:py-[7vw]`}>
       <div className="grid gap-10 md:grid-cols-12 md:gap-x-[2vw]">
         <div className="md:col-span-4">
           {b.sample && <SampleBadge dark={dark} />}

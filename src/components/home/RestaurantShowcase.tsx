@@ -28,11 +28,11 @@ function Title({ lines, className = "" }: { lines: string[]; className?: string 
 
 export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; dict: Dictionary; images?: HomeImages }) {
   const d = dict.home.restaurant;
-  const main = img(images?.restaurantMain, { src: "/images/hc-comfort-2.jpg", alt: "Breakfast tray with tea, croissants and a single rose", position: "50% 50%" });
-  const mainM = img(images?.restaurantMain, { src: "/images/hc-comfort-2.jpg", alt: "Breakfast tray with tea and croissants" });
+  const main = img(images?.restaurantMain, { src: "/images/hc26-cafe-corner.jpg", alt: "Armchairs with pink cushions by the tall windows of Central Café", position: "50% 70%" });
+  const mainM = img(images?.restaurantMain, { src: "/images/hc26-cafe-corner.jpg", alt: "Armchairs with pink cushions by the tall windows of Central Café", position: "50% 70%" });
   const coffee = img(images?.restaurantCoffee, { src: "/images/dorucak6.jpg", alt: "Bosnian coffee served in a copper džezva", position: "40% 50%" });
   const coffeeM = img(images?.restaurantCoffee, { src: "/images/dorucak6.jpg", alt: "Bosnian coffee served in a copper džezva" });
-  const buffet = img(images?.restaurantBuffet, { src: "/images/dorucak4.jpg", alt: "The breakfast buffet at Restaurant Central" });
+  const buffet = img(images?.restaurantBuffet, { src: "/images/dorucak4.jpg", alt: "A buffet laid out for guests at Hotel Central" });
   return (
     <section aria-labelledby="restaurant-title" className="relative overflow-hidden bg-ivory text-ink">
       <h2 id="restaurant-title" className="sr-only">
@@ -83,7 +83,7 @@ export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; d
             {d.body2}
           </FadeIn>
           <FadeIn delay={0.2} className="pt-[0.6em]">
-            <PillLink href={href(locale, "/restaurant")} className="!h-[2.9cqw] !text-[0.8cqw]">
+            <PillLink href={href(locale, "/about/cafe")} className="!h-[2.9cqw] !text-[0.8cqw]">
               {d.cta}
             </PillLink>
           </FadeIn>
@@ -103,7 +103,7 @@ export function RestaurantShowcase({ locale, dict, images }: { locale: Locale; d
         <div className="mt-10 space-y-5 px-[var(--gutter)]">
           <p className="body-copy max-w-[36ch]">{d.body}</p>
           <p className="body-copy max-w-[36ch] opacity-75">{d.body2}</p>
-          <PillLink href={href(locale, "/restaurant")}>{d.cta}</PillLink>
+          <PillLink href={href(locale, "/about/cafe")}>{d.cta}</PillLink>
         </div>
       </div>
     </section>

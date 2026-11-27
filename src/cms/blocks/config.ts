@@ -131,6 +131,13 @@ export const blocks: Block[] = [
       { name: "metaLeft", type: "text", localized: true, label: "Bottom strip — left" },
       { name: "metaCenter", type: "text", localized: true, label: "Bottom strip — middle", admin: { description: "{roomCount} is replaced automatically by the number of rooms shown on the website." } },
       { name: "metaRight", type: "text", localized: true, label: "Bottom strip — right" },
+      {
+        name: "variant",
+        type: "select",
+        options: [{ label: "Light — the photograph in its own colours, only the heading over it", value: "warm" }],
+        label: "Style",
+        admin: { description: "Leave empty for the standard dark photo with heading. The light style is used on the café page." },
+      },
     ],
   },
   {

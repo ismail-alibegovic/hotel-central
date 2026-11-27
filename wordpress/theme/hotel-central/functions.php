@@ -113,7 +113,8 @@ function hc_languages(): string {
 
 function hc_menu( string $location, string $class ): void {
 	if ( has_nav_menu( $location ) ) {
-		wp_nav_menu( array( 'theme_location' => $location, 'container' => false, 'menu_class' => $class, 'depth' => 1, 'fallback_cb' => false ) );
+		// Two levels: a page inside a section (e.g. Central Café under About) shows as a smaller entry below its parent.
+		wp_nav_menu( array( 'theme_location' => $location, 'container' => false, 'menu_class' => $class, 'depth' => 2, 'fallback_cb' => false ) );
 	}
 }
 

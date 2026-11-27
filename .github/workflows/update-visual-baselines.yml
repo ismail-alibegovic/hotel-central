@@ -14,7 +14,22 @@ permissions:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Playwright 1.56 has no Chromium build for Ubuntu 26.04 (ubuntu-latest since Nov 2026)
+    # The CMS-only baselines are rendered from a seeded CMS site, which needs a throw-away database (same as CI).
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci-only-${{ github.run_id }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      HC_TEST_PG_URL: postgres://postgres:ci-only-${{ github.run_id }}@127.0.0.1:5432/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

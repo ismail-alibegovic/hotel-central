@@ -39,17 +39,21 @@ export function PageHero({
         fill
         priority
         sizes="100vw"
-        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(0.28)_contrast(1.1)_brightness(0.6)_sepia(0.3)_hue-rotate(28deg)] motion-reduce:animate-none"
+        className="animate-[heroin_2.6s_var(--ease-out)_both] object-cover [filter:saturate(1.08)_contrast(1.04)_brightness(0.92)_sepia(0.08)] motion-reduce:animate-none"
         style={{ objectPosition: image.position ?? "50% 50%" }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.6)_0%,rgba(2,13,16,0.15)_35%,rgba(2,13,16,0.65)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.55)_0%,rgba(2,13,16,0.28)_35%,rgba(2,13,16,0.3)_60%,rgba(2,13,16,0.62)_100%)]" />
       <div className="relative flex flex-1 flex-col items-center justify-center px-[var(--gutter)] pt-[var(--header-h)] text-center">
         <FadeIn immediate delay={0.6} className="label mb-6 flex items-center gap-4">
           <span aria-hidden className="h-px w-8 bg-white/50" />
           {eyebrow}
           <span aria-hidden className="h-px w-8 bg-white/50" />
         </FadeIn>
-        <h1 className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[clamp(40px,6.6vw,112px)]" style={fitStyle(title, 90, 13)}>
+        {/* CH-039: a long title (e.g. "Our team is standing by…") is set smaller so it always fits the screen. */}
+        <h1
+          className="font-display text-[length:var(--fs-m)] leading-[0.9] md:text-[length:clamp(36px,var(--fs-d),112px)]"
+          style={{ ...fitStyle(title, 90, 13), "--fs-d": fitVw(title, 78, 6.6) } as CSSProperties}
+        >
           <RevealLines immediate delay={0.4} lines={title} />
         </h1>
         {intro && (
@@ -116,14 +120,14 @@ export function EditorialSplit({
             </div>
           )}
         </div>
-        <div className={`relative flex flex-col justify-center md:col-span-5 ${reverse ? "md:col-start-1 md:row-start-1" : "md:col-start-8"}`}>
+        {/* CH-026/027/038/042: the text starts level with the top of the photograph and never crosses into it,
+            so there is no empty band above the title. */}
+        <div className={`relative flex flex-col justify-start md:col-span-5 md:pt-[1vw] ${reverse ? "md:col-start-1 md:row-start-1" : "md:col-start-8"}`}>
           <h2
-            style={{ ...fitStyle(title, 84, 12), "--fs-d": fitVw(title, dark ? 46 : 34, 5) } as CSSProperties}
-            className={`font-display relative z-[3] text-[length:var(--fs-m)] leading-[0.9] md:text-[length:var(--fs-d)] ${
-              dark ? (reverse ? "md:-mr-[12vw] md:text-right" : "md:-ml-[12vw]") : ""
-            }`}
+            style={{ ...fitStyle(title, 84, 12), "--fs-d": fitVw(title, dark ? 34 : 34, 5) } as CSSProperties}
+            className="font-display relative z-[3] text-[length:var(--fs-m)] leading-[0.9] md:text-[length:var(--fs-d)]"
           >
-            <RevealLines lines={title} lineClassName={["", reverse && dark ? "" : "pl-[6vw] md:pl-[4vw]"]} />
+            <RevealLines lines={title} lineClassName={["", "pl-[6vw] md:pl-[4vw]"]} />
           </h2>
           <div className="mt-10 max-w-[44ch] space-y-4 md:mt-[3.2vw]">
             {body.map((p, i) => (

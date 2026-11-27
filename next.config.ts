@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       { source: "/:locale(en|bs)/spa", destination: "/:locale/centralfitnessclub", permanent: true },
       { source: "/:locale(en|bs)/club-spa", destination: "/:locale/centralfitnessclub", permanent: true },
       { source: "/:locale(en|bs)/day-spa", destination: "/:locale/dayspa", permanent: true },
+      // CH-022: the restaurant and the café are one page, under About.
+      { source: "/:locale(en|bs)/restaurant", destination: "/:locale/about/cafe", permanent: true },
+      { source: "/:locale(en|bs)/cafe", destination: "/:locale/about/cafe", permanent: true },
     ];
   },
   // Belt and braces for non-official deployments (covers non-HTML assets too).

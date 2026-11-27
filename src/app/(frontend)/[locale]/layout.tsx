@@ -19,7 +19,7 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#363a2a",
+  themeColor: "#22402c",
   width: "device-width",
   initialScale: 1,
 };

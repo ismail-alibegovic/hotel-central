@@ -1,4 +1,8 @@
 import { expect, request as pwRequest, test, type APIRequestContext } from "@playwright/test";
+import { booking } from "../../src/content/hotel";
+import { rooms } from "../../src/content/rooms";
+
+const juniorId = rooms.find((r) => r.slug === "junior-suite")!.roomTypeId;
 
 const ADMIN = { email: process.env.SEED_ADMIN_EMAIL!, password: process.env.SEED_ADMIN_PASSWORD! };
 const EDITOR = { email: `editor-${Date.now()}@example.test`, password: process.env.E2E_EDITOR_PASSWORD! };
@@ -120,7 +124,7 @@ test("booking mapping stays in code: editors cannot read or change it and the pa
   expect(doc).not.toHaveProperty("roomTypeId");
   await editor.patch(`/api/rooms/${roomId}?draft=true&locale=en`, { data: { roomTypeId: "EVIL" } });
   const html = await (await request.get("/en/rooms/junior-suite")).text();
-  expect(html).toContain("roomtypeunkid=18019000000000000010");
+  expect(html).toContain(booking.roomUrl(juniorId));
   expect(html).not.toContain("EVIL");
 });
 
@@ -139,8 +143,8 @@ test("booking engine integration is identical with the CMS on (home form, room l
     await expect(form.locator(`input[name="${name}"]`)).toHaveCount(1);
   }
   await page.goto("/bs/rooms/junior-suite");
-  const book = page.locator('a[href*="roomwisedata.php"]').first();
-  await expect(book).toHaveAttribute("href", /hid=hotelcentralsarajevo&roomtypeunkid=18019000000000000010/);
+  const book = page.locator(`a[href="${booking.roomUrl(juniorId)}"]`).first();
+  await expect(book).toHaveAttribute("target", "_blank");
   await expect(book).toHaveAttribute("rel", /noopener/);
 });
 
@@ -180,7 +184,7 @@ test("rooms: order, visibility and sitemap follow the CMS; the booking id never 
   expect(links[0]).toBe("presidential-suite");
   expect((await request.get("/en/rooms/family-room")).status()).toBe(404);
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/rooms/family-room");
-  expect(await (await request.get("/en/rooms/presidential-suite")).text()).toContain("roomtypeunkid=");
+  expect(await (await request.get("/en/rooms/presidential-suite")).text()).toContain(booking.roomUrl(rooms.find((r) => r.slug === "presidential-suite")!.roomTypeId));
 
   // editors can do none of this
   const edDoc = await pageDoc(editor, "single-room", "rooms");
@@ -205,39 +209,41 @@ async function layoutOf(ctx: APIRequestContext, id: string, locale: "en" | "bs")
 const publish = (ctx: APIRequestContext, id: string, locale: "en" | "bs", data: object) => ctx.patch(`/api/pages/${id}?locale=${locale}`, { data: { ...data, _status: "published" } });
 
 test("page blocks: edit copy per language, reorder, remove — everywhere else unchanged", async ({ request }) => {
-  const spa = await pageDoc(admin, "spa");
+  // Meetings & events: a built-in page with two text-and-photo sections and a gallery (the old combined /spa page is gone).
+  const page = await pageDoc(admin, "meetings-events");
   const stamp = `Block-${Date.now()}`;
-  const en = await layoutOf(admin, spa.id, "en");
+  const en = await layoutOf(admin, page.id, "en");
   const types = en.map((b) => b.blockType);
-  expect(types).toEqual(["hero", "split", "facts", "split", "split", "gallery", "finalBooking"]);
+  expect(types).toEqual(["hero", "split", "gallery", "split", "offers", "cta", "finalBooking"]);
 
   // 1. change the hero eyebrow in English only
   en[0].eyebrow = stamp;
-  expect((await publish(admin, spa.id, "en", { layout: en })).status()).toBe(200);
-  const enHtml = await (await request.get("/en/spa")).text();
-  const bsHtml = await (await request.get("/bs/spa")).text();
+  expect((await publish(admin, page.id, "en", { layout: en })).status()).toBe(200);
+  const enHtml = await (await request.get("/en/meetings-events")).text();
+  const bsHtml = await (await request.get("/bs/meetings-events")).text();
   expect(enHtml).toContain(stamp);
   expect(bsHtml).not.toContain(stamp);
 
-  // 2. swap the gym and day-spa sections (structure is shared by both languages)
-  const rows = await layoutOf(admin, spa.id, "en");
-  [rows[3], rows[4]] = [rows[4], rows[3]];
-  expect((await publish(admin, spa.id, "en", { layout: rows })).status()).toBe(200);
-  const order = async (path: string) => {
+  // 2. swap the two text-and-photo sections (structure is shared by both languages)
+  const rows = await layoutOf(admin, page.id, "en");
+  [rows[1], rows[3]] = [rows[3], rows[1]];
+  expect((await publish(admin, page.id, "en", { layout: rows })).status()).toBe(200);
+  const order = async (path: string, labels: [string, string]) => {
     const html = await (await request.get(path)).text();
-    return [html.indexOf("(03) Wellness Day Spa"), html.indexOf("(02) Fitness")];
+    return labels.map((l) => html.indexOf(l));
   };
-  const [daySpaPos, gymPos] = await order("/en/spa");
-  expect(daySpaPos).toBeGreaterThan(-1);
-  expect(daySpaPos).toBeLessThan(gymPos); // day spa now precedes the gym, in English
-  const bsOrder = await order("/bs/spa");
+  const [eventPos, roomPos] = await order("/en/meetings-events", ["(02) Your event", "(01) Conference room"]);
+  expect(eventPos).toBeGreaterThan(-1);
+  expect(eventPos).toBeLessThan(roomPos); // "Your event" now precedes the conference room, in English
+  const bsOrder = await order("/bs/meetings-events", ["(02) Vaš događaj", "(01) Konferencijska sala"]);
+  expect(bsOrder[0]).toBeGreaterThan(-1);
   expect(bsOrder[0]).toBeLessThan(bsOrder[1]); // and in Bosnian too: the layout is shared
 
   // 3. remove the gallery
-  const without = (await layoutOf(admin, spa.id, "en")).filter((b) => b.blockType !== "gallery");
-  expect((await publish(admin, spa.id, "en", { layout: without })).status()).toBe(200);
-  expect(await (await request.get("/en/spa")).text()).not.toContain("central-spa_relax-room");
-  expect(await (await request.get("/en/spa")).text()).toContain(stamp); // the rest is still there
+  const without = (await layoutOf(admin, page.id, "en")).filter((b) => b.blockType !== "gallery");
+  expect((await publish(admin, page.id, "en", { layout: without })).status()).toBe(200);
+  expect(await (await request.get("/en/meetings-events")).text()).not.toContain("img_9226");
+  expect(await (await request.get("/en/meetings-events")).text()).toContain(stamp); // the rest is still there
 });
 
 test("page blocks: an untranslated section is left out, never shown empty or in the wrong language", async ({ request }) => {
@@ -253,7 +259,7 @@ test("page blocks: an untranslated section is left out, never shown empty or in 
 });
 
 test("page blocks: link safety — unapproved or script links are refused when saving", async ({ request }) => {
-  const contact = await pageDoc(admin, "restaurant");
+  const contact = await pageDoc(admin, "meetings-events");
   const rows = await layoutOf(admin, contact.id, "en");
   const split = rows.find((b) => b.blockType === "split" && b.primary);
   expect(split).toBeTruthy();
@@ -269,7 +275,7 @@ test("page blocks: link safety — unapproved or script links are refused when s
     expect(res.status(), JSON.stringify(bad)).toBe(400);
   }
   // nothing was saved: the public page still has its original, valid call to action
-  const html = await (await request.get("/en/restaurant")).text();
+  const html = await (await request.get("/en/meetings-events")).text();
   expect(html).not.toContain("evil.example");
   expect(html).toContain('href="/en/contact"');
 });
@@ -284,29 +290,29 @@ test("page blocks: editors can draft layout changes but not publish them", async
 });
 
 test("seo: noindex, social photograph and room titles follow published settings only", async ({ request }) => {
-  const spa = (await pageDoc(admin, "spa")).id as string;
+  const spa = (await pageDoc(admin, "location")).id as string;
   const room = (await pageDoc(admin, "junior-suite", "rooms")).id as string;
   const sitemap = async () => await (await request.get("/sitemap.xml")).text();
   const robots = (html: string) => /<meta name="robots" content="[^"]*noindex/.test(html);
   const ogImage = (html: string) => /<meta property="og:image" content="([^"]+)"/.exec(html)?.[1] ?? "";
 
   // baseline: indexable and listed
-  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
-  expect(await sitemap()).toContain("/en/spa");
+  expect(robots(await (await request.get("/en/location")).text())).toBe(false);
+  expect(await sitemap()).toContain("/en/location");
 
   // an editor's draft changes nothing public
   expect((await editor.patch(`/api/pages/${spa}?draft=true&locale=en`, { data: { noindex: true, ogImage: { staticPath: "dorucak5.jpg" } } })).status()).toBe(200);
-  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
-  expect(ogImage(await (await request.get("/en/spa")).text())).not.toContain("dorucak5");
-  expect(await sitemap()).toContain("/en/spa");
+  expect(robots(await (await request.get("/en/location")).text())).toBe(false);
+  expect(ogImage(await (await request.get("/en/location")).text())).not.toContain("dorucak5");
+  expect(await sitemap()).toContain("/en/location");
 
   // the administrator publishes: noindex on both languages, gone from the sitemap, other pages untouched
   expect((await admin.patch(`/api/pages/${spa}?locale=en`, { data: { noindex: true, ogImage: { staticPath: "dorucak5.jpg", alt: "Breakfast" }, _status: "published" } })).status()).toBe(200);
-  for (const l of ["en", "bs"]) expect(robots(await (await request.get(`/${l}/spa`)).text())).toBe(true);
-  expect(ogImage(await (await request.get("/en/spa")).text())).toContain("dorucak5");
+  for (const l of ["en", "bs"]) expect(robots(await (await request.get(`/${l}/location`)).text())).toBe(true);
+  expect(ogImage(await (await request.get("/en/location")).text())).toContain("dorucak5");
   const hidden = await sitemap();
-  expect(hidden).not.toContain("/en/spa");
-  expect(hidden).not.toContain("/bs/spa");
+  expect(hidden).not.toContain("/en/location");
+  expect(hidden).not.toContain("/bs/location");
   expect(hidden).toContain("/en/about");
   expect(robots(await (await request.get("/en/about")).text())).toBe(false);
 
@@ -327,8 +333,8 @@ test("seo: noindex, social photograph and room titles follow published settings 
   // restore
   expect((await admin.patch(`/api/rooms/${room}?locale=en`, { data: { metaTitle: "", metaDescription: "", noindex: false, _status: "published" } })).status()).toBe(200);
   expect((await admin.patch(`/api/pages/${spa}?locale=en`, { data: { noindex: false, ogImage: { staticPath: null }, _status: "published" } })).status()).toBe(200);
-  expect(robots(await (await request.get("/en/spa")).text())).toBe(false);
-  expect(await sitemap()).toContain("/en/spa");
+  expect(robots(await (await request.get("/en/location")).text())).toBe(false);
+  expect(await sitemap()).toContain("/en/location");
   expect(await sitemap()).toContain("/en/rooms/junior-suite");
 });
 

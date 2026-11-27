@@ -100,7 +100,7 @@ export function ContactForm({ locale, dict }: { locale: Locale; dict: Dictionary
       </div>
       <div className="sm:col-span-2">
         <label className="flex cursor-pointer items-start gap-3 text-[12px] leading-[1.5]">
-          <input name="consent" type="checkbox" className="mt-[3px] h-3.5 w-3.5 accent-[#363a2a]" aria-invalid={!!errors.consent} aria-describedby={errors.consent ? "err-consent" : undefined} />
+          <input name="consent" type="checkbox" className="mt-[3px] h-3.5 w-3.5 accent-[var(--deep)]" aria-invalid={!!errors.consent} aria-describedby={errors.consent ? "err-consent" : undefined} />
           <span>{c.consent}</span>
         </label>
         {err("consent")}

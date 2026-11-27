@@ -56,7 +56,9 @@ describe("migration of the six static rooms", () => {
     const target = (await payload.find({ collection: "rooms", where: { slug: { equals: "junior-suite" } }, overrideAccess: true })).docs[0];
     await payload.update({ collection: "rooms", id: target.id, user: editor, overrideAccess: false, draft: true, locale: "en", data: { roomTypeId: "EVIL", sizeM2: 999, order: 1, visible: false, name: "Editor draft" } as never });
     const raw = await payload.findByID({ collection: "rooms", id: target.id, draft: true, overrideAccess: true });
-    expect([raw.roomTypeId, raw.sizeM2, raw.order, raw.visible]).toEqual(["18019000000000000010", 37, 5, true]); // editor changes to privileged fields were dropped
+    // editor changes to privileged fields were dropped: the booking id is still the one from the code (the eZee roomTypeUnkid)
+    const junior = staticRooms.find((r) => r.slug === "junior-suite")!;
+    expect([raw.roomTypeId, raw.sizeM2, raw.order, raw.visible]).toEqual([junior.roomTypeId, 37, 5, true]);
     expect(raw.name).toBe("Editor draft"); // ... but copy edits were kept (as a draft)
   });
 });

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { EventEnquiry } from "@/components/EventEnquiry";
+import { getHotelContact } from "@/cms/hotelInfo";
+import { followContact } from "@/cms/hotelInfoMerge";
 import { LivePreviewListener } from "@/cms/LivePreviewListener";
 import { getPageLayout } from "@/cms/pages";
 import { getRooms } from "@/cms/rooms";
@@ -30,7 +32,8 @@ export default async function Events({ params }: P) {
       {draft && <LivePreviewListener />}
       {/* The enquiry form sits right before the closing booking band (or at the end if the page has none) */}
       <BlockRenderer blocks={blocks.slice(0, cut)} locale={locale} dict={dict} rooms={rooms} />
-      <EventEnquiry locale={locale} dict={dict} />
+      {/* The form's fallback sentence ("…or call …") follows the phone and e-mail in Hotel Information */}
+      <EventEnquiry locale={locale} dict={followContact(dict, await getHotelContact(locale))} />
       <BlockRenderer blocks={blocks.slice(cut)} locale={locale} dict={dict} rooms={rooms} />
     </>
   );
