@@ -67,6 +67,9 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
           </h1>
 
           <FadeIn immediate delay={1.25} className="relative z-[10] mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
+            {/* Legibility on the bright façade: a soft dark glass panel behind the bar. It is absolutely positioned,
+                so nothing moves; the bar itself is unchanged. */}
+            <div aria-hidden className="pointer-events-none absolute -inset-x-3 -inset-y-4 -z-10 rounded-[22px] bg-ink/45 shadow-[0_10px_40px_-12px_rgba(2,13,16,0.55)] backdrop-blur-md md:-inset-x-8 md:-inset-y-5 md:rounded-full" />
             <BookingBar locale={locale} dict={dict} />
           </FadeIn>
         </div>
