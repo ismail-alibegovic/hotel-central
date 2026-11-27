@@ -4,6 +4,8 @@
  *   npm run cms:migrate                 apply pending migrations (idempotent)
  *   npm run cms:migrate -- create <name>  generate a migration from the current collections/globals
  *   npm run cms:migrate -- status        list applied / pending migrations
+ *   npm run cms:migrate -- down --yes    roll back the LAST batch of migrations (its down() SQL; drops what that batch created, including
+ *                                        data staff entered there). Take a pg_dump first; see docs/operations/HOSTED_MIGRATION_READINESS.md
  * Needs DATABASE_URL + PAYLOAD_SECRET. Never prints connection strings.
  */
 import "./tsxEnvShim.mts";
@@ -17,6 +19,7 @@ const payload = await getPayload({ config });
 const db = payload.db as unknown as {
   migrate: () => Promise<void>;
   migrateStatus: () => Promise<void>;
+  migrateDown: () => Promise<void>;
   createMigration: (args: { payload: typeof payload; migrationName?: string; forceAcceptWarning?: boolean }) => Promise<void>;
 };
 
@@ -33,6 +36,10 @@ if (cmd === "create") {
   }
 } else if (cmd === "status") {
   await db.migrateStatus();
+} else if (cmd === "down") {
+  // Destructive by nature (it drops what the last batch created), so it never runs by accident.
+  if (name !== "--yes") throw new Error("down rolls back the last batch of migrations. Take a pg_dump first, then run: npm run cms:migrate -- down --yes");
+  await db.migrateDown();
 } else if (cmd === "up") {
   await db.migrate();
 } else {

@@ -45,22 +45,39 @@ Browser ──► Vercel project "hotel-central-cms-demo" (one Next.js 16 app: p
 
 **A change that needs a migration** (new field or table): the build does not apply it, so the order matters because code that reads a new column must not run before the column exists.
 1. `pg_dump` the hosted database first (see §4) and keep the file.
-2. Generate and **review** the migration SQL (`npm run cms:migrate -- create`); try it on a restored copy (`cms:restore-drill` does the dump/restore part).
+2. Generate and **review** the migration SQL (`npm run cms:migrate -- create`); try it on a restored copy: `npm run cms:rehearse` (§4) takes the backup, restores it into a scratch database, applies the migration, rolls it back and applies it again, and reports every check.
 3. Apply it to the hosted database from a machine that can reach the **pooler** string: `DATABASE_URL=<pooler> npm run cms:migrate` (idempotent; it applies only pending migrations).
 4. Deploy the code.
+**Undoing a migration:** redeploy the previous code (the new tables are then simply unused). Only if the schema itself must go back: `DATABASE_URL=<pooler> npm run cms:migrate -- down --yes` rolls back the last batch (drops what it created, including anything staff entered there), after a fresh `pg_dump`.
 Pure wording, label, tab or component changes in the admin do **not** change the database (the generated migration is empty; the CI check `cms:migrate -- create` confirms it).
 
 ## 4. Backup and restore
+The hosted database is **PostgreSQL 17** (Supabase project `hotel-central-cms`, eu-central-1). Details, evidence and the exact approval sequence: `docs/operations/HOSTED_MIGRATION_READINESS.md`.
+
 | What | How | Tested |
 | --- | --- | --- |
-| Database | `pg_dump --format=custom --no-owner --no-privileges --file=backup.dump "$DATABASE_URL"` before every release/migration; restore with `pg_restore --no-owner --no-privileges --dbname=<new database URL> backup.dump` | dump + restore **tested** by `npm run cms:restore-drill` (local PostgreSQL; CI runs it on every PR) |
+| Database | `npm run cms:rehearse` (below) takes the backup **and** proves it restores. By hand: `pg_dump --format=custom --schema=public --no-owner --no-privileges --file=backup.dump` with the **session-mode** connection (see below) | backup, isolated restore, migration up/down/up and the CMS booting on the copy: **tested on a PostgreSQL 17 replica of the hosted schema (26 checks)**; not yet run against the hosted database itself (needs the owner's connection string) |
 | Media | `npm run cms:backup-media <dir>` (downloads every file referenced by the Media collection) | local-disk path tested. **The Blob download path has not been exercised on a real store** (the demo library was empty when this was written): run it once against a store that holds a few photos before relying on it |
 | Code/config | Git (`main`, `staging`) | continuous |
 | Secrets | password manager owned by the hotel/agency; never in Git | n/a |
 
-**Drill (repeatable):** `HC_TEST_PG_URL=postgres://… npm run cms:restore-drill` (needs `pg_dump`/`pg_restore`) writes users, pages (both locales + a pending draft) and media into a throw-away database, dumps it, drops the source, restores into a second database, restores media, then verifies through Payload that the admin logs in with the original password, both locales and the draft are intact and the file exists.
+**Three things that are easy to get wrong (all found while rehearsing, none visible in the tests that use PostgreSQL 16):**
+1. **Use PostgreSQL 17 tools.** A 16 `pg_dump` refuses a 17 server ("server version mismatch") and a 16 `pg_restore` cannot read a 17 archive ("unsupported version (1.16) in file header"). Install `postgresql-client-17` (PGDG apt repository), or run the tools from the `postgres:17` Docker image, or use the unpacked packages as in the readiness document, and point `PG_BIN` at them. The restore target must also be 17.
+2. **Use a session connection for `pg_dump`, not `DATABASE_URL`.** `DATABASE_URL` is the transaction pooler (port 6543), which cannot run `pg_dump`. Use the *direct* connection (`db.<project ref>.supabase.co:5432`, IPv6) when the machine has IPv6, otherwise the *session pooler* (Project → Connect → Session pooler, port 5432, IPv4). With either, log in as the **app role** `hc_cms` (pooler user name `hc_cms.<project ref>`), the owner of every table, so that the dump and — above all — any migration create objects with the right owner (see `HOSTED_MIGRATION_READINESS.md` §3).
+3. **Dump `--schema=public` only** (every CMS table lives there; the other schemas belong to Supabase), and restore from the archive's table of contents **without** its `SCHEMA public` entry (`pg_restore --list backup.dump | grep -v ' SCHEMA - public ' > restore.list`, then `pg_restore --use-list=restore.list …`): the archive's own `CREATE SCHEMA public` fails on every database that already has one, including a new Supabase project.
 
-**Real restore (Supabase):** 1) unset `CMS_ENABLED` (public pages keep serving static content); 2) create a **new** database/project, run `pg_restore` into it (use the pooler or direct URL from a machine that can reach it); 3) point `DATABASE_URL` at it; 4) redeploy; 5) verify login + a published page; 6) re-enable. Supabase Free does not include backups you can rely on — treat your own `pg_dump` as the only backup and check Supabase's current plan page before depending on anything else.
+**Backup + isolated restore + migration rehearsal (repeatable, never writes to the source):**
+```bash
+export PG_BIN=/usr/lib/postgresql/17/bin                       # PostgreSQL 17 client tools
+export SOURCE_DATABASE_URL='<session-mode connection string>'  # read only; from the password manager, never pasted into chat or Git
+export RESTORE_ADMIN_URL='postgres://postgres@127.0.0.1:5432/postgres'   # a LOCAL PostgreSQL 17 server; the script creates and drops one scratch database
+npm run cms:rehearse                                            # backup file + report go to ./backups (ignored by git)
+```
+It checks that the backup is readable and complete (sha256, 188 of 188 tables), that the restored copy has the same tables, rows (count **and** checksum of every table) and schema as the source, that the pending migrations apply to the copy without changing anything that existed, that `cms:migrate -- down --yes` returns the copy exactly to the restored state and the migration applies again, that `cms:seed` afterwards changes only the new tables, and that the CMS boots on the copy and reads pages, rooms, users and every global. It refuses a restore target that is not local, a transaction-pooler source, tools older than the server, and it **fails loudly if the source changed while it was being backed up** (rerun when nobody is editing). Passwords never appear in its output or report.
+
+**Older drill:** `HC_TEST_PG_URL=postgres://… npm run cms:restore-drill` (CI, PostgreSQL 16) writes users, pages and media into a throw-away database, dumps it, drops the source, restores, and verifies the admin logs in with the original password, both locales and the draft are intact and the media file exists. It proves the login/password-hash round trip, which the rehearsal does not (it never knows a password).
+
+**Real restore (Supabase):** 1) unset `CMS_ENABLED` (public pages keep serving static content); 2) create a **new** Supabase project (or empty database) of the same major version; 3) run `pg_restore` with the table-of-contents trick above into it, from a machine that can reach its session pooler or direct host; 4) point `DATABASE_URL` (transaction pooler) at it and redeploy; 5) verify login + a published page; 6) re-enable. Supabase Free does not include backups you can rely on — treat your own `pg_dump` as the only backup and check Supabase's current plan page before depending on anything else. **No scheduled backup exists yet** (see the readiness document).
 
 ## 5. Security posture (summary; details in PAYLOAD_POC.md and DEPENDENCY_AUDIT.md)
 Roles enforced server-side (not only in the UI); editors cannot publish, unpublish, restore, delete, change slugs/booking mapping, or manage users; drafts invisible to anonymous reads on every REST path tested (filters, sorts, versions, counts, search); no user/credential enumeration; GraphQL disabled; CSRF origin lock + CORS allow-list; `HttpOnly`/`Secure`/`SameSite=Lax` session cookie, 2 h sessions, lockout after 5 failures; admin/API responses noindex + `nosniff` + `X-Frame-Options: SAMEORIGIN`; uploads: images only, content-sniffed, ≤ 8 MB, alt text required, SVG rejected.
