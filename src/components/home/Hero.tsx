@@ -44,7 +44,7 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
         </motion.div>
         {/* CH-023: a bright, warm façade (as in the hotel's brochure). Only a light veil: a shade under the navigation,
             a soft pool of shade behind the title and a darker floor for the booking bar, so the white type stays legible. */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.34)_0%,rgba(2,13,16,0.04)_24%,rgba(2,13,16,0.02)_58%,rgba(2,13,16,0.5)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,16,0.34)_0%,rgba(2,13,16,0.1)_24%,rgba(2,13,16,0.3)_58%,rgba(2,13,16,0.5)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_26%_at_50%_45%,rgba(2,13,16,0.26),rgba(2,13,16,0)_100%)]" />
       </motion.div>
       </div>
@@ -66,7 +66,7 @@ export function Hero({ locale, dict, images }: { locale: Locale; dict: Dictionar
             />
           </h1>
 
-          <FadeIn immediate delay={1.25} className="relative z-[10] mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
+          <FadeIn immediate delay={1.25} className="relative z-[10] font-medium [text-shadow:0_0_2px_rgba(2,13,16,0.85),0_1px_6px_rgba(2,13,16,0.75),0_2px_18px_rgba(2,13,16,0.6)] md:[&_.truncate]:!text-[13px] [&_.border-white\/45]:border-white/80 [&_.opacity-50]:opacity-80 [&_.opacity-70]:opacity-90 mt-10 w-full max-w-[560px] md:mt-[6.2vh] md:w-auto md:max-w-none">
             <BookingBar locale={locale} dict={dict} />
           </FadeIn>
         </div>
